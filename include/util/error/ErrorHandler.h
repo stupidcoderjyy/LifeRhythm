@@ -5,11 +5,10 @@
 #ifndef LIFERHYTHM_ERRORHANDLER_H
 #define LIFERHYTHM_ERRORHANDLER_H
 
-#include <Error.h>
-
+template<class T>
 class ErrorHandler {
 public:
-    virtual void onErrorCaught(const Error& err) = 0;
+    virtual void onErrorCaught(T& err) = 0;
 };
 
 #endif //LIFERHYTHM_ERRORHANDLER_H

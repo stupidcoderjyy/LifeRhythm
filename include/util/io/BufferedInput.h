@@ -9,7 +9,7 @@
 #include <initializer_list>
 
 class BufferedInput {
-private:
+protected:
     const static int DEFAULT_BUFFER_SIZE = 2048;
     const static int MAX_BUFFER_SIZE = 4096;
     IByteReader* reader;
@@ -27,20 +27,31 @@ public:
     static BufferedInput* fromFile(const QString& file);
     static BufferedInput* fromFile(const QString& file, int bufSize);
 
-    void mark();
-    void removeMark();
-    int retract();
-    int retract(int count);
+    virtual void mark();
+    virtual void removeMark();
+    virtual void recover(bool consume);
+    void recover();
+    virtual int retract();
+    virtual int retract(int count);
     bool available() const;
-    int read();
+    virtual int read();
     QString capture();
     int approach(int ch);
+    int approach(int ch1, int ch2);
+    int approach(int ch1, int ch2, int ch3);
     int approach(std::initializer_list<int> list);
-    ~BufferedInput();
-private:
-    void fillA();
-    void fillB();
+    int skip(int ch);
+    int skip(int ch1, int ch2);
+    int skip(int ch1, int ch2, int ch3);
+    int skip(std::initializer_list<int> list);
+    virtual ~BufferedInput();
+protected:
+    virtual void fillA();
+    virtual void fillB();
     QString capture(int end, int start);
+private:
+    void _fillA();
+    void _mark0();
 };
 
 #endif //LIFERHYTHM_BUFFEREDINPUT_H

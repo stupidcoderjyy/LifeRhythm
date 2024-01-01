@@ -19,6 +19,7 @@ public:
     void writeInt(int i) override;
     void writeLong(long long int l) override;
     void writeDouble(double f) override;
+    void writeFloat(float f) override;
     void writeBool(bool b) override;
     void writeShort(short s) override;
     void writeString(const QString &s) override;

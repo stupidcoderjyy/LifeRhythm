@@ -11,6 +11,8 @@
 
 class ArrayData;
 class IntData;
+class StringData;
+class FloatData;
 class NBT;
 
 class Data {
@@ -22,7 +24,7 @@ public:
     static const char SHORT = 0x02;
     static const char INT = 0x04;
     static const char LONG = 0x08;
-    static const char DOUBLE = 0x18;
+    static const char FLOAT = 0x18;
     static const char STRING = 0x20;
     static const char COMPOUND = 0x30;
     static const char ARR = 0x40;
@@ -34,14 +36,16 @@ public:
     explicit Data(char type);
     IntData* asInt();
     ArrayData* asArray();
+    StringData* asString();
+    FloatData* asFloat();
     NBT* asCompound();
     virtual QString toString() = 0;
     virtual Data* copy() = 0;
+    virtual ~Data() = default;
 protected:
     virtual void serialize(IByteWriter* writer) = 0;
     virtual void deserialize(IByteReader* reader) = 0;
     static Data* parseData(IByteReader* reader);
-    virtual ~Data() = default;
 };
 
 #endif //LIFERHYTHM_DATA_H

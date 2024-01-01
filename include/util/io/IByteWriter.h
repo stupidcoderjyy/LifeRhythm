@@ -14,6 +14,7 @@ public:
     virtual void writeInt(int i) = 0;
     virtual void writeLong(long long l) = 0;
     virtual void writeDouble(double f) = 0;
+    virtual void writeFloat(float f) = 0;
     virtual void writeBool(bool b) = 0;
     virtual void writeShort(short s) = 0;
     virtual void writeString(const QString& s) = 0;

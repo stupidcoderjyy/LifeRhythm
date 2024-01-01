@@ -6,15 +6,13 @@
 #include <QDataStream>
 #include <QFile>
 #include "Preconditions.h"
+#include "memory"
 
-StreamByteReader::StreamByteReader(QDataStream *stream):stream(stream) {
-}
-
-StreamByteReader::StreamByteReader(const QString &file) {
-    auto* f = new QFile(file);
-    Preconditions::checkArgument(f->exists(), "StreamByteWriter::StreamByteWriter", "file not found:" + file);
-    f->open(QIODevice::ReadOnly);
-    stream = new QDataStream(f);
+StreamByteReader::StreamByteReader(const QString &fileName) {
+    file = new QFile(fileName);
+    Preconditions::checkArgument(file->exists(), "StreamByteWriter::StreamByteWriter", "file not found:" + fileName);
+    file->open(QIODevice::ReadOnly);
+    stream = new QDataStream(file);
 }
 
 int StreamByteReader::read(char *dest, int start, int length) {
@@ -45,6 +43,12 @@ double StreamByteReader::readDouble() {
     return d;
 }
 
+float StreamByteReader::readFloat() {
+    float d;
+    *stream >> d;
+    return d;
+}
+
 bool StreamByteReader::readBool() {
     uchar b;
     *stream >> b;
@@ -65,7 +69,7 @@ QString StreamByteReader::readString() {
 }
 
 StreamByteReader::~StreamByteReader() {
-    stream->device()->close();
-    delete stream->device();
+    file->close();
+    delete file;
     delete stream;
 }

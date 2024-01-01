@@ -1,21 +1,24 @@
-#include <QDebug>
+
 #include <Error.h>
-#include <PrintErrorHandler.h>
-#include "NBTUtil.h"
+#include "NBT.h"
+#include "SyntaxAnalyzer.h"
+#include "CompileError.h"
+#include "PrintErrorHandler.h"
+#include "CompilerInput.h"
+#include "Lexer.h"
 
 int main(int argc, char *argv[]) {
-    PrintErrorHandler errHandler;
+    SyntaxAnalyzer* analyzer;
+    NBT* nbt = nullptr;
     try {
-        auto* nbt = new NBT();
-        nbt->putInt("i")->setVal(1);
-        nbt->putArray("arr")->addInt(1)->addInt(2)->addInt(3);
-        nbt->putCompound("tag")->putInt("ii")->setVal(2);
-        NBTUtil::toFile(nbt, "test.dat");
-        delete nbt;
-        nbt = NBTUtil::fromFile("test.dat");
+        analyzer = new SyntaxAnalyzer("test.txt");
+        nbt = analyzer->run();
         qDebug() << nbt->toString();
+    } catch (CompileError& err) {
+        PrintCompileErrorHandler().onErrorCaught(err);
     } catch (Error& err) {
-        errHandler.onErrorCaught(err);
+        PrintErrorHandler().onErrorCaught(err);
     }
-    return 0;
+    delete analyzer;
+    delete nbt;
 }

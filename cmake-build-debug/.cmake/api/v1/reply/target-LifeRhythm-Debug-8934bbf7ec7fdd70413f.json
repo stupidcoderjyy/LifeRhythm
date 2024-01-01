@@ -1,0 +1,1157 @@
+{
+	"artifacts" : 
+	[
+		{
+			"path" : "LifeRhythm.exe"
+		},
+		{
+			"path" : "LifeRhythm.pdb"
+		}
+	],
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_executable",
+			"target_link_libraries",
+			"include_directories"
+		],
+		"files" : 
+		[
+			"CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 28,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 35,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 18,
+				"parent" : 0
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-g -fdiagnostics-color=always"
+				}
+			],
+			"defines" : 
+			[
+				{
+					"backtrace" : 2,
+					"define" : "QT_CORE_LIB"
+				},
+				{
+					"backtrace" : 2,
+					"define" : "QT_GUI_LIB"
+				},
+				{
+					"backtrace" : 2,
+					"define" : "QT_WIDGETS_LIB"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/hooks"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/info"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/logs"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/logs/refs"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/logs/refs/heads"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/logs/refs/remotes"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/logs/refs/remotes/origin"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/00"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/01"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/02"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/0c"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/0f"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/13"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/14"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/16"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/18"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/1a"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/1c"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/1e"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/2a"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/2b"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/2e"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/30"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/33"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/38"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/3a"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/3d"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/3f"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/45"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/49"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/4a"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/4c"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/4e"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/4f"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/50"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/52"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/54"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/55"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/56"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/58"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/5a"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/5c"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/5e"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/61"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/62"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/63"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/65"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/66"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/6b"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/6d"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/6f"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/70"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/71"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/79"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/7b"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/7e"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/7f"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/80"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/81"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/82"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/83"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/84"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/87"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/88"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/89"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/8c"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/8d"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/90"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/93"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/95"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/97"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/a2"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/a5"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/a6"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/ab"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/ac"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/ad"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/af"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/b0"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/b1"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/b2"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/b3"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/b7"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/b9"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/ba"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/bd"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/bf"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/cb"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/ce"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/d0"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/de"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/df"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/e1"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/e2"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/e6"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/e8"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/f1"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/f3"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/f4"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/f7"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/f8"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/f9"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/fa"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/fb"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/fc"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/info"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/pack"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/refs"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/refs/heads"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/refs/remotes"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/refs/remotes/origin"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/refs/tags"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.idea"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.idea/inspectionProfiles"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/.cmake"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/.cmake/api"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/.cmake/api/v1"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/.cmake/api/v1/query"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/.cmake/api/v1/reply"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/3.27.8"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/3.27.8/CompilerIdC"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/3.27.8/CompilerIdC/tmp"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/3.27.8/CompilerIdCXX"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/3.27.8/CompilerIdCXX/tmp"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir/LifeRhythm_autogen"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir/src"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir/src/util"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir/src/util/compile"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir/src/util/error"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir/src/util/io"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir/src/util/serialize"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir/src/util/serialize/compile"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm_autogen.dir"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/d"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/pkgRedirects"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/LifeRhythm_autogen"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/Testing"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/Testing/Temporary"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/plugins"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/plugins/platforms"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/compile"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/error"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/io"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/serialize"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/compile"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/error"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/io"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/serialize"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/serialize/compile"
+				},
+				{
+					"backtrace" : 3,
+					"isSystem" : true,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/LifeRhythm_autogen/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "C:/Qt/5.15.2/mingw81_64/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "C:/Qt/5.15.2/mingw81_64/include/QtCore"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "C:/Qt/5.15.2/mingw81_64/./mkspecs/win32-g++"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "C:/Qt/5.15.2/mingw81_64/include/QtGui"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "C:/Qt/5.15.2/mingw81_64/include/QtANGLE"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "C:/Qt/5.15.2/mingw81_64/include/QtWidgets"
+				}
+			],
+			"language" : "CXX",
+			"languageStandard" : 
+			{
+				"backtraces" : 
+				[
+					2
+				],
+				"standard" : "17"
+			},
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2,
+				3,
+				4,
+				5,
+				6,
+				7,
+				8,
+				9,
+				10,
+				11,
+				12,
+				13,
+				14,
+				15,
+				16,
+				17,
+				18,
+				19,
+				20,
+				42
+			]
+		}
+	],
+	"dependencies" : 
+	[
+		{
+			"id" : "LifeRhythm_autogen_timestamp_deps::@6890427a1f51a3e7e1df"
+		},
+		{
+			"backtrace" : 0,
+			"id" : "LifeRhythm_autogen::@6890427a1f51a3e7e1df"
+		}
+	],
+	"id" : "LifeRhythm::@6890427a1f51a3e7e1df",
+	"link" : 
+	{
+		"commandFragments" : 
+		[
+			{
+				"fragment" : "-g",
+				"role" : "flags"
+			},
+			{
+				"fragment" : "",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "C:\\Qt\\5.15.2\\mingw81_64\\lib\\libQt5Widgets.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "C:\\Qt\\5.15.2\\mingw81_64\\lib\\libQt5Gui.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "C:\\Qt\\5.15.2\\mingw81_64\\lib\\libQt5Core.a",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32",
+				"role" : "libraries"
+			}
+		],
+		"language" : "CXX"
+	},
+	"name" : "LifeRhythm",
+	"nameOnDisk" : "LifeRhythm.exe",
+	"paths" : 
+	{
+		"build" : ".",
+		"source" : "."
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2,
+				3,
+				4,
+				5,
+				6,
+				7,
+				8,
+				9,
+				10,
+				11,
+				12,
+				13,
+				14,
+				15,
+				16,
+				17,
+				18,
+				19,
+				20,
+				42
+			]
+		},
+		{
+			"name" : "Header Files",
+			"sourceIndexes" : 
+			[
+				21,
+				22,
+				23,
+				24,
+				25,
+				26,
+				27,
+				28,
+				29,
+				30,
+				31,
+				32,
+				33,
+				34,
+				35,
+				36,
+				37,
+				38,
+				39,
+				40,
+				41
+			]
+		},
+		{
+			"name" : "",
+			"sourceIndexes" : 
+			[
+				43
+			]
+		},
+		{
+			"name" : "CMake Rules",
+			"sourceIndexes" : 
+			[
+				44
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 0,
+			"compileGroupIndex" : 0,
+			"isGenerated" : true,
+			"path" : "cmake-build-debug/LifeRhythm_autogen/mocs_compilation.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/util/MemUtil.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/util/compile/CompileError.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/util/compile/Compiler.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/util/compile/CompilerInput.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/util/error/Error.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/util/error/Preconditions.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/util/error/PrintErrorHandler.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/util/io/BufferedInput.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/util/io/IOUtil.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/util/io/StreamByteReader.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/util/io/StreamByteWriter.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/util/serialize/ArrayData.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/util/serialize/Data.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/util/serialize/FloatData.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/util/serialize/IntData.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/util/serialize/NBT.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/util/serialize/NBTUtil.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/util/serialize/StringData.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/util/serialize/compile/Lexer.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/util/serialize/compile/SyntaxAnalyzer.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/util/MemUtil.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/util/compile/CompileError.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/util/compile/Compiler.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/util/compile/CompilerInput.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/util/error/Error.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/util/error/ErrorHandler.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/util/error/Preconditions.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/util/error/PrintErrorHandler.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/util/io/BufferedInput.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/util/io/IByteReader.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/util/io/IByteWriter.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/util/io/IOUtil.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/util/io/StreamByteReader.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/util/io/StreamByteWriter.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/util/serialize/ArrayData.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/util/serialize/Data.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/util/serialize/FloatData.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/util/serialize/IntData.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/util/serialize/NBT.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/util/serialize/NBTUtil.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/util/serialize/StringData.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "main.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "cmake-build-debug/LifeRhythm_autogen/timestamp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "cmake-build-debug/LifeRhythm_autogen/timestamp.rule",
+			"sourceGroupIndex" : 3
+		}
+	],
+	"type" : "EXECUTABLE"
+}

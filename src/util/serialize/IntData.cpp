@@ -19,7 +19,7 @@ QString IntData::toString() {
 }
 
 Data *IntData::copy() {
-    return nullptr;
+    return (new IntData())->setVal(data);
 }
 
 IntData* IntData::setVal(int val) {

@@ -5,6 +5,6 @@
 #include "PrintErrorHandler.h"
 #include <QDebug>
 
-void PrintErrorHandler::onErrorCaught(const Error &err) {
+void PrintErrorHandler::onErrorCaught(Error &err) {
     qDebug() << err.info;
 }

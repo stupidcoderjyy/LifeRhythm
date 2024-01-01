@@ -13,6 +13,7 @@ public:
     virtual int readInt() = 0;
     virtual long long readLong() = 0;
     virtual double readDouble() = 0;
+    virtual float readFloat() = 0;
     virtual bool readBool() = 0;
     virtual short readShort() = 0;
     virtual QString readString() = 0;

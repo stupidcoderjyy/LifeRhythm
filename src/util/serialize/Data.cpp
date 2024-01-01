@@ -20,6 +20,16 @@ ArrayData *Data::asArray() {
     return static_cast<ArrayData*>(this);
 }
 
+StringData *Data::asString() {
+    Preconditions::checkArgument(type == STRING, "Data::asString", "mismatched type");
+    return static_cast<StringData*>(this);
+}
+
+FloatData *Data::asFloat() {
+    Preconditions::checkArgument(type == FLOAT, "Data::asFloat", "mismatched type");
+    return static_cast<FloatData*>(this);
+}
+
 NBT *Data::asCompound() {
     Preconditions::checkArgument(type == COMPOUND, "Data::asCompound", "mismatched type");
     return static_cast<NBT*>(this);
@@ -27,7 +37,7 @@ NBT *Data::asCompound() {
 
 Data *Data::parseData(IByteReader* reader) {
     Data* data = nullptr;
-    char type = reader->readByte();
+    int type = reader->readByte();
     switch (type) {
         case INT: {
             data = new IntData();
@@ -39,6 +49,10 @@ Data *Data::parseData(IByteReader* reader) {
         }
         case COMPOUND: {
             data = new NBT();
+            break;
+        }
+        case STRING: {
+            data = new StringData();
             break;
         }
     }

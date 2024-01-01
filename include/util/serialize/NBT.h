@@ -8,16 +8,21 @@
 #include "Data.h"
 #include "IntData.h"
 #include "ArrayData.h"
+#include "StringData.h"
+#include "FloatData.h"
 #include <QMap>
 
 class NBT : public Data {
     friend class NBTUtil;
+    friend class PropertyItemList;
 private:
     QMap<QString, Data*> data{};
 public:
     explicit NBT();
     IntData* putInt(const QString& key);
     ArrayData* putArray(const QString& key);
+    StringData* putString(const QString& key);
+    FloatData* putFloat(const QString& key);
     NBT* putCompound(const QString& key);
     Data* get(const QString& key);
     bool contains(const QString& key);

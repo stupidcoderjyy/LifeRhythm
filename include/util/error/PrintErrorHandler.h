@@ -5,9 +5,10 @@
 #ifndef LIFERHYTHM_PRINTERRORHANDLER_H
 #define LIFERHYTHM_PRINTERRORHANDLER_H
 #include "ErrorHandler.h"
+#include "Error.h"
 
-class PrintErrorHandler : public ErrorHandler{
+class PrintErrorHandler : public ErrorHandler<Error>{
 public:
-    void onErrorCaught(const Error &err) override;
+    void onErrorCaught(Error &err) override;
 };
 #endif //LIFERHYTHM_PRINTERRORHANDLER_H

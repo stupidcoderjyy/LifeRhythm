@@ -4,6 +4,8 @@
 
 #include "NBT.h"
 #include "Preconditions.h"
+#include "ArrayData.h"
+
 #include <QStringBuilder>
 
 ArrayData::ArrayData(): Data(ARR) {
@@ -49,19 +51,29 @@ ArrayData::~ArrayData() {
     }
 }
 
-ArrayData *ArrayData::addInt(int val) {
+ArrayData *ArrayData::add(int val) {
     data.append((new IntData())->setVal(val));
     return this;
 }
 
-ArrayData *ArrayData::addArray(ArrayData *val) {
-    Preconditions::checkNotNull(val,"ArrayData::addArray");
+ArrayData *ArrayData::add(ArrayData *val) {
+    Preconditions::checkNotNull(val,"ArrayData::add(ArrayData*)");
     data.append(val);
     return this;
 }
 
-ArrayData *ArrayData::addTag(NBT *val) {
-    Preconditions::checkNotNull(val,"ArrayData::addTag");
+ArrayData *ArrayData::add(const QString& val) {
+    data.append((new StringData())->setVal(val));
+    return this;
+}
+
+ArrayData *ArrayData::add(float val) {
+    data.append((new FloatData())->setVal(val));
+    return this;
+}
+
+ArrayData *ArrayData::add(NBT *val) {
+    Preconditions::checkNotNull(val,"ArrayData::add(NBT*)");
     data.append(val);
     return this;
 }

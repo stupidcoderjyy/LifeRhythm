@@ -37,6 +37,10 @@ void StreamByteWriter::writeDouble(double f) {
     *stream << f;
 }
 
+void StreamByteWriter::writeFloat(float f) {
+    *stream << f;
+}
+
 void StreamByteWriter::writeBool(bool b) {
     *stream << b;
 }

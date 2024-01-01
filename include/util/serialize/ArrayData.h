@@ -10,18 +10,21 @@
 class NBT;
 
 class ArrayData : public Data {
+    friend class PropertyElementList;
 private:
     QVector<Data*> data{};
 public:
     explicit ArrayData();
-    ArrayData* addInt(int val);
-    ArrayData* addArray(ArrayData* val);
-    ArrayData* addTag(NBT* val);
+    ArrayData* add(int val);
+    ArrayData* add(ArrayData* val);
+    ArrayData* add(const QString& val);
+    ArrayData* add(float val);
+    ArrayData* add(NBT* val);
     QString toString() override;
     Data *copy() override;
+    ~ArrayData() override;
 protected:
     void serialize(IByteWriter *writer) override;
     void deserialize(IByteReader *reader) override;
-    ~ArrayData() override;
 };
 #endif //LIFERHYTHM_ARRAYDATA_H

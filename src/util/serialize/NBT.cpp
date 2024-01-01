@@ -75,6 +75,17 @@ ArrayData *NBT::putArray(const QString& key) {
     return d->asArray();
 }
 
+StringData *NBT::putString(const QString &key) {
+    auto* d = data.value(key);
+    if (!d) {
+        d = new StringData();
+        data.insert(key, d);
+    } else if (d->type != STRING){
+        throw Error("NBT::putString", "mismatched type");
+    }
+    return d->asString();
+}
+
 NBT *NBT::putCompound(const QString& key) {
     auto* d = data.value(key);
     if (!d) {
