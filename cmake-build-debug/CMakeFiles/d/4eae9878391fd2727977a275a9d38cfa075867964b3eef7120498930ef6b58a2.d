@@ -77,6 +77,7 @@ LifeRhythm_autogen/timestamp: \
   C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/io/StreamByteReader.h \
   C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/io/StreamByteWriter.h \
   C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/serialize/ArrayData.h \
+  C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/serialize/BoolData.h \
   C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/serialize/Data.h \
   C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/serialize/FloatData.h \
   C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/serialize/IntData.h \
@@ -96,13 +97,14 @@ LifeRhythm_autogen/timestamp: \
   C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/io/StreamByteReader.cpp \
   C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/io/StreamByteWriter.cpp \
   C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/serialize/ArrayData.cpp \
+  C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/serialize/BoolData.cpp \
   C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/serialize/Data.cpp \
   C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/serialize/FloatData.cpp \
   C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/serialize/IntData.cpp \
   C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/serialize/NBT.cpp \
   C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/serialize/NBTUtil.cpp \
   C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/serialize/StringData.cpp \
-  C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/serialize/compile/Lexer.cpp \
-  C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/serialize/compile/Lexer.h \
-  C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/serialize/compile/SyntaxAnalyzer.cpp \
-  C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/serialize/compile/SyntaxAnalyzer.h
+  C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/serialize/parser/StringNbtLexer.cpp \
+  C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/serialize/parser/StringNbtLexer.h \
+  C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/serialize/parser/StringNbtParser.cpp \
+  C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/serialize/parser/StringNbtParser.h

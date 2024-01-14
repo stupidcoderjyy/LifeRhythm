@@ -10,5 +10,4 @@ int* allocateArray(int size);
 
 void freeArray(int** p, int rows);
 
-size_t allocatedMem();
 #endif //LIFERHYTHM_MEMUTIL_H

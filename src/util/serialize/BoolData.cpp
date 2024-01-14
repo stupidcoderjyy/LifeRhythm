@@ -1,0 +1,31 @@
+//
+// Created by stupid_coder_jyy on 2024/1/14.
+//
+
+#include "BoolData.h"
+
+BoolData::BoolData():Data(BOOL) {
+
+}
+
+BoolData *BoolData::setVal(bool val) {
+    this->data = val;
+    return this;
+}
+
+void BoolData::serialize(IByteWriter *writer) {
+    writer->writeByte(BOOL);
+    writer->writeBool(data);
+}
+
+void BoolData::deserialize(IByteReader *reader) {
+    data = reader->readBool();
+}
+
+QString BoolData::toString() {
+    return data ? "true" : "false";
+}
+
+Data *BoolData::copy() {
+    return (new BoolData())->setVal(data);
+}

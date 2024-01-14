@@ -86,6 +86,28 @@ StringData *NBT::putString(const QString &key) {
     return d->asString();
 }
 
+FloatData *NBT::putFloat(const QString &key) {
+    auto* d = data.value(key);
+    if (!d) {
+        d = new FloatData();
+        data.insert(key, d);
+    } else if (d->type != FLOAT){
+        throw Error("NBT::putFloat", "mismatched type");
+    }
+    return d->asFloat();
+}
+
+BoolData *NBT::putBool(const QString &key) {
+    auto* d = data.value(key);
+    if (!d) {
+        d = new BoolData();
+        data.insert(key, d);
+    } else if (d->type != BOOL){
+        throw Error("NBT::putBool", "mismatched type");
+    }
+    return d->asBool();
+}
+
 NBT *NBT::putCompound(const QString& key) {
     auto* d = data.value(key);
     if (!d) {

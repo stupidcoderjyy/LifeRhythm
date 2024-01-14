@@ -13,6 +13,7 @@ class ArrayData;
 class IntData;
 class StringData;
 class FloatData;
+class BoolData;
 class NBT;
 
 class Data {
@@ -20,15 +21,16 @@ class Data {
     friend class NBT;
     friend class NBTUtil;
 public:
-    static const char BYTE = 0x01;
-    static const char SHORT = 0x02;
-    static const char INT = 0x04;
-    static const char LONG = 0x08;
-    static const char FLOAT = 0x18;
-    static const char STRING = 0x20;
-    static const char COMPOUND = 0x30;
-    static const char ARR = 0x40;
-    static const char TAG = 0x50;
+    static const char BYTE = 0;
+    static const char SHORT = 1;
+    static const char INT = 2;
+    static const char LONG = 3;
+    static const char FLOAT = 4;
+    static const char STRING = 5;
+    static const char COMPOUND = 6;
+    static const char ARR = 7;
+    static const char TAG = 8;
+    static const char BOOL = 9;
 protected:
     const char type;
 
@@ -38,6 +40,7 @@ public:
     ArrayData* asArray();
     StringData* asString();
     FloatData* asFloat();
+    BoolData* asBool();
     NBT* asCompound();
     virtual QString toString() = 0;
     virtual Data* copy() = 0;

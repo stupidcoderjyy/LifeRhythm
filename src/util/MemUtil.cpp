@@ -28,9 +28,3 @@ void freeArray(int **p, int rows) {
     }
     delete[] p;
 }
-
-size_t allocatedMem() {
-    PROCESS_MEMORY_COUNTERS pmc;
-    GetProcessMemoryInfo(GetCurrentProcess(),&pmc,sizeof(pmc));
-    return pmc.WorkingSetSize;
-}

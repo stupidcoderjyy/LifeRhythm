@@ -22,7 +22,7 @@ void StringData::deserialize(IByteReader *reader) {
 }
 
 QString StringData::toString() {
-    return data;
+    return "'" + data + "'";
 }
 
 Data *StringData::copy() {

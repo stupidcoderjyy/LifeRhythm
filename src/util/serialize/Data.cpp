@@ -5,7 +5,6 @@
 #include "Data.h"
 #include "NBT.h"
 #include "Preconditions.h"
-#include "Error.h"
 
 Data::Data(char type):type(type) {
 }
@@ -30,6 +29,11 @@ FloatData *Data::asFloat() {
     return static_cast<FloatData*>(this);
 }
 
+BoolData *Data::asBool() {
+    Preconditions::checkArgument(type == BOOL, "Data::asBool", "mismatched type");
+    return static_cast<BoolData*>(this);
+}
+
 NBT *Data::asCompound() {
     Preconditions::checkArgument(type == COMPOUND, "Data::asCompound", "mismatched type");
     return static_cast<NBT*>(this);
@@ -39,6 +43,14 @@ Data *Data::parseData(IByteReader* reader) {
     Data* data = nullptr;
     int type = reader->readByte();
     switch (type) {
+        case BOOL: {
+            data = new BoolData();
+            break;
+        }
+        case FLOAT: {
+            data = new FloatData();
+            break;
+        }
         case INT: {
             data = new IntData();
             break;

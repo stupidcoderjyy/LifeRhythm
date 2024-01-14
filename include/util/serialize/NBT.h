@@ -10,6 +10,7 @@
 #include "ArrayData.h"
 #include "StringData.h"
 #include "FloatData.h"
+#include "BoolData.h"
 #include <QMap>
 
 class NBT : public Data {
@@ -23,6 +24,7 @@ public:
     ArrayData* putArray(const QString& key);
     StringData* putString(const QString& key);
     FloatData* putFloat(const QString& key);
+    BoolData* putBool(const QString& key);
     NBT* putCompound(const QString& key);
     Data* get(const QString& key);
     bool contains(const QString& key);

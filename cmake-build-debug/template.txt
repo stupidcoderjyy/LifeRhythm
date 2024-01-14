@@ -1,0 +1,10 @@
+{
+    id: "factory_id"
+    qss: "#bg(#GRAY_0) #border(solid, 2px)"
+    layout_margins: [10,10,10,10]
+    align: "top"
+    children: ["childA", "@external_factory", "@external_factory/childB"]
+    childA: {
+        loader: "external_factory_id"
+    }
+}

@@ -1,17 +1,17 @@
 
 #include <Error.h>
 #include "NBT.h"
-#include "SyntaxAnalyzer.h"
+#include "StringNbtParser.h"
 #include "CompileError.h"
 #include "PrintErrorHandler.h"
 #include "CompilerInput.h"
-#include "Lexer.h"
+#include "StringNbtLexer.h"
 
 int main(int argc, char *argv[]) {
-    SyntaxAnalyzer* analyzer;
+    StringNbtParser* analyzer;
     NBT* nbt = nullptr;
     try {
-        analyzer = new SyntaxAnalyzer("test.txt");
+        analyzer = new StringNbtParser("test.txt");
         nbt = analyzer->run();
         qDebug() << nbt->toString();
     } catch (CompileError& err) {
