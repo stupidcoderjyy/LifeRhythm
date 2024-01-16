@@ -1,24 +1,23 @@
 
-#include <Error.h>
-#include "NBT.h"
-#include "StringNbtParser.h"
-#include "CompileError.h"
-#include "PrintErrorHandler.h"
-#include "CompilerInput.h"
-#include "StringNbtLexer.h"
+#include "WidgetFactory.h"
+#include "WidgetFactoryStorage.h"
+#include "QApplication"
+#include "StdWidget.h"
 
 int main(int argc, char *argv[]) {
-    StringNbtParser* analyzer;
-    NBT* nbt = nullptr;
-    try {
-        analyzer = new StringNbtParser("test.txt");
-        nbt = analyzer->run();
-        qDebug() << nbt->toString();
-    } catch (CompileError& err) {
-        PrintCompileErrorHandler().onErrorCaught(err);
-    } catch (Error& err) {
-        PrintErrorHandler().onErrorCaught(err);
+    QApplication app(argc, argv);
+    WidgetFactory::init();
+    auto* storage = WidgetFactoryStorage::getInstance();
+    while (true) {
+        storage->init("lr");
+        auto* loader = storage->get("lr:a");
+        if (loader) {
+            loader->parse();
+            auto* widget = new QWidget(nullptr);
+            loader->apply(nullptr, widget);
+            delete widget;
+        }
+        storage->unload("lr");
     }
-    delete analyzer;
-    delete nbt;
+    return QApplication::exec();
 }

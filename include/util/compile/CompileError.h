@@ -21,6 +21,9 @@ public:
     CompileError& setPos(int column);
     CompileError& setPos(int _start, int _end);
     void printErr();
+
+    CompileError(const CompileError& o);
+    CompileError(CompileError&& o) noexcept ;
 };
 
 class PrintCompileErrorHandler : public ErrorHandler<CompileError> {

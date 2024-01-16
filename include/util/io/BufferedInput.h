@@ -26,6 +26,7 @@ public:
     explicit BufferedInput(IByteReader* reader);
     static BufferedInput* fromFile(const QString& file);
     static BufferedInput* fromFile(const QString& file, int bufSize);
+    static BufferedInput* fromString(const QString& str);
 
     virtual void mark();
     virtual void removeMark();
@@ -40,6 +41,10 @@ public:
     int approach(int ch1, int ch2);
     int approach(int ch1, int ch2, int ch3);
     int approach(std::initializer_list<int> list);
+    int find(int ch);
+    int find(int ch1, int ch2);
+    int find(int ch1, int ch2, int ch3);
+    int find(std::initializer_list<int> list);
     int skip(int ch);
     int skip(int ch1, int ch2);
     int skip(int ch1, int ch2, int ch3);

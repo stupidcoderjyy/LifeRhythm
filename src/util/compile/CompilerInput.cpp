@@ -4,6 +4,7 @@
 
 #include "CompilerInput.h"
 #include "StreamByteReader.h"
+#include "StringByteReader.h"
 #include "Error.h"
 #include <utility>
 #include <QFile>
@@ -27,6 +28,10 @@ CompilerInput *CompilerInput::fromFile(const QString &file) {
 
 CompilerInput *CompilerInput::fromFile(const QString &file, int bufSize) {
     return new CompilerInput(new StreamByteReader(file),file, bufSize);
+}
+
+CompilerInput *CompilerInput::fromString(const QString &str) {
+    return new CompilerInput(new StringByteReader(str), "internal string");
 }
 
 int *CompilerInput::getData() {

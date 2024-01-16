@@ -4,8 +4,6 @@
 
 #include <cstring>
 #include "MemUtil.h"
-#include <windows.h>
-#include <psapi.h>
 
 int **allocateArray(int rows, int columns) {
     int** p = new int*[rows];

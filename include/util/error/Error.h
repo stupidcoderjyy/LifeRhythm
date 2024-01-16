@@ -12,12 +12,12 @@
 
 class Error : public std::exception {
 public:
-    const QString info;
+    QString where;
+    QString why;
 
 public:
-    explicit Error(const QString& where);
-    explicit Error(const QString& where, const QString& what);
-    explicit Error(const QString& cause, const QString& where, const QString& what);
+    explicit Error(QString  where);
+    explicit Error(QString  where, QString  what);
     const char *what() const _GLIBCXX_TXN_SAFE_DYN _GLIBCXX_NOTHROW override;
 };
 

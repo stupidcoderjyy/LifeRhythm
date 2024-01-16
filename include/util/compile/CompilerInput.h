@@ -30,6 +30,7 @@ public:
     ~CompilerInput() override;
     static CompilerInput* fromFile(const QString& file);
     static CompilerInput* fromFile(const QString& file, int bufSize);
+    static CompilerInput* fromString(const QString& str);
     void mark() override;
     void removeMark() override;
     int retract() override;

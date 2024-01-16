@@ -36,3 +36,22 @@ void CompileError::printErr() {
 void PrintCompileErrorHandler::onErrorCaught(CompileError &err) {
     err.printErr();
 }
+
+CompileError::CompileError(const CompileError &o):
+    line(o.line),
+    msg(o.msg),
+    filePath(o.filePath),
+    row(o.row),
+    start(o.start),
+    end(o.end){
+
+}
+
+CompileError::CompileError(CompileError &&o) noexcept :
+        line(o.line),
+        msg(o.msg),
+        filePath(o.filePath),
+        row(o.row),
+        start(o.start),
+        end(o.end){
+}

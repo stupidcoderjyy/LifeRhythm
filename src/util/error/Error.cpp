@@ -4,16 +4,12 @@
 
 #include <Error.h>
 
-Error::Error(const QString& where): info("[" + where + "]") {
+#include <utility>
 
+Error::Error(QString where): where(std::move(where)), why("") {
 }
 
-Error::Error(const QString& where, const QString& what):info("[" + where + "]" + what) {
-
-}
-
-Error::Error(const QString &cause, const QString &where, const QString &what)
-:info("[" + cause + "][" + where + "] " + what) {
+Error::Error(QString where, QString what): where(std::move(where)), why(std::move(what)) {
 }
 
 const char *Error::what() const noexcept {

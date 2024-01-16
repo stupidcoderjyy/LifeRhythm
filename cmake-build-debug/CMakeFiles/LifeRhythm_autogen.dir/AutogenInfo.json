@@ -72,7 +72,8 @@
 		"C:/Qt/5.15.2/mingw81_64/lib/cmake/Qt5Widgets/Qt5Widgets_QWindowsVistaStylePlugin.cmake",
 		"C:/Qt/5.15.2/mingw81_64/lib/cmake/Qt5Widgets/Qt5WidgetsConfigExtras.cmake",
 		"C:/Qt/5.15.2/mingw81_64/lib/cmake/Qt5Widgets/Qt5WidgetsMacros.cmake",
-		"C:/Program Files/JetBrains/CLion 2023.3.2/bin/cmake/win/x64/share/cmake-3.27/Modules/CMakeParseArguments.cmake"
+		"C:/Program Files/JetBrains/CLion 2023.3.2/bin/cmake/win/x64/share/cmake-3.27/Modules/CMakeParseArguments.cmake",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/assets/lr/factories/factories.qrc"
 	],
 	"CMAKE_SOURCE_DIR" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm",
 	"DEP_FILE" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/LifeRhythm_autogen/deps",
@@ -83,6 +84,12 @@
 			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/MemUtil.h",
 			"MU",
 			"YCGQ5ZEDH3/moc_MemUtil.cpp",
+			null
+		],
+		[
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/Styles.h",
+			"MU",
+			"YCGQ5ZEDH3/moc_Styles.cpp",
 			null
 		],
 		[
@@ -152,6 +159,18 @@
 			null
 		],
 		[
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/io/Identifier.h",
+			"MU",
+			"VPQXD2J7Q3/moc_Identifier.cpp",
+			null
+		],
+		[
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/io/ResourceManager.h",
+			"MU",
+			"VPQXD2J7Q3/moc_ResourceManager.cpp",
+			null
+		],
+		[
 			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/io/StreamByteReader.h",
 			"MU",
 			"VPQXD2J7Q3/moc_StreamByteReader.cpp",
@@ -164,63 +183,105 @@
 			null
 		],
 		[
-			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/serialize/ArrayData.h",
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/io/StringByteReader.h",
 			"MU",
-			"V2VCZE74EL/moc_ArrayData.cpp",
+			"VPQXD2J7Q3/moc_StringByteReader.cpp",
 			null
 		],
 		[
-			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/serialize/BoolData.h",
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/nbt/ArrayData.h",
 			"MU",
-			"V2VCZE74EL/moc_BoolData.cpp",
+			"4JOBZGWBHP/moc_ArrayData.cpp",
 			null
 		],
 		[
-			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/serialize/Data.h",
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/nbt/BoolData.h",
 			"MU",
-			"V2VCZE74EL/moc_Data.cpp",
+			"4JOBZGWBHP/moc_BoolData.cpp",
 			null
 		],
 		[
-			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/serialize/FloatData.h",
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/nbt/Data.h",
 			"MU",
-			"V2VCZE74EL/moc_FloatData.cpp",
+			"4JOBZGWBHP/moc_Data.cpp",
 			null
 		],
 		[
-			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/serialize/IntData.h",
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/nbt/FloatData.h",
 			"MU",
-			"V2VCZE74EL/moc_IntData.cpp",
+			"4JOBZGWBHP/moc_FloatData.cpp",
 			null
 		],
 		[
-			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/serialize/NBT.h",
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/nbt/IntData.h",
 			"MU",
-			"V2VCZE74EL/moc_NBT.cpp",
+			"4JOBZGWBHP/moc_IntData.cpp",
 			null
 		],
 		[
-			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/serialize/NBTUtil.h",
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/nbt/NBT.h",
 			"MU",
-			"V2VCZE74EL/moc_NBTUtil.cpp",
+			"4JOBZGWBHP/moc_NBT.cpp",
 			null
 		],
 		[
-			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/serialize/StringData.h",
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/nbt/NBTUtil.h",
 			"MU",
-			"V2VCZE74EL/moc_StringData.cpp",
+			"4JOBZGWBHP/moc_NBTUtil.cpp",
 			null
 		],
 		[
-			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/serialize/parser/StringNbtLexer.h",
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/nbt/StringData.h",
 			"MU",
-			"TOPU6FFROP/moc_StringNbtLexer.cpp",
+			"4JOBZGWBHP/moc_StringData.cpp",
 			null
 		],
 		[
-			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/serialize/parser/StringNbtParser.h",
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/widgetfactory/StandardWidget.h",
 			"MU",
-			"TOPU6FFROP/moc_StringNbtParser.cpp",
+			"CQ4NTSBFIN/moc_StandardWidget.cpp",
+			null
+		],
+		[
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/widgetfactory/WidgetFactory.h",
+			"MU",
+			"CQ4NTSBFIN/moc_WidgetFactory.cpp",
+			null
+		],
+		[
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/widgetfactory/WidgetFactoryStorage.h",
+			"MU",
+			"CQ4NTSBFIN/moc_WidgetFactoryStorage.cpp",
+			null
+		],
+		[
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/widgetfactory/std/StdWidget.h",
+			"MU",
+			"4TFDLNUNCR/moc_StdWidget.cpp",
+			null
+		],
+		[
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/nbt/parser/StringNbtLexer.h",
+			"MU",
+			"SNAQHMVI6Q/moc_StringNbtLexer.cpp",
+			null
+		],
+		[
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/nbt/parser/StringNbtParser.h",
+			"MU",
+			"SNAQHMVI6Q/moc_StringNbtParser.cpp",
+			null
+		],
+		[
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/widgetfactory/FactoryInit.h",
+			"MU",
+			"AN4Y4XLC6O/moc_FactoryInit.cpp",
+			null
+		],
+		[
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/widgetfactory/QssParser.h",
+			"MU",
+			"AN4Y4XLC6O/moc_QssParser.cpp",
 			null
 		]
 	],
@@ -253,6 +314,7 @@
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/04",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/07",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/09",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/0a",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/0c",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/0f",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/10",
@@ -268,6 +330,7 @@
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/1e",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/1f",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/20",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/21",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/24",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/26",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/27",
@@ -275,12 +338,15 @@
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/2b",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/2d",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/2e",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/2f",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/30",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/33",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/34",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/35",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/36",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/38",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/3a",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/3c",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/3d",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/3e",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/3f",
@@ -323,6 +389,7 @@
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/73",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/74",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/75",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/77",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/78",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/79",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/7b",
@@ -341,6 +408,7 @@
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/8c",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/8d",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/90",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/92",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/93",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/94",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/95",
@@ -353,6 +421,7 @@
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/9c",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/9d",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/9e",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/a1",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/a2",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/a4",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/a5",
@@ -363,6 +432,7 @@
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/ab",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/ac",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/ad",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/ae",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/af",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/b0",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/b1",
@@ -372,25 +442,35 @@
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/b5",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/b6",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/b7",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/b8",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/b9",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/ba",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/bb",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/bc",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/bd",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/bf",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/c0",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/c1",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/c2",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/c3",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/c7",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/ca",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/cb",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/cc",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/cd",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/ce",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/d0",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/d1",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/d3",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/d5",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/d6",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/d8",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/db",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/de",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/df",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/e1",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/e2",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/e3",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/e6",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/e7",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/e8",
@@ -420,6 +500,9 @@
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/refs/tags",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.idea",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.idea/inspectionProfiles",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/assets",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/assets/lr",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/assets/lr/factories",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/.cmake",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/.cmake/api",
@@ -434,17 +517,26 @@
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/3.27.8/CompilerIdCXX/tmp",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir/LifeRhythm_autogen",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir/LifeRhythm_autogen/EWIEGA46WW",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir/LifeRhythm_autogen/K3ZQPTXFS2",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir/LifeRhythm_autogen/QFNB3N5DZY",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir/src",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir/src/util",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir/src/util/compile",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir/src/util/error",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir/src/util/io",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir/src/util/nbt",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir/src/util/nbt/parser",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir/src/util/serialize",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir/src/util/serialize/compile",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir/src/util/serialize/parser",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir/src/util/widgetfactory",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir/src/util/widgetfactory/std",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm_autogen.dir",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/d",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/pkgRedirects",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/LifeRhythm_autogen",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/LifeRhythm_autogen/QFNB3N5DZY",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/LifeRhythm_autogen/include",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/Testing",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/Testing/Temporary",
@@ -455,14 +547,18 @@
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/compile",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/error",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/io",
-		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/serialize",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/nbt",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/widgetfactory",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/widgetfactory/std",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/compile",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/error",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/io",
-		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/serialize",
-		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/serialize/parser",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/nbt",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/nbt/parser",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/widgetfactory",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/widgetfactory/std",
 		"C:/Qt/5.15.2/mingw81_64/include",
 		"C:/Qt/5.15.2/mingw81_64/include/QtCore",
 		"C:/Qt/5.15.2/mingw81_64/mkspecs/win32-g++",
@@ -511,6 +607,11 @@
 			null
 		],
 		[
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/Styles.cpp",
+			"MU",
+			null
+		],
+		[
 			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/compile/CompileError.cpp",
 			"MU",
 			null
@@ -551,6 +652,16 @@
 			null
 		],
 		[
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/io/Identifier.cpp",
+			"MU",
+			null
+		],
+		[
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/io/ResourceManager.cpp",
+			"MU",
+			null
+		],
+		[
 			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/io/StreamByteReader.cpp",
 			"MU",
 			null
@@ -561,52 +672,87 @@
 			null
 		],
 		[
-			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/serialize/ArrayData.cpp",
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/io/StringByteReader.cpp",
 			"MU",
 			null
 		],
 		[
-			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/serialize/BoolData.cpp",
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/io/WidgetFactoryStorage.cpp",
 			"MU",
 			null
 		],
 		[
-			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/serialize/Data.cpp",
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/nbt/ArrayData.cpp",
 			"MU",
 			null
 		],
 		[
-			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/serialize/FloatData.cpp",
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/nbt/BoolData.cpp",
 			"MU",
 			null
 		],
 		[
-			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/serialize/IntData.cpp",
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/nbt/Data.cpp",
 			"MU",
 			null
 		],
 		[
-			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/serialize/NBT.cpp",
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/nbt/FloatData.cpp",
 			"MU",
 			null
 		],
 		[
-			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/serialize/NBTUtil.cpp",
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/nbt/IntData.cpp",
 			"MU",
 			null
 		],
 		[
-			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/serialize/StringData.cpp",
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/nbt/NBT.cpp",
 			"MU",
 			null
 		],
 		[
-			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/serialize/parser/StringNbtLexer.cpp",
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/nbt/NBTUtil.cpp",
 			"MU",
 			null
 		],
 		[
-			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/serialize/parser/StringNbtParser.cpp",
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/nbt/StringData.cpp",
+			"MU",
+			null
+		],
+		[
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/nbt/parser/StringNbtLexer.cpp",
+			"MU",
+			null
+		],
+		[
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/nbt/parser/StringNbtParser.cpp",
+			"MU",
+			null
+		],
+		[
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/widgetfactory/FactoryInit.cpp",
+			"MU",
+			null
+		],
+		[
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/widgetfactory/QssParser.cpp",
+			"MU",
+			null
+		],
+		[
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/widgetfactory/StandardWidget.cpp",
+			"MU",
+			null
+		],
+		[
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/widgetfactory/WidgetFactory.cpp",
+			"MU",
+			null
+		],
+		[
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/widgetfactory/std/StdWidget.cpp",
 			"MU",
 			null
 		]

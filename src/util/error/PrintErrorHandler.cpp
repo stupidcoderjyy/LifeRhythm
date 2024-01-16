@@ -6,5 +6,5 @@
 #include <QDebug>
 
 void PrintErrorHandler::onErrorCaught(Error &err) {
-    qDebug() << err.info;
+    qDebug() << ('[' + err.where + ']' + err.why).toUtf8().data();
 }

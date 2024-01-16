@@ -6,6 +6,7 @@
 #include "Preconditions.h"
 #include "Error.h"
 #include "StreamByteReader.h"
+#include "StringByteReader.h"
 #include <QFile>
 #include <QDataStream>
 
@@ -30,6 +31,10 @@ BufferedInput *BufferedInput::fromFile(const QString &file) {
 
 BufferedInput *BufferedInput::fromFile(const QString &file, int bufSize) {
     return new BufferedInput(new StreamByteReader(file), bufSize);
+}
+
+BufferedInput *BufferedInput::fromString(const QString &str) {
+    return new BufferedInput(new StringByteReader(str));
 }
 
 bool BufferedInput::available() const {
@@ -223,6 +228,47 @@ int BufferedInput::approach(std::initializer_list<int> list) {
         char ch = buffer[forward];
         if (ch >= 0 && bitClazz[ch]) {
             return buffer[forward];
+        }
+        read();
+    }
+    return -1;
+}
+
+int BufferedInput::find(int ch) {
+    while (available()) {
+        if (read() == ch) {
+            return ch;
+        }
+    }
+    return -1;
+}
+
+int BufferedInput::find(int ch1, int ch2) {
+    while (available()) {
+        int cur = read();
+        if (cur == ch1 || cur == ch2) {
+            return cur;
+        }
+    }
+    return -1;
+}
+
+int BufferedInput::find(int ch1, int ch2, int ch3) {
+    while (available()) {
+        int cur = read();
+        if (cur == ch1 || cur == ch2 || cur == ch3) {
+            return cur;
+        }
+    }
+    return -1;
+}
+
+int BufferedInput::find(std::initializer_list<int> list) {
+    prepareBitClazz(bitClazz, list);
+    while (available()) {
+        int ch = read();
+        if (ch >= 0 && bitClazz[ch]) {
+            return ch;
         }
         read();
     }

@@ -13,13 +13,13 @@ void Preconditions::checkIndexRange(int min, int max, int actual, const QString 
 
 void Preconditions::checkIndexRange(int min, int max, int actual, const QString &where, const QString &what) {
     if (actual < min || actual > max) {
-        throw Error("Invalid Range", where, what);
+        throw Error("(Invalid Range)" + where, what);
     }
 }
 
 void Preconditions::checkNotNull(void *p, const QString &where, const QString &what) {
     if (!p) {
-        throw Error("Null Pointer", where, what);
+        throw Error("(Null Pointer)" + where, what);
     }
 }
 
@@ -31,7 +31,7 @@ void Preconditions::checkNotNull(void *p, const QString &where) {
 
 void Preconditions::checkState(bool state, const QString &where, const QString &what) {
     if (!state) {
-        throw Error("invalid state", where, what);
+        throw Error("(invalid state)" + where, what);
     }
 }
 
@@ -43,7 +43,7 @@ void Preconditions::checkState(bool state, const QString &where) {
 
 void Preconditions::checkArgument(bool state, const QString &where, const QString &what) {
     if (!state) {
-        throw Error("invalid argument", where, what);
+        throw Error("(invalid argument)" + where, what);
     }
 }
 
