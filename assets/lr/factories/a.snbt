@@ -1,3 +1,15 @@
 {
-    qss: "#bg('#012364')"
+    qss: "#bg('#012364') #border('solid', '2px', #GRAY_4)"
+    children: ["childA", "childB"]
+    layout: {
+        type: "Vertical"
+        margins: [20,20,20,20]
+        spacing: 20
+    }
+    childA: {
+        qss: "#bg(#GRAY_1)"
+    }
+    childB: {
+        qss: "#bg(#GRAY_2)"
+    }
 }

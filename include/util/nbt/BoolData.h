@@ -12,7 +12,13 @@ private:
     bool data = false;
 public:
     explicit BoolData();
-    BoolData* setVal(bool val);
+    inline BoolData* setVal(bool val) {
+        this->data = val;
+        return this;
+    }
+    inline bool get() const {
+        return data;
+    }
 protected:
     void serialize(IByteWriter *writer) override;
     void deserialize(IByteReader *reader) override;

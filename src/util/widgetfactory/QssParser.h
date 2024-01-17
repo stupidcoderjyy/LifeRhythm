@@ -30,22 +30,27 @@ private:
     static QStringList parseArgs(CompilerInput* input);
 };
 
-class StringReplaceItem : QssItem {
-    friend class QssParser;
+class StringReplaceItem : public QssItem {
 private:
     QString value;
-protected:
+public:
     explicit StringReplaceItem(QString key, QString value);
     QString translate(const QStringList &args) override;
 };
 
 class StringConcatItem : public QssItem {
-    friend class QssParser;
 private:
     QString prefix;
     QString suffix;
+public:
+    explicit StringConcatItem(QString key, QString prefix = "", QString suffix = "");
+    QString translate(const QStringList &args) override;
+};
+
+class BorderItem: public QssItem{
+public:
+    BorderItem();
 protected:
-    explicit StringConcatItem(const QString& key, QString prefix = "", QString suffix = "");
     QString translate(const QStringList &args) override;
 };
 

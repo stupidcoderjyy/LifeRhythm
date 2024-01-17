@@ -77,7 +77,3 @@ ArrayData *ArrayData::add(NBT *val) {
     data.append(val);
     return this;
 }
-
-QVector<Data *>* ArrayData::get() {
-    return &data;
-}

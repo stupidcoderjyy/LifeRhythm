@@ -8,11 +8,6 @@ BoolData::BoolData():Data(BOOL) {
 
 }
 
-BoolData *BoolData::setVal(bool val) {
-    this->data = val;
-    return this;
-}
-
 void BoolData::serialize(IByteWriter *writer) {
     writer->writeByte(BOOL);
     writer->writeBool(data);

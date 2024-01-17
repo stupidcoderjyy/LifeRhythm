@@ -2,22 +2,30 @@
 #include "WidgetFactory.h"
 #include "WidgetFactoryStorage.h"
 #include "QApplication"
-#include "StdWidget.h"
+#include "QssParser.h"
+#include <QHBoxLayout>
+
+void testNormal() {
+    WidgetFactory::init();
+    auto* storage = WidgetFactoryStorage::getInstance();
+    storage->init("lr");
+    auto* loader = storage->get("lr:a");
+    loader->parse();
+
+    auto* root = new QWidget(nullptr);
+    auto* layout = new QHBoxLayout(root);
+    root->setFixedSize(400, 400);
+    root->setLayout(layout);
+    root->setObjectName("root");
+    root->setStyleSheet("#root{ background-color:#000000; }");
+    auto* widget = loader->apply(root);
+    widget->setFixedSize(200,200);
+    layout->addWidget(widget);
+    root->setVisible(true);
+}
 
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
-    WidgetFactory::init();
-    auto* storage = WidgetFactoryStorage::getInstance();
-    while (true) {
-        storage->init("lr");
-        auto* loader = storage->get("lr:a");
-        if (loader) {
-            loader->parse();
-            auto* widget = new QWidget(nullptr);
-            loader->apply(nullptr, widget);
-            delete widget;
-        }
-        storage->unload("lr");
-    }
+    testNormal();
     return QApplication::exec();
 }

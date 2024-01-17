@@ -7,11 +7,6 @@
 StringData::StringData(): Data(STRING) {
 }
 
-StringData *StringData::setVal(const QString &val) {
-    data = val;
-    return this;
-}
-
 void StringData::serialize(IByteWriter *writer) {
     writer->writeByte(STRING);
     writer->writeString(data);
@@ -27,12 +22,4 @@ QString StringData::toString() {
 
 Data *StringData::copy() {
     return (new StringData())->setVal(data);
-}
-
-QString StringData::get() const {
-    return data;
-}
-
-Identifier StringData::getLoc() const {
-    return Identifier(data);
 }

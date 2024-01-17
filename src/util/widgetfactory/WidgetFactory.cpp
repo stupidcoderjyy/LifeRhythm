@@ -8,6 +8,7 @@
 #include "WidgetFactoryStorage.h"
 #include "QssParser.h"
 #include "FactoryInit.h"
+#include "WidgetFactoryParsers.h"
 
 #include <QLayout>
 #include <utility>
@@ -19,8 +20,8 @@ WidgetFactory::WidgetFactory(QString id):
         parentFactory(nullptr){
 }
 
-WidgetFactory::WidgetFactory(WidgetFactory *parent, QString id, NBT *nbt):
-        id(std::move(id)),
+WidgetFactory::WidgetFactory(WidgetFactory *parent, const QString& id, NBT *nbt):
+        id(id),
         customSuppliers(parent->customSuppliers),
         customEmptyInstances(parent->customEmptyInstances),
         parentFactory(parent){
@@ -34,12 +35,12 @@ void WidgetFactory::setSource(NBT *nbt) {
     source = nbt;
 }
 
-QWidget* WidgetFactory::apply(QWidget *parent, QWidget *target) {
-    if (state != Ready) {
-        throwInFunc("factory '" + id + "' is not in ready state");
-    }
-    workingWidget = target;
+QWidget* WidgetFactory::apply(QWidget *parent, QWidget *target) noexcept{
     try {
+        if (state != Ready) {
+            throwInFunc("factory '" + id + "' is not in ready state");
+        }
+        workingWidget = target;
         for (auto& handler : handlers) {
             handler(workingWidget);
         }
@@ -52,15 +53,16 @@ QWidget* WidgetFactory::apply(QWidget *parent, QWidget *target) {
     return workingWidget;
 }
 
-void WidgetFactory::parse() {
-    if (state != Empty) {
-        throwInFunc("factory '" + id + "' is not in empty state");
-    }
-    state = Parsing;
+void WidgetFactory::parse() noexcept{
     try {
+        if (state != Empty) {
+            throwInFunc("factory '" + id + "' is not in empty state");
+        }
+        state = Parsing;
         auto* stdWidget = parseWidgetType(source);
         stdWidget->preParsing(handlers, source);
         parseQss(source);
+        parseLayout(source);
         stdWidget->postParsing(handlers, source);
         parseChildren(source);
         stdWidget->finishedParsing(handlers, source);
@@ -184,17 +186,16 @@ WidgetFactory *WidgetFactory::findFactory(NBT* nbt, const QString &path) {
         return loader;
     }
     //从自己的children找
-    QString childId = path.mid(1, path.length() - 1);
-    if (childFactories.contains(childId)) {
-        return childFactories.value(childId);
+    if (childFactories.contains(path)) {
+        return childFactories.value(path);
     }
-    if (!regexId.exactMatch(childId)) {
+    if (!regexId.exactMatch(path)) {
         return nullptr;
     }
-    if (!nbt->contains(childId, Data::COMPOUND)) {
+    if (!nbt->contains(path, Data::COMPOUND)) {
         return nullptr;
     }
-    return new WidgetFactory(this, childId, nbt->get(childId)->asCompound());
+    return new WidgetFactory(this, path, nbt->get(path)->asCompound());
 }
 
 void WidgetFactory::parseQss(NBT *nbt) {
@@ -204,6 +205,53 @@ void WidgetFactory::parseQss(NBT *nbt) {
     QString qss = QssParser::translate(nbt->get("qss")->asString()->get());
     handlers << [qss](QWidget* _widget) {
         _widget->setStyleSheet(qss);
+    };
+}
+
+void WidgetFactory::parseLayout(NBT *nbt) {
+    if (!nbt->contains("layout", Data::COMPOUND)) {
+        return;
+    }
+    nbt = nbt->get("layout")->asCompound();
+    if (!nbt->contains("type", Data::STRING)) {
+        throwInFunc("missing layout type");
+    }
+    QString type = nbt->get("type")->asString()->get();
+    int layoutType;
+    if (type == "Horizontal") {
+        layoutType = 0;
+    } else if (type == "Vertical") {
+        layoutType = 1;
+    } else {
+        throwInFunc("invalid layout type '" + type + "'");
+    }
+    Qt::Alignment alignment{};
+    if (nbt->contains("align", Data::STRING)) {
+        alignment = WidgetFactoryParsers::parseAlign(nbt->get("align")->asString()->get());
+    }
+    QMargins margins{};
+    if (nbt->contains("margins", Data::ARR)) {
+        margins = WidgetFactoryParsers::parseMargins(nbt->get("margins")->asArray());
+    }
+    int spacing = 5;
+    if (nbt->contains("spacing", Data::INT)) {
+        spacing = nbt->get("spacing")->asInt()->get();
+    }
+
+    handlers << [=](QWidget* _widget) {
+        QLayout* layout = nullptr;
+        switch (layoutType) {
+            case 0:
+                layout = new QHBoxLayout(_widget);
+                break;
+            case 1:
+                layout = new QVBoxLayout(_widget);
+                break;
+        }
+        layout->setAlignment(alignment);
+        layout->setContentsMargins(margins);
+        layout->setSpacing(spacing);
+        _widget->setLayout(layout);
     };
 }
 
@@ -233,6 +281,7 @@ QWidget *WidgetFactory::createWidget(const QString &type, QWidget *parent) {
 void WidgetFactory::init() {
     FactoryInit::init(&stdSuppliers, &stdEmptyInstances);
     QssParser::init();
+    WidgetFactoryParsers::init();
 }
 
 WidgetFactory *WidgetFactory::fromResource(const Identifier &loc) {

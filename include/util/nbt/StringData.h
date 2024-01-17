@@ -13,9 +13,16 @@ private:
     QString data{};
 public:
     explicit StringData();
-    StringData* setVal(const QString& val);
-    QString get() const;
-    Identifier getLoc() const;
+    inline StringData* setVal(const QString& val) {
+        this->data = val;
+        return this;
+    }
+    inline const QString& get() const {
+        return data;
+    }
+    inline Identifier getLoc() const {
+        return Identifier(data);
+    }
 protected:
     void serialize(IByteWriter *writer) override;
     void deserialize(IByteReader *reader) override;

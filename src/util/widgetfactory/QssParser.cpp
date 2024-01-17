@@ -30,10 +30,13 @@ QString QssParser::translate(const QString& expr) {
 
 QString QssParser::parseBlock(CompilerInput *input) {
     input->skip(' ');
-    switch (input->approach('\'', '#', ')')) {
+    if (!input->available()) {
+        return "";
+    }
+    int ch = input->read();
+    switch (ch) {
         case '\'': {
             //常量
-            input->read();
             input->mark();
             int end = input->approach('\'');
             input->mark();
@@ -43,16 +46,19 @@ QString QssParser::parseBlock(CompilerInput *input) {
             return input->capture();
         }
         case '#':
-            input->removeMark();
             return parseItem(input);
         case ')':
+            input->retract();
             break;
+        default: {
+            input->retract();
+            throw input->errorAtForward(QString("unexpected symbol '") + QChar(ch) + "'");
+        }
     }
     return "";
 }
 
 QString QssParser::parseItem(CompilerInput *input) {
-    input->read(); //#
     input->mark();
     int end = input->approach('(', ',', ')');
     input->mark();
@@ -97,6 +103,7 @@ void QssParser::init() {
     addStringReplaceItem("GRAY_2", Styles::GRAY_2);
     addStringReplaceItem("GRAY_3", Styles::GRAY_3);
     addStringReplaceItem("GRAY_4", Styles::GRAY_4);
+    items.insert("border", new BorderItem());
 }
 
 void QssParser::addStringConcatItem(const QString& key, QString prefix, QString suffix) {
@@ -116,8 +123,8 @@ QString StringReplaceItem::translate(const QStringList &args) {
     return value;
 }
 
-StringConcatItem::StringConcatItem(const QString &key, QString prefix, QString suffix) :
-        QssItem(key),
+StringConcatItem::StringConcatItem(QString key, QString prefix, QString suffix) :
+        QssItem(std::move(key)),
         prefix(std::move(prefix)),
         suffix(std::move(suffix)){
 }
@@ -127,4 +134,22 @@ QString StringConcatItem::translate(const QStringList &args) {
         return prefix + suffix;
     }
     return prefix + args[0] + suffix;
+}
+
+BorderItem::BorderItem():
+        QssItem("border"){
+}
+
+QString BorderItem::translate(const QStringList &args) {
+    QString res{};
+    if (!args.empty()) {
+        res = res % "border-style:" % args[0] % ';';
+    }
+    if (args.length() > 1) {
+        res = res % "border-width:" % args[1] % ';';
+    }
+    if (args.length() > 2) {
+        res = res % "border-color:" % args[2] % ';';
+    }
+    return res;
 }

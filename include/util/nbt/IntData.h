@@ -12,7 +12,13 @@ private:
     int data = 0;
 public:
     explicit IntData();
-    IntData* setVal(int val);
+    inline IntData* setVal(int val) {
+        this->data = val;
+        return this;
+    }
+    inline int get() const {
+        return data;
+    }
 protected:
     void serialize(IByteWriter *writer) override;
     void deserialize(IByteReader *reader) override;

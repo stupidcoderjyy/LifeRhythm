@@ -22,8 +22,3 @@ Data *IntData::copy() {
     return (new IntData())->setVal(data);
 }
 
-IntData* IntData::setVal(int val) {
-    data = val;
-    return this;
-}
-

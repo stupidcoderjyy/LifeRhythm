@@ -4,38 +4,50 @@
 
 #include "Data.h"
 #include "NBT.h"
-#include "Preconditions.h"
+#include "Error.h"
 
 Data::Data(char type):type(type) {
 }
 
 IntData *Data::asInt() {
-    Preconditions::checkArgument(type == INT, "Data::asInt", "mismatched type");
+    if (type != INT) {
+        throwInFunc("mismatched type");
+    }
     return static_cast<IntData*>(this);
 }
 
 ArrayData *Data::asArray() {
-    Preconditions::checkArgument(type == ARR, "Data::asArray", "mismatched type");
+    if (type != ARR) {
+        throwInFunc("mismatched type");
+    }
     return static_cast<ArrayData*>(this);
 }
 
 StringData *Data::asString() {
-    Preconditions::checkArgument(type == STRING, "Data::asString", "mismatched type");
+    if (type != STRING) {
+        throwInFunc("mismatched type");
+    }
     return static_cast<StringData*>(this);
 }
 
 FloatData *Data::asFloat() {
-    Preconditions::checkArgument(type == FLOAT, "Data::asFloat", "mismatched type");
+    if (type != FLOAT) {
+        throwInFunc("mismatched type");
+    }
     return static_cast<FloatData*>(this);
 }
 
 BoolData *Data::asBool() {
-    Preconditions::checkArgument(type == BOOL, "Data::asBool", "mismatched type");
+    if (type != BOOL) {
+        throwInFunc("mismatched type");
+    }
     return static_cast<BoolData*>(this);
 }
 
 NBT *Data::asCompound() {
-    Preconditions::checkArgument(type == COMPOUND, "Data::asCompound", "mismatched type");
+    if (type != COMPOUND) {
+        throwInFunc("mismatched type");
+    }
     return static_cast<NBT*>(this);
 }
 
@@ -68,7 +80,9 @@ Data *Data::parseData(IByteReader* reader) {
             break;
         }
     }
-    Preconditions::checkNotNull(data, "Data::parseData", "unknown data type:" + QString::number(type));
+    if (!data) {
+        throwInFunc("unknown data type:" + QString::number(type));
+    }
     data->deserialize(reader);
     return data;
 }

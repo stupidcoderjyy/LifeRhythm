@@ -39,20 +39,21 @@ private:
 
 public:
     void setSource(NBT* nbt);
-    void parse();
-    QWidget* apply(QWidget* parent = nullptr, QWidget* target = nullptr);
+    void parse() noexcept;
+    QWidget* apply(QWidget* parent = nullptr, QWidget* target = nullptr) noexcept;
     static void init();
     static WidgetFactory* fromResource(const Identifier& loc);
     static WidgetFactory* fromNbt(const QString& id, NBT* nbt);
     virtual ~WidgetFactory();
 private:
     explicit WidgetFactory(QString id);
-    explicit WidgetFactory(WidgetFactory* parent, QString id, NBT* nbt);
+    explicit WidgetFactory(WidgetFactory* parent, const QString& id, NBT* nbt);
     static QRegExp regexId;
     StandardWidget* parseWidgetType(NBT* nbt);
     void parseChildren(NBT* nbt);
     WidgetFactory* findFactory(NBT* nbt, const QString& path);
     void parseQss(NBT* nbt);
+    void parseLayout(NBT* nbt);
     QWidget* createWidget(const QString& type, QWidget* parent = nullptr);
 };
 #endif //LIFERHYTHM_WIDGETFACTORY_H
