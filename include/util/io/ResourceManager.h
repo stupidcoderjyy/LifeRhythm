@@ -73,7 +73,7 @@ protected:
 private:
     void _init(const QString& _namespace, const QString& childPath) {
         QString dirPath = Identifier::absolutePath(_namespace, type.getPathPrefix(), childPath);
-        QFileInfoList files = QDir(dirPath).entryInfoList(nameFilters);
+        QFileInfoList files = QDir(dirPath).entryInfoList(nameFilters, QDir::AllDirs | QDir::Files);
         for (auto& info : files) {
             QString extendedPath = childPath.isEmpty() ?
                     info.baseName() :

@@ -5,12 +5,14 @@
 #include "StreamByteReader.h"
 #include <QDataStream>
 #include <QFile>
-#include "Preconditions.h"
 #include "memory"
+#include "Error.h"
 
 StreamByteReader::StreamByteReader(const QString &fileName) {
     file = new QFile(fileName);
-    Preconditions::checkArgument(file->exists(), "StreamByteWriter::StreamByteWriter", "file not found:" + fileName);
+    if (!file->exists()) {
+        throwInFunc("file not found:" + fileName);
+    }
     file->open(QIODevice::ReadOnly);
     stream = new QDataStream(file);
 }

@@ -3,7 +3,6 @@
 //
 
 #include "BufferedInput.h"
-#include "Preconditions.h"
 #include "Error.h"
 #include "StreamByteReader.h"
 #include "StringByteReader.h"
@@ -11,9 +10,13 @@
 #include <QDataStream>
 
 BufferedInput::BufferedInput(IByteReader *reader, int bufSize):reader(reader) {
-    Preconditions::checkIndexRange(1, MAX_BUFFER_SIZE, bufSize,"BufferedInput::BufferedInput",
-                                   QString::asprintf("invalid buffer size, required:(0, %d], provided:%d", MAX_BUFFER_SIZE, bufSize));
-    Preconditions::checkNotNull(reader, "BufferedInput::BufferedInput","null reader");
+    if (bufSize < 1 || bufSize > MAX_BUFFER_SIZE) {
+        throwInFunc(QString::asprintf(
+                "invalid buffer size, required:(0, %d], provided:%d", MAX_BUFFER_SIZE, bufSize));
+    }
+    if (!reader) {
+        throwInFunc("null reader");
+    }
     buffer = new char[bufSize * 2];
     bitClazz = new char[128];
     bufEndA = bufSize;
@@ -42,7 +45,9 @@ bool BufferedInput::available() const {
 }
 
 int BufferedInput::read() {
-    Preconditions::checkState(available(), "BufferedInput::read", "not available");
+    if (!available()) {
+        throwInFunc("not available");
+    }
     char result = buffer[forward++];
     if (forward == bufEndB) {
         forward = 0;
@@ -106,15 +111,17 @@ void BufferedInput::recover() {
 }
 
 int BufferedInput::retract() {
-    Preconditions::checkState(buffer, "BufferedInput::retract", "closed");
+    if (!buffer) {
+        throwInFunc("closed");
+    }
     if (forward == 0) {
         if (fillCount == 1 || (fillCount & 1) == 0) {
-            throw Error("BufferedInput::retract", "exceed retract limit");
+            throwInFunc("exceed retract limit");
         }
         forward = bufEndB - 1;
     } else if (forward == bufEndA) {
         if ((fillCount & 1) == 1) {
-            throw Error("BufferedInput::retract", "exceed retract limit");
+            throwInFunc("exceed retract limit");
         }
         forward--;
     } else {
@@ -135,7 +142,9 @@ int BufferedInput::retract(int count) {
 }
 
 QString BufferedInput::capture() {
-    Preconditions::checkState(buffer, "BufferedInput::capture", "closed");
+    if (!buffer) {
+        throwInFunc("closed");
+    }
     switch (marks.size()) {
         case 1: {
             int start = marks.last();

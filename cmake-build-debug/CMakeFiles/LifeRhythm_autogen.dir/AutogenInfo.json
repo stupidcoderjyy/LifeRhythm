@@ -73,7 +73,8 @@
 		"C:/Qt/5.15.2/mingw81_64/lib/cmake/Qt5Widgets/Qt5WidgetsConfigExtras.cmake",
 		"C:/Qt/5.15.2/mingw81_64/lib/cmake/Qt5Widgets/Qt5WidgetsMacros.cmake",
 		"C:/Program Files/JetBrains/CLion 2023.3.2/bin/cmake/win/x64/share/cmake-3.27/Modules/CMakeParseArguments.cmake",
-		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/assets/lr/factories/factories.qrc"
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/assets/lr/factories/factories.qrc",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/assets/lr/images/images.qrc"
 	],
 	"CMAKE_SOURCE_DIR" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm",
 	"DEP_FILE" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/LifeRhythm_autogen/deps",
@@ -123,12 +124,6 @@
 			null
 		],
 		[
-			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/error/Preconditions.h",
-			"MU",
-			"32LRBMNGKD/moc_Preconditions.cpp",
-			null
-		],
-		[
 			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/error/PrintErrorHandler.h",
 			"MU",
 			"32LRBMNGKD/moc_PrintErrorHandler.cpp",
@@ -165,6 +160,12 @@
 			null
 		],
 		[
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/io/ImageStorage.h",
+			"MU",
+			"VPQXD2J7Q3/moc_ImageStorage.cpp",
+			null
+		],
+		[
 			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/io/ResourceManager.h",
 			"MU",
 			"VPQXD2J7Q3/moc_ResourceManager.cpp",
@@ -186,6 +187,12 @@
 			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/io/StringByteReader.h",
 			"MU",
 			"VPQXD2J7Q3/moc_StringByteReader.cpp",
+			null
+		],
+		[
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/io/WidgetFactoryStorage.h",
+			"MU",
+			"VPQXD2J7Q3/moc_WidgetFactoryStorage.cpp",
 			null
 		],
 		[
@@ -255,12 +262,6 @@
 			null
 		],
 		[
-			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/widgetfactory/WidgetFactoryStorage.h",
-			"MU",
-			"CQ4NTSBFIN/moc_WidgetFactoryStorage.cpp",
-			null
-		],
-		[
 			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/widgetfactory/std/StdWidget.h",
 			"MU",
 			"4TFDLNUNCR/moc_StdWidget.cpp",
@@ -319,12 +320,14 @@
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/03",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/04",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/07",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/08",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/09",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/0a",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/0c",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/0f",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/10",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/11",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/12",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/13",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/14",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/15",
@@ -338,6 +341,7 @@
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/1f",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/20",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/21",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/22",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/23",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/24",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/26",
@@ -355,6 +359,7 @@
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/34",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/35",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/36",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/37",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/38",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/3a",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/3b",
@@ -397,6 +402,7 @@
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/64",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/65",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/66",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/6a",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/6b",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/6d",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/6e",
@@ -423,6 +429,7 @@
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/87",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/88",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/89",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/8a",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/8b",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/8c",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/8d",
@@ -477,6 +484,7 @@
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/c1",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/c2",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/c3",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/c4",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/c5",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/c7",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/ca",
@@ -484,18 +492,21 @@
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/cc",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/cd",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/ce",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/cf",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/d0",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/d1",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/d3",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/d4",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/d5",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/d6",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/d7",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/d8",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/da",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/db",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/dc",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/de",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/df",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/e0",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/e1",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/e2",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/e3",
@@ -513,6 +524,7 @@
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/f2",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/f3",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/f4",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/f5",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/f6",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/f7",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/f8",
@@ -521,6 +533,7 @@
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/fb",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/fc",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/fe",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/ff",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/info",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/pack",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/refs",
@@ -533,6 +546,7 @@
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/assets",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/assets/lr",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/assets/lr/factories",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/assets/lr/images",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/.cmake",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/.cmake/api",
@@ -547,6 +561,7 @@
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/3.27.8/CompilerIdCXX/tmp",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir/LifeRhythm_autogen",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir/LifeRhythm_autogen/7TR4P2QSDL",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir/LifeRhythm_autogen/EWIEGA46WW",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir/LifeRhythm_autogen/K3ZQPTXFS2",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir/LifeRhythm_autogen/QFNB3N5DZY",
@@ -566,6 +581,7 @@
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/d",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/pkgRedirects",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/LifeRhythm_autogen",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/LifeRhythm_autogen/7TR4P2QSDL",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/LifeRhythm_autogen/QFNB3N5DZY",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/LifeRhythm_autogen/include",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/Testing",
@@ -662,11 +678,6 @@
 			null
 		],
 		[
-			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/error/Preconditions.cpp",
-			"MU",
-			null
-		],
-		[
 			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/error/PrintErrorHandler.cpp",
 			"MU",
 			null
@@ -683,6 +694,11 @@
 		],
 		[
 			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/io/Identifier.cpp",
+			"MU",
+			null
+		],
+		[
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/io/ImageStorage.cpp",
 			"MU",
 			null
 		],

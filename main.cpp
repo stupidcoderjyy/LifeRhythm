@@ -4,6 +4,7 @@
 #include "QApplication"
 #include "QssParser.h"
 #include <QHBoxLayout>
+#include "ImageStorage.h"
 
 void testNormal() {
     WidgetFactory::init();
@@ -26,6 +27,6 @@ void testNormal() {
 
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
-    testNormal();
+    ImageStorage::getInstance()->init("lr");
     return QApplication::exec();
 }

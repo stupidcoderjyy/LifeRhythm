@@ -59,6 +59,7 @@ LifeRhythm_autogen/timestamp: \
   C:/Qt/5.15.2/mingw81_64/lib/cmake/Qt5Widgets/Qt5Widgets_QWindowsVistaStylePlugin.cmake \
   C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/CMakeLists.txt \
   C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/assets/lr/factories/factories.qrc \
+  C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/assets/lr/images/images.qrc \
   CMakeFiles/3.27.8/CMakeCCompiler.cmake \
   CMakeFiles/3.27.8/CMakeCXXCompiler.cmake \
   CMakeFiles/3.27.8/CMakeRCCompiler.cmake \
@@ -70,17 +71,18 @@ LifeRhythm_autogen/timestamp: \
   C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/compile/CompilerInput.h \
   C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/error/Error.h \
   C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/error/ErrorHandler.h \
-  C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/error/Preconditions.h \
   C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/error/PrintErrorHandler.h \
   C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/io/BufferedInput.h \
   C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/io/IByteReader.h \
   C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/io/IByteWriter.h \
   C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/io/IOUtil.h \
   C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/io/Identifier.h \
+  C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/io/ImageStorage.h \
   C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/io/ResourceManager.h \
   C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/io/StreamByteReader.h \
   C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/io/StreamByteWriter.h \
   C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/io/StringByteReader.h \
+  C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/io/WidgetFactoryStorage.h \
   C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/nbt/ArrayData.h \
   C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/nbt/BoolData.h \
   C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/nbt/Data.h \
@@ -92,7 +94,6 @@ LifeRhythm_autogen/timestamp: \
   C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/widgetfactory/StandardWidget.h \
   C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/widgetfactory/WidgetFactory.h \
   C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/widgetfactory/WidgetFactoryParsers.h \
-  C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/widgetfactory/WidgetFactoryStorage.h \
   C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/widgetfactory/std/StdWidget.h \
   C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/main.cpp \
   C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/MemUtil.cpp \
@@ -101,11 +102,11 @@ LifeRhythm_autogen/timestamp: \
   C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/compile/Compiler.cpp \
   C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/compile/CompilerInput.cpp \
   C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/error/Error.cpp \
-  C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/error/Preconditions.cpp \
   C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/error/PrintErrorHandler.cpp \
   C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/io/BufferedInput.cpp \
   C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/io/IOUtil.cpp \
   C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/io/Identifier.cpp \
+  C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/io/ImageStorage.cpp \
   C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/io/ResourceManager.cpp \
   C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/io/StreamByteReader.cpp \
   C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/io/StreamByteWriter.cpp \

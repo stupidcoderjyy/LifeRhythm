@@ -3,9 +3,8 @@
 //
 
 #include "NBT.h"
-#include "Preconditions.h"
 #include "ArrayData.h"
-
+#include "Error.h"
 #include <QStringBuilder>
 
 ArrayData::ArrayData(): Data(ARR) {
@@ -57,7 +56,9 @@ ArrayData *ArrayData::add(int val) {
 }
 
 ArrayData *ArrayData::add(ArrayData *val) {
-    Preconditions::checkNotNull(val,"ArrayData::add(ArrayData*)");
+    if (!val) {
+        throwInFunc("null value");
+    }
     data.append(val);
     return this;
 }
@@ -73,7 +74,9 @@ ArrayData *ArrayData::add(float val) {
 }
 
 ArrayData *ArrayData::add(NBT *val) {
-    Preconditions::checkNotNull(val,"ArrayData::add(NBT*)");
+    if (!val) {
+        throwInFunc("null value");
+    }
     data.append(val);
     return this;
 }

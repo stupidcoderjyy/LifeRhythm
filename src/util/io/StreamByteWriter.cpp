@@ -3,11 +3,13 @@
 //
 
 #include "StreamByteWriter.h"
-#include "Preconditions.h"
 #include <QFile>
+#include "Error.h"
 
 StreamByteWriter::StreamByteWriter(QDataStream *stream) {
-    Preconditions::checkNotNull(stream, "StreamByteWriter::StreamByteWriter", "null stream");
+    if (!stream) {
+        throwInFunc("null stream");
+    }
     this->stream = stream;
 }
 

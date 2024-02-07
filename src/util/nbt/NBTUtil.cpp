@@ -5,7 +5,6 @@
 #include "NBTUtil.h"
 #include "StreamByteReader.h"
 #include "StreamByteWriter.h"
-#include "Preconditions.h"
 #include "Error.h"
 
 NBT *NBTUtil::fromFile(const QString &file, bool isBinary) {
@@ -21,7 +20,9 @@ NBT *NBTUtil::fromFile(const QString &file, bool isBinary) {
 }
 
 void NBTUtil::toFile(NBT *tag, const QString& file, bool isBinary) {
-    Preconditions::checkArgument(tag, __FUNCTION__, "null nbt");
+    if (!tag) {
+        throwInFunc("null nbt");
+    }
     if (isBinary) {
         auto* writer = new StreamByteWriter(file);
         writer->writeShort(BINARY_NBT_MAGIC_NUMBER);

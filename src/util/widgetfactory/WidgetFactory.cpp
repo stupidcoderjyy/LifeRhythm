@@ -4,7 +4,6 @@
 #include "WidgetFactory.h"
 #include "MemUtil.h"
 #include "NBT.h"
-#include "Preconditions.h"
 #include "WidgetFactoryStorage.h"
 #include "QssParser.h"
 #include "FactoryInit.h"
@@ -30,8 +29,12 @@ WidgetFactory::WidgetFactory(WidgetFactory *parent, const QString& id, NBT *nbt)
 }
 
 void WidgetFactory::setSource(NBT *nbt) {
-    Preconditions::checkState(state == Empty, "WidgetFactory::setSource", "required state:Empty");
-    Preconditions::checkArgument(nbt, "WidgetFactory::setSource", "null nbt");
+    if (state != Empty) {
+        throwInFunc("required state:Empty");
+    }
+    if (!nbt) {
+        throwInFunc("null nbt");
+    }
     source = nbt;
 }
 
