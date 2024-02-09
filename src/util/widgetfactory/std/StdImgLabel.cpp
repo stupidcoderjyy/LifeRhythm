@@ -6,26 +6,39 @@
 #include "Data.h"
 #include "NBT.h"
 #include "ImageStorage.h"
+#include "WidgetFactoryParsers.h"
 
 StdImgLabel::StdImgLabel(QWidget *parent):QLabel(parent),StandardWidget() {
 }
 
-void StdImgLabel::postParsing(StandardWidget::Handlers &handlers, NBT *widgetTag) {
-    QPixmap* img = nullptr;
+void StdImgLabel::onPostParsing(Handlers &handlers, NBT *widgetTag) {
+    QPixmap img{};
     if (widgetTag->contains("img", Data::STRING)) {
         Identifier loc = Identifier(widgetTag->get("img")->asString()->get());
-        img = ImageStorage::getInstance()->get(loc);
+        img = *ImageStorage::getInstance()->get(loc);
     }
-    handlers << [img](QWidget* target) {
+    if (!img.isNull() && widgetTag->contains("scale", Data::ARR)) {
+        QSize scale = WidgetFactoryParsers::parseSize(widgetTag->get("scale")->asArray());
+        img = img.scaled(scale, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+    }
+    Qt::Alignment align = Qt::AlignCenter;
+    if (widgetTag->contains("align", Data::STRING)) {
+        align = WidgetFactoryParsers::parseAlign(widgetTag->getString("align"));
+    }
+    handlers << [img, align](QWidget* target) {
         auto* label = static_cast<StdImgLabel*>(target);
-        if (img) {
-            label->setFixedSize(img->width() + 5, img->height() + 5);
-            label->setPixmap(*img);
+        if (!img.isNull()) {
+            label->setMinimumSize(img.width(), img.height());
+            label->setPixmap(img);
         } else {
             label->setPixmap({});
         }
-        label->setAlignment(Qt::AlignCenter);
+        label->setAlignment(align);
     };
+}
+
+void StdImgLabel::onStateRespondersParsing(Handlers &responders, NBT *stateTag) {
+    onPostParsing(responders, stateTag);
 }
 
 void StdImgLabel::mouseReleaseEvent(QMouseEvent *ev) {

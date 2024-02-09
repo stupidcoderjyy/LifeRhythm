@@ -9,12 +9,11 @@
 
 class StdImgButton : public StdImgLabel{
 private:
-    QString qssHovered, qssSelected, qssNormal;
+    QString qssActivated, qssNormal;
 public:
     explicit StdImgButton(QWidget* parent);
 protected:
     void enterEvent(QEvent *event) override;
-    void mousePressEvent(QMouseEvent *ev) override;
     void mouseReleaseEvent(QMouseEvent *ev) override;
     void leaveEvent(QEvent *event) override;
 };

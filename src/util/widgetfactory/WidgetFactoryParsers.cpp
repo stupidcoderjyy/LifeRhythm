@@ -7,11 +7,12 @@
 #include "Error.h"
 
 QMap<QString, Qt::AlignmentFlag> WidgetFactoryParsers::alignments{};
-QMap<QString,QSizePolicy::Policy> WidgetFactoryParsers::policies{};
+QMap<QString, QSizePolicy::Policy> WidgetFactoryParsers::policies{};
+QMap<QString, QString> WidgetFactoryParsers::colors{};
 
 Qt::Alignment WidgetFactoryParsers::parseAlign(const QString &alignment) {
     if (alignment.isEmpty()) {
-        return {};
+        return Qt::AlignCenter;
     }
     auto flags = alignment.split('|');
     Qt::Alignment result{};
@@ -23,6 +24,37 @@ Qt::Alignment WidgetFactoryParsers::parseAlign(const QString &alignment) {
         }
     }
     return result;
+}
+
+void WidgetFactoryParsers::parseSizePolicy(WidgetFactory::Handlers& handlers, NBT* nbt) {
+    bool hasH = nbt->contains("h_size_policy", Data::STRING);
+    bool hasV = nbt->contains("v_size_policy", Data::STRING);
+    QSizePolicy::Policy h, v;
+    if (!hasH && !hasV) {
+        return;
+    }
+    if (hasH) {
+        auto hs = nbt->getString("h_size_policy");
+        if (policies.contains(hs)) {
+            h = policies.value(hs);
+        } else {
+            throwInFunc("invalid size policy:" + hs);
+        }
+    }
+    if (hasV) {
+        auto vs = nbt->getString("v_size_policy");
+        if (policies.contains(vs)) {
+            v = policies.value(vs);
+        } else {
+            throwInFunc("invalid size policy:" + vs);
+        }
+    }
+    handlers << [hasH, hasV, h, v](QWidget* target) {
+        auto policy = target->sizePolicy();
+        auto realH = hasH ? h : policy.horizontalPolicy();
+        auto realV = hasV ? v : policy.verticalPolicy();
+        target->setSizePolicy(realH,realV);
+    };
 }
 
 QMargins WidgetFactoryParsers::parseMargins(ArrayData *array) {
@@ -55,4 +87,40 @@ void WidgetFactoryParsers::init() {
     policies.insert("Fixed",QSizePolicy::Fixed);
     policies.insert("Ignored",QSizePolicy::Ignored);
     policies.insert("MinExpand",QSizePolicy::MinimumExpanding);
+
+    colors.insert("BLACK", Styles::BLACK);
+    colors.insert("GRAY_0", Styles::GRAY_0);
+    colors.insert("GRAY_1", Styles::GRAY_1);
+    colors.insert("GRAY_2", Styles::GRAY_2);
+    colors.insert("GRAY_3", Styles::GRAY_3);
+    colors.insert("GRAY_4", Styles::GRAY_4);
+    colors.insert("GRAY_4", Styles::GRAY_4);
+    colors.insert("CYAN_DARK", Styles::CYAN_DARK);
+    colors.insert("CYAN", Styles::CYAN);
+    colors.insert("CYAN_BRIGHT", Styles::CYAN_BRIGHT);
+    colors.insert("GRAY_TEXT_0", Styles::GRAY_TEXT_0);
+}
+
+QSize WidgetFactoryParsers::parseSize(ArrayData *arr) {
+    auto data = arr->get();
+    if (data.length() != 2) {
+        throwInFunc("requires int[2]");
+    }
+    for (int i = 0 ; i < 2 ; i ++) {
+        if (data[i]->type != Data::INT) {
+            throwInFunc("invalid data type, requires int");
+        }
+    }
+    return {data[0]->asInt()->get(), data[1]->asInt()->get()};
+}
+
+QColor WidgetFactoryParsers::parseColor(const QString &str) {
+    if (str.isEmpty()) {
+        return {};
+    }
+    if (str[0] == '@') {
+        QString key = str.mid(1, str.length() - 1);
+        return colors.value(key, "#000000");
+    }
+    return str;
 }

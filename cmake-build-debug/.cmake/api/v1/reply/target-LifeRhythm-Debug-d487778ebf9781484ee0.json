@@ -154,6 +154,10 @@
 				},
 				{
 					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/0d"
+				},
+				{
+					"backtrace" : 3,
 					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/0f"
 				},
 				{
@@ -247,6 +251,10 @@
 				{
 					"backtrace" : 3,
 					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/28"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/29"
 				},
 				{
 					"backtrace" : 3,
@@ -486,6 +494,10 @@
 				},
 				{
 					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/68"
+				},
+				{
+					"backtrace" : 3,
 					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/6a"
 				},
 				{
@@ -675,6 +687,10 @@
 				{
 					"backtrace" : 3,
 					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/9e"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/9f"
 				},
 				{
 					"backtrace" : 3,
@@ -934,6 +950,10 @@
 				},
 				{
 					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/e5"
+				},
+				{
+					"backtrace" : 3,
 					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/e6"
 				},
 				{
@@ -963,6 +983,10 @@
 				{
 					"backtrace" : 3,
 					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/ed"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/ef"
 				},
 				{
 					"backtrace" : 3,
@@ -1158,6 +1182,18 @@
 				},
 				{
 					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir/src/lr"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir/src/lr/ui"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir/src/lr/ui/tab"
+				},
+				{
+					"backtrace" : 3,
 					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir/src/util"
 				},
 				{
@@ -1222,11 +1258,7 @@
 				},
 				{
 					"backtrace" : 3,
-					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/LifeRhythm_autogen/7TR4P2QSDL"
-				},
-				{
-					"backtrace" : 3,
-					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/LifeRhythm_autogen/QFNB3N5DZY"
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/LifeRhythm_autogen/BYVBAFYG7M"
 				},
 				{
 					"backtrace" : 3,
@@ -1247,6 +1279,18 @@
 				{
 					"backtrace" : 3,
 					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/lr"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/lr/ui"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/lr/ui/tab"
 				},
 				{
 					"backtrace" : 3,
@@ -1279,6 +1323,18 @@
 				{
 					"backtrace" : 3,
 					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/lr"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/lr/ui"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/lr/ui/tab"
 				},
 				{
 					"backtrace" : 3,
@@ -1395,9 +1451,11 @@
 				35,
 				36,
 				37,
-				72,
-				74,
-				75
+				38,
+				39,
+				76,
+				78,
+				79
 			]
 		}
 	],
@@ -1495,9 +1553,11 @@
 				35,
 				36,
 				37,
-				72,
-				74,
-				75
+				38,
+				39,
+				76,
+				78,
+				79
 			]
 		},
 		{
@@ -1506,15 +1566,13 @@
 			[
 				1,
 				2,
-				73
+				77
 			]
 		},
 		{
 			"name" : "Header Files",
 			"sourceIndexes" : 
 			[
-				38,
-				39,
 				40,
 				41,
 				42,
@@ -1546,16 +1604,20 @@
 				68,
 				69,
 				70,
-				71
+				71,
+				72,
+				73,
+				74,
+				75
 			]
 		},
 		{
 			"name" : "CMake Rules",
 			"sourceIndexes" : 
 			[
-				76,
-				77,
-				78
+				80,
+				81,
+				82
 			]
 		}
 	],
@@ -1577,6 +1639,18 @@
 			"backtrace" : 1,
 			"path" : "assets/lr/images/images.qrc",
 			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/lr/LifeRhythm.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/lr/ui/tab/TabWidget.cpp",
+			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
@@ -1787,6 +1861,16 @@
 			"compileGroupIndex" : 0,
 			"path" : "src/util/widgetfactory/std/StdWidget.cpp",
 			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/lr/LifeRhythm.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/lr/ui/tab/TabWidget.h",
+			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 1,

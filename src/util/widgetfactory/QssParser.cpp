@@ -47,7 +47,7 @@ QString QssParser::parseBlock(CompilerInput *input) {
             input->read();
             return res;
         }
-        case '#':
+        case '@':
             return parseItem(input);
         case ')':
             input->retract();
@@ -118,6 +118,9 @@ void QssParser::init() {
     addStringReplaceItem("GRAY_3", Styles::GRAY_3);
     addStringReplaceItem("GRAY_4", Styles::GRAY_4);
     addStringReplaceItem("BLACK", Styles::BLACK);
+    addStringReplaceItem("CYAN_DARK", Styles::CYAN_DARK);
+    addStringReplaceItem("CYAN", Styles::CYAN);
+    addStringReplaceItem("CYAN_BRIGHT", Styles::CYAN_BRIGHT);
     items.insert("border", new BorderItem());
     items.insert("target", new TargetItem());
 }

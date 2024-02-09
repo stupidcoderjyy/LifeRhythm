@@ -1,8 +1,7 @@
 <RCC>
     <qresource prefix="/assets/lr/images">
-        <file>about.png</file>
-        <file>exit.png</file>
-        <file>icon_close.png</file>
-        <file>icon_cube.png</file>
+        <file>icon.png</file>
+        <file>tab_close_hovered.png</file>
+        <file>tab_close_normal.png</file>
     </qresource>
 </RCC>

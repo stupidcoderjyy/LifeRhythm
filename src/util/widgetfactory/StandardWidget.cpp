@@ -6,16 +6,16 @@
 #include "MemUtil.h"
 #include <QDebug>
 
-void StandardWidget::preParsing(StandardWidget::Handlers &handlers, NBT *widgetTag) {
-
+void StandardWidget::onPreParsing(Handlers &handlers, NBT *widgetTag) {
 }
 
-void StandardWidget::postParsing(StandardWidget::Handlers &handlers, NBT *widgetTag) {
-
+void StandardWidget::onPostParsing(Handlers &handlers, NBT *widgetTag) {
 }
 
-void StandardWidget::finishedParsing(StandardWidget::Handlers &handlers, NBT *widgetTag) {
+void StandardWidget::onFinishedParsing(Handlers &handlers, NBT *widgetTag) {
+}
 
+void StandardWidget::onStateRespondersParsing(Handlers &responders, NBT *stateTag) {
 }
 
 int StandardWidget::getState() const {
@@ -37,6 +37,9 @@ void StandardWidget::registerGlobalResponder(const StandardWidget::Handler &resp
 }
 
 void StandardWidget::setState(int newState) {
+    if (state == newState) {
+        return;
+    }
     auto* _this = dynamic_cast<QWidget*>(this);
     state = newState;
     for (auto& r : globalResponders) {

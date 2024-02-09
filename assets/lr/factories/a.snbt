@@ -1,5 +1,5 @@
 {
-    qss: "#target('a', #bg(#BLACK) #border('solid', '2px', #GRAY_4))"
+    qss: "@target('a', @bg(@BLACK) @border('solid', '2px', @GRAY_4))"
     children: ["childA", "childB"]
     layout: {
         type: "Vertical"
@@ -7,10 +7,11 @@
         spacing: 20
     }
     childA: {
-        type: "std_textLabel"
-        text: "你好世界"
+        qss: "@bg(@GRAY_0)"
+        pointer: true
     }
     childB: {
-        qss: "#bg(#GRAY_2)"
+        qss: "@bg(@GRAY_1)"
+        pointer: true
     }
 }

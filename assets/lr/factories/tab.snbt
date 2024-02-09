@@ -1,0 +1,60 @@
+{
+    type: "TabWidget"
+    children: ["icon", "title", "closeButton"]
+    fixed_height: 60
+    h_size_policy: "Max"
+
+    layout: {
+        type: "Horizontal"
+        spacing: 10
+        margins: [10,5,0,5]
+        align: "V_Center|Left"
+    }
+
+    icon: {
+        type: "std_imgLabel"
+        img: "lr:icon"
+        scale: [30,30]
+        align: "Center"
+        pointer: true
+        margins: [0,2,0,0]
+    }
+
+    title: {
+        type: "std_textLabel"
+        text: "你好世界"
+        pointer: true
+        align: "V_Center"
+        margins: [0,0,0,2]
+    }
+
+    closeButton: {
+        type: "CloseButton"
+        pointer: true
+        fixed_width: 35
+        fixed_height: 35
+        states: {
+            s0: {
+                img: "lr:tab_close_normal"
+            }
+            s1: {
+                img: "lr:tab_close_hovered"
+            }
+        }
+    }
+
+    states: {
+        s0: {
+            qss: "@target('tab', @bg(@GRAY_0))"
+        }
+        s1: {
+            qss: "@target('tab', @bg(@BLACK))"
+        }
+        s2: {
+            qss: "@target('tab', @bg(@CYAN_DARK) 'border-bottom:4px solid rgb(74,136,199);')"
+        }
+        s3: {
+            qss: "@target('tab', @bg(@BLACK) 'border-bottom:4px solid rgb(74,136,199);')"
+        }
+    }
+}

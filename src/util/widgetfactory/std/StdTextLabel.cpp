@@ -8,6 +8,10 @@
 StdTextLabel::StdTextLabel(QWidget *parent):QLabel(parent), StandardWidget() {
 }
 
-void StdTextLabel::postParsing(StandardWidget::Handlers &handlers, NBT *widgetTag) {
+void StdTextLabel::onPostParsing(Handlers &handlers, NBT *widgetTag) {
     WidgetFactoryParsers::parseTextWidget<QLabel>(handlers, widgetTag);
+}
+
+void StdTextLabel::onStateRespondersParsing(StandardWidget::Handlers &responders, NBT *stateTag) {
+    onPostParsing(responders, stateTag);
 }

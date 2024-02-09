@@ -7,10 +7,9 @@
 	"INCLUDE_DIR" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/LifeRhythm_autogen/include",
 	"INPUTS" : 
 	[
-		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/assets/lr/images/icon_cube.png",
-		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/assets/lr/images/about.png",
-		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/assets/lr/images/exit.png",
-		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/assets/lr/images/icon_close.png"
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/assets/lr/images/icon.png",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/assets/lr/images/tab_close_hovered.png",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/assets/lr/images/tab_close_normal.png"
 	],
 	"LOCK_FILE" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm_autogen.dir/AutoRcc_images_7TR4P2QSDL_Lock.lock",
 	"MULTI_CONFIG" : false,

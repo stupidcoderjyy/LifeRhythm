@@ -11,7 +11,8 @@
 class StdTextLabel : public QLabel, public StandardWidget{
 public:
     explicit StdTextLabel(QWidget* parent);
-    void postParsing(Handlers &handlers, NBT *widgetTag) override;
+    void onPostParsing(Handlers &handlers, NBT *widgetTag) override;
+    void onStateRespondersParsing(Handlers &responders, NBT *stateTag) override;
 };
 
 

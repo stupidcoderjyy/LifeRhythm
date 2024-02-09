@@ -8,21 +8,16 @@
 StdImgButton::StdImgButton(QWidget *parent) : StdImgLabel(parent) {
     QString qssBorder = qss("border-style", "none") + qss("border-radius", "2px");
     qssNormal = qssbg(Styles::BLACK) + qssBorder;
-    qssHovered = qssbg(Styles::GRAY_0) + qssBorder;
-    qssSelected = qssbg(Styles::GRAY_1) + qssBorder;
+    qssActivated = qssbg(Styles::GRAY_0) + qssBorder;
 }
 
 void StdImgButton::enterEvent(QEvent *event) {
-    setStyleSheet(qssHovered);
-}
-
-void StdImgButton::mousePressEvent(QMouseEvent *ev) {
-    setStyleSheet(qssSelected);
+    setStyleSheet(qssActivated);
 }
 
 void StdImgButton::mouseReleaseEvent(QMouseEvent *ev) {
     StdImgLabel::mouseReleaseEvent(ev);
-    setStyleSheet(qssHovered);
+    setStyleSheet(qssActivated);
 }
 
 void StdImgButton::leaveEvent(QEvent *event) {

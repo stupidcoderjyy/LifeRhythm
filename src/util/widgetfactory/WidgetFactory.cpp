@@ -62,13 +62,24 @@ void WidgetFactory::parse() noexcept{
             throwInFunc("factory '" + id + "' is not in empty state");
         }
         state = Parsing;
-        auto* stdWidget = parseWidgetType(source);
-        stdWidget->preParsing(handlers, source);
-        parseQss(source);
+        stdType = parseWidgetType(source);
+        stdType->onPreParsing(handlers, source);
+        parseQss(handlers,source);
         parseLayout(source);
-        stdWidget->postParsing(handlers, source);
+        parseSize(handlers, source);
+        parseStates(source);
+        WidgetFactoryParsers::parseSizePolicy(handlers, source);
+        parseMargins(source);
+        stdType->onPostParsing(handlers, source);
         parseChildren(source);
-        stdWidget->finishedParsing(handlers, source);
+        parsePointer(source);
+        handlers << [](QWidget* target){
+            auto* stdWidget = dynamic_cast<StandardWidget*>(target);
+            if (stdWidget) {
+                stdWidget->setState(0); //设置默认状态
+            }
+        };
+        stdType->onFinishedParsing(handlers, source);
         state = Ready;
     } catch (Error& e) {
         e.why = "failed to parse factory '" + id + "': " + e.why;
@@ -88,12 +99,7 @@ StandardWidget* WidgetFactory::parseWidgetType(NBT *nbt) {
         }
     }
     //组件类型，如果使用外部加载器，则stdType会被忽略（别手贱写个不存在的type）
-    QString type;
-    if (nbt->contains("type", Data::STRING)) {
-        type = nbt->get("type")->asString()->get();
-    } else {
-        type = "std_widget";
-    }
+    QString type = nbt->getString("type", "std_widget");
     //检查组件类型
     StandardWidget* stdWidget = stdEmptyInstances.value(type);
     if (!stdWidget) {
@@ -125,7 +131,6 @@ StandardWidget* WidgetFactory::parseWidgetType(NBT *nbt) {
         if (!layout) {
             return;
         }
-        //TODO 特殊布局的逻辑别忘了加上
         layout->addWidget(workingWidget);
     };
     return stdWidget;
@@ -201,13 +206,13 @@ WidgetFactory *WidgetFactory::findFactory(NBT* nbt, const QString &path) {
     return new WidgetFactory(this, path, nbt->get(path)->asCompound());
 }
 
-void WidgetFactory::parseQss(NBT *nbt) {
+void WidgetFactory::parseQss(Handlers& op, NBT *nbt) {
     if (!nbt->contains("qss", Data::STRING)) {
         return;
     }
     QString qss = QssParser::translate(nbt->get("qss")->asString()->get());
-    handlers << [qss](QWidget* _widget) {
-        _widget->setStyleSheet(qss);
+    op << [qss](QWidget* target) {
+        target->setStyleSheet(qss);
     };
 }
 
@@ -241,20 +246,132 @@ void WidgetFactory::parseLayout(NBT *nbt) {
         spacing = nbt->get("spacing")->asInt()->get();
     }
 
-    handlers << [=](QWidget* _widget) {
+    handlers << [=](QWidget* target) {
         QLayout* layout = nullptr;
         switch (layoutType) {
             case 0:
-                layout = new QHBoxLayout(_widget);
+                layout = new QHBoxLayout(target);
                 break;
             case 1:
-                layout = new QVBoxLayout(_widget);
+                layout = new QVBoxLayout(target);
                 break;
         }
         layout->setAlignment(alignment);
         layout->setContentsMargins(margins);
         layout->setSpacing(spacing);
-        _widget->setLayout(layout);
+        target->setLayout(layout);
+    };
+}
+
+void WidgetFactory::parseMargins(NBT *nbt) {
+    if (!nbt->contains("margins", Data::ARR)) {
+        return;
+    }
+    QMargins margins = WidgetFactoryParsers::parseMargins(nbt->get("margins")->asArray());
+    handlers << [margins](QWidget* target) {
+        target->setContentsMargins(margins);
+    };
+}
+
+void WidgetFactory::parseStates(NBT *nbt) {
+    if (!nbt->contains("states", Data::COMPOUND)) {
+        return;
+    }
+    auto& children = nbt->get("states")->asCompound()->get();
+    for (auto it = children.begin() ; it != children.end() ; it++) {
+        if (it.value()->type != Data::COMPOUND) {
+            continue;
+        }
+        QString stateKey = it.key();
+        NBT* stateTag = it.value()->asCompound();
+        if (stateKey == "global") {
+            parseSingleState(globalResponders, stateTag);
+        } else if (stateKey[0] == 's'){
+            bool isValid;
+            int s = stateKey.mid(1, stateKey.length() - 1).toInt(&isValid);
+            if (!isValid) {
+                continue;
+            }
+            Handlers responders;
+            parseSingleState(responders, stateTag);
+            stateResponders.insert(s, responders);
+        }
+    }
+    handlers << [this](QWidget* target) {
+        auto* std = dynamic_cast<StandardWidget*>(target);
+        for (auto& r : globalResponders) {
+            std->registerGlobalResponder(r);
+        }
+        for (auto it = stateResponders.begin() ; it != stateResponders.end() ; it++) {
+            for (auto& r : it.value()) {
+                std->registerResponder(it.key(), r);
+            }
+        }
+    };
+}
+
+void WidgetFactory::parseSingleState(WidgetFactory::Handlers &op, NBT *stateTag) {
+    parseSize(op, stateTag);
+    parseQss(op, stateTag);
+    stdType->onStateRespondersParsing(op, stateTag);
+}
+
+void WidgetFactory::parsePointer(NBT *nbt) {
+    if (!nbt->getBool("pointer")) {
+        return;
+    }
+    WidgetFactory* root = this;
+    while (root->parentFactory) {
+        root = root->parentFactory;
+    }
+    handlers << [root](QWidget* target) {
+        auto* rootStd = dynamic_cast<StandardWidget*>(root->workingWidget);
+        rootStd->registerPointer(target->objectName(), target);
+    };
+}
+
+#define parseSize0(key, i) \
+    if (nbt->contains(key, Data::INT)) { \
+        hasElement[i] = true;   \
+        val[i] = nbt->getInt(key);       \
+        nothingToDo = false;                       \
+    } else {               \
+        hasElement[i] = false;                      \
+    }\
+
+
+void WidgetFactory::parseSize(WidgetFactory::Handlers &op, NBT *nbt) {
+    bool hasElement[6];
+    int val[6];
+    bool nothingToDo = true;
+    parseSize0("fixed_width", 0)
+    parseSize0("fixed_height", 1)
+    parseSize0("min_width", 2)
+    parseSize0("min_height", 3)
+    parseSize0("max_width", 4)
+    parseSize0("max_height", 5)
+    if (nothingToDo) {
+        return;
+    }
+    op << [hasElement, val](QWidget* target) {
+        if (hasElement[0]) {
+            target->setFixedWidth(val[0]);
+        }
+        if (hasElement[1]) {
+            target->setFixedHeight(val[1]);
+        }
+        if (hasElement[2]) {
+            target->setMinimumWidth(val[2]);
+        }
+        if (hasElement[3]) {
+            target->setMinimumHeight(val[3]);
+        }
+        if (hasElement[4]) {
+            target->setMaximumWidth(val[4]);
+        }
+        if (hasElement[5]) {
+            target->setMaximumHeight(val[5]);
+        }
     };
 }
 
@@ -295,4 +412,13 @@ WidgetFactory *WidgetFactory::fromNbt(const QString& id, NBT *nbt) {
     auto* loader = new WidgetFactory(id);
     loader->setSource(nbt);
     return loader;
+}
+
+void WidgetFactory::registerStdWidget(const QString &type,
+                                      const WidgetFactory::Supplier &supplier,
+                                      StandardWidget *instance) {
+    if (!customSuppliers->contains(type)) {
+        customSuppliers->insert(type, supplier);
+        customEmptyInstances->insert(type, instance);
+    }
 }

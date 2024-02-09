@@ -15,7 +15,8 @@ protected:
 
 public:
     explicit StdImgLabel(QWidget* parent);
-    void postParsing(Handlers &handlers, NBT *widgetTag) override;
+    void onPostParsing(Handlers &handlers, NBT *widgetTag) override;
+    void onStateRespondersParsing(Handlers &responders, NBT *stateTag) override;
 signals:
     void sigActivated();
 };
