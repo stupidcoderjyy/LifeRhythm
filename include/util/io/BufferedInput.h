@@ -36,6 +36,7 @@ public:
     virtual int retract(int count);
     bool available() const;
     virtual int read();
+    QString readUtf();
     QString capture();
     int approach(int ch);
     int approach(int ch1, int ch2);

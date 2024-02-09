@@ -27,6 +27,7 @@ public:
 private:
     static QString parseBlock(CompilerInput* input);
     static QString parseItem(CompilerInput* input);
+    static QString parseArg(CompilerInput* input);
     static QStringList parseArgs(CompilerInput* input);
 };
 
@@ -50,6 +51,13 @@ public:
 class BorderItem: public QssItem{
 public:
     BorderItem();
+protected:
+    QString translate(const QStringList &args) override;
+};
+
+class TargetItem : public QssItem{
+public:
+    TargetItem();
 protected:
     QString translate(const QStringList &args) override;
 };

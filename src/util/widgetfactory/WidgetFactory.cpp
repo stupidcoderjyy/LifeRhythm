@@ -135,9 +135,9 @@ void WidgetFactory::parseChildren(NBT *nbt) {
     if (!nbt->contains("children", Data::ARR)) {
         return;
     }
-    auto* arr = nbt->get("children")->asArray()->get();
+    auto arr = nbt->get("children")->asArray()->get();
     QVector<WidgetFactory*> factories;
-    for (auto*& child : *arr) {
+    for (auto*& child : arr) {
         if (child->type == Data::STRING) {
             auto childId = child->asString()->get();
             auto* factory = findFactory(nbt, childId);

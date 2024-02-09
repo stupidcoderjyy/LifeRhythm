@@ -16,7 +16,5 @@ ImageStorage::ImageStorage():
 }
 
 QPixmap *ImageStorage::load(const Identifier &loc) {
-    auto* img = new QPixmap(loc.toFullPath());
-    qDebug() << loc.toString() << img;
-    return img;
+    return new QPixmap(type.buildFilePath(loc).toFullPath());
 }

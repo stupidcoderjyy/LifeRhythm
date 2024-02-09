@@ -9,10 +9,16 @@
 
 class FloatData : public Data{
 private:
-    float data = 0;
+    float data{};
 public:
     explicit FloatData();
-    FloatData* setVal(float val);
+    inline FloatData* setVal(float val) {
+        data = val;
+        return this;
+    }
+    inline float get() const {
+        return data;
+    }
 protected:
     void serialize(IByteWriter *writer) override;
     void deserialize(IByteReader *reader) override;

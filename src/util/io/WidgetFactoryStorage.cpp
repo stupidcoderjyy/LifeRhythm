@@ -14,7 +14,7 @@ WidgetFactoryStorage::WidgetFactoryStorage():
 }
 
 WidgetFactory *WidgetFactoryStorage::load(const Identifier &loc) {
-    auto* factory = new WidgetFactory(loc.toString());
+    auto* factory = new WidgetFactory(loc.getPath());
     try {
         auto* nbt = NBT::fromStringNbt(type.buildFilePath(loc));
         factory->setSource(nbt);

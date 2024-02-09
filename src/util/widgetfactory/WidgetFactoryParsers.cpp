@@ -10,6 +10,9 @@ QMap<QString, Qt::AlignmentFlag> WidgetFactoryParsers::alignments{};
 QMap<QString,QSizePolicy::Policy> WidgetFactoryParsers::policies{};
 
 Qt::Alignment WidgetFactoryParsers::parseAlign(const QString &alignment) {
+    if (alignment.isEmpty()) {
+        return {};
+    }
     auto flags = alignment.split('|');
     Qt::Alignment result{};
     for (auto& f : flags) {
@@ -23,16 +26,16 @@ Qt::Alignment WidgetFactoryParsers::parseAlign(const QString &alignment) {
 }
 
 QMargins WidgetFactoryParsers::parseMargins(ArrayData *array) {
-    auto* elements = array->get();
-    if (elements->size() != 4) {
+    auto elements = array->get();
+    if (elements.size() != 4) {
         throwInFunc("invalid margin array");
     }
     int arr[4];
     for (int i = 0 ; i < 4 ; i ++) {
-        if (elements->at(i)->type != Data::INT) {
+        if (elements[i]->type != Data::INT) {
             throwInFunc("invalid data type in margin array");
         }
-        arr[i] = elements->at(i)->asInt()->get();
+        arr[i] = elements[i]->asInt()->get();
     }
     return {arr[0], arr[1], arr[2], arr[3]};
 }

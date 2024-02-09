@@ -5,9 +5,11 @@
 #include "QssParser.h"
 #include <QHBoxLayout>
 #include "ImageStorage.h"
+#include "BufferedInput.h"
 
 void testNormal() {
     WidgetFactory::init();
+    ImageStorage::getInstance()->init("lr");
     auto* storage = WidgetFactoryStorage::getInstance();
     storage->init("lr");
     auto* loader = storage->get("lr:a");
@@ -27,6 +29,6 @@ void testNormal() {
 
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
-    ImageStorage::getInstance()->init("lr");
+    testNormal();
     return QApplication::exec();
 }

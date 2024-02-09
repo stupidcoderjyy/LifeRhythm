@@ -62,6 +62,47 @@ int BufferedInput::read() {
     return result;
 }
 
+QString BufferedInput::readUtf() {
+    char* data;
+    int b1 = read() & 0xFF;
+    switch (b1 >> 4) {
+        case 0:
+        case 1:
+        case 2:
+        case 3:
+        case 4:
+        case 5:
+        case 6:
+        case 7: {
+            data = new char[]{(char)b1, '\0'};
+            break;
+        }
+        case 12:
+        case 13: {
+            int b2 = read() & 0xFF;
+            if ((b2 & 0xC0) != 0x80) {
+                throwInFunc("malformed format:" + QString::number((b1 << 8) | b2, 2));
+            }
+            data = new char[]{(char)b1, (char)b2, '\0'};
+            break;
+        }
+        case 14: {
+            int b2 = read() & 0xFF;
+            int b3 = read() & 0xFF;
+            if ((b2 & 0xC0) != 0x80 || (b3 & 0xC0) != 0x80) {
+                throwInFunc("malformed format:" + QString::number((b1 << 16) | (b2 << 8) | b3, 2));
+            }
+            data = new char[]{(char) b1, (char) b2, (char) b3, '\0'};
+            break;
+        }
+        default:
+            throwInFunc("malformed format:" + QString::number(b1, 2));
+    }
+    QString res = data;
+    delete[] data;
+    return res;
+}
+
 void BufferedInput::fillA() {
     _fillA();
 }

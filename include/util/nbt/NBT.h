@@ -16,7 +16,6 @@
 
 class NBT : public Data {
     friend class NBTUtil;
-    friend class PropertyItemList;
 private:
     QMap<QString, Data*> data{};
 public:
@@ -27,9 +26,19 @@ public:
     FloatData* putFloat(const QString& key);
     BoolData* putBool(const QString& key);
     NBT* putCompound(const QString& key);
-    Data* get(const QString& key);
+    inline Data* get(const QString& key) {
+        return data.value(key);
+    }
+    inline QMap<QString, Data*>& get() {
+        return data;
+    }
     bool contains(const QString& key);
     bool contains(const QString& key, int type);
+    int getInt(const QString& key, int defaultVal = 0);
+    QString getString(const QString& key, QString defaultVal = "");
+    QVector<Data*>* getArr(const QString& key);
+    float getFloat(const QString& key, float defaultVal = 0);
+    bool getBool(const QString& key, bool defaultVal = false);
     QString toString() override;
     ~NBT() override;
     static NBT* fromStringNbt(const Identifier& loc);

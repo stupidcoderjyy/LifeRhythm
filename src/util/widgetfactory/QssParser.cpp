@@ -43,7 +43,9 @@ QString QssParser::parseBlock(CompilerInput *input) {
             if (end != '\'') {
                 throw input->errorAtForward("missing '''");
             }
-            return input->capture();
+            QString res = input->capture();
+            input->read();
+            return res;
         }
         case '#':
             return parseItem(input);
@@ -72,28 +74,40 @@ QString QssParser::parseItem(CompilerInput *input) {
     return items.value(key)->translate(args);
 }
 
+QString QssParser::parseArg(CompilerInput *input) {
+    QString res{};
+    while(true) {
+        input->skip(' ');
+        if (!input->available()) {
+            return res;
+        }
+        int next = input->read();
+        input->retract();
+        if (next == ',' || next == ')') {
+            return res;
+        }
+        res = res % parseBlock(input);
+    }
+}
+
 QStringList QssParser::parseArgs(CompilerInput *input) {
     input->read(); //(
     QStringList list;
-    list << parseBlock(input);
+    list << parseArg(input);
     while (true) {
-        switch (input->approach(',', ')')) {
+        switch (input->find(',', ')')) {
             case ',': {
-                input->read();
-                list << parseBlock(input);
+                list << parseArg(input);
                 break;
             }
             case ')': {
-                input->read();
-                goto END;
+                return list;
             }
             case -1: {
                 throw input->errorAtForward("missing ')'");
             }
         }
     }
-    END:
-    return list;
 }
 
 void QssParser::init() {
@@ -103,7 +117,9 @@ void QssParser::init() {
     addStringReplaceItem("GRAY_2", Styles::GRAY_2);
     addStringReplaceItem("GRAY_3", Styles::GRAY_3);
     addStringReplaceItem("GRAY_4", Styles::GRAY_4);
+    addStringReplaceItem("BLACK", Styles::BLACK);
     items.insert("border", new BorderItem());
+    items.insert("target", new TargetItem());
 }
 
 void QssParser::addStringConcatItem(const QString& key, QString prefix, QString suffix) {
@@ -151,5 +167,20 @@ QString BorderItem::translate(const QStringList &args) {
     if (args.length() > 2) {
         res = res % "border-color:" % args[2] % ';';
     }
+    return res;
+}
+
+TargetItem::TargetItem():QssItem("target") {
+}
+
+QString TargetItem::translate(const QStringList &args) {
+    if (args.empty()) {
+        return {};
+    }
+    QString res = '#' + args[0] + '{';
+    if (args.length() > 1) {
+        res += args[1];
+    }
+    res += '}';
     return res;
 }

@@ -4,7 +4,7 @@
 #include "NBT.h"
 #include <QStringBuilder>
 #include "Error.h"
-#include "StringNbtParser.h"
+#include "Parser.h"
 
 NBT::NBT(): Data(COMPOUND) {
 }
@@ -120,10 +120,6 @@ NBT *NBT::putCompound(const QString& key) {
     return d->asCompound();
 }
 
-Data *NBT::get(const QString &key) {
-    return data.value(key);
-}
-
 bool NBT::contains(const QString &key) {
     return data.contains(key);
 }
@@ -134,5 +130,40 @@ bool NBT::contains(const QString &key, int type) {
 }
 
 NBT *NBT::fromStringNbt(const Identifier &loc) {
-    return StringNbtParser(loc.toFullPath()).run();
+    return snbt::Parser(loc.toFullPath()).run();
+}
+
+int NBT::getInt(const QString &key, int defaultVal) {
+    if (contains(key, INT)) {
+        return get(key)->asInt()->get();
+    }
+    return defaultVal;
+}
+
+QString NBT::getString(const QString &key, QString defaultVal) {
+    if (contains(key, STRING)) {
+        return get(key)->asString()->get();
+    }
+    return defaultVal;
+}
+
+QVector<Data *>* NBT::getArr(const QString &key) {
+    if (contains(key, ARR)) {
+        return &get(key)->asArray()->get();
+    }
+    return nullptr;
+}
+
+float NBT::getFloat(const QString &key, float defaultVal) {
+    if (contains(key, FLOAT)) {
+        return get(key)->asFloat()->get();
+    }
+    return defaultVal;
+}
+
+bool NBT::getBool(const QString &key, bool defaultVal) {
+    if (contains(key, BOOL)) {
+        return get(key)->asBool()->get();
+    }
+    return defaultVal;
 }

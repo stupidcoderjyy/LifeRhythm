@@ -9,6 +9,9 @@
 #include <QMap>
 #include <QSizePolicy>
 #include <QMargins>
+#include "WidgetFactory.h"
+#include "NBT.h"
+#include "Styles.h"
 
 class ArrayData;
 
@@ -20,6 +23,28 @@ private:
 public:
     static Qt::Alignment parseAlign(const QString& alignment);
     static QMargins parseMargins(ArrayData* array);
+    template<class W> static void parseTextWidget(WidgetFactory::Handlers& handlers, NBT* nbt) {
+        QString text = nbt->getString("text", "");
+        QString fontFamily = nbt->getString("font_family", Styles::MAIN_FONT);
+        int fontSize = nbt->getInt("font_size", Styles::FONT_SIZE_MEDIUM);
+        bool bold = nbt->getBool("bold");
+        Qt::Alignment align = parseAlign(nbt->getString("align"));
+        QColor color = nbt->getString("color", Styles::GRAY_TEXT_0);
+        handlers << [text,fontFamily,fontSize,bold,align,color](QWidget* target) {
+            auto* textWidget = static_cast<W*>(target);
+            textWidget->setText(text);
+            QFont f = textWidget->font();
+            f.setFamily(fontFamily);
+            f.setPointSize(fontSize);
+            f.setBold(bold);
+            QPalette p = textWidget->palette();
+            p.setColor(QPalette::WindowText, color);
+            p.setColor(QPalette::Text, color);
+            textWidget->setPalette(p);
+            textWidget->setFont(f);
+            textWidget->setAlignment(align);
+        };
+    }
 private:
     static void init();
 };

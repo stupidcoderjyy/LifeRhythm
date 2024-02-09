@@ -23,8 +23,8 @@ public:
     QString toString() override;
     Data *copy() override;
     ~ArrayData() override;
-    inline QVector<Data*>* get() {
-        return &data;
+    inline QVector<Data*>& get() {
+        return data;
     }
 protected:
     void serialize(IByteWriter *writer) override;
