@@ -29,19 +29,19 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 28,
+				"line" : 29,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 35,
+				"line" : 36,
 				"parent" : 0
 			},
 			{
 				"command" : 2,
 				"file" : 0,
-				"line" : 18,
+				"line" : 19,
 				"parent" : 0
 			}
 		]
@@ -57,6 +57,10 @@
 			],
 			"defines" : 
 			[
+				{
+					"backtrace" : 2,
+					"define" : "QT_CONCURRENT_LIB"
+				},
 				{
 					"backtrace" : 2,
 					"define" : "QT_CORE_LIB"
@@ -498,6 +502,10 @@
 				},
 				{
 					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/69"
+				},
+				{
+					"backtrace" : 3,
 					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/6a"
 				},
 				{
@@ -559,6 +567,10 @@
 				{
 					"backtrace" : 3,
 					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/7b"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/7c"
 				},
 				{
 					"backtrace" : 3,
@@ -850,6 +862,10 @@
 				},
 				{
 					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/c9"
+				},
+				{
+					"backtrace" : 3,
 					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/ca"
 				},
 				{
@@ -907,6 +923,10 @@
 				{
 					"backtrace" : 3,
 					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/d8"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/d9"
 				},
 				{
 					"backtrace" : 3,
@@ -983,6 +1003,10 @@
 				{
 					"backtrace" : 3,
 					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/ed"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/ee"
 				},
 				{
 					"backtrace" : 3,
@@ -1258,7 +1282,19 @@
 				},
 				{
 					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/LifeRhythm_autogen/7TR4P2QSDL"
+				},
+				{
+					"backtrace" : 3,
 					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/LifeRhythm_autogen/BYVBAFYG7M"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/LifeRhythm_autogen/D7EWSDQKEY"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/LifeRhythm_autogen/QFNB3N5DZY"
 				},
 				{
 					"backtrace" : 3,
@@ -1402,6 +1438,11 @@
 					"backtrace" : 2,
 					"isSystem" : true,
 					"path" : "C:/Qt/5.15.2/mingw81_64/include/QtWidgets"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "C:/Qt/5.15.2/mingw81_64/include/QtConcurrent"
 				}
 			],
 			"language" : "CXX",
@@ -1453,20 +1494,23 @@
 				37,
 				38,
 				39,
-				76,
-				78,
-				79
+				40,
+				41,
+				42,
+				82,
+				84,
+				85
 			]
 		}
 	],
 	"dependencies" : 
 	[
 		{
-			"id" : "LifeRhythm_autogen_timestamp_deps::@6890427a1f51a3e7e1df"
-		},
-		{
 			"backtrace" : 0,
 			"id" : "LifeRhythm_autogen::@6890427a1f51a3e7e1df"
+		},
+		{
+			"id" : "LifeRhythm_autogen_timestamp_deps::@6890427a1f51a3e7e1df"
 		}
 	],
 	"id" : "LifeRhythm::@6890427a1f51a3e7e1df",
@@ -1485,6 +1529,11 @@
 			{
 				"backtrace" : 2,
 				"fragment" : "C:\\Qt\\5.15.2\\mingw81_64\\lib\\libQt5Widgets.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "C:\\Qt\\5.15.2\\mingw81_64\\lib\\libQt5Concurrent.a",
 				"role" : "libraries"
 			},
 			{
@@ -1555,9 +1604,12 @@
 				37,
 				38,
 				39,
-				76,
-				78,
-				79
+				40,
+				41,
+				42,
+				82,
+				84,
+				85
 			]
 		},
 		{
@@ -1566,16 +1618,13 @@
 			[
 				1,
 				2,
-				77
+				83
 			]
 		},
 		{
 			"name" : "Header Files",
 			"sourceIndexes" : 
 			[
-				40,
-				41,
-				42,
 				43,
 				44,
 				45,
@@ -1608,16 +1657,22 @@
 				72,
 				73,
 				74,
-				75
+				75,
+				76,
+				77,
+				78,
+				79,
+				80,
+				81
 			]
 		},
 		{
 			"name" : "CMake Rules",
 			"sourceIndexes" : 
 			[
-				80,
-				81,
-				82
+				86,
+				87,
+				88
 			]
 		}
 	],
@@ -1643,13 +1698,25 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
+			"path" : "src/Constants.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
 			"path" : "src/lr/LifeRhythm.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "src/lr/ui/tab/TabWidget.cpp",
+			"path" : "src/lr/ui/MainFrame.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/lr/ui/tab/TabBar.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
@@ -1662,6 +1729,12 @@
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
 			"path" : "src/util/Styles.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/util/WidgetUtil.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
@@ -1864,12 +1937,22 @@
 		},
 		{
 			"backtrace" : 1,
+			"path" : "include/Constants.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
 			"path" : "include/lr/LifeRhythm.h",
 			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 1,
-			"path" : "include/lr/ui/tab/TabWidget.h",
+			"path" : "include/lr/ui/MainFrame.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/lr/ui/tab/TabBar.h",
 			"sourceGroupIndex" : 2
 		},
 		{
@@ -1880,6 +1963,11 @@
 		{
 			"backtrace" : 1,
 			"path" : "include/util/Styles.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/util/WidgetUtil.h",
 			"sourceGroupIndex" : 2
 		},
 		{

@@ -16,7 +16,7 @@ WidgetFactoryStorage::WidgetFactoryStorage():
 WidgetFactory *WidgetFactoryStorage::load(const Identifier &loc) {
     auto* factory = new WidgetFactory(loc.getPath());
     try {
-        auto* nbt = NBT::fromStringNbt(type.buildFilePath(loc));
+        auto* nbt = NBT::fromStringNbt(type.buildFilePath(loc).toFullPath());
         factory->setSource(nbt);
     } catch (CompileError& e) {
         delete factory;
@@ -31,4 +31,10 @@ void WidgetFactoryStorage::loadFailure(std::exception &e) noexcept {
 
 WidgetFactoryStorage *WidgetFactoryStorage::getInstance() {
     return &instance;
+}
+
+void WidgetFactoryStorage::parseAll() {
+    for(auto* f : data) {
+        f->parse();
+    }
 }

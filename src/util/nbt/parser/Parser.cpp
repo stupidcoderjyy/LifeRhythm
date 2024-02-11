@@ -6,7 +6,6 @@
 #include "NBT.h"
 #include "Error.h"
 
-#define prodSize 18
 #define remapSize 134
 #define nonTerminalCount 8
 #define terminalCount 13
@@ -19,7 +18,6 @@ Parser::Parser(const QString& file) {
     lexer = new Lexer(input);
     goTo = allocateArray(statesCount,nonTerminalCount);
     actions = allocateArray(statesCount,terminalCount);
-    productions = new Production*[prodSize];
     suppliers = new PropertySupplier[nonTerminalCount];
     terminalRemap = allocateArray(remapSize);
     initActions();
@@ -71,8 +69,8 @@ NBT* Parser::run() {
             }
             case 2: {
                 input->mark();
-                states.append(target);
-                properties.append(new PropertyTerminal(token));
+                states << target;
+                properties << new PropertyTerminal(token);
                 token = lexer->run();
                 break;
             }
@@ -97,8 +95,8 @@ NBT* Parser::run() {
                     delete body[i];
                 }
                 delete[] body;
-                properties.append(pHead);
-                states.append(goTo[states.last()][p->head->id]);
+                properties << pHead;
+                states << goTo[states.last()][p->head->id];
                 break;
             }
         }
@@ -106,13 +104,12 @@ NBT* Parser::run() {
 }
 
 Parser::~Parser() {
-    for (int i = 0 ; i < prodSize ; i ++) {
-        delete productions[i];
+    for (auto* p : productions) {
+        delete p;
     }
-    for (const auto &item: symbols) {
+    for (auto* item: symbols) {
         delete item;
     }
-    delete[] productions;
     delete[] terminalRemap;
     delete[] suppliers;
     delete result;
@@ -122,9 +119,9 @@ Parser::~Parser() {
     freeArray(actions, statesCount);
 }
 
-const int ACCEPT = 0x10000;
-const int SHIFT = 0x20000;
-const int REDUCE = 0x30000;
+#define ACCEPT 0x10000
+#define SHIFT 0x20000
+#define REDUCE 0x30000
 
 void Parser::initActions() {
     actions[0][1] = SHIFT | 2;
@@ -244,45 +241,45 @@ void Parser::initOthers() {
 }
 
 void Parser::initGrammar() {
-    symbols.push_back(new Symbol(false, 4));
-    symbols.push_back(new Symbol(false, 1));
-    symbols.push_back(new Symbol(false, 5));
-    symbols.push_back(new Symbol(true, 6));
-    symbols.push_back(new Symbol(true, 3));
-    symbols.push_back(new Symbol(true, 7));
-    symbols.push_back(new Symbol(true, 5));
-    symbols.push_back(new Symbol(true, 12));
-    symbols.push_back(new Symbol(false, 2));
-    symbols.push_back(new Symbol(true, 4));
-    symbols.push_back(new Symbol(true, -1));
-    symbols.push_back(new Symbol(false, 0));
-    symbols.push_back(new Symbol(true, 11));
-    symbols.push_back(new Symbol(false, 6));
-    symbols.push_back(new Symbol(true, 1));
-    symbols.push_back(new Symbol(true, 8));
-    symbols.push_back(new Symbol(true, 10));
-    symbols.push_back(new Symbol(true, 2));
-    symbols.push_back(new Symbol(true, 9));
-    symbols.push_back(new Symbol(false, 7));
-    symbols.push_back(new Symbol(false, 3));
-    productions[0] = new Production(0, symbols[11], 1, new Symbol*[]{symbols[1]}); //root → nbt
-    productions[1] = new Production(1, symbols[1], 3, new Symbol*[]{symbols[14], symbols[8], symbols[17]}); //nbt → { compound }
-    productions[2] = new Production(2, symbols[20], 1, new Symbol*[]{symbols[4]}); //element → string
-    productions[3] = new Production(3, symbols[20], 1, new Symbol*[]{symbols[9]}); //element → int
-    productions[4] = new Production(4, symbols[20], 1, new Symbol*[]{symbols[6]}); //element → float
-    productions[5] = new Production(5, symbols[20], 1, new Symbol*[]{symbols[3]}); //element → $true
-    productions[6] = new Production(6, symbols[20], 1, new Symbol*[]{symbols[5]}); //element → $false
-    productions[7] = new Production(7, symbols[20], 3, new Symbol*[]{symbols[15], symbols[0], symbols[18]}); //element → [ arr ]
-    productions[8] = new Production(8, symbols[20], 3, new Symbol*[]{symbols[14], symbols[8], symbols[17]}); //element → { compound }
-    productions[9] = new Production(9, symbols[2], 3, new Symbol*[]{symbols[16], symbols[12], symbols[20]}); //item → id : element
-    productions[10] = new Production(10, symbols[8], 1, new Symbol*[]{symbols[13]}); //compound → itemList
-    productions[11] = new Production(11, symbols[8], 1, new Symbol*[]{symbols[10]}); //compound → ε
-    productions[12] = new Production(12, symbols[13], 2, new Symbol*[]{symbols[13], symbols[2]}); //itemList → itemList item
-    productions[13] = new Production(13, symbols[13], 1, new Symbol*[]{symbols[2]}); //itemList → item
-    productions[14] = new Production(14, symbols[0], 1, new Symbol*[]{symbols[19]}); //arr → elementList
-    productions[15] = new Production(15, symbols[0], 1, new Symbol*[]{symbols[10]}); //arr → ε
-    productions[16] = new Production(16, symbols[19], 3, new Symbol*[]{symbols[19], symbols[7], symbols[20]}); //elementList → elementList , element
-    productions[17] = new Production(17, symbols[19], 1, new Symbol*[]{symbols[20]}); //elementList → element
+    symbols << new Symbol(false, 4);
+    symbols << new Symbol(false, 1);
+    symbols << new Symbol(false, 5);
+    symbols << new Symbol(true, 6);
+    symbols << new Symbol(true, 3);
+    symbols << new Symbol(true, 7);
+    symbols << new Symbol(true, 5);
+    symbols << new Symbol(true, 12);
+    symbols << new Symbol(false, 2);
+    symbols << new Symbol(true, 4);
+    symbols << new Symbol(true, -1);
+    symbols << new Symbol(false, 0);
+    symbols << new Symbol(true, 11);
+    symbols << new Symbol(false, 6);
+    symbols << new Symbol(true, 1);
+    symbols << new Symbol(true, 8);
+    symbols << new Symbol(true, 10);
+    symbols << new Symbol(true, 2);
+    symbols << new Symbol(true, 9);
+    symbols << new Symbol(false, 7);
+    symbols << new Symbol(false, 3);
+    productions << new Production(0, symbols[11], 1, new Symbol*[]{symbols[1]}); //root → nbt
+    productions << new Production(1, symbols[1], 3, new Symbol*[]{symbols[14], symbols[8], symbols[17]}); //nbt → { compound }
+    productions << new Production(2, symbols[20], 1, new Symbol*[]{symbols[4]}); //element → string
+    productions << new Production(3, symbols[20], 1, new Symbol*[]{symbols[9]}); //element → int
+    productions << new Production(4, symbols[20], 1, new Symbol*[]{symbols[6]}); //element → float
+    productions << new Production(5, symbols[20], 1, new Symbol*[]{symbols[3]}); //element → $true
+    productions << new Production(6, symbols[20], 1, new Symbol*[]{symbols[5]}); //element → $false
+    productions << new Production(7, symbols[20], 3, new Symbol*[]{symbols[15], symbols[0], symbols[18]}); //element → [ arr ]
+    productions << new Production(8, symbols[20], 3, new Symbol*[]{symbols[14], symbols[8], symbols[17]}); //element → { compound }
+    productions << new Production(9, symbols[2], 3, new Symbol*[]{symbols[16], symbols[12], symbols[20]}); //item → id : element
+    productions << new Production(10, symbols[8], 1, new Symbol*[]{symbols[13]}); //compound → itemList
+    productions << new Production(11, symbols[8], 1, new Symbol*[]{symbols[10]}); //compound → ε
+    productions << new Production(12, symbols[13], 2, new Symbol*[]{symbols[13], symbols[2]}); //itemList → itemList item
+    productions << new Production(13, symbols[13], 1, new Symbol*[]{symbols[2]}); //itemList → item
+    productions << new Production(14, symbols[0], 1, new Symbol*[]{symbols[19]}); //arr → elementList
+    productions << new Production(15, symbols[0], 1, new Symbol*[]{symbols[10]}); //arr → ε
+    productions << new Production(16, symbols[19], 3, new Symbol*[]{symbols[19], symbols[7], symbols[20]}); //elementList → elementList , element
+    productions << new Production(17, symbols[19], 1, new Symbol*[]{symbols[20]}); //elementList → element
 }
 
 //arr → elementList

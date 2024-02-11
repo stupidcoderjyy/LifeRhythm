@@ -59,6 +59,9 @@ QWidget* WidgetFactory::apply(QWidget *parent, QWidget *target) noexcept{
 void WidgetFactory::parse() noexcept{
     try {
         if (state != Empty) {
+            if (state == Ready) {
+                return;
+            }
             throwInFunc("factory '" + id + "' is not in empty state");
         }
         state = Parsing;
@@ -210,7 +213,7 @@ void WidgetFactory::parseQss(Handlers& op, NBT *nbt) {
     if (!nbt->contains("qss", Data::STRING)) {
         return;
     }
-    QString qss = QssParser::translate(nbt->get("qss")->asString()->get());
+    QString qss = QssParser::translate(nbt->getString("qss"));
     op << [qss](QWidget* target) {
         target->setStyleSheet(qss);
     };

@@ -251,6 +251,9 @@ LifeRhythm_IS_TOP_LEVEL:STATIC=ON
 //Value Computed by CMake
 LifeRhythm_SOURCE_DIR:STATIC=C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm
 
+//The directory containing a CMake configuration file for Qt5Concurrent.
+Qt5Concurrent_DIR:PATH=C:/Qt/5.15.2/mingw81_64/lib/cmake/Qt5Concurrent
+
 //The directory containing a CMake configuration file for Qt5Core.
 Qt5Core_DIR:PATH=C:/Qt/5.15.2/mingw81_64/lib/cmake/Qt5Core
 

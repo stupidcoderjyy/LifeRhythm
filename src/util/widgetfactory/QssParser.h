@@ -24,6 +24,7 @@ public:
     static QString translate(const QString& expr);
     static void addStringConcatItem(const QString& key, QString prefix = "", QString suffix = "");
     static void addStringReplaceItem(const QString& key, QString value);
+    static void registerItem(QssItem* item);
 private:
     static QString parseBlock(CompilerInput* input);
     static QString parseItem(CompilerInput* input);
@@ -49,8 +50,10 @@ public:
 };
 
 class BorderItem: public QssItem{
+private:
+    QString propName;
 public:
-    BorderItem();
+    explicit BorderItem(const QString& key, QString propName);
 protected:
     QString translate(const QStringList &args) override;
 };

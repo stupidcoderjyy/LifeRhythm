@@ -12,7 +12,6 @@ class StdImgLabel : public QLabel, public StandardWidget{
     Q_OBJECT
 protected:
     void mouseReleaseEvent(QMouseEvent *ev) override;
-
 public:
     explicit StdImgLabel(QWidget* parent);
     void onPostParsing(Handlers &handlers, NBT *widgetTag) override;

@@ -27,9 +27,12 @@ public:
 };
 
 #define qss(k,d) QString(k).append(":").append(d).append(";")
-#define qssbg(c) QString("background-color:").append(c).append(";")
-#define qssborder(style,width,color) qss("border-style",style) + qss("border-width",width) + qss("border-color",color)
-
+#define bg(c) QString("background-color:").append(c).append(";")
+#define bd_t(a,b,c) QString("border-top:").append(a).append(" ").append(b).append(" ").append(c).append(";")
+#define bd_b(a,b,c) QString("border-bottom:").append(a).append(" ").append(b).append(" ").append(c).append(";")
+#define bd_l(a,b,c) QString("border-left:").append(a).append(" ").append(b).append(" ").append(c).append(";")
+#define bd_r(a,b,c) QString("border-right:").append(a).append(" ").append(b).append(" ").append(c).append(";")
+#define bd(a,b,c) QString("border:").append(a).append(" ").append(b).append(" ").append(c).append(";")
 #define PAINT_QSS protected: void paintEvent(QPaintEvent *event) override{\
 Q_UNUSED(event);\
 QStyleOption opt;\

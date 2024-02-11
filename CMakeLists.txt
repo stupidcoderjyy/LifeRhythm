@@ -12,6 +12,7 @@ find_package(Qt5 COMPONENTS
         Core
         Gui
         Widgets
+        Concurrent
         REQUIRED)
 
 file(GLOB_RECURSE INCLUDES LIST_DIRECTORIES true include)
@@ -36,6 +37,7 @@ target_link_libraries(LifeRhythm
         Qt5::Core
         Qt5::Gui
         Qt5::Widgets
+        Qt5::Concurrent
 )
 
 

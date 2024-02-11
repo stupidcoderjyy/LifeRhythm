@@ -1,6 +1,7 @@
 <RCC>
     <qresource prefix="/assets/lr/images">
-        <file>icon.png</file>
+        <file>icon_256.png</file>
+        <file>icon_30.png</file>
         <file>tab_close_hovered.png</file>
         <file>tab_close_normal.png</file>
     </qresource>

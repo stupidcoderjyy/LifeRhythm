@@ -129,8 +129,8 @@ bool NBT::contains(const QString &key, int type) {
     return p && p->type == type;
 }
 
-NBT *NBT::fromStringNbt(const Identifier &loc) {
-    return snbt::Parser(loc.toFullPath()).run();
+NBT *NBT::fromStringNbt(const QString &path) {
+    return snbt::Parser(path).run();
 }
 
 int NBT::getInt(const QString &key, int defaultVal) {

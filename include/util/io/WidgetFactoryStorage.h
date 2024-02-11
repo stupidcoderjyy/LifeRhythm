@@ -13,6 +13,7 @@ private:
     static WidgetFactoryStorage instance;
 public:
     static WidgetFactoryStorage* getInstance();
+    void parseAll();
 private:
     WidgetFactoryStorage();
     WidgetFactory *load(const Identifier &loc) override;

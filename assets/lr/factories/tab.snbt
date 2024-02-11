@@ -1,8 +1,8 @@
 {
-    type: "TabWidget"
+    type: "TabCard"
     children: ["icon", "title", "closeButton"]
-    fixed_height: 60
     h_size_policy: "Max"
+    fixed_height: 60
 
     layout: {
         type: "Horizontal"
@@ -13,8 +13,6 @@
 
     icon: {
         type: "std_imgLabel"
-        img: "lr:icon"
-        scale: [30,30]
         align: "Center"
         pointer: true
         margins: [0,2,0,0]
@@ -22,7 +20,7 @@
 
     title: {
         type: "std_textLabel"
-        text: "你好世界"
+        text: "你好世界 你好世界"
         pointer: true
         align: "V_Center"
         margins: [0,0,0,2]
@@ -45,16 +43,16 @@
 
     states: {
         s0: {
-            qss: "@target('tab', @bg(@GRAY_0))"
+            qss: "@t('tab', @bg(@GRAY_0))"
         }
         s1: {
-            qss: "@target('tab', @bg(@BLACK))"
+            qss: "@t('tab', @bg(@BLACK))"
         }
         s2: {
-            qss: "@target('tab', @bg(@CYAN_DARK) 'border-bottom:4px solid rgb(74,136,199);')"
+            qss: "@t('tab', @bg(@CYAN_DARK) @bd_b('4px', 'solid', @CYAN_BRIGHT))"
         }
         s3: {
-            qss: "@target('tab', @bg(@BLACK) 'border-bottom:4px solid rgb(74,136,199);')"
+            qss: "@t('tab', @bg(@BLACK) @bd_b('4px', 'solid', @CYAN_BRIGHT))"
         }
     }
 }

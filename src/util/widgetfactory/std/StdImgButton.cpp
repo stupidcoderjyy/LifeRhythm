@@ -4,11 +4,13 @@
 
 #include "StdImgButton.h"
 #include "Styles.h"
+#include "WidgetUtil.h"
+#include "QMouseEvent"
 
 StdImgButton::StdImgButton(QWidget *parent) : StdImgLabel(parent) {
     QString qssBorder = qss("border-style", "none") + qss("border-radius", "2px");
-    qssNormal = qssbg(Styles::BLACK) + qssBorder;
-    qssActivated = qssbg(Styles::GRAY_0) + qssBorder;
+    qssNormal = bg(Styles::BLACK) + qssBorder;
+    qssActivated = bg(Styles::GRAY_0) + qssBorder;
 }
 
 void StdImgButton::enterEvent(QEvent *event) {
@@ -16,8 +18,10 @@ void StdImgButton::enterEvent(QEvent *event) {
 }
 
 void StdImgButton::mouseReleaseEvent(QMouseEvent *ev) {
-    StdImgLabel::mouseReleaseEvent(ev);
-    setStyleSheet(qssActivated);
+    if (isHovered(this, ev)) {
+        emit sigActivated();
+        setStyleSheet(qssActivated);
+    }
 }
 
 void StdImgButton::leaveEvent(QEvent *event) {

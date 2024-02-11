@@ -41,7 +41,7 @@ public:
     bool getBool(const QString& key, bool defaultVal = false);
     QString toString() override;
     ~NBT() override;
-    static NBT* fromStringNbt(const Identifier& loc);
+    static NBT* fromStringNbt(const QString &path);
 protected:
     void serialize(IByteWriter *writer) override;
     void deserialize(IByteReader *reader) override;

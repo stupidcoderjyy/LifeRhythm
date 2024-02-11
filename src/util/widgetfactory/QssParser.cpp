@@ -7,6 +7,7 @@
 #include "CompilerInput.h"
 #include <utility>
 #include <QStringBuilder>
+#include <QDebug>
 
 QssItem::QssItem(QString key):key(std::move(key)) {
 }
@@ -121,16 +122,24 @@ void QssParser::init() {
     addStringReplaceItem("CYAN_DARK", Styles::CYAN_DARK);
     addStringReplaceItem("CYAN", Styles::CYAN);
     addStringReplaceItem("CYAN_BRIGHT", Styles::CYAN_BRIGHT);
-    items.insert("border", new BorderItem());
-    items.insert("target", new TargetItem());
+    registerItem(new BorderItem("bd", "border"));
+    registerItem(new BorderItem("bd_b", "border-bottom"));
+    registerItem(new BorderItem("bd_t", "border-top"));
+    registerItem(new BorderItem("bd_l", "border-left"));
+    registerItem(new BorderItem("bd_r", "border-right"));
+    registerItem(new TargetItem());
 }
 
 void QssParser::addStringConcatItem(const QString& key, QString prefix, QString suffix) {
-    items.insert(key, new StringConcatItem(key, std::move(prefix), std::move(suffix)));
+    registerItem(new StringConcatItem(key, std::move(prefix), std::move(suffix)));
 }
 
 void QssParser::addStringReplaceItem(const QString &key, QString value) {
-    items.insert(key, new StringReplaceItem(key, std::move(value)));
+    registerItem(new StringReplaceItem(key, std::move(value)));
+}
+
+void QssParser::registerItem(QssItem *item) {
+    items.insert(item->key, item);
 }
 
 StringReplaceItem::StringReplaceItem(QString key, QString value) :
@@ -155,25 +164,19 @@ QString StringConcatItem::translate(const QStringList &args) {
     return prefix + args[0] + suffix;
 }
 
-BorderItem::BorderItem():
-        QssItem("border"){
+BorderItem::BorderItem(const QString& key, QString propName):
+        QssItem(key),propName(std::move(propName)){
 }
 
 QString BorderItem::translate(const QStringList &args) {
-    QString res{};
-    if (!args.empty()) {
-        res = res % "border-style:" % args[0] % ';';
+    QString res = propName + ":";
+    for (auto& arg : args) {
+        res = res % arg % ' ';
     }
-    if (args.length() > 1) {
-        res = res % "border-width:" % args[1] % ';';
-    }
-    if (args.length() > 2) {
-        res = res % "border-color:" % args[2] % ';';
-    }
-    return res;
+    return res + ";";
 }
 
-TargetItem::TargetItem():QssItem("target") {
+TargetItem::TargetItem():QssItem("t") {
 }
 
 QString TargetItem::translate(const QStringList &args) {

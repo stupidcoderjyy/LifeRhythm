@@ -5,9 +5,29 @@
 #ifndef LIFERHYTHM_LIFERHYTHM_H
 #define LIFERHYTHM_LIFERHYTHM_H
 
+#include <QString>
+#include <QObject>
 
-class LifeRhythm {
+class MainFrame;
 
+class LifeRhythm : public QObject{
+    Q_OBJECT
+private:
+    static LifeRhythm* lr;
+    MainFrame* mainFrame;
+public:
+    static LifeRhythm* get();
+    static void launch();
+signals:
+    void sigPreInit();
+    void sigMainInit();
+    void sigPostInit();
+private:
+    LifeRhythm();
+    void launch0();
+    void preInit();
+    void mainInit();
+    void postInit();
 };
 
 

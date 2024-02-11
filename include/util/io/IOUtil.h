@@ -6,6 +6,7 @@
 #define PRACTICECONSOLE_IOUTIL_H
 
 #include <QString>
+#include <QDebug>
 
 #define CONSOLE_BLACK 0
 #define CONSOLE_BLUE 1
@@ -13,6 +14,8 @@
 #define CONSOLE_WHITE 7
 #define CONSOLE_LIGHT_BLUE 9
 #define CONSOLE_RED 4
+
+#define debug(str) qDebug() << const_cast<char*>(str)
 
 class QDataStream;
 

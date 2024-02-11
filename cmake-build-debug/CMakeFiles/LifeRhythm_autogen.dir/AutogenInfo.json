@@ -73,6 +73,8 @@
 		"C:/Qt/5.15.2/mingw81_64/lib/cmake/Qt5Widgets/Qt5WidgetsConfigExtras.cmake",
 		"C:/Qt/5.15.2/mingw81_64/lib/cmake/Qt5Widgets/Qt5WidgetsMacros.cmake",
 		"C:/Program Files/JetBrains/CLion 2023.3.2/bin/cmake/win/x64/share/cmake-3.27/Modules/CMakeParseArguments.cmake",
+		"C:/Qt/5.15.2/mingw81_64/lib/cmake/Qt5Concurrent/Qt5ConcurrentConfigVersion.cmake",
+		"C:/Qt/5.15.2/mingw81_64/lib/cmake/Qt5Concurrent/Qt5ConcurrentConfig.cmake",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/assets/lr/factories/factories.qrc",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/assets/lr/images/images.qrc"
 	],
@@ -82,15 +84,27 @@
 	"HEADERS" : 
 	[
 		[
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/Constants.h",
+			"MU",
+			"6YEA5652QU/moc_Constants.cpp",
+			null
+		],
+		[
 			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/lr/LifeRhythm.h",
 			"MU",
 			"D7EWSDQKEY/moc_LifeRhythm.cpp",
 			null
 		],
 		[
-			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/lr/ui/tab/TabWidget.h",
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/lr/ui/MainFrame.h",
 			"MU",
-			"BYVBAFYG7M/moc_TabWidget.cpp",
+			"RMHJLL7NTM/moc_MainFrame.cpp",
+			null
+		],
+		[
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/lr/ui/tab/TabBar.h",
+			"MU",
+			"BYVBAFYG7M/moc_TabBar.cpp",
 			null
 		],
 		[
@@ -103,6 +117,12 @@
 			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/Styles.h",
 			"MU",
 			"YCGQ5ZEDH3/moc_Styles.cpp",
+			null
+		],
+		[
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/WidgetUtil.h",
+			"MU",
+			"YCGQ5ZEDH3/moc_WidgetUtil.cpp",
 			null
 		],
 		[
@@ -325,7 +345,7 @@
 	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
 	"INCLUDE_DIR" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/LifeRhythm_autogen/include",
 	"MOC_COMPILATION_FILE" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/LifeRhythm_autogen/mocs_compilation.cpp",
-	"MOC_DEFINITIONS" : [ "QT_CORE_LIB", "QT_GUI_LIB", "QT_WIDGETS_LIB" ],
+	"MOC_DEFINITIONS" : [ "QT_CONCURRENT_LIB", "QT_CORE_LIB", "QT_GUI_LIB", "QT_WIDGETS_LIB" ],
 	"MOC_DEPEND_FILTERS" : 
 	[
 		[
@@ -441,6 +461,7 @@
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/66",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/67",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/68",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/69",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/6a",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/6b",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/6d",
@@ -457,6 +478,7 @@
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/79",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/7a",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/7b",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/7c",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/7e",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/7f",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/80",
@@ -529,6 +551,7 @@
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/c5",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/c7",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/c8",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/c9",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/ca",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/cb",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/cc",
@@ -544,6 +567,7 @@
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/d6",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/d7",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/d8",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/d9",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/da",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/db",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/dc",
@@ -563,6 +587,7 @@
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/eb",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/ec",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/ed",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/ee",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/ef",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/f0",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/f1",
@@ -631,7 +656,10 @@
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/pkgRedirects",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/LifeRhythm_autogen",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/LifeRhythm_autogen/4TFDLNUNCR",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/LifeRhythm_autogen/7TR4P2QSDL",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/LifeRhythm_autogen/BYVBAFYG7M",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/LifeRhythm_autogen/D7EWSDQKEY",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/LifeRhythm_autogen/QFNB3N5DZY",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/LifeRhythm_autogen/include",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/Testing",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/Testing/Temporary",
@@ -666,6 +694,7 @@
 		"C:/Qt/5.15.2/mingw81_64/include/QtGui",
 		"C:/Qt/5.15.2/mingw81_64/include/QtANGLE",
 		"C:/Qt/5.15.2/mingw81_64/include/QtWidgets",
+		"C:/Qt/5.15.2/mingw81_64/include/QtConcurrent",
 		"C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++",
 		"C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32",
 		"C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/backward",
@@ -703,12 +732,22 @@
 			null
 		],
 		[
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/Constants.cpp",
+			"MU",
+			null
+		],
+		[
 			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/lr/LifeRhythm.cpp",
 			"MU",
 			null
 		],
 		[
-			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/lr/ui/tab/TabWidget.cpp",
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/lr/ui/MainFrame.cpp",
+			"MU",
+			null
+		],
+		[
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/lr/ui/tab/TabBar.cpp",
 			"MU",
 			null
 		],
@@ -719,6 +758,11 @@
 		],
 		[
 			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/Styles.cpp",
+			"MU",
+			null
+		],
+		[
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/WidgetUtil.cpp",
 			"MU",
 			null
 		],

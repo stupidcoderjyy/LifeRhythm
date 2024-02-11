@@ -10,7 +10,6 @@
 class NBT;
 
 class ArrayData : public Data {
-    friend class PropertyElementList;
 private:
     QVector<Data*> data{};
 public:

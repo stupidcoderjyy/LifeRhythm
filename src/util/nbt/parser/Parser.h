@@ -19,10 +19,10 @@ namespace snbt {
         int** actions{};
         int** goTo{};
         int* terminalRemap{};
-        Production** productions{};
+        QVector<Production*> productions{};
         PropertySupplier* suppliers{};
         Lexer* lexer{};
-        std::vector<Symbol*> symbols{};
+        QVector<Symbol*> symbols{};
         NBT* result{};
 
     public:

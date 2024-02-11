@@ -7,6 +7,7 @@
 #include "NBT.h"
 #include "ImageStorage.h"
 #include "WidgetFactoryParsers.h"
+#include "WidgetUtil.h"
 
 StdImgLabel::StdImgLabel(QWidget *parent):QLabel(parent),StandardWidget() {
 }
@@ -42,5 +43,7 @@ void StdImgLabel::onStateRespondersParsing(Handlers &responders, NBT *stateTag) 
 }
 
 void StdImgLabel::mouseReleaseEvent(QMouseEvent *ev) {
-    emit sigActivated();
+    if (isHovered(this, ev)) {
+        emit sigActivated();
+    }
 }

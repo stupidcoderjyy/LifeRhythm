@@ -58,5 +58,5 @@ void StandardWidget::registerPointer(const QString &id, QWidget *p) {
 }
 
 StandardWidget::~StandardWidget() {
-    DELETE_MAP(stateResponders);
+    DELETE_MAP(stateResponders)
 }
