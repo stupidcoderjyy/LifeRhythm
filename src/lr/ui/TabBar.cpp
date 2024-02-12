@@ -6,14 +6,14 @@
 #include <QWheelEvent>
 #include <QScrollBar>
 #include "TabBar.h"
-#include "StdImgLabel.h"
-#include "StdTextLabel.h"
+#include "widgets/ImgLabel.h"
+#include "widgets/TextLabel.h"
 #include "ImageStorage.h"
 #include "WidgetFactoryStorage.h"
 
 WidgetFactory* TabBar::tabLoader = nullptr;
 
-TabWidget::TabWidget(QWidget *parent) : StdWidget(parent) {
+TabWidget::TabWidget(QWidget *parent) : Widget(parent) {
 }
 
 void TabWidget::onTabOpen() {
@@ -28,14 +28,14 @@ void TabWidget::onTabClosed() {
 void TabWidget::onTabActivated() {
 }
 
-TabCard::TabCard(QWidget *parent) : StdWidget(parent) {
+TabCard::TabCard(QWidget *parent) : Widget(parent) {
 }
 
 void TabCard::onFinishedParsing(Handlers &handlers, NBT *widgetTag) {
     handlers << [](QWidget* target) {
         auto* tab = static_cast<TabCard*>(target);
-        tab->iconLabel = tab->getPointer<StdImgLabel>("icon");
-        tab->titleLabel = tab->getPointer<StdTextLabel>("title");
+        tab->iconLabel = tab->getPointer<ImgLabel>("icon");
+        tab->titleLabel = tab->getPointer<TextLabel>("title");
         tab->closeButton = tab->getPointer<CloseButton>("closeButton");
         connect(tab->closeButton, &CloseButton::sigActivated, tab, &TabCard::sigTabClosed);
     };
@@ -84,7 +84,7 @@ void TabCard::setHidden() {
     }
 }
 
-CloseButton::CloseButton(QWidget *parent) : StdImgLabel(parent) {
+CloseButton::CloseButton(QWidget *parent) : ImgLabel(parent) {
 }
 
 void CloseButton::enterEvent(QEvent *event) {

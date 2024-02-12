@@ -3,17 +3,17 @@
 //
 
 #include "FactoryInit.h"
-#include "StdWidget.h"
-#include "StdImgButton.h"
-#include "StdTextLabel.h"
+#include "widgets/Widget.h"
+#include "widgets/ImgButton.h"
+#include "widgets/TextLabel.h"
 
-#define reg(name, T) stdSuppliers->insert(name, [](QWidget* p){ return new T(p);}); \
-    stdEmptyInstances->insert(name, new T(nullptr));
+#define reg(T) stdSuppliers->insert(#T, [](QWidget* p){ return new T(p);}); \
+    stdEmptyInstances->insert(#T, new T(nullptr));
 
 void FactoryInit::init(QMap<QString, WidgetFactory::Supplier> *stdSuppliers,
                        QMap<QString, StandardWidget *> *stdEmptyInstances) {
-    reg("std_widget", StdWidget)
-    reg("std_imgLabel", StdImgLabel)
-    reg("std_imgButton", StdImgButton)
-    reg("std_textLabel", StdTextLabel)
+    reg(Widget)
+    reg(ImgLabel)
+    reg(ImgButton)
+    reg(TextLabel)
 }

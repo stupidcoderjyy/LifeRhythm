@@ -23,6 +23,7 @@ public:
     const static QString CYAN_BRIGHT;
     const static QString GRAY_TEXT_0;
     const static QString MAIN_FONT;
+    const static QString TRANSPARENT;
     const static int FONT_SIZE_MEDIUM;
 };
 

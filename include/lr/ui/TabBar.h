@@ -5,16 +5,16 @@
 #ifndef LIFERHYTHM_TABBAR_H
 #define LIFERHYTHM_TABBAR_H
 
-#include "StdWidget.h"
-#include "StdImgLabel.h"
+#include "widgets/Widget.h"
+#include "widgets/ImgLabel.h"
 #include "Identifier.h"
 #include <QScrollArea>
 #include <QHBoxLayout>
 
-class StdTextLabel;
+class TextLabel;
 class CloseButton;
 
-class TabWidget : public StdWidget {
+class TabWidget : public Widget {
     friend class TabBar;
 public:
     explicit TabWidget(QWidget* parent = nullptr);
@@ -25,12 +25,12 @@ protected:
     virtual void onTabActivated();
 };
 
-class TabCard : public StdWidget{
+class TabCard : public Widget{
     Q_OBJECT
 private:
     bool selected = false;
-    StdImgLabel* iconLabel{};
-    StdTextLabel* titleLabel{};
+    ImgLabel* iconLabel{};
+    TextLabel* titleLabel{};
     CloseButton* closeButton{};
 public:
     explicit TabCard(QWidget* parent);
@@ -48,7 +48,7 @@ protected:
     void leaveEvent(QEvent *event) override;
 };
 
-class CloseButton : public StdImgLabel {
+class CloseButton : public ImgLabel {
 Q_OBJECT
 public:
     explicit CloseButton(QWidget* parent);

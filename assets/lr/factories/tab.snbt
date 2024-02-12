@@ -12,15 +12,14 @@
     }
 
     icon: {
-        type: "std_imgLabel"
+        type: "ImgLabel"
         align: "Center"
         pointer: true
         margins: [0,2,0,0]
     }
 
     title: {
-        type: "std_textLabel"
-        text: "你好世界 你好世界"
+        type: "TextLabel"
         pointer: true
         align: "V_Center"
         margins: [0,0,0,2]

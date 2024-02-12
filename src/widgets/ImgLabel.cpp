@@ -2,17 +2,17 @@
 // Created by stupid_coder_jyy on 2024/2/8.
 //
 
-#include "StdImgLabel.h"
+#include "widgets/ImgLabel.h"
 #include "Data.h"
 #include "NBT.h"
 #include "ImageStorage.h"
 #include "WidgetFactoryParsers.h"
 #include "WidgetUtil.h"
 
-StdImgLabel::StdImgLabel(QWidget *parent):QLabel(parent),StandardWidget() {
+ImgLabel::ImgLabel(QWidget *parent): QLabel(parent), StandardWidget() {
 }
 
-void StdImgLabel::onPostParsing(Handlers &handlers, NBT *widgetTag) {
+void ImgLabel::onPostParsing(Handlers &handlers, NBT *widgetTag) {
     QPixmap img{};
     if (widgetTag->contains("img", Data::STRING)) {
         Identifier loc = Identifier(widgetTag->get("img")->asString()->get());
@@ -27,7 +27,7 @@ void StdImgLabel::onPostParsing(Handlers &handlers, NBT *widgetTag) {
         align = WidgetFactoryParsers::parseAlign(widgetTag->getString("align"));
     }
     handlers << [img, align](QWidget* target) {
-        auto* label = static_cast<StdImgLabel*>(target);
+        auto* label = static_cast<ImgLabel*>(target);
         if (!img.isNull()) {
             label->setMinimumSize(img.width(), img.height());
             label->setPixmap(img);
@@ -38,11 +38,11 @@ void StdImgLabel::onPostParsing(Handlers &handlers, NBT *widgetTag) {
     };
 }
 
-void StdImgLabel::onStateRespondersParsing(Handlers &responders, NBT *stateTag) {
+void ImgLabel::onStateRespondersParsing(Handlers &responders, NBT *stateTag) {
     onPostParsing(responders, stateTag);
 }
 
-void StdImgLabel::mouseReleaseEvent(QMouseEvent *ev) {
+void ImgLabel::mouseReleaseEvent(QMouseEvent *ev) {
     if (isHovered(this, ev)) {
         emit sigActivated();
     }

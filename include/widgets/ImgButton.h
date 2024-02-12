@@ -2,16 +2,16 @@
 // Created by stupid_coder_jyy on 2024/2/8.
 //
 
-#ifndef LIFERHYTHM_STDIMGBUTTON_H
-#define LIFERHYTHM_STDIMGBUTTON_H
+#ifndef LIFERHYTHM_IMGBUTTON_H
+#define LIFERHYTHM_IMGBUTTON_H
 
-#include "StdImgLabel.h"
+#include "ImgLabel.h"
 
-class StdImgButton : public StdImgLabel{
+class ImgButton : public ImgLabel{
 private:
     QString qssActivated, qssNormal;
 public:
-    explicit StdImgButton(QWidget* parent);
+    explicit ImgButton(QWidget* parent);
 protected:
     void enterEvent(QEvent *event) override;
     void mouseReleaseEvent(QMouseEvent *ev) override;
@@ -19,4 +19,4 @@ protected:
 };
 
 
-#endif //LIFERHYTHM_STDIMGBUTTON_H
+#endif //LIFERHYTHM_IMGBUTTON_H

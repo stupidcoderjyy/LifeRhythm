@@ -102,9 +102,9 @@
 			null
 		],
 		[
-			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/lr/ui/tab/TabBar.h",
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/lr/ui/TabBar.h",
 			"MU",
-			"BYVBAFYG7M/moc_TabBar.cpp",
+			"RMHJLL7NTM/moc_TabBar.cpp",
 			null
 		],
 		[
@@ -294,27 +294,39 @@
 			null
 		],
 		[
-			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/widgetfactory/std/StdImgButton.h",
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/widgets/ImgButton.h",
 			"MU",
-			"4TFDLNUNCR/moc_StdImgButton.cpp",
+			"MROXUFLNXW/moc_ImgButton.cpp",
 			null
 		],
 		[
-			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/widgetfactory/std/StdImgLabel.h",
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/widgets/ImgLabel.h",
 			"MU",
-			"4TFDLNUNCR/moc_StdImgLabel.cpp",
+			"MROXUFLNXW/moc_ImgLabel.cpp",
 			null
 		],
 		[
-			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/widgetfactory/std/StdTextLabel.h",
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/widgets/ScrollArea.h",
 			"MU",
-			"4TFDLNUNCR/moc_StdTextLabel.cpp",
+			"MROXUFLNXW/moc_ScrollArea.cpp",
 			null
 		],
 		[
-			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/widgetfactory/std/StdWidget.h",
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/widgets/ScrollBar.h",
 			"MU",
-			"4TFDLNUNCR/moc_StdWidget.cpp",
+			"MROXUFLNXW/moc_ScrollBar.cpp",
+			null
+		],
+		[
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/widgets/TextLabel.h",
+			"MU",
+			"MROXUFLNXW/moc_TextLabel.cpp",
+			null
+		],
+		[
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/widgets/Widget.h",
+			"MU",
+			"MROXUFLNXW/moc_Widget.cpp",
 			null
 		],
 		[
@@ -374,6 +386,7 @@
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/08",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/09",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/0a",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/0b",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/0c",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/0d",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/0f",
@@ -385,6 +398,7 @@
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/15",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/16",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/18",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/19",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/1a",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/1b",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/1c",
@@ -542,6 +556,7 @@
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/bb",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/bc",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/bd",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/be",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/bf",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/c0",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/c1",
@@ -651,6 +666,7 @@
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir/src/util/serialize/parser",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir/src/util/widgetfactory",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir/src/util/widgetfactory/std",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir/src/widgets",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm_autogen.dir",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/d",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/pkgRedirects",
@@ -660,6 +676,7 @@
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/LifeRhythm_autogen/BYVBAFYG7M",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/LifeRhythm_autogen/D7EWSDQKEY",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/LifeRhythm_autogen/QFNB3N5DZY",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/LifeRhythm_autogen/RMHJLL7NTM",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/LifeRhythm_autogen/include",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/Testing",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/Testing/Temporary",
@@ -668,18 +685,16 @@
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/lr",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/lr/ui",
-		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/lr/ui/tab",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/compile",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/error",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/io",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/nbt",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/widgetfactory",
-		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/widgetfactory/std",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/widgets",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/lr",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/lr/ui",
-		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/lr/ui/tab",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/compile",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/error",
@@ -687,7 +702,7 @@
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/nbt",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/nbt/parser",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/widgetfactory",
-		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/widgetfactory/std",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/widgets",
 		"C:/Qt/5.15.2/mingw81_64/include",
 		"C:/Qt/5.15.2/mingw81_64/include/QtCore",
 		"C:/Qt/5.15.2/mingw81_64/mkspecs/win32-g++",
@@ -747,7 +762,7 @@
 			null
 		],
 		[
-			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/lr/ui/tab/TabBar.cpp",
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/lr/ui/TabBar.cpp",
 			"MU",
 			null
 		],
@@ -912,22 +927,32 @@
 			null
 		],
 		[
-			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/widgetfactory/std/StdImgButton.cpp",
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/widgets/ImgButton.cpp",
 			"MU",
 			null
 		],
 		[
-			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/widgetfactory/std/StdImgLabel.cpp",
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/widgets/ImgLabel.cpp",
 			"MU",
 			null
 		],
 		[
-			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/widgetfactory/std/StdTextLabel.cpp",
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/widgets/ScrollArea.cpp",
 			"MU",
 			null
 		],
 		[
-			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/widgetfactory/std/StdWidget.cpp",
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/widgets/ScrollBar.cpp",
+			"MU",
+			null
+		],
+		[
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/widgets/TextLabel.cpp",
+			"MU",
+			null
+		],
+		[
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/widgets/Widget.cpp",
 			"MU",
 			null
 		]
