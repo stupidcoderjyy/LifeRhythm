@@ -15,7 +15,7 @@
 #define CONSOLE_LIGHT_BLUE 9
 #define CONSOLE_RED 4
 
-#define debug(str) qDebug() << const_cast<char*>(str)
+#define debugPrint(str) qDebug() << const_cast<char*>(str)
 
 class QDataStream;
 
@@ -26,4 +26,6 @@ void printYellow(const QString& msg);
 void printBlue(const QString& msg);
 
 void checkFolders(const QString& folderPath);
+QString concatPath(QString path1, QString path2, QString path3);
+QString concatPath(QString path1, QString path2);
 #endif //PRACTICECONSOLE_IOUTIL_H

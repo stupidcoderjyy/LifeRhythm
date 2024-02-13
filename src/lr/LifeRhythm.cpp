@@ -3,8 +3,8 @@
 //
 
 #include "LifeRhythm.h"
-#include "WidgetFactoryStorage.h"
-#include "ImageStorage.h"
+#include "lr/resources/BuiltInWidgetFactoryStorage.h"
+#include "lr/resources/BuiltInImageStorage.h"
 #include "MainFrame.h"
 #include "TabBar.h"
 #include "IOUtil.h"
@@ -36,15 +36,15 @@ void LifeRhythm::preInit() {
 }
 
 void LifeRhythm::mainInit() {
-    ImageStorage::getInstance()->init("lr");
-    WidgetFactoryStorage::getInstance()->init("lr");
+    BuiltInImageStorage::getInstance()->init();
+    BuiltInWidgetFactoryStorage::getInstance()->init();
     WidgetFactory::init();
     TabBar::mainInit();
-    debug("init finished");
+    debugPrint("init finished");
 }
 
 void LifeRhythm::postInit() {
-    WidgetFactoryStorage::getInstance()->parseAll();
+    BuiltInWidgetFactoryStorage::getInstance()->parseAll();
 }
 
 LifeRhythm::LifeRhythm():QObject() {

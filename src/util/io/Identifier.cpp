@@ -62,7 +62,7 @@ Identifier Identifier::withPrefix(const QString &prefix) const {
 }
 
 QString Identifier::toFullPath() const {
-    return ":/assets/" + _namespace + "/" + _path;
+    return _namespace + "/" + _path;
 }
 
 QString Identifier::getPath() const {
@@ -71,14 +71,6 @@ QString Identifier::getPath() const {
 
 QString Identifier::getNamespace() const {
     return _namespace;
-}
-
-QFile Identifier::toFile() const {
-    return toFullPath();
-}
-
-QDir Identifier::toDir() const {
-    return toFullPath();
 }
 
 bool Identifier::operator<(const Identifier &rhs) const {
@@ -99,13 +91,4 @@ bool Identifier::operator<=(const Identifier &rhs) const {
 
 bool Identifier::operator>=(const Identifier &rhs) const {
     return !(*this < rhs);
-}
-
-QString Identifier::absolutePath(const QString &_namespace, const QString &path1, const QString &path2) {
-    QString res = ":/assets/" + _namespace;
-    if (path1.isEmpty()) {
-        return path2.isEmpty() ? res : res + "/" + path2;
-    }
-    res += "/" + path1;
-    return path2.isEmpty() ? res : res + "/" + path2;
 }

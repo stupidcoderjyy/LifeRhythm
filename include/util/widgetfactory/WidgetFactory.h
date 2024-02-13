@@ -15,7 +15,7 @@
 class NBT;
 
 class WidgetFactory{
-    friend class WidgetFactoryStorage;
+    friend class BuiltInWidgetFactoryStorage;
 public:
     typedef std::function<QWidget*(QWidget* parent)> Supplier;
     typedef StandardWidget::Handlers Handlers;

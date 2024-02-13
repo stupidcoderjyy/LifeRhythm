@@ -44,8 +44,6 @@ int *CompilerInput::getData() {
     return data;
 }
 
-#include "QDebug"
-
 int *CompilerInput::offerData() {
     if (removed.isEmpty()) {
         if (mPos == RESERVED_SIZE) {
@@ -167,21 +165,24 @@ QString CompilerInput::currentLine() {
 void CompilerInput::recover(bool consume) {
     BufferedInput::recover(consume);
     if (!markData.empty()) {
-        int* data = consume ? removeLastData() : markData.last();
-        row = data[0];
-        column = data[1];
-        int cs = data[2];
-        if (cs > 0) {
-            while (columnSizes.last() != cs) {
-                columnSizes.removeLast();
-            }
-        } else {
-            columnSizes.clear();
+        recover(consume ? removeLastData() : markData.last());
+    }
+}
+
+void CompilerInput::recoverFromData(int *data) {
+    row = data[0];
+    column = data[1];
+    int cs = data[2];
+    if (cs > 0) {
+        while (columnSizes.last() != cs) {
+            columnSizes.removeLast();
         }
-        int rb = data[3];
-        while (rowBegin.last() != rb) {
-            rowBegin.removeLast();
-        }
+    } else {
+        columnSizes.clear();
+    }
+    int rb = data[3];
+    while (rowBegin.last() != rb) {
+        rowBegin.removeLast();
     }
 }
 

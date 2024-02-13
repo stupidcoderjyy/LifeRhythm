@@ -37,3 +37,26 @@ void checkFolders(const QString &folderPath) {
         d.mkpath(folderPath);
     }
 }
+
+QString concatPath(QString path1, QString path2, QString path3) {
+    if (path1.isEmpty()) {
+        return concatPath(path2, path3);
+    }
+    if (path2.isEmpty()) {
+        return concatPath(path1, path3);
+    }
+    if (path3.isEmpty()) {
+        return concatPath(path1, path2);
+    }
+    return path1 + "/" + path2 + "/" + path3;
+}
+
+QString concatPath(QString path1, QString path2) {
+    if (path1.isEmpty()) {
+        return path2;
+    }
+    if (path2.isEmpty()) {
+        return path1;
+    }
+    return path1 + "/" + path2;
+}

@@ -33,10 +33,6 @@ public:
     QString toFullPath() const;
     QString getPath() const;
     QString getNamespace() const;
-    QFile toFile() const;
-    QDir toDir() const;
-
-    static QString absolutePath(const QString& _namespace, const QString& path1, const QString& path2);
 };
 
 #endif //LIFERHYTHM_IDENTIFIER_H

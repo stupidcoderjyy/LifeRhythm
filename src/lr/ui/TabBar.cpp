@@ -8,8 +8,8 @@
 #include "TabBar.h"
 #include "widgets/ImgLabel.h"
 #include "widgets/TextLabel.h"
-#include "ImageStorage.h"
-#include "WidgetFactoryStorage.h"
+#include "lr/resources/BuiltInImageStorage.h"
+#include "lr/resources/BuiltInWidgetFactoryStorage.h"
 
 WidgetFactory* TabBar::tabLoader = nullptr;
 
@@ -56,7 +56,7 @@ void TabCard::leaveEvent(QEvent *event) {
 }
 
 void TabCard::setIcon(const Identifier &id) {
-    QPixmap* img = ImageStorage::getInstance()->get(id);
+    QPixmap* img = BuiltInImageStorage::getInstance()->get(id);
     if (img) {
         if (img->width() == 30 && img->height() == 30) {
             iconLabel->setPixmap(*img);
@@ -201,7 +201,7 @@ bool TabBar::event(QEvent *event) {
 }
 
 void TabBar::mainInit() {
-    tabLoader = WidgetFactoryStorage::getInstance()->get("lr:tab");
+    tabLoader = BuiltInWidgetFactoryStorage::getInstance()->get("lr:tab");
     regClazz(tabLoader, TabCard);
     regClazz(tabLoader, CloseButton);
 }

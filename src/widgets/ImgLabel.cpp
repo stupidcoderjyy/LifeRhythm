@@ -5,7 +5,7 @@
 #include "widgets/ImgLabel.h"
 #include "Data.h"
 #include "NBT.h"
-#include "ImageStorage.h"
+#include "lr/resources/BuiltInImageStorage.h"
 #include "WidgetFactoryParsers.h"
 #include "WidgetUtil.h"
 
@@ -16,7 +16,7 @@ void ImgLabel::onPostParsing(Handlers &handlers, NBT *widgetTag) {
     QPixmap img{};
     if (widgetTag->contains("img", Data::STRING)) {
         Identifier loc = Identifier(widgetTag->get("img")->asString()->get());
-        img = *ImageStorage::getInstance()->get(loc);
+        img = *BuiltInImageStorage::getInstance()->get(loc);
     }
     if (!img.isNull() && widgetTag->contains("scale", Data::ARR)) {
         QSize scale = WidgetFactoryParsers::parseSize(widgetTag->get("scale")->asArray());

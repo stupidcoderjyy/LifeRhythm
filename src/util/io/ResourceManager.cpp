@@ -4,31 +4,32 @@
 
 #include "ResourceManager.h"
 
-ResourceType::ResourceType(QString pathPrefix, QString fileSuffix) :
-        pathPrefix(std::move(pathPrefix)),
-        pathSuffix(std::move(fileSuffix)) {
+ResourceType::ResourceType(QString typeDir, QString fileType) :
+        typeDir(std::move(typeDir)),
+        fileType(std::move(fileType)) {
 }
 
-Identifier ResourceType::buildFilePath(const Identifier &loc) const {
-    return loc.withPrefix(pathPrefix + "/").withSuffix(pathSuffix);
-}
-
-Identifier ResourceType::buildDirPath(const Identifier &loc) const {
-    if (loc.getPath().isEmpty()) {
-        return {loc.getNamespace(), pathPrefix};
+QString ResourceType::buildPath(const Identifier &loc) const {
+    if (typeDir.isEmpty()) {
+        return loc.getNamespace() + "/" + loc.getPath() + fileType;
     }
-    return loc.withPrefix(pathPrefix + "/");
+    return loc.getNamespace() + "/" + typeDir + "/" + loc.getPath() + fileType;
 }
 
-const QString &ResourceType::getPathPrefix() const {
-    return pathPrefix;
+const QString &ResourceType::getTypeDir() const {
+    return typeDir;
 }
 
-const QString &ResourceType::getPathSuffix() const {
-    return pathSuffix;
+const QString &ResourceType::getFileType() const {
+    return fileType;
 }
 
 ResourceType::ResourceType(ResourceType &&o) noexcept {
-    pathPrefix = std::move(o.pathPrefix);
-    pathSuffix = std::move(o.pathSuffix);
+    typeDir = std::move(o.typeDir);
+    fileType = std::move(o.fileType);
+}
+
+ResourceType::ResourceType(const ResourceType &o) {
+    typeDir = o.typeDir;
+    fileType = o.fileType;
 }

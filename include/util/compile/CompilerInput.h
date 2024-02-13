@@ -12,9 +12,9 @@
 #include "ErrorHandler.h"
 
 class CompilerInput : public BufferedInput{
-private:
-    static const int RESERVED_SIZE = 32;
-    static const int MARK_LEN = 5;
+protected:
+    static const int RESERVED_SIZE = 16;
+    static const int MARK_LEN = 8;
     static int** reservedMarks;
     static QVector<int*> removed;
     static int mPos;
@@ -24,7 +24,6 @@ private:
     QVector<int> columnSizes{};
     QVector<int> rowBegin{};
     QVector<int*> markData{};
-
 public:
     CompilerInput(IByteReader* reader, QString filePath, int bufSize = DEFAULT_BUFFER_SIZE);
     ~CompilerInput() override;
@@ -43,14 +42,13 @@ public:
     CompileError errorMarkToMark(const QString& msg);
     CompileError errorMarkToForward(const QString& msg);
 protected:
+    static int* offerData();
     void fillA() override;
     void fillB() override;
-private:
-    int* getData();
-    static int* offerData();
+    virtual int* getData();
     void removeFirstData();
     int* removeLastData();
-
+    virtual void recoverFromData(int* data);
     CompileError pointError(const QString& msg, int pos);
     CompileError rangedError(const QString& msg, int end, int start);
 };

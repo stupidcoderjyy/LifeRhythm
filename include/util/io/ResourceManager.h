@@ -6,25 +6,26 @@
 #define LIFERHYTHM_RESOURCEMANAGER_H
 
 #include "Identifier.h"
-#include "QDir"
-#include <QMap>
-#include <utility>
 #include "Error.h"
 #include "MemUtil.h"
+#include "IOUtil.h"
 #include "PrintErrorHandler.h"
 #include <QDebug>
+#include <QDir>
+#include <QMap>
+#include <utility>
 
 class ResourceType{
 private:
-    QString pathPrefix;
-    QString pathSuffix;
+    QString typeDir;
+    QString fileType;
 public:
-    ResourceType(QString pathPrefix, QString fileSuffix);
+    ResourceType(QString typeDir, QString fileType);
     ResourceType(ResourceType&& o) noexcept;
-    Identifier buildFilePath(const Identifier& loc) const;
-    Identifier buildDirPath(const Identifier& loc) const;
-    const QString &getPathPrefix() const;
-    const QString &getPathSuffix() const;
+    ResourceType(const ResourceType& o);
+    QString buildPath(const Identifier& loc) const;
+    const QString &getTypeDir() const;
+    const QString &getFileType() const;
 };
 
 template<class T>
@@ -33,19 +34,27 @@ protected:
     QMap<Identifier, T*> data;
     QStringList nameFilters;
     ResourceType type;
+    QString rootPath;
 public:
-    explicit ResourceManager(ResourceType type, QStringList nameFilters):
-            nameFilters(std::move(nameFilters)),
-            type(std::move(type)){
+    explicit ResourceManager(QString rootPath, ResourceType type):
+            nameFilters({'*' + type.getFileType()}),
+            type(std::move(type)),
+            rootPath(std::move(rootPath)){
     }
+
     T* get(const Identifier& loc) {
         return data.value(loc, nullptr);
     }
+
     bool exists(const Identifier& loc) {
         return data.contains(loc);
     }
-    void init(const QString& _namespace) {
-        _init(_namespace, "");
+
+    void init() {
+        QFileInfoList namespaces = QDir(rootPath).entryInfoList({}, QDir::AllDirs);
+        for (auto& ns : namespaces) {
+            _init(ns.baseName(), rootPath + "/" + ns.baseName() + "/" + type.getTypeDir(), "");
+        }
     }
 
     void unload(const QString& _namespace) {
@@ -67,12 +76,12 @@ public:
         DELETE_MAP(data)
     }
 protected:
-    virtual T* load(const Identifier& loc) = 0;
+    virtual T* load(const Identifier& loc, const QString& absolutePath) = 0;
     virtual void loadFailure(std::exception& e) noexcept {
     };
 private:
-    void _init(const QString& _namespace, const QString& childPath) {
-        QString dirPath = Identifier::absolutePath(_namespace, type.getPathPrefix(), childPath);
+    void _init(const QString& ns, const QString& basePath, const QString& childPath) {
+        QString dirPath = concatPath(basePath, childPath);
         QFileInfoList files = QDir(dirPath).entryInfoList(nameFilters, QDir::AllDirs | QDir::Files);
         for (auto& info : files) {
             QString extendedPath = childPath.isEmpty() ?
@@ -80,9 +89,9 @@ private:
                     childPath + "/" + info.baseName();
             if (info.isFile()) {
                 QString filePath = dirPath + "/" + info.fileName();
-                Identifier fileLoc = Identifier(_namespace, extendedPath);
+                Identifier fileLoc = Identifier(ns, extendedPath);
                 try {
-                    T* val = load(fileLoc);
+                    T* val = load(fileLoc, filePath);
                     data.insert(fileLoc, val);
                 } catch (std::exception& e) {
                     Error err("ResourceManager::_init", "failed to load resource '" + filePath + "'");
@@ -90,9 +99,16 @@ private:
                     loadFailure(e);
                 }
             } else {
-                _init(_namespace, extendedPath);
+                _init(ns, dirPath, extendedPath);
             }
         }
+    }
+};
+
+template<class T>
+class BuiltInResourceManager : public ResourceManager<T> {
+public:
+    explicit BuiltInResourceManager(const ResourceType &type):ResourceManager<T>(":/assets", type) {
     }
 };
 

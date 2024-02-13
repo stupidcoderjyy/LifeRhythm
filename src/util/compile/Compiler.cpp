@@ -87,7 +87,6 @@ Token* AbstractLexer::run() {
             delete token;
             return nullptr;
     }
-    return nullptr;
 }
 
 AbstractLexer::~AbstractLexer() {
