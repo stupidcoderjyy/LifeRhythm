@@ -130,7 +130,7 @@ bool NBT::contains(const QString &key, int type) {
 }
 
 NBT *NBT::fromStringNbt(const QString &path) {
-    return snbt::Parser(path).run();
+    return snbt::Parser::parse(path);
 }
 
 int NBT::getInt(const QString &key, int defaultVal) {

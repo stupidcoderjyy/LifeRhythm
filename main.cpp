@@ -1,23 +1,13 @@
 
-#include "LifeRhythm.h"
 #include <QApplication>
-
-#include <QLabel>
-#include "ScrollArea.h"
-#include "Styles.h"
+#include "CompilerInput.h"
+#include "Lexer.h"
+#include "NBT.h"
+#include <QDebug>
 
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
-//    LifeRhythm::launch();
-    ScrollArea area;
-    QLabel label(&area);
-    label.setStyleSheet(bg(Styles::GRAY_0));
-    QFont font = Styles::MAIN_FONT;
-    font.setPointSize(500);
-    label.setFont(font);
-    label.setText("Hello World");
-    area.setWidget(&label);
-    area.setFixedSize(500,500);
-    area.show();
+    auto* nbt = NBT::fromStringNbt(":/assets/lr/factories/tab.snbt");
+    qDebug() << nbt->toString();
     return QApplication::exec();
 }

@@ -1,5 +1,6 @@
+/*
+    a*a
 {
-    a: true
-    b: false
-    c: [true, false, "aaaa"]
+    //adwadwadwa
+
 }

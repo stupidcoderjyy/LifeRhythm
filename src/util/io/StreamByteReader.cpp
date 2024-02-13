@@ -11,6 +11,7 @@
 StreamByteReader::StreamByteReader(const QString &fileName) {
     file = new QFile(fileName);
     if (!file->exists()) {
+        delete file;
         throwInFunc("file not found:" + fileName);
     }
     file->open(QIODevice::ReadOnly);

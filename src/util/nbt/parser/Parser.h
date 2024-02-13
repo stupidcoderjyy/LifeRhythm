@@ -11,29 +11,21 @@ class NBT;
 
 namespace snbt {
     class Lexer;
-    class Parser{
+    class Parser : public AbstractSyntaxAnalyzer{
         friend class PropertyRoot;
-    public:
-        typedef std::function<Property*()> PropertySupplier;
     private:
-        int** actions{};
-        int** goTo{};
-        int* terminalRemap{};
-        QVector<Production*> productions{};
-        PropertySupplier* suppliers{};
-        Lexer* lexer{};
-        QVector<Symbol*> symbols{};
         NBT* result{};
-
     public:
-        explicit Parser(const QString& file);
-        NBT* run();
-        virtual ~Parser();
+        static NBT* parse(const QString& path);
+        ~Parser() override;
     private:
-        void initActions();
-        void initGoTo();
-        void initOthers();
-        void initGrammar();
+        explicit Parser(const QString& path);
+        void initActions() override;
+        void initGoTo() override;
+        void initOthers() override;
+        void initGrammar() override;
+    protected:
+        void onFailed() override;
     };
 
     class PropertyArr;
