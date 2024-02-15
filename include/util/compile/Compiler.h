@@ -98,8 +98,7 @@ protected:
     CompilerInput* input;
 public:
     AbstractLexer(CompilerInput* input, int statesCount, int startState);
-    virtual void init() = 0;
-    virtual Token* run();
+    virtual Token* run() noexcept;
     virtual ~AbstractLexer();
 };
 
@@ -118,14 +117,9 @@ protected:
     QVector<Symbol*> symbols{};
 public:
     AbstractSyntaxAnalyzer(AbstractLexer* lexer, int remap, int nonTerminal, int terminal, int states);
-    void init();
     void run();
     virtual ~AbstractSyntaxAnalyzer();
 protected:
-    virtual void initActions() = 0;
-    virtual void initGoTo() = 0;
-    virtual void initOthers() = 0;
-    virtual void initGrammar() = 0;
     virtual void onFinished();
     virtual void onFailed();
     virtual void onReduced();

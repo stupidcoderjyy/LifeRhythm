@@ -25,6 +25,7 @@ public:
     inline QVector<Data*>& get() {
         return data;
     }
+    void fillString(QStringList& target);
 protected:
     void serialize(IByteWriter *writer) override;
     void deserialize(IByteReader *reader) override;

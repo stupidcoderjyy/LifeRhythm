@@ -11,7 +11,7 @@
 MainFrame::MainFrame():QWidget() {
     setObjectName(Constants::NAME);
     showFullScreen();
-    setStyleSheet("#" + Constants::NAME + "{" + bg(Styles::BLACK) + "}");
+    setStyleSheet(qss_t(Constants::NAME, bg(Styles::BLACK)));
     auto* vLayout = new QVBoxLayout(this);
     vLayout->setContentsMargins(0,0,0,0);
     vLayout->setSpacing(0);

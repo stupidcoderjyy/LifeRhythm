@@ -8,7 +8,6 @@
 
 QMap<QString, Qt::AlignmentFlag> WidgetFactoryParsers::alignments{};
 QMap<QString, QSizePolicy::Policy> WidgetFactoryParsers::policies{};
-QMap<QString, QString> WidgetFactoryParsers::colors{};
 
 Qt::Alignment WidgetFactoryParsers::parseAlign(const QString &alignment) {
     if (alignment.isEmpty()) {
@@ -87,18 +86,6 @@ void WidgetFactoryParsers::init() {
     policies.insert("Fixed",QSizePolicy::Fixed);
     policies.insert("Ignored",QSizePolicy::Ignored);
     policies.insert("MinExpand",QSizePolicy::MinimumExpanding);
-
-    colors.insert("BLACK", Styles::BLACK);
-    colors.insert("GRAY_0", Styles::GRAY_0);
-    colors.insert("GRAY_1", Styles::GRAY_1);
-    colors.insert("GRAY_2", Styles::GRAY_2);
-    colors.insert("GRAY_3", Styles::GRAY_3);
-    colors.insert("GRAY_4", Styles::GRAY_4);
-    colors.insert("GRAY_4", Styles::GRAY_4);
-    colors.insert("CYAN_DARK", Styles::CYAN_DARK);
-    colors.insert("CYAN", Styles::CYAN);
-    colors.insert("CYAN_BRIGHT", Styles::CYAN_BRIGHT);
-    colors.insert("GRAY_TEXT_0", Styles::GRAY_TEXT_0);
 }
 
 QSize WidgetFactoryParsers::parseSize(ArrayData *arr) {
@@ -112,15 +99,4 @@ QSize WidgetFactoryParsers::parseSize(ArrayData *arr) {
         }
     }
     return {data[0]->asInt()->get(), data[1]->asInt()->get()};
-}
-
-QColor WidgetFactoryParsers::parseColor(const QString &str) {
-    if (str.isEmpty()) {
-        return {};
-    }
-    if (str[0] == '@') {
-        QString key = str.mid(1, str.length() - 1);
-        return colors.value(key, "#000000");
-    }
-    return str;
 }

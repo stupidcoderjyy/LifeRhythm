@@ -10,6 +10,10 @@ using namespace snbt;
 
 Parser::Parser(const QString& path):
         AbstractSyntaxAnalyzer(new Lexer(CompilerInput::fromFile(path)), 134, 8, 13, 26) {
+    initActions();
+    initGoTo();
+    initGrammar();
+    initOthers();
 }
 
 void Parser::onFailed() {
@@ -18,7 +22,6 @@ void Parser::onFailed() {
 
 NBT *Parser::parse(const QString &path) {
     Parser parser(path);
-    parser.init();
     parser.run();
     auto* nbt = parser.result;
     parser.result = nullptr;

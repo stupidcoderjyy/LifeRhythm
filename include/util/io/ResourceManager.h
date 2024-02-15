@@ -14,6 +14,7 @@
 #include <QDir>
 #include <QMap>
 #include <utility>
+#include "RcLoader.h"
 
 class ResourceType{
 private:
@@ -35,11 +36,13 @@ protected:
     QStringList nameFilters;
     ResourceType type;
     QString rootPath;
+    RcLoader<T>* loader;
 public:
-    explicit ResourceManager(QString rootPath, ResourceType type):
+    explicit ResourceManager(QString rootPath, ResourceType type, RcLoader<T>* loader):
             nameFilters({'*' + type.getFileType()}),
             type(std::move(type)),
-            rootPath(std::move(rootPath)){
+            rootPath(std::move(rootPath)),
+            loader(loader){
     }
 
     T* get(const Identifier& loc) {
@@ -63,7 +66,7 @@ public:
         while (it != data.end()) {
             if (it.key().getNamespace() == _namespace) {
                 targets << it.key();
-                delete it.value();
+                loader->deleteElement(it.value());
             }
             it++;
         }
@@ -72,13 +75,15 @@ public:
         }
     }
 
-    virtual ~ResourceManager() {
-        DELETE_MAP(data)
+    QMap<Identifier, T*>& getData() {
+        return data;
     }
-protected:
-    virtual T* load(const Identifier& loc, const QString& absolutePath) = 0;
-    virtual void loadFailure(std::exception& e) noexcept {
-    };
+
+    virtual ~ResourceManager() {
+        for (T* p : data) {
+            loader->deleteElement(p);
+        }
+    }
 private:
     void _init(const QString& ns, const QString& basePath, const QString& childPath) {
         QString dirPath = concatPath(basePath, childPath);
@@ -91,12 +96,12 @@ private:
                 QString filePath = dirPath + "/" + info.fileName();
                 Identifier fileLoc = Identifier(ns, extendedPath);
                 try {
-                    T* val = load(fileLoc, filePath);
+                    T* val = loader->load(fileLoc, filePath);
                     data.insert(fileLoc, val);
                 } catch (std::exception& e) {
                     Error err("ResourceManager::_init", "failed to load resource '" + filePath + "'");
                     PrintErrorHandler().onErrorCaught(err);
-                    loadFailure(e);
+                    loader->onLoadFailed(e);
                 }
             } else {
                 _init(ns, dirPath, extendedPath);
@@ -108,7 +113,56 @@ private:
 template<class T>
 class BuiltInResourceManager : public ResourceManager<T> {
 public:
-    explicit BuiltInResourceManager(const ResourceType &type):ResourceManager<T>(":/assets", type) {
+    explicit BuiltInResourceManager(const ResourceType &type, RcLoader<T>* loader):
+            ResourceManager<T>(":/assets", type, loader) {
+    }
+};
+
+#define STATIC_DEFINE(CLAZZ, TARGET) \
+    private:               \
+        static CLAZZ instance;     \
+    public:                \
+        static TARGET* get(const Identifier& loc) { return instance._get(loc); } \
+        static bool exists(const Identifier& loc) { return instance._exists(loc); } \
+        static void addManager(ResourceManager<TARGET>* manager) { instance._addManager(manager); } \
+        static void init() { instance._init(); } \
+    protected: CLAZZ();
+
+#define STATIC_INSTANCE(CLAZZ) CLAZZ CLAZZ::instance{};
+
+template<class T>
+class MultiSourceResourceManager {
+protected:
+    QVector<ResourceManager<T>*> managers{};
+protected:
+    T* _get(const Identifier& loc) {
+        T* res = nullptr;
+        for (ResourceManager<T>*& child : managers) {
+            res = child->get(loc);
+            if (res) {
+                break;
+            }
+        }
+        return res;
+    }
+
+    bool _exists(const Identifier& loc) {
+        for (ResourceManager<T>*& child : managers) {
+            if (child->exists(loc)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    void _addManager(ResourceManager<T>* manager) {
+        managers << manager;
+    }
+
+    void _init() {
+        for (ResourceManager<T>*& child : managers) {
+            child->init();
+        }
     }
 };
 

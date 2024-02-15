@@ -20,10 +20,10 @@ namespace snbt {
         ~Parser() override;
     private:
         explicit Parser(const QString& path);
-        void initActions() override;
-        void initGoTo() override;
-        void initOthers() override;
-        void initGrammar() override;
+        void initActions();
+        void initGoTo();
+        void initOthers();
+        void initGrammar();
     protected:
         void onFailed() override;
     };

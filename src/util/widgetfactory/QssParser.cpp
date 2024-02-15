@@ -122,6 +122,9 @@ void QssParser::init() {
     addStringReplaceItem("CYAN_DARK", Styles::CYAN_DARK);
     addStringReplaceItem("CYAN", Styles::CYAN);
     addStringReplaceItem("CYAN_BRIGHT", Styles::CYAN_BRIGHT);
+    addStringReplaceItem("RED", Styles::RED);
+    addStringReplaceItem("GOLD", Styles::GOLD);
+    addStringReplaceItem("GREEN", Styles::GREEN);
     registerItem(new BorderItem("bd", "border"));
     registerItem(new BorderItem("bd_b", "border-bottom"));
     registerItem(new BorderItem("bd_t", "border-top"));

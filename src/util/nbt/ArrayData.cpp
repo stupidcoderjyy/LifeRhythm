@@ -80,3 +80,12 @@ ArrayData *ArrayData::add(NBT *val) {
     data.append(val);
     return this;
 }
+
+void ArrayData::fillString(QStringList &target) {
+    for (auto& e : data) {
+        if (e->type != STRING) {
+            continue;
+        }
+        target << e->asString()->get();
+    }
+}

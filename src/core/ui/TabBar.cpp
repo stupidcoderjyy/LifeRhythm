@@ -6,10 +6,9 @@
 #include <QWheelEvent>
 #include <QScrollBar>
 #include "TabBar.h"
-#include "widgets/ImgLabel.h"
-#include "widgets/TextLabel.h"
-#include "lr/resources/BuiltInImageStorage.h"
-#include "lr/resources/BuiltInWidgetFactoryStorage.h"
+#include "ImgLabel.h"
+#include "TextLabel.h"
+#include "RcManagers.h"
 
 WidgetFactory* TabBar::tabLoader = nullptr;
 
@@ -56,7 +55,7 @@ void TabCard::leaveEvent(QEvent *event) {
 }
 
 void TabCard::setIcon(const Identifier &id) {
-    QPixmap* img = BuiltInImageStorage::getInstance()->get(id);
+    QPixmap* img = ImageStorage::get(id);
     if (img) {
         if (img->width() == 30 && img->height() == 30) {
             iconLabel->setPixmap(*img);
@@ -107,11 +106,11 @@ TabBar::TabBar(QWidget *parent) : QScrollArea(parent) {
     setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Maximum);
     setFixedHeight(61);
     viewport()->setObjectName("vp");
-    viewport()->setStyleSheet("#vp{" + bg(Styles::BLACK) + "}");
+    viewport()->setStyleSheet(qss_t("vp", bg(Styles::BLACK)));
     verticalScrollBar()->setVisible(false);
     contents = new ContentWidget(this);
     contents->setObjectName("contents");
-    contents->setStyleSheet("#contents{" + bg(Styles::BLACK) + bd_b("1px", "solid", Styles::GRAY_0) + "}");
+    contents->setStyleSheet(qss_t("contents", bg(Styles::BLACK) + bd_b("1px", "solid", Styles::GRAY_0)));
     contents->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Maximum);
     hLayout = new QHBoxLayout(contents);
     hLayout->setContentsMargins(0,0,0,1);
@@ -201,7 +200,7 @@ bool TabBar::event(QEvent *event) {
 }
 
 void TabBar::mainInit() {
-    tabLoader = BuiltInWidgetFactoryStorage::getInstance()->get("lr:tab");
+    tabLoader = WidgetFactoryStorage::get("lr:tab");
     regClazz(tabLoader, TabCard);
     regClazz(tabLoader, CloseButton);
 }

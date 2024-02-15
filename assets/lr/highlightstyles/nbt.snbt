@@ -1,0 +1,17 @@
+{
+    num: {
+        fg: "@CYAN_BRIGHT"
+    }
+    comment: {
+        fg: "@GRAY_3"
+    }
+    arr: {
+        fg: "@CYAN"
+    }
+    bool: {
+        fg: "@GOLD"
+    }
+    string: {
+        fg: "@GREEN"
+    }
+}

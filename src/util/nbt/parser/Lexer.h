@@ -13,7 +13,6 @@ namespace snbt {
         friend class Parser;
     public:
         explicit Lexer(CompilerInput* input);
-        void init() override;
     };
 
     class TokenInt : public Token{
@@ -54,6 +53,8 @@ namespace snbt {
     public:
         int type() override;
         MatchResult onMatched(const QString &lexeme, CompilerInput *input) override;
+    private:
+        static QMap<QString, int> initMap();
     };
 }
 #endif

@@ -4,7 +4,7 @@
 #include "WidgetFactory.h"
 #include "MemUtil.h"
 #include "NBT.h"
-#include "lr/resources/BuiltInWidgetFactoryStorage.h"
+#include "RcManagers.h"
 #include "QssParser.h"
 #include "FactoryInit.h"
 #include "WidgetFactoryParsers.h"
@@ -96,7 +96,7 @@ StandardWidget* WidgetFactory::parseWidgetType(NBT *nbt) {
     WidgetFactory* loader = nullptr;
     if (nbt->contains("loader", Data::STRING)) {
         Identifier loc = nbt->get("loader")->asString()->getLoc();
-        loader = BuiltInWidgetFactoryStorage::getInstance()->get(loc);
+        loader = WidgetFactoryStorage::get(loc);
         if (!loader) {
             throwInFunc("factory not found '" + loc.toString() + "'");
         }
@@ -184,7 +184,7 @@ WidgetFactory *WidgetFactory::findFactory(NBT* nbt, const QString &path) {
         int i = path.indexOf('$');
         QString loaderPath = path.mid(1, i > 0 ? i - 1 : path.length() - 1);
         Identifier loaderLoc = Identifier(loaderPath);
-        auto* loader = BuiltInWidgetFactoryStorage::getInstance()->get(loaderLoc);
+        auto* loader = WidgetFactoryStorage::get(loaderLoc);
         if (loader && i > 0) {
             QStringList children = path.mid(i, path.length() - i).split('/');
             for (auto& childId : children) {
@@ -408,7 +408,7 @@ void WidgetFactory::init() {
 }
 
 WidgetFactory *WidgetFactory::fromResource(const Identifier &loc) {
-    return BuiltInWidgetFactoryStorage::getInstance()->get(loc);
+    return WidgetFactoryStorage::get(loc);
 }
 
 WidgetFactory *WidgetFactory::fromNbt(const QString& id, NBT *nbt) {

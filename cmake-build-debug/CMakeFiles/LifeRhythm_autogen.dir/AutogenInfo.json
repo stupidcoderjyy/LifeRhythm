@@ -76,6 +76,7 @@
 		"C:/Qt/5.15.2/mingw81_64/lib/cmake/Qt5Concurrent/Qt5ConcurrentConfigVersion.cmake",
 		"C:/Qt/5.15.2/mingw81_64/lib/cmake/Qt5Concurrent/Qt5ConcurrentConfig.cmake",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/assets/lr/factories/factories.qrc",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/assets/lr/highlightstyles/styles.qrc",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/assets/lr/images/images.qrc"
 	],
 	"CMAKE_SOURCE_DIR" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm",
@@ -90,33 +91,39 @@
 			null
 		],
 		[
-			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/lr/LifeRhythm.h",
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/core/LifeRhythm.h",
 			"MU",
-			"D7EWSDQKEY/moc_LifeRhythm.cpp",
+			"TNQXAZC2F3/moc_LifeRhythm.cpp",
 			null
 		],
 		[
-			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/lr/resources/BuiltInImageStorage.h",
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/core/ui/MainFrame.h",
 			"MU",
-			"4VK33BI6S3/moc_BuiltInImageStorage.cpp",
+			"XRCZV7I7XM/moc_MainFrame.cpp",
 			null
 		],
 		[
-			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/lr/resources/BuiltInWidgetFactoryStorage.h",
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/core/ui/TabBar.h",
 			"MU",
-			"4VK33BI6S3/moc_BuiltInWidgetFactoryStorage.cpp",
+			"XRCZV7I7XM/moc_TabBar.cpp",
 			null
 		],
 		[
-			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/lr/ui/MainFrame.h",
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/resources/RcLoaders.h",
 			"MU",
-			"RMHJLL7NTM/moc_MainFrame.cpp",
+			"37W3SA3WEZ/moc_RcLoaders.cpp",
 			null
 		],
 		[
-			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/lr/ui/TabBar.h",
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/resources/RcManagers.h",
 			"MU",
-			"RMHJLL7NTM/moc_TabBar.cpp",
+			"37W3SA3WEZ/moc_RcManagers.cpp",
+			null
+		],
+		[
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/resources/RcTypes.h",
+			"MU",
+			"37W3SA3WEZ/moc_RcTypes.cpp",
 			null
 		],
 		[
@@ -174,15 +181,15 @@
 			null
 		],
 		[
-			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/highlight/HighlightInput.h",
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/highlight/Highlighter.h",
 			"MU",
-			"X3PN2TRYD2/moc_HighlightInput.cpp",
+			"X3PN2TRYD2/moc_Highlighter.cpp",
 			null
 		],
 		[
-			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/highlight/TextStyleFactory.h",
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/highlight/StyleParser.h",
 			"MU",
-			"X3PN2TRYD2/moc_TextStyleFactory.cpp",
+			"X3PN2TRYD2/moc_StyleParser.cpp",
 			null
 		],
 		[
@@ -213,6 +220,12 @@
 			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/io/Identifier.h",
 			"MU",
 			"VPQXD2J7Q3/moc_Identifier.cpp",
+			null
+		],
+		[
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/io/RcLoader.h",
+			"MU",
+			"VPQXD2J7Q3/moc_RcLoader.cpp",
 			null
 		],
 		[
@@ -330,6 +343,12 @@
 			null
 		],
 		[
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/widgets/TextEdit.h",
+			"MU",
+			"MROXUFLNXW/moc_TextEdit.cpp",
+			null
+		],
+		[
 			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/widgets/TextLabel.h",
 			"MU",
 			"MROXUFLNXW/moc_TextLabel.cpp",
@@ -339,6 +358,18 @@
 			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/widgets/Widget.h",
 			"MU",
 			"MROXUFLNXW/moc_Widget.cpp",
+			null
+		],
+		[
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/TestHighlighter.h",
+			"MU",
+			"UVLADIE3JM/moc_TestHighlighter.cpp",
+			null
+		],
+		[
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/nbt/highlight/NBTHighlighter.h",
+			"MU",
+			"GQNVELGCCL/moc_NBTHighlighter.cpp",
 			null
 		],
 		[
@@ -579,6 +610,7 @@
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/c3",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/c4",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/c5",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/c6",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/c7",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/c8",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/c9",
@@ -601,6 +633,7 @@
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/da",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/db",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/dc",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/dd",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/de",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/df",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/e0",
@@ -649,7 +682,6 @@
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/assets/lr/factories",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/assets/lr/highlightstyles",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/assets/lr/images",
-		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/assets/lr/images/a",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/.cmake",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/.cmake/api",
@@ -667,18 +699,23 @@
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir/LifeRhythm_autogen/7TR4P2QSDL",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir/LifeRhythm_autogen/EWIEGA46WW",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir/LifeRhythm_autogen/K3ZQPTXFS2",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir/LifeRhythm_autogen/PEBSYH3MMI",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir/LifeRhythm_autogen/QFNB3N5DZY",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir/src",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir/src/core",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir/src/core/ui",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir/src/lr",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir/src/lr/resources",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir/src/lr/ui",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir/src/lr/ui/tab",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir/src/resources",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir/src/util",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir/src/util/compile",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir/src/util/error",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir/src/util/highlight",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir/src/util/io",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir/src/util/nbt",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir/src/util/nbt/highlight",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir/src/util/nbt/parser",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir/src/util/serialize",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm.dir/src/util/serialize/compile",
@@ -691,19 +728,20 @@
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/pkgRedirects",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/LifeRhythm_autogen",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/LifeRhythm_autogen/7TR4P2QSDL",
-		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/LifeRhythm_autogen/D7EWSDQKEY",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/LifeRhythm_autogen/MROXUFLNXW",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/LifeRhythm_autogen/PEBSYH3MMI",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/LifeRhythm_autogen/QFNB3N5DZY",
-		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/LifeRhythm_autogen/RMHJLL7NTM",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/LifeRhythm_autogen/TNQXAZC2F3",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/LifeRhythm_autogen/XRCZV7I7XM",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/LifeRhythm_autogen/include",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/Testing",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/Testing/Temporary",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/plugins",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/plugins/platforms",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include",
-		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/lr",
-		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/lr/resources",
-		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/lr/ui",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/core",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/core/ui",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/resources",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/compile",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/error",
@@ -713,15 +751,16 @@
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/util/widgetfactory",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/widgets",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src",
-		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/lr",
-		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/lr/resources",
-		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/lr/ui",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/core",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/core/ui",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/resources",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/compile",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/error",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/highlight",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/io",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/nbt",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/nbt/highlight",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/nbt/parser",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/widgetfactory",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/widgets",
@@ -774,27 +813,37 @@
 			null
 		],
 		[
-			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/lr/LifeRhythm.cpp",
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/TestHighlighter.cpp",
 			"MU",
 			null
 		],
 		[
-			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/lr/resources/BuiltInImageStorage.cpp",
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/core/LifeRhythm.cpp",
 			"MU",
 			null
 		],
 		[
-			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/lr/resources/BuiltInWidgetFactoryStorage.cpp",
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/core/ui/MainFrame.cpp",
 			"MU",
 			null
 		],
 		[
-			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/lr/ui/MainFrame.cpp",
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/core/ui/TabBar.cpp",
 			"MU",
 			null
 		],
 		[
-			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/lr/ui/TabBar.cpp",
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/resources/RcLoaders.cpp",
+			"MU",
+			null
+		],
+		[
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/resources/RcManagers.cpp",
+			"MU",
+			null
+		],
+		[
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/resources/RcTypes.cpp",
 			"MU",
 			null
 		],
@@ -839,12 +888,12 @@
 			null
 		],
 		[
-			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/highlight/HighlightInput.cpp",
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/highlight/Highlighter.cpp",
 			"MU",
 			null
 		],
 		[
-			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/highlight/TextStyleFactory.cpp",
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/highlight/StyleParser.cpp",
 			"MU",
 			null
 		],
@@ -924,6 +973,11 @@
 			null
 		],
 		[
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/nbt/highlight/NBTHighlighter.cpp",
+			"MU",
+			null
+		],
+		[
 			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/nbt/parser/Lexer.cpp",
 			"MU",
 			null
@@ -975,6 +1029,11 @@
 		],
 		[
 			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/widgets/ScrollBar.cpp",
+			"MU",
+			null
+		],
+		[
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/widgets/TextEdit.cpp",
 			"MU",
 			null
 		],

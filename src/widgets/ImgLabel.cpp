@@ -5,7 +5,7 @@
 #include "widgets/ImgLabel.h"
 #include "Data.h"
 #include "NBT.h"
-#include "lr/resources/BuiltInImageStorage.h"
+#include "RcManagers.h"
 #include "WidgetFactoryParsers.h"
 #include "WidgetUtil.h"
 
@@ -15,8 +15,10 @@ ImgLabel::ImgLabel(QWidget *parent): QLabel(parent), StandardWidget() {
 void ImgLabel::onPostParsing(Handlers &handlers, NBT *widgetTag) {
     QPixmap img{};
     if (widgetTag->contains("img", Data::STRING)) {
-        Identifier loc = Identifier(widgetTag->get("img")->asString()->get());
-        img = *BuiltInImageStorage::getInstance()->get(loc);
+        Identifier loc = Identifier(widgetTag->getString("img"));
+        if (ImageStorage::exists(loc)) {
+            img = *ImageStorage::get(loc);
+        }
     }
     if (!img.isNull() && widgetTag->contains("scale", Data::ARR)) {
         QSize scale = WidgetFactoryParsers::parseSize(widgetTag->get("scale")->asArray());

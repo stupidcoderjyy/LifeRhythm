@@ -1,13 +1,10 @@
 
-#include "Lexer.h"
+#include "parser/Lexer.h"
 #include "CompilerInput.h"
 
 using namespace snbt;
 
 Lexer::Lexer(CompilerInput *input): AbstractLexer(input, 15, 7){
-}
-
-void Lexer::init() {
     goTo[4][95] = 4;
     goTo[5][70] = 12;
     goTo[5][102] = 12;
@@ -148,11 +145,11 @@ int TokenId::type() {
     return keyWords.value(data, 133);
 }
 
-QMap<QString, int> initMap() {
+QMap<QString, int> TokenId::initMap() {
     QMap<QString, int> map{};
     map.insert("false", 132);
     map.insert("true", 131);
     return map;
 }
 
-QMap<QString, int> TokenId::keyWords = initMap();
+QMap<QString, int> TokenId::keyWords = TokenId::initMap();

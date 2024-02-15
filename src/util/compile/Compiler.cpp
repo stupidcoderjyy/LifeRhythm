@@ -37,7 +37,7 @@ AbstractLexer::AbstractLexer(CompilerInput *input, int statesCount, int startSta
     goTo(allocateArray(statesCount, 128)){
 }
 
-Token* AbstractLexer::run() {
+Token* AbstractLexer::run() noexcept{
     BEGIN:
     input->skip(' ', '\r', '\n');
     input->mark();
@@ -181,14 +181,6 @@ void AbstractSyntaxAnalyzer::run() {
             }
         }
     }
-}
-
-void AbstractSyntaxAnalyzer::init() {
-    lexer->init();
-    initGrammar();
-    initActions();
-    initGoTo();
-    initOthers();
 }
 
 void AbstractSyntaxAnalyzer::onFinished() {

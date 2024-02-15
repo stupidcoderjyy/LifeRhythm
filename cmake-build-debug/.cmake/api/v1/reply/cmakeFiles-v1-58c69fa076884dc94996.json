@@ -308,6 +308,9 @@
 			"path" : "assets/lr/factories/factories.qrc"
 		},
 		{
+			"path" : "assets/lr/highlightstyles/styles.qrc"
+		},
+		{
 			"path" : "assets/lr/images/images.qrc"
 		}
 	],
