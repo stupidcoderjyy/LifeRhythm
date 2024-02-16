@@ -89,3 +89,16 @@ void ArrayData::fillString(QStringList &target) {
         target << e->asString()->get();
     }
 }
+
+void ArrayData::fillInt(int *arr, int len) {
+    for (auto& e : data) {
+        if (len == 0) {
+            break;
+        }
+        if (e->type != INT) {
+            continue;
+        }
+        *arr++ = e->asInt()->get();
+        len--;
+    }
+}

@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/assets/lr/factories">
         <file>tab.snbt</file>
+        <file>titled_dialog.snbt</file>
     </qresource>
 </RCC>

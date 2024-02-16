@@ -26,6 +26,7 @@ public:
         return data;
     }
     void fillString(QStringList& target);
+    void fillInt(int* arr, int len);
 protected:
     void serialize(IByteWriter *writer) override;
     void deserialize(IByteReader *reader) override;

@@ -14,7 +14,6 @@
 
 QVector<int*> CompilerInput::removed{};
 int CompilerInput::mPos = 0;
-int** CompilerInput::reservedMarks = allocateArray(RESERVED_SIZE, MARK_LEN);
 
 CompilerInput::CompilerInput(IByteReader *reader, QString filePath, int bufSize):
         filePath(std::move(filePath)), BufferedInput(reader, bufSize){
@@ -45,6 +44,7 @@ int *CompilerInput::getData() {
 }
 
 int *CompilerInput::offerData() {
+    static int** reservedMarks = allocateArray(RESERVED_SIZE, MARK_LEN);
     if (removed.isEmpty()) {
         if (mPos == RESERVED_SIZE) {
             delete reservedMarks;

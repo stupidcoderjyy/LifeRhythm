@@ -6,6 +6,7 @@
 #include "WidgetFactoryParsers.h"
 
 TextLabel::TextLabel(QWidget *parent):QLabel(parent), StandardWidget() {
+    setAlignment(Qt::AlignCenter);
 }
 
 void TextLabel::onPostParsing(Handlers &handlers, NBT *widgetTag) {
@@ -14,4 +15,11 @@ void TextLabel::onPostParsing(Handlers &handlers, NBT *widgetTag) {
 
 void TextLabel::onStateRespondersParsing(StandardWidget::Handlers &responders, NBT *stateTag) {
     onPostParsing(responders, stateTag);
+}
+
+void TextLabel::onFinishedParsing(StandardWidget::Handlers &handlers, NBT *widgetTag) {
+    handlers << [](QWidget* target) {
+        auto* label = static_cast<TextLabel*>(target);
+        label->setFixedHeight(QFontMetrics(label->font()).height());
+    };
 }

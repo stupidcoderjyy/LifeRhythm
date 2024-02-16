@@ -201,23 +201,22 @@ QString BufferedInput::capture() {
 }
 
 QString BufferedInput::capture(int end, int start) {
-    char* temp;
     int len;
     if (start < end) {
         len = end - start;
-        temp = new char[len + 1];
+        char temp[len + 1];
         memcpy(temp, buffer + start, len);
+        temp[len] = '\0';
+        return temp;
     } else {
         int lenB = bufEndB - start;
         len = lenB + end;
-        temp = new char[len + 1];
+        char temp[len + 1];
         memcpy(temp, buffer + start, lenB);
         memcpy(temp + lenB, buffer, end);
+        temp[len] = '\0';
+        return temp;
     }
-    temp[len] = '\0';
-    QString res = temp;
-    delete[] temp;
-    return res;
 }
 
 int BufferedInput::approach(int ch) {

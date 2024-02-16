@@ -13,6 +13,7 @@ public:
     explicit TextLabel(QWidget* parent);
     void onPostParsing(Handlers &handlers, NBT *widgetTag) override;
     void onStateRespondersParsing(Handlers &responders, NBT *stateTag) override;
+    void onFinishedParsing(Handlers &handlers, NBT *widgetTag) override;
 };
 
 

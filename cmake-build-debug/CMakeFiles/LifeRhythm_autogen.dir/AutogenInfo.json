@@ -109,6 +109,12 @@
 			null
 		],
 		[
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/core/ui/TitledDialog.h",
+			"MU",
+			"XRCZV7I7XM/moc_TitledDialog.cpp",
+			null
+		],
+		[
 			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/include/resources/RcLoaders.h",
 			"MU",
 			"37W3SA3WEZ/moc_RcLoaders.cpp",
@@ -361,9 +367,9 @@
 			null
 		],
 		[
-			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/TestHighlighter.h",
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/TestWidget.h",
 			"MU",
-			"UVLADIE3JM/moc_TestHighlighter.cpp",
+			"UVLADIE3JM/moc_TestWidget.cpp",
 			null
 		],
 		[
@@ -813,7 +819,7 @@
 			null
 		],
 		[
-			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/TestHighlighter.cpp",
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/TestWidget.cpp",
 			"MU",
 			null
 		],
@@ -829,6 +835,11 @@
 		],
 		[
 			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/core/ui/TabBar.cpp",
+			"MU",
+			null
+		],
+		[
+			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/core/ui/TitledDialog.cpp",
 			"MU",
 			null
 		],

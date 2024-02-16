@@ -48,15 +48,12 @@ QString QssParser::parseBlock(CompilerInput *input) {
             input->read();
             return res;
         }
-        case '@':
+        default:
+            input->retract();
             return parseItem(input);
         case ')':
             input->retract();
             break;
-        default: {
-            input->retract();
-            throw input->errorAtForward(QString("unexpected symbol '") + QChar(ch) + "'");
-        }
     }
     return "";
 }

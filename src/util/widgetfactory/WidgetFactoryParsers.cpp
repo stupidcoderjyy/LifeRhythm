@@ -89,14 +89,7 @@ void WidgetFactoryParsers::init() {
 }
 
 QSize WidgetFactoryParsers::parseSize(ArrayData *arr) {
-    auto data = arr->get();
-    if (data.length() != 2) {
-        throwInFunc("requires int[2]");
-    }
-    for (int i = 0 ; i < 2 ; i ++) {
-        if (data[i]->type != Data::INT) {
-            throwInFunc("invalid data type, requires int");
-        }
-    }
-    return {data[0]->asInt()->get(), data[1]->asInt()->get()};
+    int data[2]{0,0};
+    arr->fillInt(data, 2);
+    return {data[0], data[1]};
 }

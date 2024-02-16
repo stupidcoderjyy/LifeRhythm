@@ -42,16 +42,16 @@
 
     states: {
         s0: {
-            qss: "@t('tab', @bg(@GRAY_0))"
+            qss: "bg(GRAY_0)"
         }
         s1: {
-            qss: "@t('tab', @bg(@BLACK))"
+            qss: "bg(BLACK)"
         }
         s2: {
-            qss: "@t('tab', @bg(@CYAN_DARK) @bd_b('4px', 'solid', @CYAN_BRIGHT))"
+            qss: "bg(CYAN_DARK) bd_b('4px', 'solid', CYAN_BRIGHT)"
         }
         s3: {
-            qss: "@t('tab', @bg(@BLACK) @bd_b('4px', 'solid', @CYAN_BRIGHT))"
+            qss: "bg(BLACK) bd_b('4px', 'solid', CYAN_BRIGHT)"
         }
     }
 }

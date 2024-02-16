@@ -15,7 +15,6 @@ class CompilerInput : public BufferedInput{
 protected:
     static const int RESERVED_SIZE = 16;
     static const int MARK_LEN = 8;
-    static int** reservedMarks;
     static QVector<int*> removed;
     static int mPos;
     int row = 1;
@@ -45,7 +44,7 @@ protected:
     static int* offerData();
     void fillA() override;
     void fillB() override;
-    virtual int* getData();
+    int* getData();
     void removeFirstData();
     int* removeLastData();
     virtual void recoverFromData(int* data);

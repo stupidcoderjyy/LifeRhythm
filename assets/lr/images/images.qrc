@@ -4,5 +4,6 @@
         <file>icon_30.png</file>
         <file>tab_close_hovered.png</file>
         <file>tab_close_normal.png</file>
+        <file>dialog_close.png</file>
     </qresource>
 </RCC>

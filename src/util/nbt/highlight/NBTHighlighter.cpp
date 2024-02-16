@@ -174,7 +174,6 @@ NBTHighlighter::NBTHighlighter(NBTContext *ctx, Lexer *lexer, QTextDocument *par
 }
 
 void NBTHighlighter::highlightBlock(const QString &text) {
-    return;
     setCurrentBlockState(0);
     if (ctx->globalFailure) {
         setFormat(0, text.length(), Styles::FORMAT_ERROR);

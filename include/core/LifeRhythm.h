@@ -14,14 +14,16 @@ class LifeRhythm : public QObject{
     Q_OBJECT
 private:
     static LifeRhythm* lr;
-    MainFrame* mainFrame;
+    MainFrame* mainFrame{};
 public:
     static LifeRhythm* get();
     static void launch();
+    void generateTitledDialog(const QString& title, QWidget* content) const;
 signals:
     void sigPreInit();
     void sigMainInit();
     void sigPostInit();
+    void sigCloseDialog();
 private:
     LifeRhythm();
     void launch0();

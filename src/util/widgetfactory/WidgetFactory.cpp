@@ -102,7 +102,7 @@ StandardWidget* WidgetFactory::parseWidgetType(NBT *nbt) {
         }
     }
     //组件类型，如果使用外部加载器，则stdType会被忽略（别手贱写个不存在的type）
-    QString type = nbt->getString("type", "std_widget");
+    QString type = nbt->getString("type", "Widget");
     //检查组件类型
     StandardWidget* stdWidget = stdEmptyInstances.value(type);
     if (!stdWidget) {
@@ -210,12 +210,17 @@ WidgetFactory *WidgetFactory::findFactory(NBT* nbt, const QString &path) {
 }
 
 void WidgetFactory::parseQss(Handlers& op, NBT *nbt) {
-    if (!nbt->contains("qss", Data::STRING)) {
+    bool absolute = nbt->contains("qss_a", Data::STRING);
+    if (!nbt->contains("qss", Data::STRING) && !absolute) {
         return;
     }
-    QString qss = QssParser::translate(nbt->getString("qss"));
-    op << [qss](QWidget* target) {
-        target->setStyleSheet(qss);
+    QString qss = QssParser::translate(absolute ? nbt->getString("qss_a") : nbt->getString("qss"));
+    op << [qss, absolute](QWidget* target) {
+        if (absolute) {
+            target->setStyleSheet(qss);
+        } else {
+            target->setStyleSheet('#' + target->objectName() + '{' + qss + '}');
+        }
     };
 }
 

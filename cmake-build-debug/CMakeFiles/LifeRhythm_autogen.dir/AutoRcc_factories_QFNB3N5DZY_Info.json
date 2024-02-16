@@ -7,7 +7,8 @@
 	"INCLUDE_DIR" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/LifeRhythm_autogen/include",
 	"INPUTS" : 
 	[
-		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/assets/lr/factories/tab.snbt"
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/assets/lr/factories/tab.snbt",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/assets/lr/factories/titled_dialog.snbt"
 	],
 	"LOCK_FILE" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/LifeRhythm_autogen.dir/AutoRcc_factories_QFNB3N5DZY_Lock.lock",
 	"MULTI_CONFIG" : false,
