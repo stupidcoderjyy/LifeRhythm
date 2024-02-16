@@ -14,9 +14,9 @@ const QString Styles::GRAY_1 = "#363636";
 const QString Styles::GRAY_2 = "#444444";
 const QString Styles::GRAY_3 = "#525252";
 const QString Styles::GRAY_4 = "#606060";
-const QString Styles::CYAN_DARK = "#2b5c61";
-const QString Styles::CYAN = "#3f7479";
-const QString Styles::CYAN_BRIGHT = "#5fa1ae";
+const QString Styles::CYAN_DARK = "#204548";
+const QString Styles::CYAN = "#3a6f74";
+const QString Styles::CYAN_BRIGHT = "#4d8f95";
 const QString Styles::RED = "#ff2b59";
 const QString Styles::GOLD = "#eecd66";
 const QString Styles::GREEN = "#48723c";
@@ -76,13 +76,6 @@ void Styles::initStyles() {
 }
 
 QColor Styles::parseColor(const QString &str) {
-    if (str.isEmpty()) {
-        return {};
-    }
-    if (str[0] == '@') {
-        QString key = str.mid(1, str.length() - 1);
-        return colors.value(key, {});
-    }
-    return str;
+    return colors.value(str, QColor(str));
 }
 

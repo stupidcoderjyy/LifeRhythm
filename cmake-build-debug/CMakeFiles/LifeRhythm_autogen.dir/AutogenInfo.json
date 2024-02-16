@@ -367,12 +367,6 @@
 			null
 		],
 		[
-			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/TestWidget.h",
-			"MU",
-			"UVLADIE3JM/moc_TestWidget.cpp",
-			null
-		],
-		[
 			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/util/nbt/highlight/NBTHighlighter.h",
 			"MU",
 			"GQNVELGCCL/moc_NBTHighlighter.cpp",
@@ -529,6 +523,7 @@
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/69",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/6a",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/6b",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/6c",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/6d",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/6e",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/6f",
@@ -544,6 +539,7 @@
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/7a",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/7b",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/7c",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/7d",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/7e",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/7f",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/.git/objects/80",
@@ -733,13 +729,6 @@
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/d",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/CMakeFiles/pkgRedirects",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/LifeRhythm_autogen",
-		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/LifeRhythm_autogen/7TR4P2QSDL",
-		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/LifeRhythm_autogen/MROXUFLNXW",
-		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/LifeRhythm_autogen/PEBSYH3MMI",
-		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/LifeRhythm_autogen/QFNB3N5DZY",
-		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/LifeRhythm_autogen/TNQXAZC2F3",
-		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/LifeRhythm_autogen/XRCZV7I7XM",
-		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/LifeRhythm_autogen/include",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/Testing",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/Testing/Temporary",
 		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/cmake-build-debug/plugins",
@@ -815,11 +804,6 @@
 		],
 		[
 			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/Constants.cpp",
-			"MU",
-			null
-		],
-		[
-			"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/src/TestWidget.cpp",
 			"MU",
 			null
 		],

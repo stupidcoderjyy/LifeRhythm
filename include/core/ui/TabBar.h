@@ -63,7 +63,7 @@ public:
     TabWidget* content;
     TabCard* card;
     Tab(TabWidget *content, TabCard *card);
-    virtual ~Tab();
+    ~Tab();
 };
 
 class WidgetFactory;

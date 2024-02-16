@@ -1,17 +1,17 @@
 {
     num: {
-        fg: "@CYAN_BRIGHT"
+        fg: "CYAN_BRIGHT"
     }
     comment: {
-        fg: "@GRAY_3"
+        fg: "GRAY_3"
     }
     arr: {
-        fg: "@CYAN"
+        fg: "CYAN"
     }
     bool: {
-        fg: "@GOLD"
+        fg: "GOLD"
     }
     string: {
-        fg: "@GREEN"
+        fg: "GREEN"
     }
 }
