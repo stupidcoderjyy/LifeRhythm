@@ -1,5 +1,0 @@
-C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/build-debug/CMakeFiles/LifeRhythm.dir
-C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/build-debug/CMakeFiles/edit_cache.dir
-C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/build-debug/CMakeFiles/rebuild_cache.dir
-C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/build-debug/CMakeFiles/LifeRhythm_autogen_timestamp_deps.dir
-C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/build-debug/CMakeFiles/LifeRhythm_autogen.dir

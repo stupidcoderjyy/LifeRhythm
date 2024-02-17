@@ -39,7 +39,7 @@ int *CompilerInput::getData() {
     data[1] = qMax(0, column);
     data[2] = columnSizes.empty() ? -1 : columnSizes.last();
     data[3] = rowBegin.last();
-    data[4] = forward;
+    data[4] = next;
     return data;
 }
 
@@ -63,7 +63,7 @@ CompilerInput::~CompilerInput() {
 }
 
 void CompilerInput::mark() {
-    marks.append(forward);
+    marks.append(next);
     markData.append(getData());
 }
 
@@ -84,7 +84,7 @@ int* CompilerInput::removeLastData() {
 }
 
 int CompilerInput::retract() {
-    if (!markData.isEmpty() && markData.last()[4] == forward) {
+    if (!markData.isEmpty() && markData.last()[4] == next) {
         removeFirstData();
     }
     int b = BufferedInput::retract();
@@ -110,7 +110,7 @@ int CompilerInput::read() {
     switch (b) {
         case '\n': {
             row++;
-            rowBegin.append(forward);
+            rowBegin.append(next);
             columnSizes.append(column);
             column = 0;
             break;
@@ -157,7 +157,7 @@ QString CompilerInput::currentLine() {
     int start = rowBegin.empty() ? 0 : rowBegin.last();
     mark();
     approach('\r');
-    QString res = capture(forward, start);
+    QString res = capture(next, start);
     BufferedInput::recover();
     return res;
 }

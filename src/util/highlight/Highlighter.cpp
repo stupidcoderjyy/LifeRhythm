@@ -10,19 +10,17 @@
 
 using namespace highlight;
 
-Input::Input(const QString& blockText):
-        BufferedInput(new StringByteReader(blockText), 128),
-        text(blockText){
+Input::Input(const QString& blockText):StringInput(blockText){
 }
 
 int Input::read() {
     pos++;
-    return BufferedInput::read();
+    return StringInput::read();
 }
 
 QString Input::readUtf() {
     int prev = pos;
-    auto res = BufferedInput::readUtf();
+    auto res = StringInput::readUtf();
     pos = prev + 1;
     return res;
 }
@@ -41,11 +39,11 @@ void Input::retractUtf(int count) {
 
 int Input::retract() {
     pos--;
-    return BufferedInput::retract();
+    return StringInput::retract();
 }
 
 int Input::retract(int count) {
-    return BufferedInput::retract(count);
+    return StringInput::retract(count);
 }
 
 int Token::type() {

@@ -7,15 +7,14 @@
 
 #include <QSyntaxHighlighter>
 #include "Identifier.h"
-#include "BufferedInput.h"
+#include "StringInput.h"
 
 namespace highlight {
 
 class Context{};
 
-class Input : public BufferedInput{
+class Input : public StringInput{
 public:
-    QString text;
     int pos = 0;
 public:
     explicit Input(const QString& blockText);
