@@ -1,0 +1,26 @@
+{
+	"BUILD_DIR" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/build-debug/LifeRhythm_autogen",
+	"CMAKE_BINARY_DIR" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/build-debug",
+	"CMAKE_CURRENT_BINARY_DIR" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/build-debug",
+	"CMAKE_CURRENT_SOURCE_DIR" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm",
+	"CMAKE_SOURCE_DIR" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm",
+	"INCLUDE_DIR" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/build-debug/LifeRhythm_autogen/include",
+	"INPUTS" : 
+	[
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/assets/lr/images/tab_close_hovered.png",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/assets/lr/images/icon_256.png",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/assets/lr/images/tab_close_normal.png",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/assets/lr/images/dialog_close.png",
+		"C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/assets/lr/images/icon_30.png"
+	],
+	"LOCK_FILE" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/build-debug/CMakeFiles/LifeRhythm_autogen.dir/AutoRcc_images_7TR4P2QSDL_Lock.lock",
+	"MULTI_CONFIG" : false,
+	"OPTIONS" : [ "-name", "images" ],
+	"OUTPUT_CHECKSUM" : "7TR4P2QSDL",
+	"OUTPUT_NAME" : "qrc_images.cpp",
+	"RCC_EXECUTABLE" : "C:/Qt/5.15.2/mingw81_64/bin/rcc.exe",
+	"RCC_LIST_OPTIONS" : [ "--list" ],
+	"SETTINGS_FILE" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/build-debug/CMakeFiles/LifeRhythm_autogen.dir/AutoRcc_images_7TR4P2QSDL_Used.txt",
+	"SOURCE" : "C:/Users/stupid_coder_jyy/CLionProjects/LifeRhythm/assets/lr/images/images.qrc",
+	"VERBOSITY" : 0
+}
