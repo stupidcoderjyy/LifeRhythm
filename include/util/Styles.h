@@ -28,7 +28,7 @@ public:
     const static QString GRAY_TEXT_0;
     const static QString FF_ZH;
     const static QString FF_EN;
-    const static QString TRANSPARENT;
+    const static QString CLEAR;
     const static int FS_MEDIUM;
     static QTextCharFormat FORMAT_DEFAULT;
     static QTextCharFormat FORMAT_ERROR;

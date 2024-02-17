@@ -10,6 +10,8 @@
 #include "TextLabel.h"
 #include "RcManagers.h"
 
+USING_LR
+
 WidgetFactory* TabBar::tabLoader = nullptr;
 
 TabWidget::TabWidget(QWidget *parent) : Widget(parent) {

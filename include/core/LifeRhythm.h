@@ -7,6 +7,19 @@
 
 #include <QString>
 #include <QObject>
+#include "Plugin.h"
+
+LR_BEGIN
+
+class LifeRhythm;
+
+class PluginErrorHandler : public ErrorHandler<Error> {
+private:
+    LifeRhythm* lr;
+public:
+    explicit PluginErrorHandler(LifeRhythm *lr);
+    void onErrorCaught(Error &err) override;
+};
 
 class MainFrame;
 
@@ -15,10 +28,12 @@ class LifeRhythm : public QObject{
 private:
     static LifeRhythm* lr;
     MainFrame* mainFrame{};
+    PluginManager pluginManager;
+    PluginErrorHandler pluginErrorHandler;
 public:
     static LifeRhythm* get();
-    static void launch();
-    void generateTitledDialog(const QString& title, QWidget* content) const;
+    static int launch(int argc, char *argv[]);
+    static void generateTitledDialog(const QString& title, QWidget* content);
 signals:
     void sigPreInit();
     void sigMainInit();
@@ -32,5 +47,6 @@ private:
     void postInit();
 };
 
+LR_END
 
 #endif //LIFERHYTHM_LIFERHYTHM_H

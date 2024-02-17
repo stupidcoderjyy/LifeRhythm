@@ -11,6 +11,8 @@
 #include <QPropertyAnimation>
 #include <QLayout>
 
+USING_LR
+
 TitledDialog::TitledDialog(QWidget *parent):QDialog(parent),StandardWidget() {
 }
 

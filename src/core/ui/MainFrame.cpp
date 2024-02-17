@@ -8,6 +8,8 @@
 #include "TabBar.h"
 #include <QVBoxLayout>
 
+USING_LR
+
 MainFrame::MainFrame():QWidget() {
     setObjectName(Constants::NAME);
     showFullScreen();

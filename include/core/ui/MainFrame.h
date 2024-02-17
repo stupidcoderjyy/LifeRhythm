@@ -6,6 +6,9 @@
 #define LIFERHYTHM_MAINFRAME_H
 
 #include <QMainWindow>
+#include "Namespaces.h"
+
+LR_BEGIN
 
 class TabBar;
 
@@ -16,6 +19,8 @@ private:
 public:
     MainFrame();
 };
+
+LR_END
 
 
 #endif //LIFERHYTHM_MAINFRAME_H

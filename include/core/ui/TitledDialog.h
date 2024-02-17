@@ -9,8 +9,12 @@
 #include "StandardWidget.h"
 #include "ImgLabel.h"
 #include "Widget.h"
+#include "Namespaces.h"
 
 class TextLabel;
+
+LR_BEGIN
+
 class DialogCloseButton;
 
 class TitledDialog : public QDialog, public StandardWidget {
@@ -47,5 +51,6 @@ protected:
     void mouseMoveEvent(QMouseEvent *event) override;
 };
 
+LR_END
 
 #endif //LIFERHYTHM_TITLEDDIALOG_H

@@ -9,6 +9,7 @@ template<class T>
 class ErrorHandler {
 public:
     virtual void onErrorCaught(T& err) = 0;
+    virtual ~ErrorHandler() = default;
 };
 
 #endif //LIFERHYTHM_ERRORHANDLER_H

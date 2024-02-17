@@ -9,6 +9,16 @@
 #include "RcManagers.h"
 #include "TitledDialog.h"
 #include <QtConcurrent>
+#include <QApplication>
+
+USING_LR
+
+void PluginErrorHandler::onErrorCaught(Error &err) {
+    qDebug() << ("failed to load plugin: " + err.why + ", at: " + err.where).toUtf8().data();
+}
+
+PluginErrorHandler::PluginErrorHandler(LifeRhythm *lr):lr(lr) {
+}
 
 LifeRhythm* LifeRhythm::lr{};
 
@@ -16,8 +26,10 @@ LifeRhythm *LifeRhythm::get() {
     return lr;
 }
 
-void LifeRhythm::launch() {
+int LifeRhythm::launch(int argc, char *argv[]) {
+    QApplication app(argc, argv);
     (lr = new LifeRhythm())->launch0();
+    return QApplication::exec();
 }
 
 void LifeRhythm::launch0() {
@@ -35,10 +47,12 @@ void LifeRhythm::launch0() {
 void LifeRhythm::preInit() {
     QTextCodec::setCodecForLocale(QTextCodec::codecForName("UTF-8"));
     Styles::initStyles();
+    pluginManager.preInit();
     mainFrame = new MainFrame();
 }
 
 void LifeRhythm::mainInit() {
+    pluginManager.mainInit();
     ImageStorage::init();
     WidgetFactoryStorage::init();
     WidgetFactory::init();
@@ -51,7 +65,9 @@ void LifeRhythm::postInit() {
     WidgetFactoryStorage::parseAll();
 }
 
-LifeRhythm::LifeRhythm():QObject() {
+LifeRhythm::LifeRhythm(): QObject(), pluginErrorHandler(this), pluginManager() {
+    pluginManager.setErrorHandler(&pluginErrorHandler);
+    pluginManager.addSearchPath("testplugins");
     connect(this, &LifeRhythm::sigPostInit, this, [this](){
         mainFrame->tabBar->insertTab("LifeRhythm 你好世界", new TabWidget());
         auto* label = new QLabel();
@@ -61,10 +77,10 @@ LifeRhythm::LifeRhythm():QObject() {
     }, Qt::QueuedConnection);
 }
 
-void LifeRhythm::generateTitledDialog(const QString &title, QWidget *content) const {
+void LifeRhythm::generateTitledDialog(const QString &title, QWidget *content) {
     auto* dialog = static_cast<TitledDialog*>(WidgetFactoryStorage::get("lr:titled_dialog")->apply());
     dialog->setContent(title, content);
-    connect(this, &LifeRhythm::sigCloseDialog, dialog->closeButton, &CloseButton::sigActivated);
+    connect(lr, &LifeRhythm::sigCloseDialog, dialog->closeButton, &CloseButton::sigActivated);
     auto* animation = new QPropertyAnimation(dialog,"windowOpacity");
     animation->setDuration(100);
     animation->setStartValue(0);

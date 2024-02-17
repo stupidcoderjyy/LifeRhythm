@@ -1,9 +1,9 @@
 
-#include <QApplication>
 #include "LifeRhythm.h"
+#include "QDebug"
+
+USING_LR
 
 int main(int argc, char *argv[]) {
-    QApplication app(argc, argv);
-    LifeRhythm::launch();
-    return QApplication::exec();
+    return LifeRhythm::launch(argc, argv);
 }

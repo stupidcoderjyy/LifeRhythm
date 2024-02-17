@@ -8,10 +8,14 @@
 #include "widgets/Widget.h"
 #include "widgets/ImgLabel.h"
 #include "Identifier.h"
+#include "Namespaces.h"
 #include <QScrollArea>
 #include <QHBoxLayout>
 
+class WidgetFactory;
 class TextLabel;
+
+LR_BEGIN
 class CloseButton;
 
 class TabWidget : public Widget {
@@ -66,8 +70,6 @@ public:
     ~Tab();
 };
 
-class WidgetFactory;
-
 class ContentWidget : public QWidget {
     Q_OBJECT
 public:
@@ -101,5 +103,7 @@ signals:
 protected:
     bool event(QEvent *event) override;
 };
+
+LR_END
 
 #endif //LIFERHYTHM_TABBAR_H
