@@ -6,6 +6,7 @@
 #include "Plugin.h"
 #include "StringInput.h"
 #include "windows.h"
+#include "LifeRhythm.h"
 #include <utility>
 #include <QDir>
 
@@ -124,12 +125,12 @@ Version PluginManager::checkVersion(const QString& path, const QString& ver) {
         throw Error(path, "invalid version: " + ver);
     }
     Version version(major, minor);
-    if (version == Constants::API_VERSION) {
+    if (version == LifeRhythm::API_VERSION) {
         return version;
     }
     throw Error(path, "mismatched api version, "
             "required: '" + ver + "', "
-            "provided: '" + Constants::API_VERSION.toString() + "'");
+            "provided: '" + LifeRhythm::API_VERSION.toString() + "'");
 }
 
 void PluginManager::initPlugins() {
@@ -144,14 +145,14 @@ void PluginManager::initPlugins() {
     QVector<Plugin*> waitStack;
     waitStack << plugins.first();
     while (!waitStack.empty()) {
-        Plugin* target = waitStack.takeLast();
+        Plugin* target = waitStack.last();
         if (target->dependencies.empty() || visited[target->regId]) {
             target->load();
             emit sigPluginMainInit(target);
+            waitStack.removeLast();
             continue;
         }
         visited[target->regId] = true;
-        waitStack << target;
         for (Plugin* child : target->dependencies) {
             if (child->loaded) {
                 continue;

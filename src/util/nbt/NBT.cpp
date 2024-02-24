@@ -4,7 +4,7 @@
 #include "NBT.h"
 #include <QStringBuilder>
 #include "Error.h"
-#include "nbt/parser/Parser.h"
+#include "./parser/Parser.h"
 
 NBT::NBT(): Data(COMPOUND) {
 }

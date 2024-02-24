@@ -2,12 +2,10 @@
 // Created by stupid_coder_jyy on 2024/2/11.
 //
 
-#include "Constants.h"
+#include "Config.h"
+#include "Error.h"
 
 USING_LR
-
-const QString Constants::NAME = "LifeRhythm-dev";
-const Version Constants::API_VERSION(1, 0);
 
 Version::Version(int major, int minor): major(major), minor(minor) {
 }
@@ -52,4 +50,19 @@ bool Version::operator>=(const Version &rhs) const {
 
 QString Version::toString() const {
     return QString::number(major) + "." + QString::number(minor);
+}
+
+const QString &Config::getSavePath() const {
+    return savePath;
+}
+
+void Config::setSavePath(const QString &path) {
+    if (frozen) {
+        throwInFunc("frozen");
+    }
+    Config::savePath = path;
+}
+
+void Config::froze() {
+    frozen = true;
 }

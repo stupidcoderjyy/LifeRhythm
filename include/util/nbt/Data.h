@@ -29,11 +29,12 @@ public:
     static const char FLOAT = 4;
     static const char STRING = 5;
     static const char COMPOUND = 6;
-    static const char ARR = 7;
-    static const char TAG = 8;
-    static const char BOOL = 9;
+    static const char TAG = 7;
+    static const char BOOL = 8;
+    static const char ARR = 9;
 
 public:
+    static Data* parseData(IByteReader* reader);
     explicit Data(char type);
     IntData* asInt();
     ArrayData* asArray();
@@ -41,13 +42,11 @@ public:
     FloatData* asFloat();
     BoolData* asBool();
     NBT* asCompound();
+    virtual void serialize(IByteWriter* writer) = 0;
+    virtual void deserialize(IByteReader* reader) = 0;
     virtual QString toString() = 0;
     virtual Data* copy() = 0;
     virtual ~Data() = default;
-protected:
-    virtual void serialize(IByteWriter* writer) = 0;
-    virtual void deserialize(IByteReader* reader) = 0;
-    static Data* parseData(IByteReader* reader);
 };
 
 #endif //LIFERHYTHM_DATA_H

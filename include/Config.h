@@ -2,8 +2,8 @@
 // Created by stupid_coder_jyy on 2024/2/11.
 //
 
-#ifndef LIFERHYTHM_CONSTANTS_H
-#define LIFERHYTHM_CONSTANTS_H
+#ifndef LIFERHYTHM_CONFIG_H
+#define LIFERHYTHM_CONFIG_H
 
 #include <QString>
 #include "Namespaces.h"
@@ -27,13 +27,17 @@ public:
     bool operator>=(const Version &rhs) const;
 };
 
-class Constants {
+class Config {
+private:
+    QString savePath{};
+    bool frozen{};
 public:
-    static const QString NAME;
-    static const Version API_VERSION;
+    const QString &getSavePath() const;
+    void setSavePath(const QString &savePath);
+    void froze();
 };
 
 LR_END
 
 
-#endif //LIFERHYTHM_CONSTANTS_H
+#endif //LIFERHYTHM_CONFIG_H

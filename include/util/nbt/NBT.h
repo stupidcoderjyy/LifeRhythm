@@ -42,9 +42,9 @@ public:
     QString toString() override;
     ~NBT() override;
     static NBT* fromStringNbt(const QString &path);
-protected:
     void serialize(IByteWriter *writer) override;
     void deserialize(IByteReader *reader) override;
+protected:
     Data *copy() override;
 };
 #endif //LIFERHYTHM_NBT_H

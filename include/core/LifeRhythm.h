@@ -7,6 +7,7 @@
 
 #include <QString>
 #include <QObject>
+#include <QApplication>
 #include "Plugin.h"
 
 LR_BEGIN
@@ -25,14 +26,20 @@ class MainFrame;
 
 class LifeRhythm : public QObject{
     Q_OBJECT
+public:
+    const static QString NAME;
+    const static Version API_VERSION;
+    Config config;
 private:
+    QApplication app;
     static LifeRhythm* lr;
     MainFrame* mainFrame{};
     PluginManager pluginManager;
     PluginErrorHandler pluginErrorHandler;
 public:
+    LifeRhythm(int argc, char *argv[]);
     static LifeRhythm* get();
-    static int launch(int argc, char *argv[]);
+    int launch();
     static void generateTitledDialog(const QString& title, QWidget* content);
 signals:
     void sigPreInit();
@@ -40,7 +47,6 @@ signals:
     void sigPostInit();
     void sigCloseDialog();
 private:
-    LifeRhythm();
     void launch0();
     void preInit();
     void mainInit();

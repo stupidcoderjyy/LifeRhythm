@@ -10,17 +10,9 @@
 #include "ScrollBar.h"
 
 class ScrollArea : public QScrollArea, public StandardWidget{
-private:
-    ScrollBar* vBar{};
-    ScrollBar* hBar{};
-    QPropertyAnimation vBarAnimation{};
-    QPropertyAnimation hBarAnimation{};
-    int speed = 0;
 public:
     explicit ScrollArea(QWidget* parent = nullptr);
-protected:
-    void resizeEvent(QResizeEvent *event) override;
-    void wheelEvent(QWheelEvent *event) override;
+ANIMATED_SCROLL_CLAZZ_DEF
 };
 
 

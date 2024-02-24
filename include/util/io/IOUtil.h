@@ -26,6 +26,6 @@ void printYellow(const QString& msg);
 void printBlue(const QString& msg);
 
 void checkFolders(const QString& folderPath);
-QString concatPath(QString path1, QString path2, QString path3);
-QString concatPath(QString path1, QString path2);
+QString concatPath(const QString& path1, const QString& path2, const QString& path3);
+QString concatPath(const QString& path1, const QString& path2);
 #endif //PRACTICECONSOLE_IOUTIL_H

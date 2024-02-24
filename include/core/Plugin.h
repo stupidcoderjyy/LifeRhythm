@@ -7,7 +7,7 @@
 
 #include "Error.h"
 #include "ErrorHandler.h"
-#include "Constants.h"
+#include "Config.h"
 #include "windows.h"
 #include <QVector>
 #include <QMap>

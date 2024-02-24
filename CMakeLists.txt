@@ -15,21 +15,160 @@ find_package(Qt5 COMPONENTS
         Concurrent
         REQUIRED)
 
-file(GLOB_RECURSE INCLUDES LIST_DIRECTORIES true include)
+set(INCLUDES
+        include/core/ui
+        include/core
+        include/resources
+        include/util
+        include/util/compile
+        include/util/error
+        include/util/highlight
+        include/util/io
+        include/util/nbt
+        include/util/widgetfactory
+        include/widgets
+        include
+)
+
 include_directories(${INCLUDES})
 
-file(GLOB_RECURSE SRC_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}  LIST_DIRECTORIES false src/*.cpp assets/*.qrc)
-file(GLOB_RECURSE INCLUDE_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}  LIST_DIRECTORIES false include/*.h)
+set(INCLUDE_FILES
+        include/Config.h
+        include/Namespaces.h
+        include/core/LifeRhythm.h
+        include/core/Plugin.h
+        include/core/ui/MainFrame.h
+        include/core/ui/TabBar.h
+        include/core/ui/TitledDialog.h
+        include/resources/RcLoaders.h
+        include/resources/RcManagers.h
+        include/resources/RcTypes.h
+        include/util/MemUtil.h
+        include/util/Styles.h
+        include/util/WidgetUtil.h
+        include/util/compile/CompileError.h
+        include/util/compile/Compiler.h
+        include/util/compile/CompilerInput.h
+        include/util/error/Error.h
+        include/util/error/ErrorHandler.h
+        include/util/error/PrintErrorHandler.h
+        include/util/highlight/Highlighter.h
+        include/util/highlight/StyleParser.h
+        include/util/io/AbstractInput.h
+        include/util/io/BufferedInput.h
+        include/util/io/ElementsManager.h
+        include/util/io/IByteReader.h
+        include/util/io/IByteWriter.h
+        include/util/io/Identifier.h
+        include/util/io/IOUtil.h
+        include/util/io/RcLoader.h
+        include/util/io/ResourceManager.h
+        include/util/io/Serializable.h
+        include/util/io/StreamByteReader.h
+        include/util/io/StreamByteWriter.h
+        include/util/io/StringByteReader.h
+        include/util/io/StringInput.h
+        include/util/nbt/ArrayData.h
+        include/util/nbt/BoolData.h
+        include/util/nbt/Data.h
+        include/util/nbt/FloatData.h
+        include/util/nbt/IntData.h
+        include/util/nbt/NBT.h
+        include/util/nbt/NBTUtil.h
+        include/util/nbt/StringData.h
+        include/util/widgetfactory/StandardWidget.h
+        include/util/widgetfactory/WidgetFactory.h
+        include/util/widgetfactory/WidgetFactoryParsers.h
+        include/widgets/DragWidget.h
+        include/widgets/ImgButton.h
+        include/widgets/ImgLabel.h
+        include/widgets/RangeBar.h
+        include/widgets/ScrollArea.h
+        include/widgets/ScrollBar.h
+        include/widgets/TextEdit.h
+        include/widgets/TextLabel.h
+        include/widgets/Widget.h
+)
+
+set(SRC_FILES
+        src/Config.cpp
+        src/core/LifeRhythm.cpp
+        src/core/Plugin.cpp
+        src/core/ui/MainFrame.cpp
+        src/core/ui/TabBar.cpp
+        src/core/ui/TitledDialog.cpp
+        src/resources/RcLoaders.cpp
+        src/resources/RcManagers.cpp
+        src/resources/RcTypes.cpp
+        src/util/MemUtil.cpp
+        src/util/Styles.cpp
+        src/util/WidgetUtil.cpp
+        src/util/compile/CompileError.cpp
+        src/util/compile/Compiler.cpp
+        src/util/compile/CompilerInput.cpp
+        src/util/error/Error.cpp
+        src/util/error/PrintErrorHandler.cpp
+        src/util/highlight/Highlighter.cpp
+        src/util/highlight/StyleParser.cpp
+        src/util/io/AbstractInput.cpp
+        src/util/io/BufferedInput.cpp
+        src/util/io/ElementsManager.cpp
+        src/util/io/Identifier.cpp
+        src/util/io/IOUtil.cpp
+        src/util/io/ResourceManager.cpp
+        src/util/io/StreamByteReader.cpp
+        src/util/io/StreamByteWriter.cpp
+        src/util/io/StringByteReader.cpp
+        src/util/io/StringInput.cpp
+        src/util/nbt/ArrayData.cpp
+        src/util/nbt/BoolData.cpp
+        src/util/nbt/Data.cpp
+        src/util/nbt/FloatData.cpp
+        src/util/nbt/IntData.cpp
+        src/util/nbt/NBT.cpp
+        src/util/nbt/NBTUtil.cpp
+        src/util/nbt/StringData.cpp
+        src/util/nbt/highlight/NBTHighlighter.cpp
+        src/util/nbt/highlight/NBTHighlighter.h
+        src/util/nbt/parser/Lexer.cpp
+        src/util/nbt/parser/Lexer.h
+        src/util/nbt/parser/Parser.cpp
+        src/util/nbt/parser/Parser.h
+        src/util/widgetfactory/FactoryInit.cpp
+        src/util/widgetfactory/QssParser.cpp
+        src/util/widgetfactory/StandardWidget.cpp
+        src/util/widgetfactory/WidgetFactoryParsers.cpp
+        src/util/widgetfactory/WidgetFactory.cpp
+        src/util/widgetfactory/FactoryInit.h
+        src/util/widgetfactory/QssParser.h
+        src/widgets/DragWidget.cpp
+        src/widgets/ImgButton.cpp
+        src/widgets/ImgLabel.cpp
+        src/widgets/RangeBar.cpp
+        src/widgets/ScrollArea.cpp
+        src/widgets/ScrollBar.cpp
+        src/widgets/TextEdit.cpp
+        src/widgets/TextLabel.cpp
+        src/widgets/Widget.cpp
+)
+
+set(RESOURCES
+        assets/lr/factories/factories.qrc
+        assets/lr/highlightstyles/styles.qrc
+        assets/lr/images/images.qrc
+)
+
+set(ALL_FILES ${SRC_FILES} ${INCLUDE_FILES} ${RESOURCES})
 
 if(MAKE_DLL)
-    add_library(${PROJECT_NAME} SHARED ${SRC_FILES} ${INCLUDE_FILES})
+    add_library(${PROJECT_NAME} SHARED ${ALL_FILES})
 else ()
     if(CMAKE_BUILD_TYPE MATCHES "Debug")
         message("Debug Build")
-        add_executable(${PROJECT_NAME} ${INCLUDE_FILES} ${SRC_FILES} main.cpp) # logo.rc)
+        add_executable(${PROJECT_NAME} ${ALL_FILES} main.cpp) # logo.rc)
     elseif(CMAKE_BUILD_TYPE MATCHES "Release")
         message("Release Build")
-        add_executable(${PROJECT_NAME} WIN32 ${INCLUDE_FILES} ${SRC_FILES} main.cpp)#  logo.rc)
+        add_executable(${PROJECT_NAME} WIN32 ${ALL_FILES} main.cpp)#  logo.rc)
     endif ()
 endif ()
 
@@ -39,7 +178,6 @@ target_link_libraries(LifeRhythm
         Qt5::Widgets
         Qt5::Concurrent
 )
-
 
 if (WIN32 AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
     set(DEBUG_SUFFIX)

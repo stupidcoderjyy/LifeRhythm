@@ -38,7 +38,7 @@ void checkFolders(const QString &folderPath) {
     }
 }
 
-QString concatPath(QString path1, QString path2, QString path3) {
+QString concatPath(const QString& path1, const QString& path2, const QString& path3) {
     if (path1.isEmpty()) {
         return concatPath(path2, path3);
     }
@@ -51,7 +51,7 @@ QString concatPath(QString path1, QString path2, QString path3) {
     return path1 + "/" + path2 + "/" + path3;
 }
 
-QString concatPath(QString path1, QString path2) {
+QString concatPath(const QString& path1, const QString& path2) {
     if (path1.isEmpty()) {
         return path2;
     }

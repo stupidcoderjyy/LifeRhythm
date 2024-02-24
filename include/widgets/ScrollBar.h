@@ -24,7 +24,8 @@ public slots:
         ScrollBar* hBar{};\
         QPropertyAnimation vBarAnimation{};\
         QPropertyAnimation hBarAnimation{};\
-        int speed = 0;\
+        float speed = 1;\
+        bool up{};\
     protected:\
         void resizeEvent(QResizeEvent *event) override;\
         void wheelEvent(QWheelEvent *event) override;
@@ -43,36 +44,50 @@ public slots:
     hBarAnimation.setDuration(300);\
     hBarAnimation.setEasingCurve(QEasingCurve::Linear);\
     connect(&hBarAnimation, &QPropertyAnimation::finished, this, [this](){\
-        speed = 0;\
+        speed = 1;\
     });\
     connect(&vBarAnimation, &QPropertyAnimation::finished, this, [this](){\
-        speed = 0;\
+        speed = 1;\
     });
 
-#define ANIMATED_SCROLL_CLAZZ_OVERRIDES(CLAZZ, SUPER) \
+#define ANIMATED_SCROLL_CLAZZ_OVERRIDES_RESIZE(CLAZZ, SUPER) \
     void CLAZZ::resizeEvent(QResizeEvent *event) {\
         hBar->setGeometry(0, height() - 8, width(), 7);\
         vBar->setGeometry(width() - 8, 0, 7, height());\
         SUPER::resizeEvent(event);\
-    }\
-    \
-    void CLAZZ::wheelEvent(QWheelEvent *event) {\
-        QPropertyAnimation* animation;\
-        QScrollBar* bar;\
-        if (event->modifiers() == Qt::ShiftModifier) {\
-            animation = &hBarAnimation;\
-            bar = hBar;\
-        } else {\
-            animation = &vBarAnimation;\
-            bar = vBar;\
-        }\
-        if (animation->state() != QAbstractAnimation::Stopped) {\
-            animation->stop();\
-            animation->setEndValue(bar->value() - event->angleDelta().y() * ++speed);\
-        } else {\
-            animation->setEndValue(bar->value() - event->angleDelta().y());\
-        }\
-        animation->setStartValue(bar->value());\
-        animation->start();\
     }
+
+#define ANIMATED_SCROLL_CLAZZ_OVERRIDES_WHEEL(CLAZZ) \
+void CLAZZ::wheelEvent(QWheelEvent *event) {\
+    QPropertyAnimation* animation;\
+    QScrollBar* bar;\
+    if (event->modifiers() == Qt::ShiftModifier) {\
+        animation = &hBarAnimation;\
+        bar = hBar;\
+    } else {\
+        animation = &vBarAnimation;\
+        bar = vBar;\
+    }\
+    bool isUp = event->angleDelta().y() > 0;\
+    if (animation->state() != QAbstractAnimation::Stopped) {\
+        animation->stop();\
+        if (isUp != up) {\
+            animation->setEndValue(bar->value() - event->angleDelta().y());\
+            speed = 1;\
+        } else {\
+            speed += 0.2f;\
+            animation->setEndValue(bar->value() - qRound((double)event->angleDelta().y() * qMin(speed, 1.6f)));\
+        }\
+    } else {\
+        animation->setEndValue(bar->value() - event->angleDelta().y());\
+    }\
+    up = isUp;\
+    animation->setStartValue(bar->value());\
+    animation->start();\
+}
+
+#define ANIMATED_SCROLL_CLAZZ_OVERRIDES(CLAZZ, SUPER) \
+    ANIMATED_SCROLL_CLAZZ_OVERRIDES_WHEEL(CLAZZ)      \
+    ANIMATED_SCROLL_CLAZZ_OVERRIDES_RESIZE(CLAZZ, SUPER)
+
 #endif //LIFERHYTHM_SCROLLBAR_H

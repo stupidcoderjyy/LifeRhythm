@@ -1,5 +1,5 @@
 
-#include "parser/Lexer.h"
+#include "Lexer.h"
 #include "CompilerInput.h"
 
 using namespace snbt;

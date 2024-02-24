@@ -3,17 +3,18 @@
 //
 
 #include "MainFrame.h"
-#include "Constants.h"
+#include "Config.h"
 #include "Styles.h"
 #include "TabBar.h"
+#include "LifeRhythm.h"
 #include <QVBoxLayout>
 
 USING_LR
 
 MainFrame::MainFrame():QWidget() {
-    setObjectName(Constants::NAME);
+    setObjectName(LifeRhythm::NAME);
     showFullScreen();
-    setStyleSheet(qss_t(Constants::NAME, bg(Styles::BLACK)));
+    setStyleSheet(qss_t(LifeRhythm::NAME, bg(Styles::BLACK)));
     auto* vLayout = new QVBoxLayout(this);
     vLayout->setContentsMargins(0,0,0,0);
     vLayout->setSpacing(0);

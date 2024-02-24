@@ -79,9 +79,8 @@ Data *Data::parseData(IByteReader* reader) {
             data = new StringData();
             break;
         }
-    }
-    if (!data) {
-        throwInFunc("unknown data type:" + QString::number(type));
+        default:
+            throwInFunc("unknown data type:" + QString::number(type));
     }
     data->deserialize(reader);
     return data;

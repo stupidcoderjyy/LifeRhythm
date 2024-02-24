@@ -20,15 +20,17 @@ void PluginErrorHandler::onErrorCaught(Error &err) {
 PluginErrorHandler::PluginErrorHandler(LifeRhythm *lr):lr(lr) {
 }
 
+const QString LifeRhythm::NAME = "LifeRhythm-dev";
+const Version LifeRhythm::API_VERSION(1, 0);
+
 LifeRhythm* LifeRhythm::lr{};
 
 LifeRhythm *LifeRhythm::get() {
     return lr;
 }
 
-int LifeRhythm::launch(int argc, char *argv[]) {
-    QApplication app(argc, argv);
-    (lr = new LifeRhythm())->launch0();
+int LifeRhythm::launch() {
+    launch0();
     return QApplication::exec();
 }
 
@@ -45,6 +47,7 @@ void LifeRhythm::launch0() {
 }
 
 void LifeRhythm::preInit() {
+    config.froze();
     QTextCodec::setCodecForLocale(QTextCodec::codecForName("UTF-8"));
     Styles::initStyles();
     pluginManager.preInit();
@@ -65,7 +68,9 @@ void LifeRhythm::postInit() {
     WidgetFactoryStorage::parseAll();
 }
 
-LifeRhythm::LifeRhythm(): QObject(), pluginErrorHandler(this), pluginManager() {
+LifeRhythm::LifeRhythm(int argc, char *argv[]):QObject(),
+        pluginErrorHandler(this), pluginManager(), app(argc, argv), config() {
+    lr = this;
     pluginManager.setErrorHandler(&pluginErrorHandler);
     pluginManager.addSearchPath("testplugins");
     connect(this, &LifeRhythm::sigPostInit, this, [this](){
