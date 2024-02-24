@@ -30,8 +30,6 @@ set(INCLUDES
         include
 )
 
-include_directories(${INCLUDES})
-
 set(INCLUDE_FILES
         include/Config.h
         include/Namespaces.h
@@ -78,7 +76,6 @@ set(INCLUDE_FILES
         include/util/nbt/StringData.h
         include/util/widgetfactory/StandardWidget.h
         include/util/widgetfactory/WidgetFactory.h
-        include/util/widgetfactory/WidgetFactoryParsers.h
         include/widgets/DragWidget.h
         include/widgets/ImgButton.h
         include/widgets/ImgLabel.h
@@ -137,7 +134,6 @@ set(SRC_FILES
         src/util/widgetfactory/FactoryInit.cpp
         src/util/widgetfactory/QssParser.cpp
         src/util/widgetfactory/StandardWidget.cpp
-        src/util/widgetfactory/WidgetFactoryParsers.cpp
         src/util/widgetfactory/WidgetFactory.cpp
         src/util/widgetfactory/FactoryInit.h
         src/util/widgetfactory/QssParser.h
@@ -158,6 +154,16 @@ set(RESOURCES
         assets/lr/images/images.qrc
 )
 
+set(TEST_SRC
+        test/TimeBar.cpp
+        test/TimeBar.h
+        test/resources.qrc
+        test/Period.cpp
+        test/Period.h
+)
+
+include_directories(${INCLUDES} test)
+
 set(ALL_FILES ${SRC_FILES} ${INCLUDE_FILES} ${RESOURCES})
 
 if(MAKE_DLL)
@@ -165,10 +171,10 @@ if(MAKE_DLL)
 else ()
     if(CMAKE_BUILD_TYPE MATCHES "Debug")
         message("Debug Build")
-        add_executable(${PROJECT_NAME} ${ALL_FILES} main.cpp) # logo.rc)
+        add_executable(${PROJECT_NAME} ${ALL_FILES} ${TEST_SRC} main.cpp) # logo.rc)
     elseif(CMAKE_BUILD_TYPE MATCHES "Release")
         message("Release Build")
-        add_executable(${PROJECT_NAME} WIN32 ${ALL_FILES} main.cpp)#  logo.rc)
+        add_executable(${PROJECT_NAME} WIN32 ${ALL_FILES} ${TEST_SRC} main.cpp)#  logo.rc)
     endif ()
 endif ()
 

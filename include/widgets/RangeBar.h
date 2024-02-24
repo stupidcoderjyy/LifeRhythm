@@ -8,17 +8,39 @@
 #include "ScrollArea.h"
 #include "Widget.h"
 
+class RangeWidgetData : public QObject{
+    Q_OBJECT
+    friend class RangeWidget;
+protected:
+    int begin;
+    int end;
+public:
+    explicit RangeWidgetData(QObject* parent = nullptr);
+    int getBegin() const;
+    int getEnd() const;
+    void setBegin(int begin);
+    void setEnd(int end);
+signals:
+    void sigDataChanged();
+};
+
 class RangeWidget : public Widget {
     Q_OBJECT
     friend class VRangeWidgetsContainer;
     friend class HRangeWidgetsContainer;
     friend class RangeBar;
 protected:
-    int beginVal;
-    int endVal;
+    int begin;
+    int end;
+    RangeWidgetData* data;
 public:
     explicit RangeWidget(QWidget* parent = nullptr);
-    virtual void setRange(int newBegin, int newEnd);    //设置RangeWidget范围（触发sigRangeChanged）
+    void setData(RangeWidgetData* data);
+    virtual void syncDataToWidget();       //将RangeWidgetData中的数据载入组件（触发sigRangeChanged）
+    virtual void syncWidgetToData();
+    template<class DATA> DATA* castedData() {
+        return static_cast<DATA*>(data);
+    }
 signals:
     void sigRangeChanged(int begin, int end);           //RangeWidget范围被修改后触发此信号
 };
@@ -65,7 +87,7 @@ private:
     AbstractRangeWidgetsContainer* container{};
 public:
     explicit RangeBar(bool isVertical, QWidget* parent = nullptr);
-    void addPeriod(int begin, int end);
+    RangeWidget* addPeriod(RangeWidgetData* customData = nullptr);
     void setContainer(AbstractRangeWidgetsContainer* c);    //设置自定义容器
     void updateBar();
     void setBarRange(int minVal, int maxVal);

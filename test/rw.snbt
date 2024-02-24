@@ -1,0 +1,26 @@
+{
+    type: "TimeBarRangeWidget"
+    children: ["range", "info"]
+    qss: "bg(GRAY_0) bd('3px', 'solid', BLACK)"
+
+    layout: {
+        type: "Vertical"
+        spacing: 5
+        align: "Top"
+        margins: [5,5,5,5]
+    }
+
+    range: {
+        type: "TextLabel"
+        align: "Left"
+        fs: 10
+        pointer: true
+    }
+
+    info: {
+        type: "TextLabel"
+        align: "Left"
+        fs: 10
+        pointer: true
+    }
+}

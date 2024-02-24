@@ -5,6 +5,25 @@
 #include "RangeBar.h"
 #include "Error.h"
 
+RangeWidgetData::RangeWidgetData(QObject* parent):QObject(parent), begin(), end() {
+}
+
+int RangeWidgetData::getBegin() const {
+    return begin;
+}
+
+int RangeWidgetData::getEnd() const {
+    return end;
+}
+
+void RangeWidgetData::setBegin(int b) {
+    begin = b;
+}
+
+void RangeWidgetData::setEnd(int e) {
+    end = e;
+}
+
 AbstractRangeWidgetsContainer::AbstractRangeWidgetsContainer(QWidget *parent):
         Widget(parent),minVal(0), maxVal(99), vpp(1), maxVpp(10), minVpp(1), zoomEnabled(true), zoomStep(2) {
     setFixedSize(0, 0);
@@ -35,8 +54,8 @@ VRangeWidgetsContainer::VRangeWidgetsContainer(QWidget *parent):AbstractRangeWid
 }
 
 void VRangeWidgetsContainer::updateRangeWidget(RangeWidget* rw) {
-    int y = qRound(rw->beginVal * vpp);
-    int height = qRound((rw->endVal - rw->beginVal) * vpp);
+    int y = qRound(rw->begin * vpp);
+    int height = qRound((rw->end - rw->begin) * vpp);
     rw->setGeometry(0, y, rect().width(), height);
 }
 
@@ -56,8 +75,8 @@ HRangeWidgetsContainer::HRangeWidgetsContainer(QWidget *parent):AbstractRangeWid
 }
 
 void HRangeWidgetsContainer::updateRangeWidget(RangeWidget *rw) {
-    int x = qRound(rw->beginVal * vpp);
-    int width = qRound((rw->endVal - rw->beginVal) * vpp);
+    int x = qRound(rw->begin * vpp);
+    int width = qRound((rw->end - rw->begin) * vpp);
     rw->setGeometry(x, 0, width, rect().height());
 }
 
@@ -73,15 +92,43 @@ void HRangeWidgetsContainer::updateBar() {
     }
 }
 
-RangeWidget::RangeWidget(QWidget *parent):Widget(parent), beginVal(), endVal() {
+RangeWidget::RangeWidget(QWidget *parent):Widget(parent), data(), begin(), end() {
     setObjectName("rw");
     setStyleSheet(qss_t("rw", bg(Styles::GRAY_1)));
 }
 
-void RangeWidget::setRange(int newBegin, int newEnd) {
-    beginVal = newBegin;
-    endVal = newEnd;
-    emit sigRangeChanged(newBegin, newBegin);
+void RangeWidget::setData(RangeWidgetData *d) {
+    delete data;
+    if (!d) {
+        throwInFunc("null data");
+    }
+    d->setParent(this);
+    data = d;
+    connect(d, &RangeWidgetData::sigDataChanged, this, [this](){
+        syncDataToWidget();
+    });
+    syncDataToWidget();
+}
+
+void RangeWidget::syncDataToWidget() {
+    if (!data) {
+        throwInFunc("null data");
+    }
+    if (begin != data->begin || end != data->end) {
+        begin = data->begin;
+        end = data->end;
+        emit sigRangeChanged(begin, end);
+    }
+}
+
+void RangeWidget::syncWidgetToData() {
+    if (!data) {
+        throwInFunc("null data");
+    }
+    if (begin != data->begin || end != data->end) {
+        data->begin = begin;
+        data->end = end;
+    }
 }
 
 RangeBar::RangeBar(bool isVertical, QWidget *parent):ScrollArea(parent) {
@@ -98,16 +145,21 @@ RangeWidget *RangeBar::createRangeWidget() {
 
 #define CHECK_CONTAINER if (!container) throwInFunc("null container");
 
-void RangeBar::addPeriod(int begin, int end) {
+RangeWidget* RangeBar::addPeriod(RangeWidgetData* d) {
     CHECK_CONTAINER
     auto* rw = createRangeWidget();
     connect(rw, &RangeWidget::sigRangeChanged, [this, rw](){
         container->updateRangeWidget(rw);
     });
+    if (!d) {
+        d = new RangeWidgetData();
+    }
+    rw->setData(d);
     rw->setParent(container);
-    rw->setRange(begin, end);
     container->rangeWidgets << rw;
+    return rw;
 }
+
 
 void RangeBar::setContainer(AbstractRangeWidgetsContainer *c) {
     delete container;

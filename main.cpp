@@ -1,20 +1,38 @@
 
 #include "QDebug"
-#include "RangeBar.h"
+#include "TimeBar.h"
 #include <QApplication>
+#include "Error.h"
+#include "CompileError.h"
+#include "PrintErrorHandler.h"
+#include "ElementsManager.h"
+#include <QTextCodec>
+#include <QTimer>
+#include <QDebug>
+
+#define pTime(h, m) (h * 60 + m)
 
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
-    RangeBar bar(true);
-    bar.setBarRange(0, 1000);
-    bar.setVpp(1);
-    bar.setZoomEnabled();
-    bar.setZoomRange(1, 20);
-    bar.setZoomStep(1);
-    bar.setFixedSize(200, 400);
-    for (int i = 0 ; i <= 1000 ; i += 100) {
-        bar.addPeriod(i, i + 20);
+    try {
+        QTextCodec::setCodecForLocale(QTextCodec::codecForName("UTF-8"));
+        TimeBar::init();
+        TimeBar bar;
+        bar.setFixedSize(200, 400);
+        ListElementsManager<Period> manager("", "test.dat");
+//        manager.add(new Period(pTime(1,20), pTime(2,30), "abcd"));
+//        manager.add(new Period(pTime(3,0), pTime(3,20), "达瓦达瓦达瓦"));
+//        manager.save();
+        manager.load();
+        for (Period* p : manager.elements()) {
+            bar.addPeriod(p);
+        }
+        bar.show();
+        return QApplication::exec();
+    } catch (Error& err) {
+        PrintErrorHandler().onErrorCaught(err);
+    } catch (CompileError& err) {
+        PrintCompileErrorHandler().onErrorCaught(err);
     }
-    bar.show();
-    return QApplication::exec();
+    return -1;
 }
