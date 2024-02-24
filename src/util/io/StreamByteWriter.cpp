@@ -52,10 +52,10 @@ void StreamByteWriter::writeShort(short s) {
 }
 
 void StreamByteWriter::writeString(const QString &s) {
-    int l = (int)s.size() + 1;
-    std::string str = s.toStdString();
+    QByteArray d = s.toUtf8().data();
+    int l = d.length();
     writeInt(l);
-    write(const_cast<char*>(str.c_str()), 0, l);
+    write(d.data(), 0, l);
 }
 
 StreamByteWriter::~StreamByteWriter() {

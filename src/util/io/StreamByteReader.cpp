@@ -68,7 +68,7 @@ QString StreamByteReader::readString() {
     int len = readInt();
     char data[len];
     stream->readRawData(data, len);
-    return const_cast<const char*>(data);
+    return QString::fromUtf8(data, len);
 }
 
 StreamByteReader::~StreamByteReader() {

@@ -8,7 +8,6 @@
 #include <IByteReader.h>
 #include <IByteWriter.h>
 
-template<class T>
 class Serializable {
 public:
     virtual void toBytes(IByteWriter* writer) = 0;
