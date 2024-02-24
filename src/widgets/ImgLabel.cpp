@@ -2,11 +2,10 @@
 // Created by stupid_coder_jyy on 2024/2/8.
 //
 
-#include "widgets/ImgLabel.h"
+#include "ImgLabel.h"
 #include "Data.h"
 #include "NBT.h"
 #include "RcManagers.h"
-#include "WidgetFactoryParsers.h"
 #include "WidgetUtil.h"
 
 ImgLabel::ImgLabel(QWidget *parent): QLabel(parent), StandardWidget() {
@@ -21,7 +20,7 @@ void ImgLabel::onPostParsing(Handlers &handlers, NBT *widgetTag) {
             img = *ImageStorage::get(loc);
         }
         if (!img.isNull() && widgetTag->contains("scale", Data::ARR)) {
-            QSize scale = WidgetFactoryParsers::parseSize(widgetTag->get("scale")->asArray());
+            QSize scale = WidgetFactory::parseSize(widgetTag->get("scale")->asArray());
             img = img.scaled(scale, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
         }
         handlers << [img](QWidget* target) {
@@ -35,7 +34,7 @@ void ImgLabel::onPostParsing(Handlers &handlers, NBT *widgetTag) {
         };
     }
     if (widgetTag->contains("align", Data::STRING)) {
-        Qt::Alignment align = WidgetFactoryParsers::parseAlign(widgetTag->getString("align"));
+        Qt::Alignment align = WidgetFactory::parseAlign(widgetTag->getString("align"));
         handlers << [align](QWidget* target) {
             auto* label = static_cast<ImgLabel*>(target);
             label->setAlignment(align);

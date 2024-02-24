@@ -32,7 +32,7 @@ public:
     const static int FS_MEDIUM;
     static QTextCharFormat FORMAT_DEFAULT;
     static QTextCharFormat FORMAT_ERROR;
-    static QFont FONT_TEXT_EDIT;
+    static QFont FONT_MAIN;
 
     static QColor parseColor(const QString& str);
     static void initStyles();

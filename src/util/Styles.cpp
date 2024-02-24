@@ -6,7 +6,7 @@
 
 QTextCharFormat Styles::FORMAT_DEFAULT;
 QTextCharFormat Styles::FORMAT_ERROR;
-QFont Styles::FONT_TEXT_EDIT;
+QFont Styles::FONT_MAIN;
 
 const QString Styles::BLACK = "#141414";
 const QString Styles::GRAY_0 = "#282828";
@@ -45,7 +45,7 @@ QMap<QString, QColor> initColors() {
     return res;
 }
 
-QFont fontTextEdit() {
+QFont fontMain() {
     QFont font;
     font.setFamilies({Styles::FF_EN, Styles::FF_ZH});
     font.setPointSize(Styles::FS_MEDIUM);
@@ -54,14 +54,14 @@ QFont fontTextEdit() {
 
 QTextCharFormat defaultFormat() {
     QTextCharFormat fmt;
-    fmt.setFont(fontTextEdit());
+    fmt.setFont(fontMain());
     fmt.setForeground(QColor(Styles::GRAY_TEXT_0));
     return fmt;
 }
 
 QTextCharFormat errorFormat() {
     QTextCharFormat fmt;
-    fmt.setFont(fontTextEdit());
+    fmt.setFont(fontMain());
     fmt.setForeground(QColor(Styles::RED));
     return fmt;
 }
@@ -70,7 +70,7 @@ QMap<QString, QColor> colors;
 
 void Styles::initStyles() {
     colors = initColors();
-    FONT_TEXT_EDIT = fontTextEdit();
+    FONT_MAIN = fontMain();
     FORMAT_DEFAULT = defaultFormat();
     FORMAT_ERROR = errorFormat();
 }

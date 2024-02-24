@@ -9,6 +9,7 @@
 #include "Widget.h"
 
 class RangeWidget : public Widget {
+    Q_OBJECT
     friend class VRangeWidgetsContainer;
     friend class HRangeWidgetsContainer;
     friend class RangeBar;
@@ -17,6 +18,9 @@ protected:
     int endVal;
 public:
     explicit RangeWidget(QWidget* parent = nullptr);
+    virtual void setRange(int newBegin, int newEnd);    //设置RangeWidget范围（触发sigRangeChanged）
+signals:
+    void sigRangeChanged(int begin, int end);           //RangeWidget范围被修改后触发此信号
 };
 
 class AbstractRangeWidgetsContainer : public Widget {
@@ -25,11 +29,11 @@ class AbstractRangeWidgetsContainer : public Widget {
 protected:
     int minVal;         //最小值
     int maxVal;         //最大值
-    int vpp;            //每像素对应的数值
-    int maxVpp;         //放大过程中最大可以达到的vpp
-    int minVpp;         //缩小过程中最小可以达到的vpp
+    double vpp;            //每像素对应的数值
+    double maxVpp;         //放大过程中最大可以达到的vpp
+    double minVpp;         //缩小过程中最小可以达到的vpp
     int zoomEnabled;    //是否允许缩放
-    int zoomStep;       //缩放一次变化的vpp值
+    double zoomStep;       //缩放一次变化的vpp值
     QVector<RangeWidget*> rangeWidgets{};
 protected:
     explicit AbstractRangeWidgetsContainer(QWidget* parent = nullptr);
@@ -65,10 +69,10 @@ public:
     void setContainer(AbstractRangeWidgetsContainer* c);    //设置自定义容器
     void updateBar();
     void setBarRange(int minVal, int maxVal);
-    void setZoomRange(int minVpp, int maxVpp);
+    void setZoomRange(double minVpp, double maxVpp);
     void setZoomEnabled(bool enabled = true);
-    void setZoomStep(int step);
-    void setVpp(int vpp);
+    void setZoomStep(double step);
+    void setVpp(double vpp);
 protected:
     virtual RangeWidget* createRangeWidget();
     void showEvent(QShowEvent *event) override;

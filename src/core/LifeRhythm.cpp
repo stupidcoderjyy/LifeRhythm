@@ -77,7 +77,7 @@ LifeRhythm::LifeRhythm(int argc, char *argv[]):QObject(),
         mainFrame->tabBar->insertTab("LifeRhythm 你好世界", new TabWidget());
         auto* label = new QLabel();
         label->setText("dwadwadwa");
-        label->setFont(Styles::FONT_TEXT_EDIT);
+        label->setFont(Styles::FONT_MAIN);
         generateTitledDialog("测试", label);
     }, Qt::QueuedConnection);
 }

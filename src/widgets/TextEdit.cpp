@@ -9,7 +9,7 @@
 TextEdit::TextEdit(QWidget *parent) : QTextEdit(parent) {
     setFrameStyle(NoFrame);
     setContextMenuPolicy(Qt::NoContextMenu);
-    setFont(Styles::FONT_TEXT_EDIT);
+    setFont(Styles::FONT_MAIN);
     QPalette p = palette();
     p.setBrush(QPalette::Base, QColor(Styles::BLACK));
     p.setBrush(QPalette::Text, QColor(Styles::GRAY_TEXT_0));

@@ -35,13 +35,13 @@ VRangeWidgetsContainer::VRangeWidgetsContainer(QWidget *parent):AbstractRangeWid
 }
 
 void VRangeWidgetsContainer::updateRangeWidget(RangeWidget* rw) {
-    int y = rw->beginVal * vpp;
-    int height = (rw->endVal - rw->beginVal) * vpp;
+    int y = qRound(rw->beginVal * vpp);
+    int height = qRound((rw->endVal - rw->beginVal) * vpp);
     rw->setGeometry(0, y, rect().width(), height);
 }
 
 void VRangeWidgetsContainer::updateBar() {
-    int height = (maxVal - minVal) * vpp;
+    int height = qRound((maxVal - minVal) * vpp);
     int width = rect().width();
     if (width == 0) {
         width = static_cast<QWidget*>(parent())->width();
@@ -56,13 +56,13 @@ HRangeWidgetsContainer::HRangeWidgetsContainer(QWidget *parent):AbstractRangeWid
 }
 
 void HRangeWidgetsContainer::updateRangeWidget(RangeWidget *rw) {
-    int x = rw->beginVal * vpp;
-    int width = (rw->endVal - rw->beginVal) * vpp;
+    int x = qRound(rw->beginVal * vpp);
+    int width = qRound((rw->endVal - rw->beginVal) * vpp);
     rw->setGeometry(x, 0, width, rect().height());
 }
 
 void HRangeWidgetsContainer::updateBar() {
-    int width = (maxVal - minVal) * vpp;
+    int width = qRound((maxVal - minVal) * vpp);
     int height = rect().height();
     if (height == 0) {
         height = static_cast<QWidget*>(parent())->height();
@@ -76,6 +76,12 @@ void HRangeWidgetsContainer::updateBar() {
 RangeWidget::RangeWidget(QWidget *parent):Widget(parent), beginVal(), endVal() {
     setObjectName("rw");
     setStyleSheet(qss_t("rw", bg(Styles::GRAY_1)));
+}
+
+void RangeWidget::setRange(int newBegin, int newEnd) {
+    beginVal = newBegin;
+    endVal = newEnd;
+    emit sigRangeChanged(newBegin, newBegin);
 }
 
 RangeBar::RangeBar(bool isVertical, QWidget *parent):ScrollArea(parent) {
@@ -95,11 +101,12 @@ RangeWidget *RangeBar::createRangeWidget() {
 void RangeBar::addPeriod(int begin, int end) {
     CHECK_CONTAINER
     auto* rw = createRangeWidget();
+    connect(rw, &RangeWidget::sigRangeChanged, [this, rw](){
+        container->updateRangeWidget(rw);
+    });
     rw->setParent(container);
-    rw->beginVal = begin;
-    rw->endVal = end;
+    rw->setRange(begin, end);
     container->rangeWidgets << rw;
-    container->updateRangeWidget(rw);
 }
 
 void RangeBar::setContainer(AbstractRangeWidgetsContainer *c) {
@@ -146,7 +153,7 @@ void RangeBar::setBarRange(int minVal, int maxVal) {
     container->maxVal = maxVal;
 }
 
-void RangeBar::setZoomRange(int minVpp, int maxVpp) {
+void RangeBar::setZoomRange(double minVpp, double maxVpp) {
     CHECK_CONTAINER
     if (minVpp >= maxVpp) {
         throwInFunc("invalid range");
@@ -160,7 +167,7 @@ void RangeBar::setZoomEnabled(bool enabled) {
     container->zoomEnabled = enabled;
 }
 
-void RangeBar::setZoomStep(int step) {
+void RangeBar::setZoomStep(double step) {
     CHECK_CONTAINER
     if (step <= 0) {
         throwInFunc("invalid step");
@@ -168,7 +175,7 @@ void RangeBar::setZoomStep(int step) {
     container->zoomStep = step;
 }
 
-void RangeBar::setVpp(int vpp) {
+void RangeBar::setVpp(double vpp) {
     CHECK_CONTAINER
     container->vpp = vpp;
 }
