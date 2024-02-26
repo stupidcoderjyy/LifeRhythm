@@ -21,19 +21,5 @@ signals:
     void sigDataChanged();
 };
 
-class IListModel : public QObject {
-    Q_OBJECT
-public:
-    WidgetData* operator[](int idx);
-    void operator<<(WidgetData* d);
-    virtual int length() const = 0;
-    virtual WidgetData* at(int idx) noexcept = 0;
-    virtual void append(WidgetData* data) = 0;
-    virtual void insert(int idx, WidgetData* data) = 0;
-    virtual WidgetData* remove(int idx) = 0;
-signals:
-    void sigDataChanged(int begin, int end);
-};
-
 
 #endif //LIFERHYTHM_WIDGET_DATA_H

@@ -66,7 +66,9 @@ set(INCLUDE_FILES
         include/util/io/StreamByteWriter.h
         include/util/io/StringByteReader.h
         include/util/io/StringInput.h
-        include/util/io/WidgetData.h
+        include/util/models/WidgetData.h
+        include/util/models/ListModel.h
+        include/util/models/TreeModel.h
         include/util/nbt/ArrayData.h
         include/util/nbt/BoolData.h
         include/util/nbt/Data.h
@@ -86,6 +88,7 @@ set(INCLUDE_FILES
         include/widgets/TextEdit.h
         include/widgets/TextLabel.h
         include/widgets/Widget.h
+        include/widgets/TreeWidget.h
         include/widgets/ListWidget.h
 )
 
@@ -118,7 +121,9 @@ set(SRC_FILES
         src/util/io/StreamByteWriter.cpp
         src/util/io/StringByteReader.cpp
         src/util/io/StringInput.cpp
-        src/util/io/WidgetData.cpp
+        src/util/models/WidgetData.cpp
+        src/util/models/ListModel.cpp
+        src/util/models/TreeModel.cpp
         src/util/nbt/ArrayData.cpp
         src/util/nbt/BoolData.cpp
         src/util/nbt/Data.cpp
@@ -148,6 +153,7 @@ set(SRC_FILES
         src/widgets/TextEdit.cpp
         src/widgets/TextLabel.cpp
         src/widgets/Widget.cpp
+        src/widgets/TreeWidget.cpp
         src/widgets/ListWidget.cpp
 )
 

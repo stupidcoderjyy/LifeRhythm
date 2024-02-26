@@ -7,7 +7,7 @@
 
 #include "ScrollBar.h"
 #include "Widget.h"
-#include "WidgetData.h"
+#include "models/ListModel.h"
 #include <QVBoxLayout>
 #include <QScrollArea>
 #include <QTimer>
@@ -25,7 +25,7 @@ private:
     QMetaObject::Connection dc;
 public:
     explicit ListItem(QWidget* parent = nullptr);
-public slots:
+public:
     virtual void syncDataToWidget();    //将WidgetData中的数据同步到控件中，ListWidget内部调用，也可以手动调用
     virtual void syncWidgetToData();    //将控件的数据同步到WidgetData中，需要手动调用
     virtual void clearWidget();         //将控件恢复到无数据的状态，ListWidget内部调用
@@ -51,7 +51,7 @@ signals:
 class ListWidget : public QScrollArea, public StandardWidget{
     Q_OBJECT
     SCROLL_CLAZZ_DEF
-private:
+protected:
     QVector<ListItem*> items;
     QMetaObject::Connection mc;
     IListModel* model;
@@ -74,6 +74,7 @@ public:
     void onPostParsing(Handlers &handlers, NBT *widgetTag) override;
 protected:
     virtual ListItem* createRowItem();
+    virtual void prepareNewItem(ListItem* item);
     void wheelEvent(QWheelEvent *event) override;
     virtual void onItemDragStart(ListItem* item);
     virtual void onItemDragEnter(ListItem* item);
@@ -82,7 +83,6 @@ protected:
     virtual void onItemDropped(ListItem* src, ListItem* dest);
 private:
     void updateListBase();
-    void appendItem();
     void fillA(int begin, bool forceUpdate = false);
     void fillB(int begin, bool forceUpdate = false);
     void setItemData(ListItem* item, int idx);

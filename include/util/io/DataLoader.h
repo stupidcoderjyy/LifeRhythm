@@ -13,7 +13,7 @@
 #include "Serializable.h"
 #include "Error.h"
 #include "IOUtil.h"
-#include "WidgetData.h"
+#include "models/WidgetData.h"
 
 template<class T>
 class DataLoader {
@@ -39,37 +39,32 @@ protected:
 };
 
 template<class T>
-class ListedDataLoader : public DataLoader<T>, public IListModel{
-private:
+class ListDataLoader : public DataLoader<T> {
+protected:
     QString filePath;
     QVector<T*> es{};
 public:
-    ListedDataLoader(const QString& savePath, const QString& childPath, const QString& fileName);
-    explicit ListedDataLoader(const QString& path, const QString& fileName);
+    ListDataLoader(const QString& savePath, const QString& childPath, const QString& fileName);
+    explicit ListDataLoader(const QString& path, const QString& fileName);
     void load() override;
     void unload() override;
     void save() override;
-    int length() const override;
-    WidgetData *at(int idx) noexcept override;
-    void append(WidgetData *data) override;
-    void insert(int idx, WidgetData *data) override;
-    WidgetData* remove(int idx) override;
     QVector<T*>& getData();
 };
 
 template<class T>
-ListedDataLoader<T>::ListedDataLoader(const QString &savePath, const QString &childPath, const QString &fileName):
+ListDataLoader<T>::ListDataLoader(const QString &savePath, const QString &childPath, const QString &fileName):
         DataLoader<T>(savePath, childPath) {
     filePath = concatPath(DataLoader<T>::destPath, fileName);
 }
 
 template<class T>
-ListedDataLoader<T>::ListedDataLoader(const QString &path, const QString &fileName):
-        ListedDataLoader<T>("", path, fileName) {
+ListDataLoader<T>::ListDataLoader(const QString &path, const QString &fileName):
+        ListDataLoader<T>("", path, fileName) {
 }
 
 template<class T>
-void ListedDataLoader<T>::load() {
+void ListDataLoader<T>::load() {
     if (DataLoader<T>::loaded) {
         return;
     }
@@ -90,7 +85,7 @@ void ListedDataLoader<T>::load() {
 }
 
 template<class T>
-void ListedDataLoader<T>::unload() {
+void ListDataLoader<T>::unload() {
     if (!DataLoader<T>::loaded) {
         return;
     }
@@ -102,7 +97,7 @@ void ListedDataLoader<T>::unload() {
 }
 
 template<class T>
-void ListedDataLoader<T>::save() {
+void ListDataLoader<T>::save() {
     auto* writer = new StreamByteWriter(filePath);
     writer->writeInt(es.length());
     for (T* e : es) {
@@ -112,38 +107,7 @@ void ListedDataLoader<T>::save() {
 }
 
 template<class T>
-int ListedDataLoader<T>::length() const {
-    return es.length();
-}
-
-template<class T>
-WidgetData *ListedDataLoader<T>::at(int idx) noexcept {
-    return idx < es.length() ? es.at(idx) : nullptr;
-}
-
-template<class T>
-void ListedDataLoader<T>::append(WidgetData *data) {
-    int old = es.length();
-    es.append(data);
-    emit sigDataChanged(old, old);
-}
-
-template<class T>
-void ListedDataLoader<T>::insert(int idx, WidgetData *data) {
-    es.insert(idx, data);
-    emit sigDataChanged(idx, es.length() - 1);
-}
-
-template<class T>
-WidgetData* ListedDataLoader<T>::remove(int idx) {
-    auto* d = es.at(idx);
-    es.remove(idx);
-    emit sigDataChanged(idx, idx < es.length() ? es.length() - 1 : idx);
-    return d;
-}
-
-template<class T>
-QVector<T *>& ListedDataLoader<T>::getData() {
+QVector<T *>& ListDataLoader<T>::getData() {
     return es;
 }
 

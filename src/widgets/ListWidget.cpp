@@ -133,6 +133,27 @@ ListItem *ListWidget::createRowItem() {
     return new ListItem();
 }
 
+void ListWidget::prepareNewItem(ListItem* w) {
+    w->setParent(container);
+    w->setFixedHeight(rowHeight);
+    w->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed);
+    connect(w, &ListItem::sigDragEnter, this, &ListWidget::onItemDragEnter);
+    connect(w, &ListItem::sigDragLeave, this, &ListWidget::onItemDragLeave);
+    connect(w, &ListItem::sigDragStart, this, &ListWidget::onItemDragStart);
+    connect(w, &ListItem::sigDragMove, this, [this](ListItem* item, QDragMoveEvent* evt){
+        onItemDragMove(item, evt);
+        performDragScroll(item, evt);
+    });
+    connect(w, &ListItem::sigDropped, this, [this, w](ListItem* src){
+        onItemDropped(src, w);
+    });
+    connect(w, &ListItem::sigDragEnd, this, [this](){
+        scrollTimer.stop();
+    });
+    layout->addWidget(w);
+    items << w;
+}
+
 void ListWidget::wheelEvent(QWheelEvent *event) {
     int oldPos = pos;
     int dy = event->angleDelta().y();
@@ -213,39 +234,17 @@ void ListWidget::updateListBase() {
     if (items.empty()) {
         items.reserve(itemsCount);
         for (int i = 0; i < itemsCount; i++) {
-            appendItem();
+            prepareNewItem(createRowItem());
         }
     } else {
         int oldCount = items.length();
         //补上缺失的item
         items.reserve(itemsCount);
         for (int i = oldCount ; i < itemsCount; i++) {
-            appendItem();
+            prepareNewItem(createRowItem());
         }
     }
     setGlobalPos(globalPos, true);
-}
-
-void ListWidget::appendItem() {
-    auto* w = createRowItem();
-    w->setParent(container);
-    w->setFixedHeight(rowHeight);
-    w->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed);
-    connect(w, &ListItem::sigDragEnter, this, &ListWidget::onItemDragEnter);
-    connect(w, &ListItem::sigDragLeave, this, &ListWidget::onItemDragLeave);
-    connect(w, &ListItem::sigDragStart, this, &ListWidget::onItemDragStart);
-    connect(w, &ListItem::sigDragMove, this, [this](ListItem* item, QDragMoveEvent* evt){
-        onItemDragMove(item, evt);
-        performDragScroll(item, evt);
-    });
-    connect(w, &ListItem::sigDropped, this, [this, w](ListItem* src){
-        onItemDropped(src, w);
-    });
-    connect(w, &ListItem::sigDragEnd, this, [this](){
-        scrollTimer.stop();
-    });
-    layout->addWidget(w);
-    items << w;
 }
 
 void ListWidget::setModel(IListModel *m) {

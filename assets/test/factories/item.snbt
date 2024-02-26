@@ -19,6 +19,7 @@
 
     label: {
         type: "TextLabel"
+        align: "Left"
         pointer: true
     }
 }
