@@ -11,7 +11,7 @@
 class TextEdit : public QTextEdit{
 public:
     explicit TextEdit(QWidget* parent);
-ANIMATED_SCROLL_CLAZZ_DEF
+SCROLL_CLAZZ_DEF
     void mousePressEvent(QMouseEvent *e) override;
     void mouseReleaseEvent(QMouseEvent *e) override;
 };

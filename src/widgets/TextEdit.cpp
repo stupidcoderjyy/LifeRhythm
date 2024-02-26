@@ -17,10 +17,10 @@ TextEdit::TextEdit(QWidget *parent) : QTextEdit(parent) {
     p.setBrush(QPalette::HighlightedText, Qt::NoBrush);
     setPalette(p);
     setAutoFillBackground(true);
-    ANIMATED_SCROLL_CLAZZ_CONSTRUCTOR
+    SCROLL_CLAZZ_CONSTRUCTOR
 }
 
-ANIMATED_SCROLL_CLAZZ_OVERRIDES(TextEdit, QTextEdit)
+SCROLL_CLAZZ_OVERRIDES(TextEdit, QTextEdit)
 
 void TextEdit::mousePressEvent(QMouseEvent *e) {
     QTextEdit::mousePressEvent(e);

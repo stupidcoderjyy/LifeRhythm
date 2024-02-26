@@ -10,6 +10,7 @@
 #include "TitledDialog.h"
 #include <QtConcurrent>
 #include <QApplication>
+#include <utility>
 
 USING_LR
 
@@ -34,6 +35,10 @@ int LifeRhythm::launch() {
     return QApplication::exec();
 }
 
+void LifeRhythm::setConfig(const Config &cfg) {
+    config = cfg;
+}
+
 void LifeRhythm::launch0() {
     preInit();
     emit sigPreInit();
@@ -43,6 +48,7 @@ void LifeRhythm::launch0() {
         emit sigMainInit();
         postInit();
         emit sigPostInit();
+        debugPrint("init finished");
     }));
 }
 
@@ -51,7 +57,6 @@ void LifeRhythm::preInit() {
     QTextCodec::setCodecForLocale(QTextCodec::codecForName("UTF-8"));
     Styles::initStyles();
     pluginManager.preInit();
-    mainFrame = new MainFrame();
 }
 
 void LifeRhythm::mainInit() {
@@ -61,11 +66,17 @@ void LifeRhythm::mainInit() {
     WidgetFactory::init();
     TabBar::mainInit();
     TitledDialog::mainInit();
-    debugPrint("_init finished");
 }
 
 void LifeRhythm::postInit() {
     WidgetFactoryStorage::parseAll();
+}
+
+void LifeRhythm::prepareScreen() {
+    if (config.mode == Config::Test) {
+        return;
+    }
+    mainFrame = new MainFrame();
 }
 
 LifeRhythm::LifeRhythm(int argc, char *argv[]):QObject(),
@@ -73,13 +84,7 @@ LifeRhythm::LifeRhythm(int argc, char *argv[]):QObject(),
     lr = this;
     pluginManager.setErrorHandler(&pluginErrorHandler);
     pluginManager.addSearchPath("testplugins");
-    connect(this, &LifeRhythm::sigPostInit, this, [this](){
-        mainFrame->tabBar->insertTab("LifeRhythm 你好世界", new TabWidget());
-        auto* label = new QLabel();
-        label->setText("dwadwadwa");
-        label->setFont(Styles::FONT_MAIN);
-        generateTitledDialog("测试", label);
-    }, Qt::QueuedConnection);
+    connect(this, &LifeRhythm::sigPostInit, this, &LifeRhythm::prepareScreen, Qt::QueuedConnection);
 }
 
 void LifeRhythm::generateTitledDialog(const QString &title, QWidget *content) {
@@ -92,4 +97,16 @@ void LifeRhythm::generateTitledDialog(const QString &title, QWidget *content) {
     animation->setEndValue(1);
     animation->start(QAbstractAnimation::DeleteWhenStopped);
     dialog->exec();
+}
+
+void LifeRhythm::onPostInit(std::function<void()> handler, Qt::ConnectionType type) {
+    connect(this, &LifeRhythm::sigPostInit, this, std::move(handler), type);
+}
+
+void LifeRhythm::onMainInit(std::function<void()> handler, Qt::ConnectionType type) {
+    connect(this, &LifeRhythm::sigMainInit, this, std::move(handler), type);
+}
+
+const Config &LifeRhythm::getConfig() {
+    return config;
 }

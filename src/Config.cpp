@@ -56,6 +56,12 @@ const QString &Config::getSavePath() const {
     return savePath;
 }
 
+Config::Config(const Config &o) {
+    frozen = o.frozen;
+    savePath = o.savePath;
+    mode = o.mode;
+}
+
 void Config::setSavePath(const QString &path) {
     if (frozen) {
         throwInFunc("frozen");
@@ -65,4 +71,12 @@ void Config::setSavePath(const QString &path) {
 
 void Config::froze() {
     frozen = true;
+}
+
+Config::Mode Config::getMode() const {
+    return mode;
+}
+
+void Config::setMode(Config::Mode m) {
+    Config::mode = m;
 }

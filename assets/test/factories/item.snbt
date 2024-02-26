@@ -1,0 +1,24 @@
+{
+    type: "TestItem"
+    children: ["label"]
+
+    states: {
+        s0: {
+            qss: "bg(GRAY_0)"
+        }
+        s1: {
+            qss: "bg(GRAY_1)"
+        }
+    }
+
+    layout: {
+        type: "Horizontal"
+        spacing: 0
+        margins: [0,0,0,0]
+    }
+
+    label: {
+        type: "TextLabel"
+        pointer: true
+    }
+}

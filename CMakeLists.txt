@@ -54,7 +54,7 @@ set(INCLUDE_FILES
         include/util/highlight/StyleParser.h
         include/util/io/AbstractInput.h
         include/util/io/BufferedInput.h
-        include/util/io/ElementsManager.h
+        include/util/io/DataLoader.h
         include/util/io/IByteReader.h
         include/util/io/IByteWriter.h
         include/util/io/Identifier.h
@@ -66,6 +66,7 @@ set(INCLUDE_FILES
         include/util/io/StreamByteWriter.h
         include/util/io/StringByteReader.h
         include/util/io/StringInput.h
+        include/util/io/WidgetData.h
         include/util/nbt/ArrayData.h
         include/util/nbt/BoolData.h
         include/util/nbt/Data.h
@@ -85,6 +86,7 @@ set(INCLUDE_FILES
         include/widgets/TextEdit.h
         include/widgets/TextLabel.h
         include/widgets/Widget.h
+        include/widgets/ListWidget.h
 )
 
 set(SRC_FILES
@@ -109,7 +111,6 @@ set(SRC_FILES
         src/util/highlight/StyleParser.cpp
         src/util/io/AbstractInput.cpp
         src/util/io/BufferedInput.cpp
-        src/util/io/ElementsManager.cpp
         src/util/io/Identifier.cpp
         src/util/io/IOUtil.cpp
         src/util/io/ResourceManager.cpp
@@ -117,6 +118,7 @@ set(SRC_FILES
         src/util/io/StreamByteWriter.cpp
         src/util/io/StringByteReader.cpp
         src/util/io/StringInput.cpp
+        src/util/io/WidgetData.cpp
         src/util/nbt/ArrayData.cpp
         src/util/nbt/BoolData.cpp
         src/util/nbt/Data.cpp
@@ -146,20 +148,18 @@ set(SRC_FILES
         src/widgets/TextEdit.cpp
         src/widgets/TextLabel.cpp
         src/widgets/Widget.cpp
+        src/widgets/ListWidget.cpp
 )
 
 set(RESOURCES
         assets/lr/factories/factories.qrc
         assets/lr/highlightstyles/styles.qrc
         assets/lr/images/images.qrc
+        assets/test/factories/factories.qrc
 )
 
 set(TEST_SRC
-        test/TimeBar.cpp
-        test/TimeBar.h
-        test/resources.qrc
-        test/Period.cpp
-        test/Period.h
+
 )
 
 include_directories(${INCLUDES} test)

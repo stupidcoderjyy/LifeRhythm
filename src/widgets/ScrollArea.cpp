@@ -15,7 +15,7 @@ ScrollArea::ScrollArea(QWidget *parent):QScrollArea(parent),StandardWidget() {
     viewport()->setStyleSheet(qss_t("vp", bg(Styles::CLEAR)));
     setObjectName("sa");
     setStyleSheet(qss_t("sa", bg(Styles::CLEAR)));
-    ANIMATED_SCROLL_CLAZZ_CONSTRUCTOR
+    SCROLL_CLAZZ_CONSTRUCTOR
 }
 
-ANIMATED_SCROLL_CLAZZ_OVERRIDES(ScrollArea, QScrollArea)
+SCROLL_CLAZZ_OVERRIDES(ScrollArea, QScrollArea)

@@ -29,18 +29,22 @@ class LifeRhythm : public QObject{
 public:
     const static QString NAME;
     const static Version API_VERSION;
-    Config config;
 private:
+    Config config;
     QApplication app;
     static LifeRhythm* lr;
     MainFrame* mainFrame{};
     PluginManager pluginManager;
     PluginErrorHandler pluginErrorHandler;
 public:
-    LifeRhythm(int argc, char *argv[]);
     static LifeRhythm* get();
-    int launch();
     static void generateTitledDialog(const QString& title, QWidget* content);
+    void onPostInit(std::function<void()> handler, Qt::ConnectionType type = Qt::DirectConnection);
+    void onMainInit(std::function<void()> handler, Qt::ConnectionType type = Qt::DirectConnection);
+    LifeRhythm(int argc, char *argv[]);
+    int launch();
+    void setConfig(const Config& cfg);
+    const Config& getConfig();
 signals:
     void sigPreInit();
     void sigMainInit();
@@ -51,6 +55,8 @@ private:
     void preInit();
     void mainInit();
     void postInit();
+private slots:
+    void prepareScreen();
 };
 
 LR_END

@@ -12,7 +12,7 @@
 class ScrollArea : public QScrollArea, public StandardWidget{
 public:
     explicit ScrollArea(QWidget* parent = nullptr);
-ANIMATED_SCROLL_CLAZZ_DEF
+SCROLL_CLAZZ_DEF
 };
 
 

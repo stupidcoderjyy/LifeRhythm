@@ -28,16 +28,26 @@ public:
 };
 
 class Config {
-private:
-    QString savePath{};
-    bool frozen{};
+    friend class LifeRhythm;
 public:
+    enum Mode {
+        Normal,
+        Test
+    };
+private:
+    Mode mode = Normal;
+    QString savePath = "C:\\LifeRhythm";
+    bool frozen = false;
+public:
+    Config() = default;
+    Config(const Config& o);
     const QString &getSavePath() const;
     void setSavePath(const QString &savePath);
+    Mode getMode() const;
+    void setMode(Mode mode);
     void froze();
 };
 
 LR_END
-
 
 #endif //LIFERHYTHM_CONFIG_H

@@ -4,7 +4,7 @@
 
 #include "ScrollBar.h"
 
-ScrollBar::ScrollBar(QWidget *parent, Qt::Orientation t, QScrollBar *bar):QScrollBar(parent) {
+ScrollBar::ScrollBar(QWidget *parent, Qt::Orientation t):QScrollBar(parent) {
     setOrientation(t);
     setRange(0,0);
     hide();
@@ -26,9 +26,6 @@ ScrollBar::ScrollBar(QWidget *parent, Qt::Orientation t, QScrollBar *bar):QScrol
                       "QScrollBar::add-line:horizontal{background:transparent;}");
     }
     setContextMenuPolicy(Qt::NoContextMenu);
-    connect(bar ,&QScrollBar::valueChanged, this,&ScrollBar::onValueSet);
-    connect(this,&QScrollBar::valueChanged,this,[bar](int v){bar->setValue(v);});
-    connect(bar,&QScrollBar::rangeChanged,this,&ScrollBar::onRangeChanged);
 }
 
 void ScrollBar::onRangeChanged(int min, int max) {
