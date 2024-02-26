@@ -5,11 +5,13 @@
 #ifndef LIFERHYTHM_LISTWIDGET_H
 #define LIFERHYTHM_LISTWIDGET_H
 
-#include <QScrollArea>
 #include "ScrollBar.h"
 #include "Widget.h"
 #include "WidgetData.h"
-#include "QVBoxLayout"
+#include <QVBoxLayout>
+#include <QScrollArea>
+#include <QTimer>
+#include <QDrag>
 
 class ListItem : public Widget {
     Q_OBJECT
@@ -18,6 +20,8 @@ protected:
     int dataIdx;
     WidgetData* data;
 private:
+    bool pressed;
+    QPoint dragStart;
     QMetaObject::Connection dc;
 public:
     explicit ListItem(QWidget* parent = nullptr);
@@ -25,8 +29,23 @@ public slots:
     virtual void syncDataToWidget();    //将WidgetData中的数据同步到控件中，ListWidget内部调用，也可以手动调用
     virtual void syncWidgetToData();    //将控件的数据同步到WidgetData中，需要手动调用
     virtual void clearWidget();         //将控件恢复到无数据的状态，ListWidget内部调用
+protected:
+    void dragEnterEvent(QDragEnterEvent *event) override;
+    void dragMoveEvent(QDragMoveEvent *event) override;
+    void dragLeaveEvent(QDragLeaveEvent *event) override;
+    void dropEvent(QDropEvent *event) override;
+    void mousePressEvent(QMouseEvent *event) override;
+    void mouseMoveEvent(QMouseEvent *event) override;
+    void mouseReleaseEvent(QMouseEvent *event) override;
 private:
     void setData(WidgetData* d);
+signals:
+    void sigDragStart(ListItem* item);
+    void sigDragEnd(ListItem* item);
+    void sigDragEnter(ListItem* item);
+    void sigDragLeave(ListItem* item);
+    void sigDragMove(ListItem* item, QDragMoveEvent *event);
+    void sigDropped(ListItem* item);
 };
 
 class ListWidget : public QScrollArea, public StandardWidget{
@@ -38,6 +57,8 @@ private:
     IListModel* model;
     QVBoxLayout* layout;
     QWidget* container;
+    QTimer scrollTimer;
+    int dragScrollStep;
     int rowHeight;
     int areaRowCount;
     int pos;
@@ -54,17 +75,22 @@ public:
 protected:
     virtual ListItem* createRowItem();
     void wheelEvent(QWheelEvent *event) override;
+    virtual void onItemDragStart(ListItem* item);
+    virtual void onItemDragEnter(ListItem* item);
+    virtual void onItemDragLeave(ListItem* item);
+    virtual void onItemDragMove(ListItem* item, QDragMoveEvent *event);
+    virtual void onItemDropped(ListItem* src, ListItem* dest);
 private:
     void updateListBase();
     void appendItem();
-    void fillA(int begin, bool force = false);
-    void fillB(int begin, bool force = false);
+    void fillA(int begin, bool forceUpdate = false);
+    void fillB(int begin, bool forceUpdate = false);
     void setItemData(ListItem* item, int idx);
     void updateMaxGlobalPos();
+    void performDragScroll(ListItem* src, QDragMoveEvent *event);
 private slots:
-    void setGlobalPos(int globalPos, bool force = false);
+    void setGlobalPos(int globalPos, bool forceUpdate = false);
     void onDataChanged(int begin, int end);
 };
-
 
 #endif //LIFERHYTHM_LISTWIDGET_H

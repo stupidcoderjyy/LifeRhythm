@@ -7,9 +7,12 @@
 #include "ScrollBar.h"
 #include "Error.h"
 #include "NBT.h"
+#include <QDebug>
+#include <QDrag>
+#include <QMimeData>
 
 ListItem::ListItem(QWidget *parent): Widget(parent),
-        data(), dc(), dataIdx() {
+        data(), dc(), dataIdx(), dragStart(), pressed() {
 }
 
 void ListItem::setData(WidgetData *d) {
@@ -34,9 +37,56 @@ void ListItem::syncWidgetToData() {
 void ListItem::clearWidget() {
 }
 
+void ListItem::dragEnterEvent(QDragEnterEvent *event) {
+    if (event->source() == this) {
+        event->ignore();
+    } else {
+        event->accept();
+    }
+    emit sigDragEnter(this);
+}
+
+void ListItem::dragMoveEvent(QDragMoveEvent *event) {
+    emit sigDragMove(this, event);
+}
+
+void ListItem::dragLeaveEvent(QDragLeaveEvent *event) {
+    emit sigDragLeave(this);
+}
+
+void ListItem::dropEvent(QDropEvent *event) {
+    emit sigDropped(this);
+}
+
+void ListItem::mouseMoveEvent(QMouseEvent *event) {
+    if (!(event->buttons() & Qt::LeftButton)) {
+        return;
+    }
+    if (acceptDrops() && pressed && (event->pos() - dragStart).manhattanLength() >= (height() >> 1)) {
+        auto* drag = new QDrag(this);
+        auto* md = new QMimeData();
+        drag->setMimeData(md);
+        emit sigDragStart(this);
+        drag->exec();
+        emit sigDragEnd(this);
+    }
+}
+
+void ListItem::mousePressEvent(QMouseEvent *event) {
+    if (acceptDrops() && event->buttons() & Qt::LeftButton) {
+        dragStart = event->pos();
+        pressed = true;
+    }
+}
+
+void ListItem::mouseReleaseEvent(QMouseEvent *event) {
+    pressed = false;
+}
+
+
 ListWidget::ListWidget(QWidget *parent): QScrollArea(parent), StandardWidget(), rowHeight(40),
         areaRowCount(), container(new QWidget(this)), pos(), items(), model(), posBottom(),
-        posMid(), idxA(-1), idxB(-1), globalPos(), maxGlobalPos() {
+        posMid(), idxA(-1), idxB(-1), globalPos(), maxGlobalPos(), scrollTimer(), dragScrollStep() {
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     vBar = new ScrollBar(this, Qt::Vertical);
@@ -58,6 +108,10 @@ ListWidget::ListWidget(QWidget *parent): QScrollArea(parent), StandardWidget(), 
     layout->setSpacing(0);
     layout->setContentsMargins(0,0,0,0);
     container->setLayout(layout);
+    scrollTimer.setInterval(5);
+    connect(&scrollTimer, &QTimer::timeout, this, [this](){
+        setGlobalPos(globalPos + dragScrollStep);
+    });
 }
 
 void ListWidget::resizeEvent(QResizeEvent *event) {
@@ -116,6 +170,21 @@ void ListWidget::wheelEvent(QWheelEvent *event) {
     vBar->setValue(globalPos);
 }
 
+void ListWidget::onItemDragStart(ListItem *item) {
+}
+
+void ListWidget::onItemDragEnter(ListItem *item) {
+}
+
+void ListWidget::onItemDragLeave(ListItem *item) {
+}
+
+void ListWidget::onItemDragMove(ListItem* item, QDragMoveEvent *event) {
+}
+
+void ListWidget::onItemDropped(ListItem *src, ListItem *dest) {
+}
+
 void ListWidget::onPostParsing(StandardWidget::Handlers &handlers, NBT *widgetTag) {
     if (widgetTag->contains("row_height", Data::INT)) {
         int height = widgetTag->getInt("row_height");
@@ -130,7 +199,7 @@ void ListWidget::onPostParsing(StandardWidget::Handlers &handlers, NBT *widgetTa
 
 void ListWidget::updateListBase() {
     updateMaxGlobalPos();
-    int newRowCount = viewport()->height() / rowHeight + 5;
+    int newRowCount = viewport()->height() / rowHeight + 2;
     if (areaRowCount >= newRowCount) {
         return;
     }
@@ -162,6 +231,19 @@ void ListWidget::appendItem() {
     w->setParent(container);
     w->setFixedHeight(rowHeight);
     w->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed);
+    connect(w, &ListItem::sigDragEnter, this, &ListWidget::onItemDragEnter);
+    connect(w, &ListItem::sigDragLeave, this, &ListWidget::onItemDragLeave);
+    connect(w, &ListItem::sigDragStart, this, &ListWidget::onItemDragStart);
+    connect(w, &ListItem::sigDragMove, this, [this](ListItem* item, QDragMoveEvent* evt){
+        onItemDragMove(item, evt);
+        performDragScroll(item, evt);
+    });
+    connect(w, &ListItem::sigDropped, this, [this, w](ListItem* src){
+        onItemDropped(src, w);
+    });
+    connect(w, &ListItem::sigDragEnd, this, [this](){
+        scrollTimer.stop();
+    });
     layout->addWidget(w);
     items << w;
 }
@@ -179,8 +261,8 @@ void ListWidget::setModel(IListModel *m) {
     }
 }
 
-void ListWidget::fillA(int begin, bool force) {
-    if (!model || (!force && idxA == begin)) {
+void ListWidget::fillA(int begin, bool forceUpdate) {
+    if (!model || (!forceUpdate && idxA == begin)) {
         return;
     }
     idxA = begin;
@@ -190,8 +272,8 @@ void ListWidget::fillA(int begin, bool force) {
     }
 }
 
-void ListWidget::fillB(int begin, bool force) {
-    if (!model || (!force && idxB == begin)) {
+void ListWidget::fillB(int begin, bool forceUpdate) {
+    if (!model || (!forceUpdate && idxB == begin)) {
         return;
     }
     idxB = begin;
@@ -217,8 +299,21 @@ void ListWidget::updateMaxGlobalPos() {
     vBar->onRangeChanged(0, maxGlobalPos);
 }
 
-void ListWidget::setGlobalPos(int gp, bool force) {
-    if (!force && globalPos == gp) {
+void ListWidget::performDragScroll(ListItem* src, QDragMoveEvent *event) {
+    int y = (event->pos() + src->pos()).y() - pos;
+    if (y < 30) {
+        dragScrollStep = -2;
+        scrollTimer.start();
+    } else if (y > viewport()->height() - 30) {
+        dragScrollStep = 2;
+        scrollTimer.start();
+    } else {
+        scrollTimer.stop();
+    }
+}
+
+void ListWidget::setGlobalPos(int gp, bool forceUpdate) {
+    if (!forceUpdate && globalPos == gp) {
         return;
     }
     gp = qMin(maxGlobalPos, qMax(0, gp));
@@ -226,9 +321,9 @@ void ListWidget::setGlobalPos(int gp, bool force) {
     pos = gp % areaHeight;
     int i = gp / rowHeight;
     i -= i % areaRowCount;
-    fillA(i, force);
+    fillA(i, forceUpdate);
     if (pos > posMid) {
-        fillB(i + areaRowCount, force);
+        fillB(i + areaRowCount, forceUpdate);
     }
     globalPos = gp;
     verticalScrollBar()->setValue(pos);
