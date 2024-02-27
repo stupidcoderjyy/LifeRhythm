@@ -85,6 +85,7 @@ set(INCLUDE_FILES
         include/widgets/RangeBar.h
         include/widgets/ScrollArea.h
         include/widgets/ScrollBar.h
+        include/widgets/SelectableListWidget.h
         include/widgets/TextEdit.h
         include/widgets/TextLabel.h
         include/widgets/Widget.h
@@ -149,6 +150,7 @@ set(SRC_FILES
         src/widgets/ImgLabel.cpp
         src/widgets/RangeBar.cpp
         src/widgets/ScrollArea.cpp
+        src/widgets/SelectableListWidget.cpp
         src/widgets/ScrollBar.cpp
         src/widgets/TextEdit.cpp
         src/widgets/TextLabel.cpp

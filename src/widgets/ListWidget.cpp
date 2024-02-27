@@ -7,12 +7,11 @@
 #include "ScrollBar.h"
 #include "Error.h"
 #include "NBT.h"
-#include <QDebug>
 #include <QDrag>
 #include <QMimeData>
 
 ListItem::ListItem(QWidget *parent): Widget(parent),
-        data(), dc(), dataIdx(), dragStart(), pressed() {
+        data(), dc(), dataIdx(), dragStart() {
 }
 
 void ListItem::setData(WidgetData *d) {
@@ -62,7 +61,7 @@ void ListItem::mouseMoveEvent(QMouseEvent *event) {
     if (!(event->buttons() & Qt::LeftButton)) {
         return;
     }
-    if (acceptDrops() && pressed && (event->pos() - dragStart).manhattanLength() >= (height() >> 1)) {
+    if (acceptDrops() && (event->pos() - dragStart).manhattanLength() >= (height() >> 1)) {
         auto* drag = new QDrag(this);
         auto* md = new QMimeData();
         drag->setMimeData(md);
@@ -75,14 +74,8 @@ void ListItem::mouseMoveEvent(QMouseEvent *event) {
 void ListItem::mousePressEvent(QMouseEvent *event) {
     if (acceptDrops() && event->buttons() & Qt::LeftButton) {
         dragStart = event->pos();
-        pressed = true;
     }
 }
-
-void ListItem::mouseReleaseEvent(QMouseEvent *event) {
-    pressed = false;
-}
-
 
 ListWidget::ListWidget(QWidget *parent): QScrollArea(parent), StandardWidget(), rowHeight(40),
         areaRowCount(), container(new QWidget(this)), pos(), items(), model(), posBottom(),
@@ -335,8 +328,9 @@ void ListWidget::onDataChanged(int begin, int end) {
     if (end < idxA || begin >= rBorder) {
         return;
     }
-    int i = qMax(begin, idxA) - idxA;
-    int j = qMin(end, rBorder) - idxA;
+    begin = qMax(begin, idxA);
+    int i = begin - idxA;
+    int j = qMin(end, rBorder - 1) - idxA;
     while (i <= j) {
         setItemData(items[i], begin);
         i++;

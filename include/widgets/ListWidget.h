@@ -20,7 +20,6 @@ protected:
     int dataIdx;
     WidgetData* data;
 private:
-    bool pressed;
     QPoint dragStart;
     QMetaObject::Connection dc;
 public:
@@ -36,7 +35,6 @@ protected:
     void dropEvent(QDropEvent *event) override;
     void mousePressEvent(QMouseEvent *event) override;
     void mouseMoveEvent(QMouseEvent *event) override;
-    void mouseReleaseEvent(QMouseEvent *event) override;
 private:
     void setData(WidgetData* d);
 signals:
@@ -81,6 +79,8 @@ protected:
     virtual void onItemDragLeave(ListItem* item);
     virtual void onItemDragMove(ListItem* item, QDragMoveEvent *event);
     virtual void onItemDropped(ListItem* src, ListItem* dest);
+    void setGlobalPos(int globalPos, bool forceUpdate = false);
+    void onDataChanged(int begin, int end);
 private:
     void updateListBase();
     void fillA(int begin, bool forceUpdate = false);
@@ -88,9 +88,6 @@ private:
     void setItemData(ListItem* item, int idx);
     void updateMaxGlobalPos();
     void performDragScroll(ListItem* src, QDragMoveEvent *event);
-private slots:
-    void setGlobalPos(int globalPos, bool forceUpdate = false);
-    void onDataChanged(int begin, int end);
 };
 
 #endif //LIFERHYTHM_LISTWIDGET_H
