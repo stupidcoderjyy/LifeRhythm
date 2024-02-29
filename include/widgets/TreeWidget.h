@@ -6,7 +6,7 @@
 #define LIFERHYTHM_TREEWIDGET_H
 
 #include "ListWidget.h"
-#include "TreeModel.h"
+#include "TreeData.h"
 
 class TreeItem : public ListItem {
     Q_OBJECT
@@ -27,7 +27,7 @@ protected:
 class TreeWidget : public ListWidget{
 public:
     explicit TreeWidget(QWidget* parent = nullptr);
-    void setModel(ITreeModel* model);
+    void setData(TreeData* d);
 protected:
     void prepareNewItem(ListItem *item) override;
 };

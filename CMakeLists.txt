@@ -68,8 +68,9 @@ set(INCLUDE_FILES
         include/util/io/StringByteReader.h
         include/util/io/StringInput.h
         include/util/models/WidgetData.h
-        include/util/models/ListModel.h
-        include/util/models/TreeModel.h
+        include/util/models/TreeData.h
+        include/util/models/ListData.h
+        include/util/models/SelectableListData.h
         include/util/nbt/ArrayData.h
         include/util/nbt/BoolData.h
         include/util/nbt/Data.h
@@ -128,9 +129,11 @@ set(SRC_FILES
         src/util/io/StreamByteWriter.cpp
         src/util/io/StringByteReader.cpp
         src/util/io/StringInput.cpp
+        src/util/io/DataLoader.cpp
         src/util/models/WidgetData.cpp
-        src/util/models/ListModel.cpp
-        src/util/models/TreeModel.cpp
+        src/util/models/TreeData.cpp
+        src/util/models/ListData.cpp
+        src/util/models/SelectableListData.cpp
         src/util/nbt/ArrayData.cpp
         src/util/nbt/BoolData.cpp
         src/util/nbt/Data.cpp

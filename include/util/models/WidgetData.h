@@ -21,5 +21,4 @@ signals:
     void sigDataChanged();
 };
 
-
 #endif //LIFERHYTHM_WIDGET_DATA_H

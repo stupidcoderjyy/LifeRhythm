@@ -13,11 +13,11 @@ void TreeItem::mouseDoubleClickEvent(QMouseEvent *event) {
 }
 
 void TreeItem::syncDataToWidget() {
-    folded = data->cast<TreeWidgetData>()->folded;
+    folded = wData->cast<TreeNode>()->isFolded();
 }
 
 void TreeItem::syncWidgetToData() {
-    data->cast<TreeWidgetData>()->folded = folded;
+    wData->cast<TreeNode>()->setFolded(folded);
 }
 
 void TreeItem::setFolded(bool f) {
@@ -31,12 +31,12 @@ void TreeItem::setFolded(bool f) {
 TreeWidget::TreeWidget(QWidget *parent):ListWidget(parent) {
 }
 
-void TreeWidget::setModel(ITreeModel *model) {
-    ListWidget::setModel(model);
+void TreeWidget::setData(TreeData *d) {
+    ListWidget::setData(d);
 }
 
 void TreeWidget::prepareNewItem(ListItem *item) {
     ListWidget::prepareNewItem(item);
     auto* w = static_cast<TreeItem*>(item);
-    connect(w, &TreeItem::sigItemFold, static_cast<TreeModel*>(model), &ITreeModel::onFolded);
+    connect(w, &TreeItem::sigItemFold, wData->cast<TreeData>(), &TreeData::onFolded);
 }

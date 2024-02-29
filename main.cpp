@@ -26,7 +26,7 @@ public:
         label->setFont(Styles::FONT_MAIN);
     }
     void syncDataToWidget() override {
-        QString c = data->cast<ColorData>()->color;
+        QString c = wData->cast<ColorData>()->color;
         label->setText(c);
         label->setStyleSheet(bg(c) + qss("color", Styles::GRAY_TEXT_0));
     }
@@ -53,14 +53,14 @@ protected:
         layout->setContentsMargins(1,1,1,1);
         menu->setLayout(layout);
         auto* list = new ColorListWidget(menu);
-        auto* model = new SelectableListModel("", "");
+        auto* model = new SelectableListData();
         for (auto it = Styles::colors.begin() ; it != Styles::colors.end() ; it++) {
             model->append(new ColorData(it.value().name(QColor::NameFormat::HexRgb)));
         }
-        connect(model, &SelectableListModel::sigDataSelected, this, [model, menu](int pre, int cur){
+        connect(model, &SelectableListData::sigDataSelected, this, [model, menu](int pre, int cur){
             emit menu->sigSelectOption(model->at(cur));
         });
-        list->setModel(model);
+        list->setData(model);
         list->setRowHeight(30);
         layout->addWidget(list);
     }

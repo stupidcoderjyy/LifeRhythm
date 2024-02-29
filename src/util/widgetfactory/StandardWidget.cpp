@@ -57,6 +57,31 @@ void StandardWidget::registerPointer(const QString &id, QWidget *p) {
     pointers.insert(id, p);
 }
 
+
+
+void StandardWidget::setData(WidgetData *d) {
+    if (wData == d) {
+        return;
+    }
+    if (wData) {
+        QObject::disconnect(dc);
+    }
+    wData = d;
+    if (d) {
+        dc = connectModelView();
+    }
+}
+
+void StandardWidget::syncDataToWidget() {
+}
+
+void StandardWidget::syncWidgetToData() {
+}
+
+QMetaObject::Connection StandardWidget::connectModelView() {
+    return {};
+}
+
 StandardWidget::~StandardWidget() {
     DELETE_MAP(stateResponders)
 }

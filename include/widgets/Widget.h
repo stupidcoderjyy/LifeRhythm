@@ -9,7 +9,7 @@
 #include "StandardWidget.h"
 #include "Styles.h"
 
-class Widget : public QWidget, public StandardWidget{
+class Widget : public QWidget, public StandardWidget {
 public:
     explicit Widget(QWidget* parent);
 PAINT_QSS

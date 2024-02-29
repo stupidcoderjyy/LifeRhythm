@@ -3,8 +3,5 @@
 //
 #include "widgets/Widget.h"
 
-Widget::Widget(QWidget *parent):
-        QWidget(parent),
-        StandardWidget() {
+Widget::Widget(QWidget *parent): QWidget(parent), StandardWidget() {
 }
-

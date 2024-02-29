@@ -9,30 +9,13 @@
 #include <QDrag>
 #include <QMimeData>
 
-ListItem::ListItem(QWidget *parent): Widget(parent),
-        data(), dc(), dataIdx(), dragStart() {
-}
-
-void ListItem::setData(WidgetData *d) {
-    if (data == d) {
-        return;
-    }
-    if (data) {
-        disconnect(dc);
-    }
-    if (d) {
-        dc = connect(d, &WidgetData::sigDataChanged, this, &ListItem::syncDataToWidget);
-    }
-    data = d;
+ListItem::ListItem(QWidget *parent): Widget(parent), dataIdx(), dragStart() {
 }
 
 void ListItem::syncDataToWidget() {
 }
 
 void ListItem::syncWidgetToData() {
-}
-
-void ListItem::clearWidget() {
 }
 
 void ListItem::dragEnterEvent(QDragEnterEvent *event) {
@@ -77,9 +60,8 @@ void ListItem::mousePressEvent(QMouseEvent *event) {
 }
 
 ListWidget::ListWidget(QWidget *parent): ScrollArea(parent), rowHeight(40),
-        areaRowCount(), container(new QWidget(this)), pos(), items(), model(), posBottom(),
-        posMid(), idxA(-1), idxB(-1), globalPos(), maxGlobalPos(), scrollTimer(),
-        dragScrollStep() {
+        areaRowCount(0), container(new QWidget(this)), pos(0), items(),
+        idxA(-1), idxB(-1), globalPos(), scrollTimer(), dragScrollStep() {
     setWidget(container);
     layout = new QVBoxLayout(container);
     layout->setSpacing(0);
@@ -224,6 +206,13 @@ void ListWidget::scroll(int dy) {
     getVScrollBar()->setValue(globalPos);
 }
 
+QMetaObject::Connection ListWidget::connectModelView() {
+    return connect(wData, &WidgetData::sigDataChanged, this, [this](){
+        auto* d = wData->cast<ListData>();
+        onDataChanged(d->getChangeBegin(), d->getChangeEnd());
+    });
+}
+
 void ListWidget::onPostParsing(StandardWidget::Handlers &handlers, NBT *widgetTag) {
     if (widgetTag->contains("row_height", Data::INT)) {
         int height = widgetTag->getInt("row_height");
@@ -234,6 +223,10 @@ void ListWidget::onPostParsing(StandardWidget::Handlers &handlers, NBT *widgetTa
     } else {
         throwInFunc("missing tag 'row_height'");
     }
+}
+
+void ListWidget::setData(ListData *d) {
+    ScrollArea::setData(d);
 }
 
 void ListWidget::resizeEvent(QResizeEvent *event) {
@@ -278,54 +271,37 @@ void ListWidget::updateListBase() {
     setGlobalPos(globalPos, true);
 }
 
-void ListWidget::setModel(IListModel *m) {
-    if (model == m) {
-        return;
-    }
-    if (model) {
-        disconnect(mc);
-    }
-    model = m;
-    if (m) {
-        mc = connect(m, &IListModel::sigDataChanged, this, &ListWidget::onDataChanged);
-    }
-}
-
 void ListWidget::fillA(int begin, bool forceUpdate) {
-    if (!model || (!forceUpdate && idxA == begin)) {
+    if (!wData || (!forceUpdate && idxA == begin)) {
         return;
     }
     idxA = begin;
-    int end = qMin(begin + areaRowCount, model->length());
+    int end = qMin(begin + areaRowCount, wData->cast<ListData>()->length());
     for (int i = 0; begin < end; i++, begin++) {
         setItemData(items[i], begin);
     }
 }
 
 void ListWidget::fillB(int begin, bool forceUpdate) {
-    if (!model || (!forceUpdate && idxB == begin)) {
+    if (!wData || (!forceUpdate && idxB == begin)) {
         return;
     }
     idxB = begin;
-    int end = qMin(begin + areaRowCount, model->length());
+    int end = qMin(begin + areaRowCount, wData->cast<ListData>()->length());
     for (int i = areaRowCount; begin < end; i++, begin++) {
         setItemData(items[i], begin);
     }
 }
 
 void ListWidget::setItemData(ListItem *item, int idx) {
-    auto* d = model->at(idx);
+    auto* d = wData->cast<ListData>()->at(idx);
     item->setData(d);
     item->dataIdx = idx;
-    if (d) {
-        item->syncDataToWidget();
-    } else {
-        item->clearWidget();
-    }
+    item->syncDataToWidget();
 }
 
 void ListWidget::updateMaxGlobalPos() {
-    maxGlobalPos = qMax(0, model->length() * rowHeight - viewport()->height());
+    maxGlobalPos = qMax(0, wData->cast<ListData>()->length() * rowHeight - viewport()->height());
     getVScrollBar()->onRangeChanged(0, maxGlobalPos);
 }
 

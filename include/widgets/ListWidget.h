@@ -6,7 +6,7 @@
 #define LIFERHYTHM_LISTWIDGET_H
 
 #include "Widget.h"
-#include "ListModel.h"
+#include "ListData.h"
 #include "ScrollArea.h"
 #include <QVBoxLayout>
 #include <QTimer>
@@ -17,16 +17,13 @@ class ListItem : public Widget {
     friend class ListWidget;
 protected:
     int dataIdx;
-    WidgetData* data;
 private:
     QPoint dragStart;
-    QMetaObject::Connection dc;
 public:
     explicit ListItem(QWidget* parent = nullptr);
 public:
-    virtual void syncDataToWidget();    //将WidgetData中的数据同步到控件中，ListWidget内部调用，也可以手动调用
-    virtual void syncWidgetToData();    //将控件的数据同步到WidgetData中，需要手动调用
-    virtual void clearWidget();         //将控件恢复到无数据的状态，ListWidget内部调用
+    void syncDataToWidget() override;
+    void syncWidgetToData() override;
 protected:
     void dragEnterEvent(QDragEnterEvent *event) override;
     void dragMoveEvent(QDragMoveEvent *event) override;
@@ -34,8 +31,6 @@ protected:
     void dropEvent(QDropEvent *event) override;
     void mousePressEvent(QMouseEvent *event) override;
     void mouseMoveEvent(QMouseEvent *event) override;
-private:
-    void setData(WidgetData* d);
 signals:
     void sigDragStart(ListItem* item);
     void sigDragEnd(ListItem* item);
@@ -50,7 +45,6 @@ class ListWidget : public ScrollArea {
 protected:
     QVector<ListItem*> items;
     QMetaObject::Connection mc;
-    IListModel* model;
     QVBoxLayout* layout;
     QWidget* container;
     QTimer scrollTimer;
@@ -66,8 +60,8 @@ public:
     explicit ListWidget(QWidget* parent = nullptr);
     void setRowHeight(int s);
     void setMinAreaRowCount(int count);
-    void setModel(IListModel* model);
     void onPostParsing(Handlers &handlers, NBT *widgetTag) override;
+    void setData(ListData* d);
 protected:
     void resizeEvent(QResizeEvent *event) override;
     ScrollBar* createVerticalScrollBar() override;
@@ -82,6 +76,7 @@ protected:
     void setGlobalPos(int globalPos, bool forceUpdate = false);
     void onDataChanged(int begin, int end);
     void scroll(int dy);
+    QMetaObject::Connection connectModelView() override;
 private:
     void updateListBase();
     void fillA(int begin, bool forceUpdate = false);
