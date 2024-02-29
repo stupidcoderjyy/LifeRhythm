@@ -2,7 +2,7 @@
 // Created by stupid_coder_jyy on 2024/2/25.
 //
 
-#include "models/WidgetData.h"
+#include "WidgetData.h"
 
 
 WidgetData::WidgetData(): QObject() {

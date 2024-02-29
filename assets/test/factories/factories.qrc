@@ -1,5 +1,4 @@
 <RCC>
     <qresource prefix="/assets/test/factories">
-        <file>item.snbt</file>
     </qresource>
 </RCC>

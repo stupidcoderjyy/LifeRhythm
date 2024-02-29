@@ -10,9 +10,17 @@
 #include "ScrollBar.h"
 
 class ScrollArea : public QScrollArea, public StandardWidget{
+private:
+    ScrollBar *vBar{};
+    ScrollBar *hBar{};
 public:
     explicit ScrollArea(QWidget* parent = nullptr);
-SCROLL_CLAZZ_DEF
+    ScrollBar* getVScrollBar();
+    ScrollBar* getHScrollBar();
+protected:
+    void resizeEvent(QResizeEvent *event) override;
+    virtual ScrollBar* createHorizontalScrollBar();
+    virtual ScrollBar* createVerticalScrollBar();
 };
 
 

@@ -10,5 +10,9 @@
 
 bool isHovered(QWidget* widget, QMouseEvent* evt);
 bool isHovered(QWidget* widget, const QPoint& pos);
+bool isMouseHovered(QWidget* widget);
+QPoint getGlobalPos(QWidget* widget);
+void moveWidget(QWidget* widget, const QPoint& pos);
+void moveWidget(QWidget* widget, int x, int y);
 
 #endif //LIFERHYTHM_WIDGETUTIL_H

@@ -3,7 +3,6 @@
 //
 
 #include "ListWidget.h"
-#include "Styles.h"
 #include "ScrollBar.h"
 #include "Error.h"
 #include "NBT.h"
@@ -77,25 +76,10 @@ void ListItem::mousePressEvent(QMouseEvent *event) {
     }
 }
 
-ListWidget::ListWidget(QWidget *parent): QScrollArea(parent), StandardWidget(), rowHeight(40),
+ListWidget::ListWidget(QWidget *parent): ScrollArea(parent), rowHeight(40),
         areaRowCount(), container(new QWidget(this)), pos(), items(), model(), posBottom(),
-        posMid(), idxA(-1), idxB(-1), globalPos(), maxGlobalPos(), scrollTimer(), dragScrollStep() {
-    setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    vBar = new ScrollBar(this, Qt::Vertical);
-    hBar = new ScrollBar(this, Qt::Horizontal);
-    connect(horizontalScrollBar(), &QScrollBar::valueChanged, hBar, &ScrollBar::onValueSet);
-    connect(hBar, &QScrollBar::valueChanged, horizontalScrollBar(), &QScrollBar::setValue);
-    connect(horizontalScrollBar(), &QScrollBar::rangeChanged, hBar, &ScrollBar::onRangeChanged);
-    connect(vBar, &QScrollBar::valueChanged, this, [this](int v){
-        setGlobalPos(v);
-    });
-    setFrameShape(QFrame::NoFrame);
-    setWidgetResizable(true);
-    viewport()->setObjectName("vp");
-    viewport()->setStyleSheet(qss_t("vp", bg(Styles::CLEAR)));
-    setObjectName("sa");
-    setStyleSheet(qss_t("sa", bg(Styles::CLEAR)));
+        posMid(), idxA(-1), idxB(-1), globalPos(), maxGlobalPos(), scrollTimer(),
+        dragScrollStep() {
     setWidget(container);
     layout = new QVBoxLayout(container);
     layout->setSpacing(0);
@@ -105,13 +89,6 @@ ListWidget::ListWidget(QWidget *parent): QScrollArea(parent), StandardWidget(), 
     connect(&scrollTimer, &QTimer::timeout, this, [this](){
         setGlobalPos(globalPos + dragScrollStep);
     });
-}
-
-void ListWidget::resizeEvent(QResizeEvent *event) {
-    QScrollArea::resizeEvent(event);
-    hBar->setGeometry(0, height() - 8, width(), 7);
-    vBar->setGeometry(width() - 8, 0, 7, height());
-    updateListBase();
 }
 
 void ListWidget::setRowHeight(int s) {
@@ -148,40 +125,11 @@ void ListWidget::prepareNewItem(ListItem* w) {
 }
 
 void ListWidget::wheelEvent(QWheelEvent *event) {
-    int oldPos = pos;
-    int dy = event->angleDelta().y();
-    globalPos -= dy;
-    pos -= dy;
-    if (globalPos < 0) {
-        globalPos = 0;
-        pos = 0;
-    } else if (globalPos > maxGlobalPos) {
-        pos -= globalPos - maxGlobalPos;
-        globalPos = maxGlobalPos;
+    int dy = rowHeight;
+    if (event->modifiers() == Qt::ControlModifier) {
+        dy = dy << 2;
     }
-    if (pos == oldPos) {
-        return;
-    }
-    int areaHeight = container->height() >> 1;
-    if (dy < 0) {   //下行
-        if (pos > posBottom) {
-            pos -= areaHeight;
-            fillA(idxB);
-            fillB(idxA + areaRowCount);
-        } else if (oldPos <= posMid && pos > posMid) {
-            fillB(idxA + areaRowCount);
-        }
-    } else {    //上行
-        if (pos < 0) {
-            pos += areaHeight;
-            fillB(idxA);
-            fillA(idxB - areaRowCount);
-        } else if (oldPos >= areaHeight && pos < areaHeight) {
-            fillA(idxB - areaRowCount);
-        }
-    }
-    verticalScrollBar()->setValue(pos);
-    vBar->setValue(globalPos);
+    scroll(event->angleDelta().y() > 0 ? -dy : dy);
 }
 
 void ListWidget::onItemDragStart(ListItem *item) {
@@ -199,6 +147,83 @@ void ListWidget::onItemDragMove(ListItem* item, QDragMoveEvent *event) {
 void ListWidget::onItemDropped(ListItem *src, ListItem *dest) {
 }
 
+void ListWidget::setGlobalPos(int gp, bool forceUpdate) {
+    if (!forceUpdate && globalPos == gp) {
+        return;
+    }
+    gp = qMin(maxGlobalPos, qMax(0, gp));
+    int areaHeight = container->height() >> 1;
+    if (!forceUpdate) {
+        int resPos = pos + gp - globalPos;
+        if (resPos >= 0 && resPos < areaHeight) {
+            scroll(gp - globalPos);
+            return;
+        }
+    }
+    pos = gp % areaHeight;
+    int i = gp / rowHeight;
+    i -= i % areaRowCount;
+    fillA(i, forceUpdate);
+    if (pos > posMid) {
+        fillB(i + areaRowCount, forceUpdate);
+    }
+    globalPos = gp;
+    verticalScrollBar()->setValue(pos);
+    getVScrollBar()->setValue(globalPos);
+}
+
+void ListWidget::onDataChanged(int begin, int end) {
+    int rBorder = pos <= posMid ? idxA + areaRowCount : idxA + (areaRowCount << 1);
+    updateMaxGlobalPos();   //对于removeLast的情况，进度条会自动调整
+    if (end < idxA || begin >= rBorder) {
+        return;
+    }
+    begin = qMax(begin, idxA);
+    int i = begin - idxA;
+    int j = qMin(end, rBorder - 1) - idxA;
+    while (i <= j) {
+        setItemData(items[i], begin);
+        i++;
+        begin++;
+    }
+}
+
+void ListWidget::scroll(int dy) {
+    int oldPos = pos;
+    globalPos += dy;
+    pos += dy;
+    if (globalPos < 0) {
+        globalPos = 0;
+        pos = 0;
+    } else if (globalPos > maxGlobalPos) {
+        pos -= globalPos - maxGlobalPos;
+        globalPos = maxGlobalPos;
+    }
+    if (pos == oldPos) {
+        return;
+    }
+    int areaHeight = container->height() >> 1;
+    if (dy > 0) {   //下行
+        if (pos > posBottom) {
+            pos -= areaHeight;
+            fillA(idxB);
+            fillB(idxA + areaRowCount);
+        } else if (oldPos <= posMid && pos > posMid) {
+            fillB(idxA + areaRowCount);
+        }
+    } else {    //上行
+        if (pos < 0) {
+            pos += areaHeight;
+            fillB(idxA);
+            fillA(idxB - areaRowCount);
+        } else if (oldPos >= areaHeight && pos < areaHeight) {
+            fillA(idxB - areaRowCount);
+        }
+    }
+    verticalScrollBar()->setValue(pos);
+    getVScrollBar()->setValue(globalPos);
+}
+
 void ListWidget::onPostParsing(StandardWidget::Handlers &handlers, NBT *widgetTag) {
     if (widgetTag->contains("row_height", Data::INT)) {
         int height = widgetTag->getInt("row_height");
@@ -209,6 +234,19 @@ void ListWidget::onPostParsing(StandardWidget::Handlers &handlers, NBT *widgetTa
     } else {
         throwInFunc("missing tag 'row_height'");
     }
+}
+
+void ListWidget::resizeEvent(QResizeEvent *event) {
+    ScrollArea::resizeEvent(event);
+    updateListBase();
+}
+
+ScrollBar* ListWidget::createVerticalScrollBar() {
+    auto* b = new ScrollBar(this, Qt::Vertical);
+    connect(b, &QScrollBar::valueChanged, this, [this](int v){
+        setGlobalPos(v);
+    });
+    return b;
 }
 
 void ListWidget::updateListBase() {
@@ -288,7 +326,7 @@ void ListWidget::setItemData(ListItem *item, int idx) {
 
 void ListWidget::updateMaxGlobalPos() {
     maxGlobalPos = qMax(0, model->length() * rowHeight - viewport()->height());
-    vBar->onRangeChanged(0, maxGlobalPos);
+    getVScrollBar()->onRangeChanged(0, maxGlobalPos);
 }
 
 void ListWidget::performDragScroll(ListItem* src, QDragMoveEvent *event) {
@@ -301,39 +339,5 @@ void ListWidget::performDragScroll(ListItem* src, QDragMoveEvent *event) {
         scrollTimer.start();
     } else {
         scrollTimer.stop();
-    }
-}
-
-void ListWidget::setGlobalPos(int gp, bool forceUpdate) {
-    if (!forceUpdate && globalPos == gp) {
-        return;
-    }
-    gp = qMin(maxGlobalPos, qMax(0, gp));
-    int areaHeight = container->height() >> 1;
-    pos = gp % areaHeight;
-    int i = gp / rowHeight;
-    i -= i % areaRowCount;
-    fillA(i, forceUpdate);
-    if (pos > posMid) {
-        fillB(i + areaRowCount, forceUpdate);
-    }
-    globalPos = gp;
-    verticalScrollBar()->setValue(pos);
-    vBar->setValue(globalPos);
-}
-
-void ListWidget::onDataChanged(int begin, int end) {
-    int rBorder = pos <= posMid ? idxA + areaRowCount : idxA + (areaRowCount << 1);
-    updateMaxGlobalPos();   //对于removeLast的情况，进度条会自动调整
-    if (end < idxA || begin >= rBorder) {
-        return;
-    }
-    begin = qMax(begin, idxA);
-    int i = begin - idxA;
-    int j = qMin(end, rBorder - 1) - idxA;
-    while (i <= j) {
-        setItemData(items[i], begin);
-        i++;
-        begin++;
     }
 }

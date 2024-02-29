@@ -1,58 +1,71 @@
 
-#include "Error.h"
-#include "ListWidget.h"
-#include "RcManagers.h"
-#include <QTextCodec>
-#include <QTimer>
-#include <QDebug>
-#include "LifeRhythm.h"
-#include "TextLabel.h"
-#include "models/WidgetData.h"
+
+#include <QLabel>
+#include <utility>
 #include "SelectableListWidget.h"
+#include "OptionsBox.h"
+#include "Namespaces.h"
+#include "LifeRhythm.h"
 
-class TestData : public WidgetData {
+class ColorData : public WidgetData {
 public:
-    QString str;
-    explicit TestData(QString str): WidgetData(), str(std::move(str)){
-    };
+    QString color;
+    explicit ColorData(QString color): WidgetData(), color(std::move(color)) {}
 };
 
-class TestItem : public SelectableListItem {
+class ColorItem : public SelectableListItem {
 private:
-    TextLabel* label{};
+    QLabel* label;
 public:
-    explicit TestItem(QWidget* parent = nullptr): SelectableListItem(parent){
-    };
-    void onFinishedParsing(Handlers &handlers, NBT *widgetTag) override {
-        handlers << [](QWidget* target) {
-            auto* item = static_cast<TestItem*>(target);
-            item->label = item->getPointer<TextLabel>("label");
-        };
+    explicit ColorItem(QWidget* parent = nullptr): SelectableListItem(parent){
+        auto* layout = new QHBoxLayout(this);
+        layout->setContentsMargins(0,0,0,0);
+        setLayout(layout);
+        label = new QLabel(this);
+        layout->addWidget(label);
+        label->setFont(Styles::FONT_MAIN);
     }
-
     void syncDataToWidget() override {
-        SelectableListItem::syncDataToWidget();
-        auto* d = data->cast<TestData>();
-        label->setText(d->str);
-    }
-
-    void clearWidget() override {
-        label->setText("");
-        setState(0);
-    }
-
-    void updateItemAfterSelecting(bool selected) override {
-        setState(selected);
+        QString c = data->cast<ColorData>()->color;
+        label->setText(c);
+        label->setStyleSheet(bg(c) + qss("color", Styles::GRAY_TEXT_0));
     }
 };
 
-class TestListWidget : public SelectableListWidget{
+class ColorListWidget : public SelectableListWidget {
+public:
+    explicit ColorListWidget(QWidget* parent = nullptr): SelectableListWidget(parent) {
+    }
 protected:
     SelectableListItem *createRowItem() override {
-        static WidgetFactory* loader = WidgetFactoryStorage::get("test:item");
-        auto* item = static_cast<TestItem*>(loader->apply());
-        item->setModel(static_cast<SelectableListModel*>(model));
-        return item;
+        return new ColorItem;
+    }
+};
+
+class ColorsBox : public OptionsBox {
+public:
+    explicit ColorsBox(QWidget* parent = nullptr): OptionsBox(parent) {
+    }
+protected:
+    void initMenu(OptionsMenu* menu) override {
+        menu->setFixedHeight(200);
+        auto* layout = new QVBoxLayout;
+        layout->setContentsMargins(1,1,1,1);
+        menu->setLayout(layout);
+        auto* list = new ColorListWidget(menu);
+        auto* model = new SelectableListModel("", "");
+        for (auto it = Styles::colors.begin() ; it != Styles::colors.end() ; it++) {
+            model->append(new ColorData(it.value().name(QColor::NameFormat::HexRgb)));
+        }
+        connect(model, &SelectableListModel::sigDataSelected, this, [model, menu](int pre, int cur){
+            emit menu->sigSelectOption(model->at(cur));
+        });
+        list->setModel(model);
+        list->setRowHeight(30);
+        layout->addWidget(list);
+    }
+    void fillOption(WidgetData *data) override {
+        optionEditor->setText(data->cast<ColorData>()->color);
     }
 };
 
@@ -64,25 +77,16 @@ int main(int argc, char *argv[]) {
     cfg.setMode(Config::Test);
     lr.setConfig(cfg);
     lr.onMainInit([](){
-        regClazz(WidgetFactoryStorage::get("test:item"), TestItem);
+
     });
     lr.onPostInit([](){
-        auto* list = new TestListWidget;
-        auto* model = new SelectableListModel("", "test.dat");
-        for (int i = 0 ; i < 40 ; i ++) {
-            *model << new TestData(QString::number(i));
-        }
-        list->setFixedSize(400, 400);
-        list->setRowHeight(40);
-        list->setMinAreaRowCount(10);
-        list->setModel(model);
-        list->show();
-        QTimer::singleShot(3000, [model](){
-            model->insert(2, new TestData("dwahidhwad"));
-        });
-        QObject::connect(model, &SelectableListModel::sigDataSelected, [model](int pre, int cur){
-            qDebug() << model->at(cur)->cast<TestData>()->str;
-        });
+        auto* root = new QWidget;
+        root->setObjectName("r");
+        root->setStyleSheet(qss_t("r", bg(Styles::BLACK)));
+        auto* layout = new QVBoxLayout(root);
+        root->setLayout(layout);
+        layout->addWidget(new ColorsBox(root));
+        root->show();
     }, Qt::QueuedConnection);
     return lr.launch();
 }

@@ -6,7 +6,7 @@
 #define LIFERHYTHM_TREEWIDGET_H
 
 #include "ListWidget.h"
-#include "models/TreeModel.h"
+#include "TreeModel.h"
 
 class TreeItem : public ListItem {
     Q_OBJECT

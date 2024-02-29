@@ -2,7 +2,7 @@
 // Created by stupid_coder_jyy on 2024/2/26.
 //
 
-#include "models/TreeModel.h"
+#include "TreeModel.h"
 
 TreeWidgetData::TreeWidgetData():WidgetData(), parent(), children(), folded(true) {
 }

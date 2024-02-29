@@ -71,7 +71,10 @@ void SelectableListWidget::setModel(SelectableListModel *model) {
 }
 
 SelectableListItem *SelectableListWidget::createRowItem() {
-    auto* item = new SelectableListItem;
-    item->setModel(static_cast<SelectableListModel*>(model));
-    return item;
+    return new SelectableListItem;
+}
+
+void SelectableListWidget::prepareNewItem(ListItem *item) {
+    static_cast<SelectableListItem*>(item)->setModel(static_cast<SelectableListModel*>(model));
+    ListWidget::prepareNewItem(item);
 }

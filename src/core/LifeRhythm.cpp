@@ -42,14 +42,17 @@ void LifeRhythm::setConfig(const Config &cfg) {
 void LifeRhythm::launch0() {
     preInit();
     emit sigPreInit();
-    auto* watcher = new QFutureWatcher<void>(this);
-    watcher->setFuture(QtConcurrent::run([this]() {
-        mainInit();
-        emit sigMainInit();
-        postInit();
-        emit sigPostInit();
-        debugPrint("init finished");
-    }));
+    mainInit();
+    emit sigMainInit();
+    postInit();
+    emit sigPostInit();
+//    auto* watcher = new QFutureWatcher<void>(this);
+//    watcher->setFuture(QtConcurrent::run([this]() {
+//        mainInit();
+//    }));
+//    connect(watcher, &QFutureWatcher<void>::finished, this, [this](){
+//        emit sigMainInit();
+//    });
 }
 
 void LifeRhythm::preInit() {

@@ -6,7 +6,6 @@
 #define LIFERHYTHM_SELECTABLELISTWIDGET_H
 
 #include "ListWidget.h"
-#include "models/ListModel.h"
 
 class SelectableListModel : public ListModel {
     Q_OBJECT
@@ -24,7 +23,6 @@ signals:
 };
 
 class SelectableListItem : public ListItem {
-    Q_OBJECT
     friend class SelectableListWidget;
 protected:
     SelectableListModel* model;
@@ -39,12 +37,12 @@ protected:
 };
 
 class SelectableListWidget : public ListWidget{
-    Q_OBJECT
 public:
     explicit SelectableListWidget(QWidget* parent = nullptr);
     void setModel(SelectableListModel* model);
 protected:
     SelectableListItem *createRowItem() override;
+    void prepareNewItem(ListItem *item) override;
 };
 
 

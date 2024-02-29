@@ -108,20 +108,25 @@ QStringList QssParser::parseArgs(CompilerInput *input) {
     }
 }
 
+#define regColor(c) addStringReplaceItem(#c, Styles::c)
+
 void QssParser::init() {
     addStringConcatItem("bg", "background-color:", ";");
-    addStringReplaceItem("GRAY_0", Styles::GRAY_0);
-    addStringReplaceItem("GRAY_1", Styles::GRAY_1);
-    addStringReplaceItem("GRAY_2", Styles::GRAY_2);
-    addStringReplaceItem("GRAY_3", Styles::GRAY_3);
-    addStringReplaceItem("GRAY_4", Styles::GRAY_4);
-    addStringReplaceItem("BLACK", Styles::BLACK);
-    addStringReplaceItem("CYAN_DARK", Styles::CYAN_DARK);
-    addStringReplaceItem("CYAN", Styles::CYAN);
-    addStringReplaceItem("CYAN_BRIGHT", Styles::CYAN_BRIGHT);
-    addStringReplaceItem("RED", Styles::RED);
-    addStringReplaceItem("GOLD", Styles::GOLD);
-    addStringReplaceItem("GREEN", Styles::GREEN);
+    regColor(GRAY_0);
+    regColor(GRAY_1);
+    regColor(GRAY_2);
+    regColor(GRAY_3);
+    regColor(GRAY_4);
+    regColor(BLACK);
+    regColor(CYAN_0);
+    regColor(CYAN_1);
+    regColor(CYAN_2);
+    regColor(BLUE_1);
+    regColor(RED);
+    regColor(GOLD);
+    regColor(GREEN);
+    regColor(GRAY_TEXT_0);
+    regColor(GRAY_TEXT_1);
     registerItem(new BorderItem("bd", "border"));
     registerItem(new BorderItem("bd_b", "border-bottom"));
     registerItem(new BorderItem("bd_t", "border-top"));
@@ -129,6 +134,8 @@ void QssParser::init() {
     registerItem(new BorderItem("bd_r", "border-right"));
     registerItem(new TargetItem());
 }
+
+#undef regColor
 
 void QssParser::addStringConcatItem(const QString& key, QString prefix, QString suffix) {
     registerItem(new StringConcatItem(key, std::move(prefix), std::move(suffix)));

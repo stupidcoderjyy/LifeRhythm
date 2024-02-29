@@ -42,3 +42,8 @@ void ScrollBar::onRangeChanged(int min, int max) {
 void ScrollBar::onValueSet(int value) {
     setValue(value);
 }
+
+void ScrollBar::mousePressEvent(QMouseEvent *event) {
+    QScrollBar::mousePressEvent(event);
+    event->accept();
+}

@@ -5,11 +5,10 @@
 #ifndef LIFERHYTHM_LISTWIDGET_H
 #define LIFERHYTHM_LISTWIDGET_H
 
-#include "ScrollBar.h"
 #include "Widget.h"
-#include "models/ListModel.h"
+#include "ListModel.h"
+#include "ScrollArea.h"
 #include <QVBoxLayout>
-#include <QScrollArea>
 #include <QTimer>
 #include <QDrag>
 
@@ -46,9 +45,8 @@ signals:
     void sigDropped(ListItem* item);
 };
 
-class ListWidget : public QScrollArea, public StandardWidget{
+class ListWidget : public ScrollArea {
     Q_OBJECT
-    SCROLL_CLAZZ_DEF
 protected:
     QVector<ListItem*> items;
     QMetaObject::Connection mc;
@@ -71,6 +69,8 @@ public:
     void setModel(IListModel* model);
     void onPostParsing(Handlers &handlers, NBT *widgetTag) override;
 protected:
+    void resizeEvent(QResizeEvent *event) override;
+    ScrollBar* createVerticalScrollBar() override;
     virtual ListItem* createRowItem();
     virtual void prepareNewItem(ListItem* item);
     void wheelEvent(QWheelEvent *event) override;
@@ -81,6 +81,7 @@ protected:
     virtual void onItemDropped(ListItem* src, ListItem* dest);
     void setGlobalPos(int globalPos, bool forceUpdate = false);
     void onDataChanged(int begin, int end);
+    void scroll(int dy);
 private:
     void updateListBase();
     void fillA(int begin, bool forceUpdate = false);

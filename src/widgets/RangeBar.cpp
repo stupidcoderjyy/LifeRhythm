@@ -233,6 +233,6 @@ void RangeBar::setVpp(double vpp) {
 }
 
 void RangeBar::showEvent(QShowEvent *event) {
-    QWidget::showEvent(event);
+    ScrollArea::showEvent(event);
     updateBar();
 }

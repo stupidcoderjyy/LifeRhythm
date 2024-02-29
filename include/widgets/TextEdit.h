@@ -7,11 +7,17 @@
 
 #include <QTextEdit>
 #include "ScrollBar.h"
+#include "StandardWidget.h"
 
-class TextEdit : public QTextEdit{
+class TextEdit : public QTextEdit, public StandardWidget {
+protected:
+    ScrollBar *vBar{};
+    ScrollBar *hBar{};
 public:
     explicit TextEdit(QWidget* parent);
-SCROLL_CLAZZ_DEF
+    void onPostParsing(Handlers &handlers, NBT *widgetTag) override;
+    void onStateRespondersParsing(Handlers &responders, NBT *stateTag) override;
+    void resizeEvent(QResizeEvent *event) override;
     void mousePressEvent(QMouseEvent *e) override;
     void mouseReleaseEvent(QMouseEvent *e) override;
 };

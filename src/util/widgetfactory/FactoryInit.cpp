@@ -3,9 +3,13 @@
 //
 
 #include "FactoryInit.h"
-#include "widgets/Widget.h"
-#include "widgets/ImgButton.h"
-#include "widgets/TextLabel.h"
+#include "Widget.h"
+#include "ImgButton.h"
+#include "TextLabel.h"
+#include "FocusContainer.h"
+#include "TextEdit.h"
+#include "LineEdit.h"
+#include "Menu.h"
 
 #define reg(T) stdSuppliers->insert(#T, [](QWidget* p){ return new T(p);}); \
     stdEmptyInstances->insert(#T, new T(nullptr));
@@ -16,4 +20,8 @@ void FactoryInit::init(QMap<QString, WidgetFactory::Supplier> *stdSuppliers,
     reg(ImgLabel)
     reg(ImgButton)
     reg(TextLabel)
+    reg(FocusContainer)
+    reg(TextEdit)
+    reg(LineEdit)
+    reg(Menu)
 }

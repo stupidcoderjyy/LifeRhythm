@@ -25,6 +25,7 @@ set(INCLUDES
         include/util/highlight
         include/util/io
         include/util/nbt
+        include/util/models
         include/util/widgetfactory
         include/widgets
         include
@@ -79,18 +80,23 @@ set(INCLUDE_FILES
         include/util/nbt/StringData.h
         include/util/widgetfactory/StandardWidget.h
         include/util/widgetfactory/WidgetFactory.h
+        include/widgets/ArrowButton.h
         include/widgets/DragWidget.h
+        include/widgets/FocusContainer.h
         include/widgets/ImgButton.h
         include/widgets/ImgLabel.h
+        include/widgets/LineEdit.h
+        include/widgets/ListWidget.h
+        include/widgets/Menu.h
+        include/widgets/OptionsBox.h
         include/widgets/RangeBar.h
         include/widgets/ScrollArea.h
         include/widgets/ScrollBar.h
         include/widgets/SelectableListWidget.h
         include/widgets/TextEdit.h
         include/widgets/TextLabel.h
-        include/widgets/Widget.h
         include/widgets/TreeWidget.h
-        include/widgets/ListWidget.h
+        include/widgets/Widget.h
 )
 
 set(SRC_FILES
@@ -145,18 +151,23 @@ set(SRC_FILES
         src/util/widgetfactory/WidgetFactory.cpp
         src/util/widgetfactory/FactoryInit.h
         src/util/widgetfactory/QssParser.h
+        src/widgets/ArrowButton.cpp
         src/widgets/DragWidget.cpp
+        src/widgets/FocusContainer.cpp
         src/widgets/ImgButton.cpp
         src/widgets/ImgLabel.cpp
+        src/widgets/LineEdit.cpp
+        src/widgets/ListWidget.cpp
+        src/widgets/Menu.cpp
+        src/widgets/OptionsBox.cpp
         src/widgets/RangeBar.cpp
         src/widgets/ScrollArea.cpp
-        src/widgets/SelectableListWidget.cpp
         src/widgets/ScrollBar.cpp
+        src/widgets/SelectableListWidget.cpp
         src/widgets/TextEdit.cpp
         src/widgets/TextLabel.cpp
-        src/widgets/Widget.cpp
         src/widgets/TreeWidget.cpp
-        src/widgets/ListWidget.cpp
+        src/widgets/Widget.cpp
 )
 
 set(RESOURCES
