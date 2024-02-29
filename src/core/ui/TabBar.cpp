@@ -12,8 +12,6 @@
 
 USING_LR
 
-WidgetFactory* TabBar::tabLoader = nullptr;
-
 TabWidget::TabWidget(QWidget *parent) : Widget(parent) {
 }
 
@@ -101,34 +99,12 @@ void CloseButton::mousePressEvent(QMouseEvent *ev) {
 }
 
 TabBar::TabBar(QWidget *parent) : QScrollArea(parent) {
-    setFrameShape(QFrame::NoFrame);
-    setWidgetResizable(true);
-    setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    setAttribute(Qt::WA_MouseNoMask);
-    setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Maximum);
-    setFixedHeight(61);
-    viewport()->setObjectName("vp");
-    viewport()->setStyleSheet(qss_t("vp", bg(Styles::BLACK)));
-    verticalScrollBar()->setVisible(false);
-    contents = new ContentWidget(this);
-    contents->setObjectName("contents");
-    contents->setStyleSheet(qss_t("contents", bg(Styles::BLACK) + bd_b("1px", "solid", Styles::GRAY_0)));
-    contents->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Maximum);
-    hLayout = new QHBoxLayout(contents);
-    hLayout->setContentsMargins(0,0,0,1);
-    hLayout->setAlignment(Qt::AlignLeft);
-    hLayout->setSpacing(0);
-    contents->setLayout(hLayout);
-    setWidget(contents);
-    connect(contents, &ContentWidget::sigSizeUpdated, this, [this](){
-        if (checkBarPos) {
-            if (width() < contents->width()) {
-                auto* bar = horizontalScrollBar();
-                bar->setValue(bar->maximum());
-            }
-            checkBarPos = false;
-        }
-    });
+}
+
+void TabBar::onFinishedParsing(StandardWidget::Handlers &handlers, NBT *widgetTag) {
+    handlers << [](QWidget* target) {
+        static_cast<TabBar*>(target)->init();
+    };
 }
 
 TabBar::~TabBar() {
@@ -147,9 +123,11 @@ void TabBar::selectTab(Tab *tab) {
     }
     tab->card->setActivated();
     tab->content->onTabActivated();
+    emit sigTabContentChanged(selected, tab);
     selected = tab;
-    emit sigTabContentChanged(tab->content);
 }
+
+WidgetFactory* tabLoader = nullptr;
 
 void TabBar::insertTab(const QString &title, TabWidget *content, const Identifier &icon) {
     auto* tabCard = static_cast<TabCard*>(tabLoader->apply(this));
@@ -215,6 +193,37 @@ void TabBar::closeAll() {
     tabs.clear();
     selected = nullptr;
     setFixedHeight(0);
+}
+
+void TabBar::init() {
+    setFrameShape(QFrame::NoFrame);
+    setWidgetResizable(true);
+    setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    setAttribute(Qt::WA_MouseNoMask);
+    setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Maximum);
+    setFixedHeight(61);
+    viewport()->setObjectName("vp");
+    viewport()->setStyleSheet(qss_t("vp", bg(Styles::BLACK)));
+    verticalScrollBar()->setVisible(false);
+    contents = new ContentWidget(this);
+    contents->setObjectName("contents");
+    contents->setStyleSheet(qss_t("contents", bg(Styles::BLACK) + bd_b("1px", "solid", Styles::GRAY_0)));
+    contents->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Maximum);
+    hLayout = new QHBoxLayout(contents);
+    hLayout->setContentsMargins(0,0,0,1);
+    hLayout->setAlignment(Qt::AlignLeft);
+    hLayout->setSpacing(0);
+    contents->setLayout(hLayout);
+    setWidget(contents);
+    connect(contents, &ContentWidget::sigSizeUpdated, this, [this](){
+        if (checkBarPos) {
+            if (width() < contents->width()) {
+                auto* bar = horizontalScrollBar();
+                bar->setValue(bar->maximum());
+            }
+            checkBarPos = false;
+        }
+    });
 }
 
 Tab::Tab(TabWidget *content, TabCard *card) : content(content), card(card) {}

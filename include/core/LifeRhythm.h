@@ -9,6 +9,7 @@
 #include <QObject>
 #include <QApplication>
 #include "Plugin.h"
+#include "Identifier.h"
 
 LR_BEGIN
 
@@ -23,6 +24,7 @@ public:
 };
 
 class MainFrame;
+class TabWidget;
 
 class LifeRhythm : public QObject{
     Q_OBJECT
@@ -39,6 +41,7 @@ private:
 public:
     static LifeRhythm* get();
     static void generateTitledDialog(const QString& title, QWidget* content);
+    static void insertTab(const QString& title, TabWidget* tab, const Identifier& icon = "lr:icon_30");
     void onPostInit(std::function<void()> handler, Qt::ConnectionType type = Qt::DirectConnection);
     void onMainInit(std::function<void()> handler, Qt::ConnectionType type = Qt::DirectConnection);
     LifeRhythm(int argc, char *argv[]);

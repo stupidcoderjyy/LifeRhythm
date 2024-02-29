@@ -295,7 +295,7 @@ void WidgetFactory::parseStates(NBT *nbt) {
             parseSingleState(globalResponders, stateTag);
         } else if (stateKey[0] == 's'){
             bool isValid;
-            int s = stateKey.mid(1, stateKey.length() - 1).toInt(&isValid);
+            int s = stateKey.midRef(1, stateKey.length() - 1).toInt(&isValid);
             if (!isValid) {
                 continue;
             }

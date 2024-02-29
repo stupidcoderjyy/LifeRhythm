@@ -81,7 +81,8 @@ protected:
 PAINT_QSS
 };
 
-class TabBar : public QScrollArea{
+class TabBar : public QScrollArea, public StandardWidget{
+    friend class MainFrame;
     Q_OBJECT
 private:
     QVector<Tab*> tabs{};
@@ -89,19 +90,21 @@ private:
     ContentWidget* contents{};
     QHBoxLayout* hLayout;
     bool checkBarPos{};
-    static WidgetFactory* tabLoader;
 public:
     static void mainInit();
     explicit TabBar(QWidget* parent);
+    void onFinishedParsing(Handlers &handlers, NBT *widgetTag) override;
     void selectTab(Tab* tab);
     void insertTab(const QString& title, TabWidget* tab, const Identifier& icon = "lr:icon_30");
     void closeTab(Tab* tab);
     void closeAll();
     ~TabBar() override;
 signals:
-    void sigTabContentChanged(QWidget* content);
+    void sigTabContentChanged(Tab* prev, Tab* cur);
 protected:
     bool event(QEvent *event) override;
+private:
+    void init();
 };
 
 LR_END

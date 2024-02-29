@@ -1,0 +1,26 @@
+{
+    type: "MainFrame"
+    qss: "bg(BLACK)"
+    children: ["tabBar", "tabContent"]
+
+    layout: {
+        type: "Vertical"
+        margins: [0,0,0,0]
+        spacing: 0
+    }
+
+    tabBar: {
+        type: "TabBar"
+        pointer: true
+    }
+
+    tabContent: {
+        pointer: true
+
+        layout: {
+            type: "Vertical"
+            margins: [0,0,0,0]
+            spacing: 0
+        }
+    }
+}

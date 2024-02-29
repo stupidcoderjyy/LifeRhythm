@@ -45,6 +45,7 @@ void LifeRhythm::launch0() {
     mainInit();
     emit sigMainInit();
     postInit();
+    prepareScreen();
     emit sigPostInit();
 //    auto* watcher = new QFutureWatcher<void>(this);
 //    watcher->setFuture(QtConcurrent::run([this]() {
@@ -69,6 +70,7 @@ void LifeRhythm::mainInit() {
     WidgetFactory::init();
     TabBar::mainInit();
     TitledDialog::mainInit();
+    MainFrame::mainInit();
 }
 
 void LifeRhythm::postInit() {
@@ -79,7 +81,7 @@ void LifeRhythm::prepareScreen() {
     if (config.mode == Config::Test) {
         return;
     }
-    mainFrame = new MainFrame();
+    mainFrame = static_cast<MainFrame*>(WidgetFactoryStorage::get("lr:mainframe")->apply());
 }
 
 LifeRhythm::LifeRhythm(int argc, char *argv[]):QObject(),
@@ -87,7 +89,7 @@ LifeRhythm::LifeRhythm(int argc, char *argv[]):QObject(),
     lr = this;
     pluginManager.setErrorHandler(&pluginErrorHandler);
     pluginManager.addSearchPath("testplugins");
-    connect(this, &LifeRhythm::sigPostInit, this, &LifeRhythm::prepareScreen, Qt::QueuedConnection);
+//    connect(this, &LifeRhythm::sigPostInit, this, &LifeRhythm::prepareScreen, Qt::QueuedConnection);
 }
 
 void LifeRhythm::generateTitledDialog(const QString &title, QWidget *content) {
@@ -100,6 +102,10 @@ void LifeRhythm::generateTitledDialog(const QString &title, QWidget *content) {
     animation->setEndValue(1);
     animation->start(QAbstractAnimation::DeleteWhenStopped);
     dialog->exec();
+}
+
+void LifeRhythm::insertTab(const QString& title, TabWidget *tab, const Identifier &icon) {
+    lr->mainFrame->tabBar->insertTab(title, tab, icon);
 }
 
 void LifeRhythm::onPostInit(std::function<void()> handler, Qt::ConnectionType type) {

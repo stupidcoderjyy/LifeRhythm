@@ -8,18 +8,38 @@
 #include "TabBar.h"
 #include "LifeRhythm.h"
 #include <QVBoxLayout>
+#include "RcManagers.h"
 
 USING_LR
 
-MainFrame::MainFrame():QWidget() {
-    setObjectName(LifeRhythm::NAME);
+void MainFrame::mainInit() {
+    auto* mf = WidgetFactoryStorage::get("lr:mainframe");
+    regClazz(mf, MainFrame);
+    regClazz(mf, TabBar);
+}
+
+MainFrame::MainFrame(QWidget* parent): Widget(parent) {
+}
+
+void MainFrame::onFinishedParsing(StandardWidget::Handlers &handlers, NBT *widgetTag) {
+    handlers << [](QWidget* target) {
+        static_cast<MainFrame*>(target)->init();
+    };
+}
+
+void MainFrame::init() {
+    tabBar = getPointer<TabBar>("tabBar");
+    auto* tabContent = getPointer<Widget>("tabContent");
+    connect(tabBar, &TabBar::sigTabContentChanged, this, [this, tabContent](Tab* pre, Tab* cur){
+        if (pre) {
+            layoutTabContent->removeWidget(pre->content);
+            pre->content->setParent(nullptr);
+            pre->content->hide();
+        }
+        layoutTabContent->addWidget(cur->content);
+        cur->content->setParent(tabContent);
+        cur->content->show();
+    });
+    layoutTabContent = tabContent->layout();
     showFullScreen();
-    setStyleSheet(qss_t(LifeRhythm::NAME, bg(Styles::BLACK)));
-    auto* vLayout = new QVBoxLayout(this);
-    vLayout->setContentsMargins(0,0,0,0);
-    vLayout->setSpacing(0);
-    vLayout->setAlignment(Qt::AlignTop);
-    tabBar = new TabBar(this);
-    vLayout->addWidget(tabBar);
-    setLayout(vLayout);
 }

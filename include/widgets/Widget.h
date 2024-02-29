@@ -11,7 +11,7 @@
 
 class Widget : public QWidget, public StandardWidget {
 public:
-    explicit Widget(QWidget* parent);
+    explicit Widget(QWidget* parent = nullptr);
 PAINT_QSS
 };
 #endif //LIFERHYTHM_WIDGET_H
