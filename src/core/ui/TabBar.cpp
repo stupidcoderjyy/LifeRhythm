@@ -15,16 +15,16 @@ USING_LR
 TabWidget::TabWidget(QWidget *parent) : Widget(parent) {
 }
 
-void TabWidget::onTabOpen() {
+void TabWidget::onTabCreated() {
 }
 
 void TabWidget::onTabHidden() {
 }
 
-void TabWidget::onTabClosed() {
+void TabWidget::onTabDestroyed() {
 }
 
-void TabWidget::onTabActivated() {
+void TabWidget::onTabShown() {
 }
 
 TabCard::TabCard(QWidget *parent) : Widget(parent) {
@@ -122,7 +122,7 @@ void TabBar::selectTab(Tab *tab) {
         selected->content->onTabHidden();
     }
     tab->card->setActivated();
-    tab->content->onTabActivated();
+    tab->content->onTabShown();
     emit sigTabContentChanged(selected, tab);
     selected = tab;
 }
@@ -144,7 +144,7 @@ void TabBar::insertTab(const QString &title, TabWidget *content, const Identifie
     connect(tabCard, &TabCard::sigTabActivated, this, [this, tab]{
         selectTab(tab);
     });
-    content->onTabOpen();
+    content->onTabCreated();
     content->setParent(this);
     selectTab(tab);
     hLayout->addWidget(tabCard);
@@ -152,7 +152,7 @@ void TabBar::insertTab(const QString &title, TabWidget *content, const Identifie
 }
 
 void TabBar::closeTab(Tab *tab) {
-    tab->content->onTabClosed();
+    tab->content->onTabDestroyed();
     int oldPos = tabs.indexOf(tab);
     int oldSize = tabs.size();
     tabs.remove(oldPos);
@@ -187,7 +187,7 @@ void TabBar::mainInit() {
 
 void TabBar::closeAll() {
     for (auto* t : tabs) {
-        t->content->onTabClosed();
+        t->content->onTabDestroyed();
         delete t;
     }
     tabs.clear();

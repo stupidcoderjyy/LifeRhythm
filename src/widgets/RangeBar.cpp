@@ -5,7 +5,7 @@
 #include "RangeBar.h"
 #include "Error.h"
 
-RangeWidgetData::RangeWidgetData(QObject* parent):QObject(parent), begin(), end() {
+RangeWidgetData::RangeWidgetData(): WidgetData(), begin(), end() {
 }
 
 int RangeWidgetData::getBegin() const {
@@ -92,43 +92,30 @@ void HRangeWidgetsContainer::updateBar() {
     }
 }
 
-RangeWidget::RangeWidget(QWidget *parent):Widget(parent), data(), begin(), end() {
+RangeWidget::RangeWidget(QWidget *parent):Widget(parent), begin(), end() {
     setObjectName("rw");
     setStyleSheet(qss_t("rw", bg(Styles::GRAY_1)));
 }
 
-void RangeWidget::setData(RangeWidgetData *d) {
-    delete data;
-    if (!d) {
-        throwInFunc("null data");
-    }
-    d->setParent(this);
-    data = d;
-    connect(d, &RangeWidgetData::sigDataChanged, this, [this](){
-        syncDataToWidget();
-    });
-    syncDataToWidget();
-}
-
 void RangeWidget::syncDataToWidget() {
-    if (!data) {
-        throwInFunc("null data");
+    if (!wData) {
+        return;
     }
+    auto* data = wData->cast<RangeWidgetData>();
     if (begin != data->begin || end != data->end) {
         begin = data->begin;
         end = data->end;
-        emit sigRangeChanged(begin, end);
+        emit sigUpdateWidget();
     }
 }
 
 void RangeWidget::syncWidgetToData() {
-    if (!data) {
-        throwInFunc("null data");
+    if (!wData) {
+        return;
     }
-    if (begin != data->begin || end != data->end) {
-        data->begin = begin;
-        data->end = end;
-    }
+    auto* data = wData->cast<RangeWidgetData>();
+    data->begin = begin;
+    data->end = end;
 }
 
 RangeBar::RangeBar(bool isVertical, QWidget *parent):ScrollArea(parent) {
@@ -139,25 +126,23 @@ RangeBar::RangeBar(bool isVertical, QWidget *parent):ScrollArea(parent) {
     }
 }
 
+void RangeBar::setData(ListData *d) {
+    ScrollArea::setData(d);
+}
+
 RangeWidget *RangeBar::createRangeWidget() {
     return new RangeWidget();
 }
 
 #define CHECK_CONTAINER if (!container) throwInFunc("null container");
 
-RangeWidget* RangeBar::addPeriod(RangeWidgetData* d) {
+void RangeBar::initPeriodWidget(RangeWidget* rw) {
     CHECK_CONTAINER
-    auto* rw = createRangeWidget();
-    connect(rw, &RangeWidget::sigRangeChanged, [this, rw](){
+    connect(rw, &RangeWidget::sigUpdateWidget, [this, rw](){
         container->updateRangeWidget(rw);
     });
-    if (!d) {
-        d = new RangeWidgetData();
-    }
-    rw->setData(d);
     rw->setParent(container);
     container->rangeWidgets << rw;
-    return rw;
 }
 
 
@@ -232,7 +217,28 @@ void RangeBar::setVpp(double vpp) {
     container->vpp = vpp;
 }
 
+void RangeBar::syncDataToWidget() {
+    auto* ld = wData->cast<ListData>();
+    int j = ld->getChangeEnd();
+    int size = container->rangeWidgets.length();
+    while (size <= j) {
+        initPeriodWidget(createRangeWidget());
+        size++;
+    }
+    for (int i = ld->getChangeBegin(); i <= j; i++) {
+        auto* rw = container->rangeWidgets.at(i);
+        rw->setData(ld->at(i));
+        rw->syncDataToWidget();
+    }
+}
+
 void RangeBar::showEvent(QShowEvent *event) {
     ScrollArea::showEvent(event);
     updateBar();
+}
+
+QMetaObject::Connection RangeBar::connectModelView() {
+    return connect(wData, &WidgetData::sigDataChanged, this, [this](){
+        syncDataToWidget();
+    });
 }

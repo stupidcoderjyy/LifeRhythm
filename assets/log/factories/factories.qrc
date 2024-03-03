@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/assets/log/factories">
+        <file>maintab.snbt</file>
+        <file>timebar/period.snbt</file>
+    </qresource>
+</RCC>

@@ -15,7 +15,12 @@ QPixmap *ImageRcLoader::load(const Identifier &loc, const QString &absolutePath)
 
 WidgetFactory *WidgetFactoryRcLoader::load(const Identifier &loc, const QString &absolutePath) {
     auto* nbt = NBT::fromStringNbt(absolutePath);
-    return WidgetFactory::fromNbt(loc.getPath(), nbt);
+    auto name = loc.getPath();
+    int i = name.lastIndexOf('/');
+    if (i > 0) {
+        name = name.mid(i + 1, name.length() - i - 1);
+    }
+    return WidgetFactory::fromNbt(name, nbt);
 }
 
 void WidgetFactoryRcLoader::onLoadFailed(std::exception &e) noexcept {

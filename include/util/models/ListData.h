@@ -26,6 +26,7 @@ public:
     void fromBytes(IByteReader *reader) override;
     int getChangeBegin() const;
     int getChangeEnd() const;
+    QVector<WidgetData*>& getData();
 protected:
     virtual WidgetData* readElement(IByteReader* reader);
 };

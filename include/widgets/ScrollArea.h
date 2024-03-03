@@ -9,7 +9,7 @@
 #include "StandardWidget.h"
 #include "ScrollBar.h"
 
-class ScrollArea : public QScrollArea, public StandardWidget {
+class ScrollArea : public QScrollArea, public StandardWidget{
 private:
     ScrollBar *vBar{};
     ScrollBar *hBar{};

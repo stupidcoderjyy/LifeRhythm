@@ -20,7 +20,7 @@ void ListData::endEdit() {
     if (!editing) {
         return;
     }
-    if (changeBegin > 0) {
+    if (changeBegin >= 0) {
         emit sigDataChanged();
     }
     editing = false;
@@ -35,7 +35,7 @@ void ListData::markChange(int min, int max) {
         changeEnd = max;
         return;
     }
-    if (max < changeBegin || min > changeEnd) {
+    if (max < changeBegin - 1 || min > changeEnd + 1) {
         emit sigDataChanged();
         changeBegin = min;
         changeEnd = max;
@@ -94,6 +94,10 @@ int ListData::getChangeBegin() const {
 
 int ListData::getChangeEnd() const {
     return changeEnd;
+}
+
+QVector<WidgetData *> &ListData::getData() {
+    return data;
 }
 
 WidgetData *ListData::readElement(IByteReader *reader) {

@@ -27,6 +27,7 @@ set(INCLUDES
         include/util/nbt
         include/util/models
         include/util/widgetfactory
+        include/util/concurrent
         include/widgets
         include
 )
@@ -81,6 +82,7 @@ set(INCLUDE_FILES
         include/util/nbt/StringData.h
         include/util/widgetfactory/StandardWidget.h
         include/util/widgetfactory/WidgetFactory.h
+        include/util/concurrent/Task.h
         include/widgets/ArrowButton.h
         include/widgets/DragWidget.h
         include/widgets/FocusContainer.h
@@ -154,6 +156,7 @@ set(SRC_FILES
         src/util/widgetfactory/WidgetFactory.cpp
         src/util/widgetfactory/FactoryInit.h
         src/util/widgetfactory/QssParser.h
+        src/util/concurrent/Task.cpp
         src/widgets/ArrowButton.cpp
         src/widgets/DragWidget.cpp
         src/widgets/FocusContainer.cpp
@@ -178,10 +181,20 @@ set(RESOURCES
         assets/lr/highlightstyles/styles.qrc
         assets/lr/images/images.qrc
         assets/test/factories/factories.qrc
+        assets/log/factories/factories.qrc
 )
 
 set(TEST_SRC
-
+        test/MainTab.cpp
+        test/MainTab.h
+        test/TimeBar.cpp
+        test/TimeBar.h
+        test/PeriodWidget.cpp
+        test/PeriodWidget.h
+        test/Period.cpp
+        test/Period.h
+        test/Type.cpp
+        test/Type.h
 )
 
 include_directories(${INCLUDES} test)

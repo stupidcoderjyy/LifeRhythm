@@ -48,9 +48,13 @@ void LifeRhythm::launch0() {
     prepareScreen();
     emit sigPostInit();
 //    auto* watcher = new QFutureWatcher<void>(this);
-//    watcher->setFuture(QtConcurrent::run([this]() {
+//    QFutureInterface<void> futureInterface;
+//    futureInterface.future();
+//    QFuture<void> future = QtConcurrent::run([this]() {
 //        mainInit();
-//    }));
+//    });
+//    watcher->setFuture(future);
+//
 //    connect(watcher, &QFutureWatcher<void>::finished, this, [this](){
 //        emit sigMainInit();
 //    });

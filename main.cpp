@@ -7,25 +7,26 @@
 #include "Namespaces.h"
 #include "LifeRhythm.h"
 #include "TabBar.h"
+#include "MainTab.h"
+#include "RcManagers.h"
+#include "Task.h"
+
+#include <QThread>
+#include <QThreadPool>
 
 USING_LR
-
-class TestTabWidget : public TabWidget {
-public:
-    TestTabWidget(const QString& color): TabWidget() {
-        setStyleSheet(bg(color));
-    }
-};
 
 int main(int argc, char *argv[]) {
     LifeRhythm lr(argc, argv);
     auto cfg = lr.getConfig();
     cfg.setMode(Config::Normal);
     lr.setConfig(cfg);
+    lr.onMainInit([](){
+        MainTab::mainInit();
+    });
     lr.onPostInit([](){
-        LifeRhythm::insertTab("a", new TestTabWidget(Styles::CYAN_0));
-        LifeRhythm::insertTab("b", new TestTabWidget(Styles::GOLD));
-        LifeRhythm::insertTab("c", new TestTabWidget(Styles::GRAY_2));
+        auto* tab = WidgetFactoryStorage::get("log:maintab")->apply();
+        LifeRhythm::insertTab("a", static_cast<TabWidget*>(tab));
     });
     return lr.launch();
 }

@@ -7,21 +7,20 @@
 
 #include "ScrollArea.h"
 #include "Widget.h"
+#include "ListData.h"
 
-class RangeWidgetData : public QObject{
+class RangeWidgetData : public WidgetData {
     Q_OBJECT
     friend class RangeWidget;
 protected:
     int begin;
     int end;
 public:
-    explicit RangeWidgetData(QObject* parent = nullptr);
+    RangeWidgetData();
     int getBegin() const;
     int getEnd() const;
     void setBegin(int begin);
     void setEnd(int end);
-signals:
-    void sigDataChanged();
 };
 
 class RangeWidget : public Widget {
@@ -32,17 +31,12 @@ class RangeWidget : public Widget {
 protected:
     int begin;
     int end;
-    RangeWidgetData* data;
 public:
     explicit RangeWidget(QWidget* parent = nullptr);
-    void setData(RangeWidgetData* data);
-    virtual void syncDataToWidget();       //将RangeWidgetData中的数据载入组件（触发sigRangeChanged）
-    virtual void syncWidgetToData();
-    template<class DATA> DATA* castedData() {
-        return static_cast<DATA*>(data);
-    }
+    void syncDataToWidget() override;
+    void syncWidgetToData() override;
 signals:
-    void sigRangeChanged(int begin, int end);           //RangeWidget范围被修改后触发此信号
+    void sigUpdateWidget();
 };
 
 class AbstractRangeWidgetsContainer : public Widget {
@@ -83,11 +77,13 @@ protected:
 };
 
 class RangeBar : public ScrollArea {
+    Q_OBJECT
 private:
     AbstractRangeWidgetsContainer* container{};
 public:
     explicit RangeBar(bool isVertical, QWidget* parent = nullptr);
-    RangeWidget* addPeriod(RangeWidgetData* customData = nullptr);
+    void setData(ListData* d);
+    void initPeriodWidget(RangeWidget* rw);
     void setContainer(AbstractRangeWidgetsContainer* c);    //设置自定义容器
     void updateBar();
     void setBarRange(int minVal, int maxVal);
@@ -95,9 +91,11 @@ public:
     void setZoomEnabled(bool enabled = true);
     void setZoomStep(double step);
     void setVpp(double vpp);
+    void syncDataToWidget() override;
 protected:
     virtual RangeWidget* createRangeWidget();
     void showEvent(QShowEvent *event) override;
+    QMetaObject::Connection connectModelView() override;
 };
 
 #endif //LIFERHYTHM_RANGEBAR_H

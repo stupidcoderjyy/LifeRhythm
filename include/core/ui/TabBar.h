@@ -23,10 +23,10 @@ class TabWidget : public Widget {
 public:
     explicit TabWidget(QWidget* parent = nullptr);
 protected:
-    virtual void onTabOpen();
+    virtual void onTabCreated();
     virtual void onTabHidden();
-    virtual void onTabClosed();
-    virtual void onTabActivated();
+    virtual void onTabDestroyed();
+    virtual void onTabShown();
 };
 
 class TabCard : public Widget{
