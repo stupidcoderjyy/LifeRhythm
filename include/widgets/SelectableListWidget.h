@@ -17,7 +17,6 @@ public:
     explicit SelectableListItem(QWidget* parent = nullptr);
     virtual void updateItemAfterSelecting(bool selected);
     void syncDataToWidget() override;
-    void setParentList(SelectableListData* l);
 protected:
     void mousePressEvent(QMouseEvent *event) override;
 };

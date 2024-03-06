@@ -1,6 +1,8 @@
 <RCC>
     <qresource prefix="/assets/log/factories">
         <file>maintab.snbt</file>
-        <file>timebar/period.snbt</file>
+        <file>period.snbt</file>
+        <file>record_type_item.snbt</file>
+        <file>dialog_content_start_record.snbt</file>
     </qresource>
 </RCC>

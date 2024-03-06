@@ -24,13 +24,7 @@ void ImgLabel::onPostParsing(Handlers &handlers, NBT *widgetTag) {
             img = img.scaled(scale, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
         }
         handlers << [img](QWidget* target) {
-            auto* label = static_cast<ImgLabel*>(target);
-            if (!img.isNull()) {
-                label->setMinimumSize(img.width(), img.height());
-                label->setPixmap(img);
-            } else {
-                label->setPixmap({});
-            }
+            static_cast<ImgLabel*>(target)->setPixmap(img);
         };
     }
     if (widgetTag->contains("align", Data::STRING)) {

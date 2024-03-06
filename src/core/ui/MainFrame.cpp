@@ -9,6 +9,7 @@
 #include "LifeRhythm.h"
 #include <QVBoxLayout>
 #include "RcManagers.h"
+#include "WidgetUtil.h"
 
 USING_LR
 
@@ -30,15 +31,8 @@ void MainFrame::onFinishedParsing(StandardWidget::Handlers &handlers, NBT *widge
 void MainFrame::init() {
     tabBar = getPointer<TabBar>("tabBar");
     auto* tabContent = getPointer<Widget>("tabContent");
-    connect(tabBar, &TabBar::sigTabContentChanged, this, [this, tabContent](Tab* pre, Tab* cur){
-        if (pre) {
-            layoutTabContent->removeWidget(pre->content);
-            pre->content->setParent(nullptr);
-            pre->content->hide();
-        }
-        layoutTabContent->addWidget(cur->content);
-        cur->content->setParent(tabContent);
-        cur->content->show();
+    connect(tabBar, &TabBar::sigTabContentChanged, this, [this](Tab* pre, Tab* cur){
+        switchSingleLayoutWidget(layoutTabContent, pre ? pre->content : nullptr, cur->content);
     });
     layoutTabContent = tabContent->layout();
     showFullScreen();

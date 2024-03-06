@@ -40,6 +40,9 @@ void ListItem::dropEvent(QDropEvent *event) {
 }
 
 void ListItem::mouseMoveEvent(QMouseEvent *event) {
+    if (!wData) {
+        return;
+    }
     if (!(event->buttons() & Qt::LeftButton)) {
         return;
     }
@@ -54,6 +57,9 @@ void ListItem::mouseMoveEvent(QMouseEvent *event) {
 }
 
 void ListItem::mousePressEvent(QMouseEvent *event) {
+    if (!wData) {
+        return;
+    }
     if (acceptDrops() && event->buttons() & Qt::LeftButton) {
         dragStart = event->pos();
     }
@@ -155,7 +161,9 @@ void ListWidget::setGlobalPos(int gp, bool forceUpdate) {
 }
 
 void ListWidget::onDataChanged(int begin, int end) {
-    int rBorder = pos <= posMid ? idxA + areaRowCount : idxA + (areaRowCount << 1);
+    int rBorder = pos <= posMid && idxB != idxA + areaRowCount ?
+            idxA + areaRowCount :
+            idxA + (areaRowCount << 1);
     updateMaxGlobalPos();   //对于removeLast的情况，进度条会自动调整
     if (end < idxA || begin >= rBorder) {
         return;
@@ -214,15 +222,14 @@ QMetaObject::Connection ListWidget::connectModelView() {
 }
 
 void ListWidget::onPostParsing(StandardWidget::Handlers &handlers, NBT *widgetTag) {
-    if (widgetTag->contains("row_height", Data::INT)) {
-        int height = widgetTag->getInt("row_height");
-        handlers << [height](QWidget* target) {
-            auto* list = static_cast<ListWidget*>(target);
-            list->setRowHeight(height);
-        };
-    } else {
-        throwInFunc("missing tag 'row_height'");
+    if (!widgetTag->contains("row_height", Data::INT)) {
+        return;
     }
+    int height = widgetTag->getInt("row_height");
+    handlers << [height](QWidget* target) {
+        auto* list = static_cast<ListWidget*>(target);
+        list->setRowHeight(height);
+    };
 }
 
 void ListWidget::setData(ListData *d) {

@@ -8,7 +8,7 @@
 #include "Period.h"
 
 void PeriodWidget::mainInit() {
-    auto* p = WidgetFactoryStorage::get("log:timebar/period");
+    auto* p = WidgetFactoryStorage::get("log:period");
     regClazz(p, PeriodWidget);
 }
 

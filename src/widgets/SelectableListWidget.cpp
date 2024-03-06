@@ -10,7 +10,9 @@ SelectableListItem::SelectableListItem(QWidget *parent):
 
 void SelectableListItem::mousePressEvent(QMouseEvent *event) {
     ListItem::mousePressEvent(event);
-    parentList->selectData(dataIdx);
+    if (wData) {
+        parentList->selectData(dataIdx);
+    }
 }
 
 void SelectableListItem::updateItemAfterSelecting(bool s) {
@@ -25,10 +27,6 @@ void SelectableListItem::syncDataToWidget() {
     selected = s;
 }
 
-void SelectableListItem::setParentList(SelectableListData *l) {
-    parentList = l;
-}
-
 SelectableListWidget::SelectableListWidget(QWidget *parent): ListWidget(parent) {
 }
 
@@ -41,6 +39,6 @@ SelectableListItem *SelectableListWidget::createRowItem() {
 }
 
 void SelectableListWidget::prepareNewItem(ListItem *item) {
-    static_cast<SelectableListItem *>(item)->setParentList(wData->cast<SelectableListData>());
+    static_cast<SelectableListItem*>(item)->parentList = wData->cast<SelectableListData>();
     ListWidget::prepareNewItem(item);
 }

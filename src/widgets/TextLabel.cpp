@@ -6,7 +6,7 @@
 #include "WidgetFactory.h"
 
 TextLabel::TextLabel(QWidget *parent):QLabel(parent), StandardWidget() {
-    setAlignment(Qt::AlignCenter);
+    setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
     setFont(Styles::FONT_MAIN);
     QPalette p = palette();
     p.setColor(QPalette::WindowText, QColor(Styles::GRAY_TEXT_0));

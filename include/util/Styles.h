@@ -23,6 +23,7 @@ public:
     const static QString CYAN_0;
     const static QString CYAN_1;
     const static QString CYAN_2;
+    const static QString BLUE_0;
     const static QString BLUE_1;
     const static QString RED;
     const static QString GOLD;

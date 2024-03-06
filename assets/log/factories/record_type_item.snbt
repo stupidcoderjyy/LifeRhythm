@@ -1,0 +1,33 @@
+{
+    type: "RecordTypeItem"
+    children: ["icon", "name"]
+    fixed_height: 40
+
+    layout: {
+        type: "Horizontal"
+        spacing: 0
+        margins: [0,0,0,0]
+    }
+
+    icon: {
+        type: "ImgLabel"
+        fixed_width: 40
+        pointer: true
+    }
+
+    name: {
+        type: "TextLabel"
+        align: "Left|V_Center"
+        ff: ["思源黑体 CN Bold"]
+        pointer: true
+    }
+
+    states: {
+        s0: {
+            qss: "bg(GRAY_0)"
+        }
+        s1: {
+            qss: "bg(BLUE_0)"
+        }
+    }
+}

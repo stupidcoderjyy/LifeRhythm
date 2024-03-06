@@ -18,6 +18,7 @@ const QString Styles::GRAY_4 = "#606060";
 const QString Styles::CYAN_0 = "#204548";
 const QString Styles::CYAN_1 = "#3a6f74";
 const QString Styles::CYAN_2 = "#4d8f95";
+const QString Styles::BLUE_0 = "#2e436e";
 const QString Styles::BLUE_1 = "#3574f0";
 const QString Styles::RED = "#ff2b59";
 const QString Styles::GOLD = "#eecd66";
@@ -25,7 +26,7 @@ const QString Styles::GREEN = "#48723c";
 const QString Styles::GRAY_TEXT_0 = "#aeaeae";
 const QString Styles::GRAY_TEXT_1 = "#C8C8C8";
 const QString Styles::CLEAR = "#00000000";
-const QString Styles::FF_ZH = "Source Han Sans CN Medium";
+const QString Styles::FF_ZH = "思源黑体 CN Medium";
 const QString Styles::FF_EN = "JetBrains Mono Medium";
 const int Styles::FS_MEDIUM = 10;
 
@@ -42,6 +43,7 @@ QMap<QString, QColor> initColors() {
     regColor(CYAN_0);
     regColor(CYAN_1);
     regColor(CYAN_2);
+    regColor(BLUE_0);
     regColor(BLUE_1);
     regColor(RED);
     regColor(GOLD);

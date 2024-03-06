@@ -14,6 +14,6 @@ TimeBar::TimeBar(QWidget *parent): RangeBar(true, parent) {
 }
 
 RangeWidget *TimeBar::createRangeWidget() {
-    static auto* f = WidgetFactoryStorage::get("log:timebar/period");
+    static auto* f = WidgetFactoryStorage::get("log:period");
     return static_cast<RangeWidget*>(f->apply());
 }

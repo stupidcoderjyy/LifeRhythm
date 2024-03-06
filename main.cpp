@@ -1,7 +1,4 @@
 
-
-#include <QLabel>
-#include <utility>
 #include "SelectableListWidget.h"
 #include "OptionsBox.h"
 #include "Namespaces.h"
@@ -9,10 +6,9 @@
 #include "TabBar.h"
 #include "MainTab.h"
 #include "RcManagers.h"
-#include "Task.h"
 
 #include <QThread>
-#include <QThreadPool>
+#include <QFontDatabase>
 
 USING_LR
 

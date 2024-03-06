@@ -185,19 +185,25 @@ set(RESOURCES
 )
 
 set(TEST_SRC
-        test/MainTab.cpp
-        test/MainTab.h
-        test/TimeBar.cpp
-        test/TimeBar.h
-        test/PeriodWidget.cpp
-        test/PeriodWidget.h
-        test/Period.cpp
-        test/Period.h
-        test/Type.cpp
-        test/Type.h
+        test/main_tab/MainTab.cpp
+        test/main_tab/MainTab.h
+        test/main_tab/TimeBar.cpp
+        test/main_tab/TimeBar.h
+        test/main_tab/PeriodWidget.cpp
+        test/main_tab/PeriodWidget.h
+        test/main_tab/Period.cpp
+        test/main_tab/Period.h
+        test/main_tab/Type.cpp
+        test/main_tab/Type.h
+        test/popup_start_record/WidgetStartPeriodMenu.h
+        test/popup_start_record/WidgetStartPeriodMenu.cpp
+        test/popup_start_record/RecordTypeListWidget.cpp
+        test/popup_start_record/RecordTypeListWidget.h
+        test/popup_start_record/RecordType.cpp
+        test/popup_start_record/RecordType.h
 )
 
-include_directories(${INCLUDES} test)
+include_directories(${INCLUDES} test test/main_tab test/popup_start_record)
 
 set(ALL_FILES ${SRC_FILES} ${INCLUDE_FILES} ${RESOURCES})
 

@@ -39,3 +39,14 @@ void moveWidget(QWidget *widget, int x, int y) {
     rect.setY(y);
     widget->setGeometry(rect);
 }
+
+void switchSingleLayoutWidget(QLayout *layout, QWidget *pre, QWidget *cur) {
+    if (pre) {
+        layout->removeWidget(pre);
+        pre->setParent(nullptr);
+        pre->hide();
+    }
+    layout->addWidget(cur);
+    cur->setParent(layout->parentWidget());
+    cur->show();
+}

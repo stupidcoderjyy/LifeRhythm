@@ -55,6 +55,9 @@ public:
     void parse() noexcept;
     void registerStdWidget(const QString& type, const Supplier& supplier, StandardWidget* instance);
     QWidget* apply(QWidget* parent = nullptr, QWidget* target = nullptr) noexcept;
+    template<class T> inline T* applyAndCast(QWidget* parent = nullptr, QWidget* target = nullptr) {
+        return static_cast<T*>(apply(parent, target));
+    }
     virtual ~WidgetFactory();
 private:
     static void parseQss(Handlers& target, NBT* nbt);
@@ -83,6 +86,15 @@ void WidgetFactory::parseTextWidget(WidgetFactory::Handlers &handlers, NBT *nbt)
             static_cast<W*>(target)->setText(text);
         };
     }
+    if (nbt->contains("bold", Data::BOOL)) {
+        bool bold = nbt->getBool("bold");
+        handlers << [bold](QWidget* target) {
+            auto* tw = static_cast<W*>(target);
+            QFont f = tw->font();
+            f.setBold(bold);
+            tw->setFont(f);
+        };
+    }
     if (nbt->contains("ff")) {
         auto* data = nbt->get("ff");
         if (data->type == Data::STRING) {
@@ -90,6 +102,7 @@ void WidgetFactory::parseTextWidget(WidgetFactory::Handlers &handlers, NBT *nbt)
             handlers << [ff](QWidget* target) {
                 auto* tw = static_cast<W*>(target);
                 QFont f = tw->font();
+                f.setFamilies({});
                 f.setFamily(ff);
                 tw->setFont(f);
             };

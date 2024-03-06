@@ -121,6 +121,7 @@ void QssParser::init() {
     regColor(CYAN_0);
     regColor(CYAN_1);
     regColor(CYAN_2);
+    regColor(BLUE_0);
     regColor(BLUE_1);
     regColor(RED);
     regColor(GOLD);

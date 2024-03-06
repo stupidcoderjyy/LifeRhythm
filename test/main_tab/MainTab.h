@@ -7,6 +7,7 @@
 
 #include "TimeBar.h"
 #include "TabBar.h"
+#include "SelectableListData.h"
 
 class PeriodDataLoader;
 
@@ -15,9 +16,12 @@ class MainTab : public lr::TabWidget {
 private:
     TimeBar* bar;
     PeriodDataLoader* loader;
+    SelectableListData* modelRecordTypeList;
+    QVector<QWidget*> startRecordMenuPages;
 public:
     static void mainInit();
     explicit MainTab(QWidget* parent = nullptr);
+    void addStartPeriodType(QString icon, QString typeName, QWidget* menuPage);
 protected:
     void onTabCreated() override;
 };
