@@ -193,8 +193,8 @@ set(TEST_SRC
         test/main_tab/PeriodWidget.h
         test/main_tab/Period.cpp
         test/main_tab/Period.h
-        test/main_tab/Type.cpp
-        test/main_tab/Type.h
+        test/main_tab/PeriodType.cpp
+        test/main_tab/PeriodType.h
         test/popup_start_record/WidgetStartPeriodMenu.h
         test/popup_start_record/WidgetStartPeriodMenu.cpp
         test/popup_start_record/RecordTypeListWidget.cpp

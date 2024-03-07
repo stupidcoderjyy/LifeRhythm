@@ -12,44 +12,26 @@ Data::Data(char type):type(type) {
 }
 
 IntData *Data::asInt() {
-    if (type != INT) {
-        throwInFunc("mismatched type");
-    }
     return static_cast<IntData*>(this);
 }
 
 ArrayData *Data::asArray() {
-    if (type != ARR) {
-        throwInFunc("mismatched type");
-    }
     return static_cast<ArrayData*>(this);
 }
 
 StringData *Data::asString() {
-    if (type != STRING) {
-        throwInFunc("mismatched type");
-    }
     return static_cast<StringData*>(this);
 }
 
 FloatData *Data::asFloat() {
-    if (type != FLOAT) {
-        throwInFunc("mismatched type");
-    }
     return static_cast<FloatData*>(this);
 }
 
 BoolData *Data::asBool() {
-    if (type != BOOL) {
-        throwInFunc("mismatched type");
-    }
     return static_cast<BoolData*>(this);
 }
 
 NBT *Data::asCompound() {
-    if (type != COMPOUND) {
-        throwInFunc("mismatched type");
-    }
     return static_cast<NBT*>(this);
 }
 

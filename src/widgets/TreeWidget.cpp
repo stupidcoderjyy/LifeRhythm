@@ -5,7 +5,6 @@
 #include "TreeWidget.h"
 
 TreeItem::TreeItem(QWidget *parent):ListItem(parent), folded(true) {
-
 }
 
 void TreeItem::mouseDoubleClickEvent(QMouseEvent *event) {

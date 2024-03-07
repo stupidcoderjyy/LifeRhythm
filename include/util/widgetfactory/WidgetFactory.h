@@ -21,6 +21,7 @@ public:
     typedef std::function<QWidget*(QWidget* parent)> Supplier;
     typedef StandardWidget::Handlers Handlers;
 private:
+    static QRegExp regexId;
     static QMap<QString, Supplier> stdSuppliers;
     static QMap<QString, StandardWidget*> stdEmptyInstances;
     static QMap<QString, Qt::AlignmentFlag> alignments;
@@ -66,7 +67,6 @@ private:
     static void parseSizePolicy(Handlers& op, NBT* nbt);
     explicit WidgetFactory(QString id);
     explicit WidgetFactory(WidgetFactory* parent, const QString& id, NBT* nbt);
-    static QRegExp regexId;
     StandardWidget* parseWidgetType(NBT* nbt);
     void parseChildren(NBT* nbt);
     WidgetFactory* findFactory(NBT* nbt, const QString& path);

@@ -6,7 +6,7 @@
 #define LIFERHYTHM_PERIOD_H
 
 #include "ListData.h"
-#include "Type.h"
+#include "PeriodType.h"
 #include "DataLoader.h"
 
 class Period : public WidgetData {

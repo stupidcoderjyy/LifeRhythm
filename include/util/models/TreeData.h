@@ -22,14 +22,27 @@ public:
     virtual void setParent(TreeNode* parent);
     bool isFolded() const;
     void setFolded(bool folded);
+    void toBytes(IByteWriter *writer) override;
+    void fromBytes(IByteReader *reader) override;
 };
 
 class TreeData : public ListData {
     friend class TreeWidget;
 public:
     TreeData();
+    void toBytes(IByteWriter *writer) override;
+    void fromBytes(IByteReader *reader) override;
+    void foldNode(int idx, bool folded = true);
 protected:
-    virtual void onFolded(int idx, bool folded);
+    virtual void foldNode(TreeNode* node);
+    virtual void expandNode(TreeNode* node);
+    TreeNode *readElement(IByteReader *reader) override;
+private:
+    void onFolded(int idx, bool folded);
+    void fold0(int idx);
+    void expand0(int idx);
+    void toBytes(IByteWriter *writer, TreeNode* node);
+    void fromBytes(IByteReader* reader, TreeNode* parent);
 };
 
 

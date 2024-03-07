@@ -12,7 +12,7 @@ class WidgetData : public QObject, public Serializable{
     Q_OBJECT
 public:
     WidgetData();
-    template<class T> inline T* cast() {
+    template<class T> inline constexpr T* cast() {
         return static_cast<T*>(this);
     }
     void toBytes(IByteWriter *writer) override;
