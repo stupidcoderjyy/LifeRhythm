@@ -18,7 +18,7 @@ void DataLoader::load() {
     if (loaded) {
         return;
     }
-    wData = emptyElement();
+    wData = createData();
     StreamByteReader* reader;
     try {
         reader = new StreamByteReader(destPath);
@@ -51,7 +51,7 @@ WidgetData *DataLoader::getData() {
     return wData;
 }
 
-void DataLoader::deleteElement(WidgetData *p) noexcept {
+void DataLoader::destroyData(WidgetData *p) noexcept {
     delete p;
 }
 
@@ -62,9 +62,9 @@ void ListDataLoader::load() {
     if (loaded) {
         return;
     }
-    auto* listData = dynamic_cast<ListData*>(emptyElement());
+    auto* listData = dynamic_cast<ListData*>(createData());
     if (!listData) {
-        throwInFunc("emptyElement() must return ListData in ListDataLoader");
+        throwInFunc("createData() must return ListData in ListDataLoader");
     }
     wData = listData;
     listData->beginEdit();

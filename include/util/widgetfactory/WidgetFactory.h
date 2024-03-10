@@ -46,7 +46,7 @@ private:
     State state = Empty;
     QString id;
 public:
-    static void init();
+    static void mainInit();
     static WidgetFactory* fromResource(const Identifier& loc);
     static WidgetFactory* fromNbt(const QString& id, NBT* nbt);
     template<class W> static void parseTextWidget(WidgetFactory::Handlers& handlers, NBT* nbt);
@@ -76,6 +76,7 @@ private:
     void parseSingleState(Handlers& op, NBT* stateTag);
     void parsePointer(NBT* nbt);
     QWidget* createWidget(const QString& type, QWidget* parent = nullptr);
+    void parseModel(NBT* nbt);
 };
 
 template<class W>

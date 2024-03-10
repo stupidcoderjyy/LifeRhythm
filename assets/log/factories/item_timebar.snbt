@@ -1,5 +1,5 @@
 {
-    type: "PeriodWidget"
+    type: "TimeBarItem"
     qss: "bg(GRAY_0)bd('4px', 'solid', BLACK)"
     children: ["labelRange", "labelInfo"]
 

@@ -6,11 +6,13 @@
 #define LIFERHYTHM_PERIODTYPE_H
 
 #include <QColor>
-#include "TreeData.h"
+#include "SelectableTreeData.h"
 #include "DataLoader.h"
 
 class PeriodType : public TreeNode {
     friend class PeriodTypeTree;
+    friend class PeriodTypeIcon;
+    friend class PeriodTypeTreeItem;
 private:
     QColor color;
     QString name;
@@ -22,19 +24,19 @@ public:
     void fromBytes(IByteReader *reader) override;
 };
 
-class PeriodTypeTree : public TreeData {
+class PeriodTypeTree : public SelectableTreeData {
 public:
     PeriodTypeTree();
 protected:
     TreeNode *readElement(IByteReader *reader) override;
-    void expandNode(TreeNode *node) override;
+    void onNodeExpanded(TreeNode *node) override;
 };
 
 class PeriodTypeLoader : public DataLoader {
 public:
     explicit PeriodTypeLoader(QString destPath);
 protected:
-    WidgetData *emptyElement() noexcept override;
+    WidgetData *createData() noexcept override;
 };
 
 

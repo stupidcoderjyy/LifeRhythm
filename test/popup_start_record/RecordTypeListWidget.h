@@ -15,7 +15,6 @@ private:
     TextLabel* labelName;
 public:
     explicit RecordTypeItem(QWidget* parent = nullptr);
-    void updateItemAfterSelecting(bool selected) override;
     void onFinishedParsing(Handlers &handlers, NBT *widgetTag) override;
     void syncDataToWidget() override;
 private:

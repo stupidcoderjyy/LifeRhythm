@@ -6,13 +6,27 @@
 #define LIFERHYTHM_TIMEBAR_H
 
 #include "RangeBar.h"
+#include "TextLabel.h"
+
+class TimeBarItem : public RangeBarItem {
+private:
+    TextLabel* labelRange;
+    TextLabel* labelInfo;
+public:
+    static void mainInit();
+    explicit TimeBarItem(QWidget* parent = nullptr);
+    void onFinishedParsing(Handlers &handlers, NBT *widgetTag) override;
+    void syncDataToWidget() override;
+private:
+    void init();
+};
 
 class TimeBar : public RangeBar {
     Q_OBJECT
 public:
     explicit TimeBar(QWidget* parent = nullptr);
 protected:
-    RangeWidget *createRangeWidget() override;
+    RangeBarItem *createRangeWidget() override;
 };
 
 

@@ -11,19 +11,29 @@ class TreeData;
 
 class TreeNode : public WidgetData {
     friend class TreeData;
+    friend class SelectableTreeData;
+    friend class TreeItem;
     Q_OBJECT
 protected:
+    int depth;
     bool folded;
     TreeNode* parent;
     QVector<TreeNode*> children;
+    TreeData* tree;
 public:
     TreeNode();
-    virtual void addChildren(TreeNode* child);
+    virtual void addChildren(TreeData* tree, TreeNode* child);
+    virtual void removeChildren(int childIdx);
     virtual void setParent(TreeNode* parent);
     bool isFolded() const;
     void setFolded(bool folded);
     void toBytes(IByteWriter *writer) override;
     void fromBytes(IByteReader *reader) override;
+    const QVector<TreeNode *>& getChildren() const;
+    int getDepth() const;
+signals:
+    void sigChildCreated(TreeNode* child);
+    void sigChildRemoved(int childIdx);
 };
 
 class TreeData : public ListData {
@@ -32,13 +42,14 @@ public:
     TreeData();
     void toBytes(IByteWriter *writer) override;
     void fromBytes(IByteReader *reader) override;
-    void foldNode(int idx, bool folded = true);
+    void addNode(TreeNode* node);
+    void removeNode(int idx);
+    virtual void foldNode(int idx, bool folded);
 protected:
-    virtual void foldNode(TreeNode* node);
-    virtual void expandNode(TreeNode* node);
+    virtual void onNodeFolded(TreeNode* node);
+    virtual void onNodeExpanded(TreeNode* node);
     TreeNode *readElement(IByteReader *reader) override;
 private:
-    void onFolded(int idx, bool folded);
     void fold0(int idx);
     void expand0(int idx);
     void toBytes(IByteWriter *writer, TreeNode* node);

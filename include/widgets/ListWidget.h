@@ -76,7 +76,7 @@ protected:
     void setGlobalPos(int globalPos, bool forceUpdate = false);
     void onDataChanged(int begin, int end);
     void scroll(int dy);
-    QMetaObject::Connection connectModelView() override;
+    void connectModelView() override;
 private:
     void updateListBase();
     void fillA(int begin, bool forceUpdate = false);

@@ -71,7 +71,7 @@ void LifeRhythm::mainInit() {
     pluginManager.mainInit();
     ImageStorage::init();
     WidgetFactoryStorage::init();
-    WidgetFactory::init();
+    WidgetFactory::mainInit();
     TabBar::mainInit();
     TitledDialog::mainInit();
     MainFrame::mainInit();
@@ -110,6 +110,22 @@ void LifeRhythm::generateTitledDialog(const QString &title, QWidget *content) {
 
 void LifeRhythm::insertTab(const QString& title, TabWidget *tab, const Identifier &icon) {
     lr->mainFrame->tabBar->insertTab(title, tab, icon);
+}
+
+void LifeRhythm::insertTab(const QString &title, const Identifier &factory, const Identifier &icon) {
+    auto* f = WidgetFactoryStorage::get(factory);
+    if (!f) {
+        throwInFunc("invalid factory: " + factory.getPath());
+    }
+    auto* w = dynamic_cast<TabWidget*>(f->apply());
+    if (!w) {
+        throwInFunc("requires instance of TabWidget, factory: " + factory.getPath());
+    }
+    insertTab(title, w, icon);
+}
+
+void LifeRhythm::onPreInit(std::function<void()> handler) {
+    connect(this, &LifeRhythm::sigPreInit, this, std::move(handler));
 }
 
 void LifeRhythm::onPostInit(std::function<void()> handler, Qt::ConnectionType type) {

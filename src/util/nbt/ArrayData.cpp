@@ -102,3 +102,19 @@ void ArrayData::fillInt(int *arr, int len) {
         len--;
     }
 }
+
+void ArrayData::fillFloat(float* arr, int len) {
+    for (auto& e : data) {
+        if (len == 0) {
+            break;
+        }
+        if (e->type == Data::FLOAT) {
+            *arr++ = e->asFloat()->get();
+        } else if (e->type == Data::INT) {
+            *arr++ = (float)e->asInt()->get();
+        } else {
+            continue;
+        }
+        len--;
+    }
+}

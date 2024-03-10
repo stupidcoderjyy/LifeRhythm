@@ -23,8 +23,8 @@ signals:
     void sigLoaded();
     void sigUnloaded();
 protected:
-    virtual WidgetData* emptyElement() noexcept = 0;
-    virtual void deleteElement(WidgetData* p) noexcept;
+    virtual WidgetData* createData() noexcept = 0;
+    virtual void destroyData(WidgetData* p) noexcept;
 };
 
 class ListDataLoader : public DataLoader {

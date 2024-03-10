@@ -33,6 +33,6 @@ WidgetData *PeriodList::readElement(IByteReader *reader) {
 PeriodDataLoader::PeriodDataLoader(QString destPath): ListDataLoader(std::move(destPath)) {
 }
 
-WidgetData *PeriodDataLoader::emptyElement() noexcept {
+WidgetData *PeriodDataLoader::createData() noexcept {
     return new PeriodList;
 }

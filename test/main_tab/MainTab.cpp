@@ -5,13 +5,13 @@
 #include "MainTab.h"
 #include "WidgetFactory.h"
 #include "RcManagers.h"
-#include "PeriodWidget.h"
-#include "Period.h"
 #include "Task.h"
 #include "SelectableListData.h"
-#include "RecordType.h"
 #include "WidgetStartPeriodMenu.h"
 #include "LifeRhythm.h"
+#include "Period.h"
+#include "PeriodTypeTreeWidget.h"
+#include "RecordType.h"
 #include <QThread>
 #include <utility>
 
@@ -25,11 +25,13 @@ void MainTab::addStartPeriodType(QString icon, QString typeName, QWidget *menuPa
 }
 
 void MainTab::mainInit() {
-    auto* mt = WidgetFactoryStorage::get("log:maintab");
+    auto* mt = WidgetFactoryStorage::get("log:widget_maintab");
     regClazz(mt, MainTab);
     regClazz(mt, TimeBar);
-    PeriodWidget::mainInit();
+    TimeBarItem::mainInit();
     WidgetStartPeriodMenu::mainInit();
+    auto* mp = WidgetFactoryStorage::get("log:dialog_start_record/widget_mainpage");
+    regClazz(mp, PeriodTypeTreeWidget);
 }
 
 void MainTab::onTabCreated() {
@@ -51,15 +53,12 @@ void MainTab::onTabCreated() {
     });
     loadTask->start();
     modelRecordTypeList = new SelectableListData();
-    auto* content = WidgetFactoryStorage::get("log:dialog_content_start_record")
+    auto* content = WidgetFactoryStorage::get("log:dialog_start_record/widget_content")
             ->applyAndCast<WidgetStartPeriodMenu>();
     content->setRecordTypeData(modelRecordTypeList, &startRecordMenuPages);
-    auto* l1 = new QLabel;
-    auto* l2 = new QLabel;
-    l1->setStyleSheet(bg(Styles::GRAY_2));
-    l2->setStyleSheet(bg(Styles::BLUE_1));
-    addStartPeriodType("lr:dialog_close", "A", l1);
-    addStartPeriodType("lr:icon_30", "B", l2);
+
+    auto* pageMain = WidgetFactoryStorage::get("log:dialog_start_record/widget_mainpage")->apply();
+    addStartPeriodType("lr:dialog_close", "A", pageMain);
 
     lr::LifeRhythm::generateTitledDialog("开始记录", content);
 }

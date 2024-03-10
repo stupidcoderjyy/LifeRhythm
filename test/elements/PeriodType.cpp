@@ -26,7 +26,7 @@ void PeriodType::fromBytes(IByteReader *reader) {
     name = reader->readString();
 }
 
-PeriodTypeTree::PeriodTypeTree(): TreeData() {
+PeriodTypeTree::PeriodTypeTree(): SelectableTreeData() {
 }
 
 TreeNode *PeriodTypeTree::readElement(IByteReader *reader) {
@@ -35,13 +35,13 @@ TreeNode *PeriodTypeTree::readElement(IByteReader *reader) {
 
 #include <QDebug>
 
-void PeriodTypeTree::expandNode(TreeNode *node) {
+void PeriodTypeTree::onNodeExpanded(TreeNode *node) {
     qDebug() << node->cast<PeriodType>()->name;
 }
 
 PeriodTypeLoader::PeriodTypeLoader(QString destPath): DataLoader(std::move(destPath)) {
 }
 
-WidgetData *PeriodTypeLoader::emptyElement() noexcept {
+WidgetData *PeriodTypeLoader::createData() noexcept {
     return new PeriodTypeTree;
 }

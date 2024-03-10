@@ -4,16 +4,29 @@
 
 #include "TreeData.h"
 
-TreeNode::TreeNode(): WidgetData(), parent(), children(), folded(true) {
+TreeNode::TreeNode(): WidgetData(), parent(), children(), folded(true), depth(), tree() {
 }
 
-void TreeNode::addChildren(TreeNode *c) {
+void TreeNode::addChildren(TreeData* t, TreeNode *c) {
     children << c;
+    tree = t;
     c->setParent(this);
+    if (!folded) {
+        emit sigChildCreated(c);
+    }
+}
+
+void TreeNode::removeChildren(int childIdx) {
+    auto* c = children[childIdx];
+    children.remove(childIdx);
+    if (!folded) {
+        emit sigChildRemoved(childIdx);
+    }
 }
 
 void TreeNode::setParent(TreeNode *p) {
     parent = p;
+    depth = p->depth + 1;
 }
 
 bool TreeNode::isFolded() const {
@@ -30,6 +43,14 @@ void TreeNode::toBytes(IByteWriter *writer) {
 
 void TreeNode::fromBytes(IByteReader *reader) {
     folded = reader->readBool();
+}
+
+const QVector<TreeNode *> &TreeNode::getChildren() const {
+    return children;
+}
+
+int TreeNode::getDepth() const {
+    return depth;
 }
 
 TreeData::TreeData(): ListData() {
@@ -50,67 +71,91 @@ void TreeData::fromBytes(IByteReader *reader) {
 }
 
 void TreeData::foldNode(int idx, bool folded) {
+    beginEdit();
     auto* node = data.at(idx)->cast<TreeNode>();
     if (node->folded == folded) {
         return;
     }
     node->folded = folded;
-    onFolded(idx, folded);
-}
-
-void TreeData::onFolded(int idx, bool folded) {
-    auto* node = data.at(idx)->cast<TreeNode>();
     int count = node->children.count();
     if (!count) {
         return;
     }
     if (folded) {
+        int oldLen = data.length();
         fold0(idx);
+        markChange(idx, oldLen - 1);
     } else {
         expand0(idx);
+        markChange(idx, data.length() - 1);
     }
-    markChange(idx, data.length() - 1);
+    endEdit();
 }
 
-void TreeData::foldNode(TreeNode *node) {
+void TreeData::addNode(TreeNode *node) {
+    append(node);
+    node->tree = this;
 }
 
-void TreeData::expandNode(TreeNode *node) {
+void TreeData::removeNode(int idx) {
+    foldNode(idx, true);
+    remove(idx);
+}
+
+void TreeData::onNodeFolded(TreeNode *node) {
+}
+
+void TreeData::onNodeExpanded(TreeNode *node) {
 }
 
 TreeNode* TreeData::readElement(IByteReader *reader) {
     return new TreeNode;
 }
 
-void TreeData::fold0(int idx) {
-    auto* node = data[idx]->cast<TreeNode>();
-    foldNode(node);
-    int i = idx + 1;
-    while (i < data.length()) {
-        if (data[i++]->cast<TreeNode>()->parent == node->parent) {
-            break;
+void TreeData::fold0(int i) {
+    int removeBegin = i + 1;
+    QVector<TreeNode*> nodes;
+    nodes << data[i]->cast<TreeNode>();
+    while (!nodes.empty()) {
+        auto* parent = nodes.takeLast();
+        i++;
+        while (i < data.length()) {
+            auto* child = data[i]->cast<TreeNode>();
+            if (child->parent != parent) {
+                break;
+            }
+            if (!child->folded) {
+                nodes << child;
+                break;
+            }
+            i++;
         }
     }
-    data.remove(idx + 1, i - idx - 1);
+    data.remove(removeBegin, i - removeBegin);
 }
 
 void TreeData::expand0(int idx) {
-    auto* end = idx == data.length() - 1 ? nullptr : data[idx + 1];
     int i = idx;
-    while (i < data.length()) {
+    QVector<WidgetData*> endNodes;
+    endNodes << (idx == data.length() - 1 ? nullptr : data[idx + 1]);
+    while (!endNodes.empty()) {
+        auto* end = endNodes.last();
+        if (!end && i == data.length()) {
+            break;
+        }
         auto* node = data[i]->cast<TreeNode>();
         if (node == end) {
-            end = i == data.length() - 1 ? nullptr : data[i + 1];
+            endNodes.removeLast();
             continue;
         }
         i++;
         if (node->folded) {
             continue;
         }
-        expandNode(node);
+        onNodeExpanded(node);
         int count = node->children.length();
         if (count) {
-            end = i == data.length() ? nullptr : data[i];
+            endNodes << (i == data.length() ? nullptr : data[i]);
             data.insert(i, count, nullptr);
             memcpy(data.data() + i, node->children.data(), count << 3);
         }
@@ -130,7 +175,7 @@ void TreeData::fromBytes(IByteReader *reader, TreeNode *parent) {
     parent->children.reserve(count);
     for (int i = 0 ; i < count ; i ++) {
         auto* child = readElement(reader);
-        parent->addChildren(child);
+        parent->addChildren(this, child);
         child->fromBytes(reader);
         fromBytes(reader, child);
     }

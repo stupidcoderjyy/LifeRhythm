@@ -1,46 +1,50 @@
 
-#include "SelectableListWidget.h"
-#include "OptionsBox.h"
 #include "Namespaces.h"
 #include "LifeRhythm.h"
-#include "MainTab.h"
-#include "RcManagers.h"
+#include "WidgetDataStorage.h"
 #include "PeriodType.h"
+#include "Styles.h"
+#include "RcManagers.h"
+#include "PeriodTypeTreeWidget.h"
 
 USING_LR
 
 int main(int argc, char *argv[]) {
     LifeRhythm lr(argc, argv);
     auto cfg = lr.getConfig();
-    cfg.setMode(Config::Normal);
+    cfg.setMode(Config::Test);
     lr.setConfig(cfg);
     lr.onMainInit([](){
-        MainTab::mainInit();
+        auto* tree = new TreeData();
+        auto* a = new PeriodType(Styles::GOLD, "测试a");
+        auto* aa = new PeriodType(Styles::GOLD, "测试aa");
+        auto* aaa = new PeriodType(Styles::GOLD, "测试aaa");
+        auto* aab = new PeriodType(Styles::GOLD, "测试aab");
+        auto* b = new PeriodType(Styles::GREEN, "测试b");
+        auto* ba = new PeriodType(Styles::GREEN, "测试ba");
+        a->addChildren(tree, aa);
+        aa->addChildren(tree, aaa);
+        aa->addChildren(tree, aab);
+        b->addChildren(tree, ba);
+        tree->addNode(b);
+        tree->addNode(a);
+        WidgetDataStorage::add("log:period_type", tree);
+
+        QTimer::singleShot(5000, [tree, aa](){
+            aa->addChildren(tree, new PeriodType(Styles::GOLD, "测试aac"));
+            aa->removeChildren(0);
+        });
+
+        regClazz(WidgetFactoryStorage::get("log:widget_mainpage"), PeriodTypeTreeWidget);
+        auto* f = WidgetFactoryStorage::get("log:item_period_type");
+        regClazz(f, PeriodTypeIcon);
+        regClazz(f, PeriodTypeTreeItem);
     });
     lr.onPostInit([](){
-        PeriodTypeLoader loader("test.txt");
-        loader.load();
-        auto* tree = loader.getData()->cast<PeriodTypeTree>();
-        if (!tree->length()) {
-            auto* t0 = new PeriodType(Styles::BLUE_0, "t0");
-            auto* t00 = new PeriodType(Styles::BLUE_0, "t00");
-            auto* t01 = new PeriodType(Styles::BLUE_0, "t01");
-            auto* t02 = new PeriodType(Styles::BLUE_0, "t02");
-            auto* t020 = new PeriodType(Styles::BLUE_0, "t020");
-            auto* t0200 = new PeriodType(Styles::BLUE_0, "t0200");
-            t0->addChildren(t00);
-            t0->addChildren(t01);
-            t0->addChildren(t02);
-            t02->addChildren(t020);
-            t02->setFolded(false);
-            t020->addChildren(t0200);
-            t020->setFolded(false);
-            tree->append(t0);
-            tree->foldNode(0, false);
-            tree->foldNode(0, true);
-        }
-//        auto* tab = WidgetFactoryStorage::get("log:maintab")->apply();
-//        LifeRhythm::insertTab("a", static_cast<TabWidget*>(tab));
+        WidgetFactoryStorage::get("log:widget_mainpage")
+                ->apply()
+                ->show();
+//        LifeRhythm::insertTab("a", "log:widget_maintab");
     });
     return lr.launch();
 }

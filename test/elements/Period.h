@@ -30,7 +30,7 @@ class PeriodDataLoader : public ListDataLoader {
 public:
     explicit PeriodDataLoader(QString destPath);
 protected:
-    WidgetData *emptyElement() noexcept override;
+    WidgetData *createData() noexcept override;
 };
 
 #endif //LIFERHYTHM_PERIOD_H

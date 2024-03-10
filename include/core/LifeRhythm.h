@@ -42,6 +42,8 @@ public:
     static LifeRhythm* get();
     static void generateTitledDialog(const QString& title, QWidget* content);
     static void insertTab(const QString& title, TabWidget* tab, const Identifier& icon = "lr:icon_30");
+    static void insertTab(const QString& title, const Identifier& factory, const Identifier& icon = "lr:icon_30");
+    void onPreInit(std::function<void()> handler);
     void onPostInit(std::function<void()> handler, Qt::ConnectionType type = Qt::DirectConnection);
     void onMainInit(std::function<void()> handler, Qt::ConnectionType type = Qt::DirectConnection);
     LifeRhythm(int argc, char *argv[]);

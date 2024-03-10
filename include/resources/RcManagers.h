@@ -25,5 +25,4 @@ public:
     static void parseAll();
 };
 
-#undef TYPE
 #endif //LIFERHYTHM_RCMANAGERS_H

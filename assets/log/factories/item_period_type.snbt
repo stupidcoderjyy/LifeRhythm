@@ -1,0 +1,43 @@
+{
+    type: "PeriodTypeTreeItem"
+    children: ["arrowButton", "icon", "label"]
+
+    layout: {
+        type: "Horizontal"
+        align: "V_Center"
+        spacing: 5
+        margins: [0,0,0,0]
+    }
+
+    arrowButton: {
+        type: "ArrowButton"
+        directions: ["Right", "Down"]
+        ratio: [2, 1]
+        scale: 0.12
+        fixed_width: 30
+        fixed_height: 30
+        pointer: true
+    }
+
+    icon: {
+        type: "PeriodTypeIcon"
+        fixed_width: 20
+        fixed_height: 20
+        pointer: true
+    }
+
+    label: {
+        type: "TextLabel"
+        h_size_policy: "Min"
+        pointer: true
+    }
+
+    states: {
+        s0: {
+            qss: "bg(GRAY_0)"
+        }
+        s1: {
+            qss: "bg(BLUE_0)"
+        }
+    }
+}

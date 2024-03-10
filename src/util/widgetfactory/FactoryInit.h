@@ -11,8 +11,8 @@
 class FactoryInit {
     friend class WidgetFactory;
 private:
-    static void init(QMap<QString, WidgetFactory::Supplier>* stdSuppliers,
-                     QMap<QString, StandardWidget*>* stdEmptyInstances);
+    static void mainInit(QMap<QString, WidgetFactory::Supplier>* stdSuppliers,
+                         QMap<QString, StandardWidget*>* stdEmptyInstances);
 };
 
 

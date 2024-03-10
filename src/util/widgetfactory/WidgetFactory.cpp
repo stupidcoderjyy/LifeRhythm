@@ -7,6 +7,7 @@
 #include "RcManagers.h"
 #include "QssParser.h"
 #include "FactoryInit.h"
+#include "WidgetDataStorage.h"
 
 #include <QLayout>
 #include <utility>
@@ -66,6 +67,7 @@ void WidgetFactory::parse() noexcept{
         state = Parsing;
         stdType = parseWidgetType(source);
         stdType->onPreParsing(handlers, source);
+        parseModel(source);
         parseQss(handlers,source);
         parseLayout(source);
         parseSize(handlers, source);
@@ -470,14 +472,26 @@ QWidget *WidgetFactory::createWidget(const QString &type, QWidget *parent) {
     return nullptr;
 }
 
+void WidgetFactory::parseModel(NBT *nbt) {
+    if (nbt->contains("model", Data::STRING)) {
+        WidgetData* d = WidgetDataStorage::get(Identifier(nbt->getString("model")));
+        if (!d) {
+            throwInFunc("failed to find widget data '" + nbt->getString("model") + "'");
+        }
+        handlers << [d](QWidget* target) {
+            dynamic_cast<StandardWidget*>(target)->setData(d);
+        };
+    }
+}
+
 QMap<QString, WidgetFactory::Supplier> WidgetFactory::stdSuppliers{};
 QMap<QString, StandardWidget*> WidgetFactory::stdEmptyInstances{};
 QMap<QString, Qt::AlignmentFlag> WidgetFactory::alignments{};
 QMap<QString, QSizePolicy::Policy> WidgetFactory::policies{};
 
-void WidgetFactory::init() {
-    FactoryInit::init(&stdSuppliers, &stdEmptyInstances);
-    QssParser::init();
+void WidgetFactory::mainInit() {
+    FactoryInit::mainInit(&stdSuppliers, &stdEmptyInstances);
+    QssParser::mainInit();
     alignments.insert("Left",Qt::AlignLeft);
     alignments.insert("Right",Qt::AlignRight);
     alignments.insert("Top",Qt::AlignTop);

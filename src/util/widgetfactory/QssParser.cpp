@@ -110,7 +110,7 @@ QStringList QssParser::parseArgs(CompilerInput *input) {
 
 #define regColor(c) addStringReplaceItem(#c, Styles::c)
 
-void QssParser::init() {
+void QssParser::mainInit() {
     addStringConcatItem("bg", "background-color:", ";");
     regColor(GRAY_0);
     regColor(GRAY_1);

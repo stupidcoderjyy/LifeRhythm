@@ -64,13 +64,13 @@ void ListData::append(WidgetData *d) {
 
 void ListData::insert(int idx, WidgetData *d) {
     data.insert(idx, d);
-    markChange(idx + 1, data.length() - 1);
+    markChange(idx, data.length() - 1);
 }
 
 WidgetData *ListData::remove(int idx) {
     auto* d = data.at(idx);
     data.remove(idx);
-    markChange(idx, data.length() - 1);
+    markChange(idx, data.length());
     return d;
 }
 

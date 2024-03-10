@@ -21,7 +21,7 @@ protected:
     Handlers globalResponders{};
     int state = -1;
     WidgetData* wData;
-    QMetaObject::Connection dc;
+    QVector<QMetaObject::Connection> dc;
 public:
     int getState() const;
     void registerResponder(int _state, const Handler& responder);
@@ -47,7 +47,7 @@ public:
     virtual void syncWidgetToData();
     virtual ~StandardWidget();
 protected:
-    virtual QMetaObject::Connection connectModelView();
+    virtual void connectModelView();
 };
 
 #endif //LIFERHYTHM_STANDARDWIDGET_H

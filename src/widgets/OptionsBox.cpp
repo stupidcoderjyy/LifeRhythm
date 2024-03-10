@@ -15,7 +15,7 @@ OptionsMenu::OptionsMenu(QWidget *parent): Menu(parent) {
 void OptionsMenu::mouseReleaseEvent(QMouseEvent *event) {
 }
 
-DisplayOptionsButton::DisplayOptionsButton(QWidget *parent): ArrowButton(Down, parent) {
+DisplayOptionsButton::DisplayOptionsButton(QWidget *parent): ArrowButton(parent) {
     setFixedSize(20, 20);
     setRatio(0.8, 0.4);
     setScale(0.6);

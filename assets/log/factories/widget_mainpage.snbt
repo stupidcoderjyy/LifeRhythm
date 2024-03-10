@@ -1,0 +1,15 @@
+{
+    children: ["periodTypeTree"]
+
+    layout: {
+        type: "Vertical"
+        margins: [0,0,0,0]
+        spacing: 0
+    }
+
+    periodTypeTree: {
+        type: "PeriodTypeTreeWidget"
+        model: "log:period_type"
+        pointer: true
+    }
+}

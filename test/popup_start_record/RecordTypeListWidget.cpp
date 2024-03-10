@@ -5,13 +5,9 @@
 #include "RecordTypeListWidget.h"
 #include "WidgetFactory.h"
 #include "RcManagers.h"
-#include "RecordType.h"
+#include "elements/RecordType.h"
 
 RecordTypeItem::RecordTypeItem(QWidget *parent): SelectableListItem(parent), labelIcon(), labelName() {
-}
-
-void RecordTypeItem::updateItemAfterSelecting(bool selected) {
-    setState(selected);
 }
 
 void RecordTypeItem::onFinishedParsing(StandardWidget::Handlers &handlers, NBT *widgetTag) {
@@ -22,6 +18,7 @@ void RecordTypeItem::onFinishedParsing(StandardWidget::Handlers &handlers, NBT *
 
 void RecordTypeItem::syncDataToWidget() {
     SelectableListItem::syncDataToWidget();
+    setState(selected);
     if (!wData) {
         setVisible(false);
         return;

@@ -22,6 +22,7 @@ signals:
     void sigItemFold(int idx, bool folded);
 protected:
     void mouseDoubleClickEvent(QMouseEvent *event) override;
+    void connectModelView() override;
 };
 
 class TreeWidget : public ListWidget{

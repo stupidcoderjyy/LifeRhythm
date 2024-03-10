@@ -20,7 +20,7 @@ class QssParser {
 private:
     static QMap<QString, QssItem*> items;
 public:
-    static void init();
+    static void mainInit();
     static QString translate(const QString& expr);
     static void addStringConcatItem(const QString& key, QString prefix = "", QString suffix = "");
     static void addStringReplaceItem(const QString& key, QString value);

@@ -64,11 +64,13 @@ void StandardWidget::setData(WidgetData *d) {
         return;
     }
     if (wData) {
-        QObject::disconnect(dc);
+        for (auto& c : dc) {
+            QObject::disconnect(c);
+        }
     }
     wData = d;
     if (d) {
-        dc = connectModelView();
+        connectModelView();
     }
 }
 
@@ -78,8 +80,7 @@ void StandardWidget::syncDataToWidget() {
 void StandardWidget::syncWidgetToData() {
 }
 
-QMetaObject::Connection StandardWidget::connectModelView() {
-    return {};
+void StandardWidget::connectModelView() {
 }
 
 StandardWidget::~StandardWidget() {

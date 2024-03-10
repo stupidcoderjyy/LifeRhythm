@@ -214,8 +214,8 @@ void ListWidget::scroll(int dy) {
     getVScrollBar()->setValue(globalPos);
 }
 
-QMetaObject::Connection ListWidget::connectModelView() {
-    return connect(wData, &WidgetData::sigDataChanged, this, [this](){
+void ListWidget::connectModelView() {
+    dc << connect(wData, &WidgetData::sigDataChanged, this, [this](){
         auto* d = wData->cast<ListData>();
         onDataChanged(d->getChangeBegin(), d->getChangeEnd());
     });

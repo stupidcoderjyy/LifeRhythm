@@ -72,6 +72,8 @@ set(INCLUDE_FILES
         include/util/models/TreeData.h
         include/util/models/ListData.h
         include/util/models/SelectableListData.h
+        include/util/models/SelectableTreeData.h
+        include/util/models/WidgetDataStorage.h
         include/util/nbt/ArrayData.h
         include/util/nbt/BoolData.h
         include/util/nbt/Data.h
@@ -100,6 +102,7 @@ set(INCLUDE_FILES
         include/widgets/TextLabel.h
         include/widgets/TreeWidget.h
         include/widgets/Widget.h
+        include/widgets/SelectableTreeWidget.h
 )
 
 set(SRC_FILES
@@ -136,6 +139,8 @@ set(SRC_FILES
         src/util/models/TreeData.cpp
         src/util/models/ListData.cpp
         src/util/models/SelectableListData.cpp
+        src/util/models/SelectableTreeData.cpp
+        src/util/models/WidgetDataStorage.cpp
         src/util/nbt/ArrayData.cpp
         src/util/nbt/BoolData.cpp
         src/util/nbt/Data.cpp
@@ -174,6 +179,7 @@ set(SRC_FILES
         src/widgets/TextLabel.cpp
         src/widgets/TreeWidget.cpp
         src/widgets/Widget.cpp
+        src/widgets/SelectableTreeWidget.cpp
 )
 
 set(RESOURCES
@@ -189,21 +195,21 @@ set(TEST_SRC
         test/main_tab/MainTab.h
         test/main_tab/TimeBar.cpp
         test/main_tab/TimeBar.h
-        test/main_tab/PeriodWidget.cpp
-        test/main_tab/PeriodWidget.h
-        test/main_tab/Period.cpp
-        test/main_tab/Period.h
-        test/main_tab/PeriodType.cpp
-        test/main_tab/PeriodType.h
+        test/popup_start_record/PeriodTypeTreeWidget.cpp
+        test/popup_start_record/PeriodTypeTreeWidget.h
         test/popup_start_record/WidgetStartPeriodMenu.h
         test/popup_start_record/WidgetStartPeriodMenu.cpp
         test/popup_start_record/RecordTypeListWidget.cpp
         test/popup_start_record/RecordTypeListWidget.h
-        test/popup_start_record/RecordType.cpp
-        test/popup_start_record/RecordType.h
+        test/elements/RecordType.cpp
+        test/elements/RecordType.h
+        test/elements/Period.cpp
+        test/elements/Period.h
+        test/elements/PeriodType.cpp
+        test/elements/PeriodType.h
 )
 
-include_directories(${INCLUDES} test test/main_tab test/popup_start_record)
+include_directories(${INCLUDES} test test/main_tab test/popup_start_record test/elements)
 
 set(ALL_FILES ${SRC_FILES} ${INCLUDE_FILES} ${RESOURCES})
 
