@@ -8,7 +8,9 @@ TreeItem::TreeItem(QWidget *parent):ListItem(parent), folded(true) {
 }
 
 void TreeItem::mouseDoubleClickEvent(QMouseEvent *event) {
-    setFolded(!folded);
+    if (wData) {
+        setFolded(!folded);
+    }
 }
 
 void TreeItem::syncDataToWidget() {
@@ -24,7 +26,6 @@ void TreeItem::syncWidgetToData() {
 void TreeItem::setFolded(bool f) {
     if (folded != f) {
         folded = f;
-        syncWidgetToData();
         emit sigItemFold(dataIdx, f);
     }
 }

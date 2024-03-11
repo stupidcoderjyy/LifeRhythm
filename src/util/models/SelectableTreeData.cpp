@@ -4,23 +4,13 @@
 
 #include "SelectableTreeData.h"
 
-SelectableTreeData::SelectableTreeData(): TreeData(), selected(), selectedIdx(-1) {
+SelectableTreeData::SelectableTreeData(): TreeData(), selectedIdx(-1) {
 }
 
 void SelectableTreeData::selectData(int idx) {
-    if (selectedIdx != idx) {
-        beginEdit();
-        int old = selectedIdx;
-        selectedIdx = idx;
-        if (old >= 0) {
-            markChange(old, old);
-        }
-        if (idx >= 0) {
-            markChange(idx, idx);
-        }
-        endEdit();
-        emit sigDataSelected(old, idx);
-    }
+    beginEdit();
+    select0(idx);
+    endEdit();
 }
 
 void SelectableTreeData::insert(int idx, WidgetData *data) {
@@ -32,17 +22,86 @@ void SelectableTreeData::insert(int idx, WidgetData *data) {
 
 WidgetData *SelectableTreeData::remove(int idx) {
     if (idx == selectedIdx) {
-        selectedIdx = -1;
+        auto* node = data[idx]->cast<TreeNode>();
+        if (node->parent) {
+            int i = idx;
+            while (data[--i]->cast<TreeNode>()->parent == node->parent);
+            selectData(i);
+        } else {
+            selectData(-1);
+        }
+        beginEdit();
     } else if (idx < selectedIdx) {
         selectedIdx--;
     }
     return TreeData::remove(idx);
 }
 
-void SelectableTreeData::onNodeFolded(TreeNode *node) {
-    if (selected->parent == node) {
-        selected = nullptr;
-        selectedIdx = -1;
+void SelectableTreeData::select0(int idx) {
+    if (selectedIdx != idx) {
+        int old = selectedIdx;
+        selectedIdx = idx;
+        if (old >= 0) {
+            markChange(old, old);
+        }
+        if (idx >= 0) {
+            markChange(idx, idx);
+        }
+        emit sigDataSelected(old, idx);
     }
-    TreeData::onNodeFolded(node);
+}
+
+void SelectableTreeData::fold0(int i) {
+    int removeBegin = i + 1;
+    QVector<TreeNode*> nodes;
+    nodes << data[i]->cast<TreeNode>();
+    while (!nodes.empty()) {
+        auto* parent = nodes.takeLast();
+        i++;
+        while (i < data.length()) {
+            auto* child = data[i]->cast<TreeNode>();
+            if (child->parent != parent) {
+                break;
+            }
+            if (!child->folded) {
+                nodes << child;
+                break;
+            }
+            i++;
+        }
+    }
+    if (selectedIdx >= removeBegin) {
+        select0(selectedIdx < i ? removeBegin - 1 : selectedIdx - i + removeBegin);
+    }
+    data.remove(removeBegin, i - removeBegin);
+}
+
+void SelectableTreeData::expand0(int idx) {
+    int i = idx;
+    QVector<WidgetData*> endNodes;
+    endNodes << (idx == data.length() - 1 ? nullptr : data[idx + 1]);
+    while (!endNodes.empty()) {
+        auto* end = endNodes.last();
+        if (!end && i == data.length()) {
+            break;
+        }
+        auto* parent = data[i]->cast<TreeNode>();
+        if (parent == end) {
+            endNodes.removeLast();
+            continue;
+        }
+        i++;
+        if (parent->folded) {
+            continue;
+        }
+        int count = parent->children.length();
+        if (count) {
+            endNodes << (i == data.length() ? nullptr : data[i]);
+            data.insert(i, count, nullptr);
+            memcpy(data.data() + i, parent->children.data(), count << 3);
+        }
+    }
+    if (selectedIdx > idx) {
+        select0(selectedIdx + i - idx - 1);
+    }
 }

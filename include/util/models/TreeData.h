@@ -12,6 +12,7 @@ class TreeData;
 class TreeNode : public WidgetData {
     friend class TreeData;
     friend class SelectableTreeData;
+    friend class SelectableTreeItem;
     friend class TreeItem;
     Q_OBJECT
 protected:
@@ -44,14 +45,12 @@ public:
     void fromBytes(IByteReader *reader) override;
     void addNode(TreeNode* node);
     void removeNode(int idx);
-    virtual void foldNode(int idx, bool folded);
+    void foldNode(int idx, bool folded);
 protected:
-    virtual void onNodeFolded(TreeNode* node);
-    virtual void onNodeExpanded(TreeNode* node);
     TreeNode *readElement(IByteReader *reader) override;
+    virtual void fold0(int idx);
+    virtual void expand0(int idx);
 private:
-    void fold0(int idx);
-    void expand0(int idx);
     void toBytes(IByteWriter *writer, TreeNode* node);
     void fromBytes(IByteReader* reader, TreeNode* parent);
 };

@@ -15,15 +15,11 @@ void SelectableListItem::mousePressEvent(QMouseEvent *event) {
     }
 }
 
-void SelectableListItem::updateItemAfterSelecting(bool s) {
-}
-
 void SelectableListItem::syncDataToWidget() {
     bool s = parentList->selectedIdx == dataIdx;
     if (selected == s) {
         return;
     }
-    updateItemAfterSelecting(s);
     selected = s;
 }
 

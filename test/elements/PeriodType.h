@@ -29,7 +29,6 @@ public:
     PeriodTypeTree();
 protected:
     TreeNode *readElement(IByteReader *reader) override;
-    void onNodeExpanded(TreeNode *node) override;
 };
 
 class PeriodTypeLoader : public DataLoader {

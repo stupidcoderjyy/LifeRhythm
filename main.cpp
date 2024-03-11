@@ -15,7 +15,7 @@ int main(int argc, char *argv[]) {
     cfg.setMode(Config::Test);
     lr.setConfig(cfg);
     lr.onMainInit([](){
-        auto* tree = new TreeData();
+        auto* tree = new SelectableTreeData();
         auto* a = new PeriodType(Styles::GOLD, "测试a");
         auto* aa = new PeriodType(Styles::GOLD, "测试aa");
         auto* aaa = new PeriodType(Styles::GOLD, "测试aaa");
@@ -31,7 +31,7 @@ int main(int argc, char *argv[]) {
         WidgetDataStorage::add("log:period_type", tree);
 
         QTimer::singleShot(5000, [tree, aa](){
-            aa->addChildren(tree, new PeriodType(Styles::GOLD, "测试aac"));
+//            aa->addChildren(tree, new PeriodType(Styles::GOLD, "测试aac"));
             aa->removeChildren(0);
         });
 

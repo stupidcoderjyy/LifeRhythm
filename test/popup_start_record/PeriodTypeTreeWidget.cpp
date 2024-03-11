@@ -34,6 +34,7 @@ PeriodTypeTreeItem::PeriodTypeTreeItem(QWidget *parent): SelectableTreeItem(pare
 
 void PeriodTypeTreeItem::syncDataToWidget() {
     SelectableTreeItem::syncDataToWidget();
+    setState(selected);
     icon->setData(wData);
     if (wData) {
         auto* node = wData->cast<PeriodType>();

@@ -33,12 +33,6 @@ TreeNode *PeriodTypeTree::readElement(IByteReader *reader) {
     return new PeriodType;
 }
 
-#include <QDebug>
-
-void PeriodTypeTree::onNodeExpanded(TreeNode *node) {
-    qDebug() << node->cast<PeriodType>()->name;
-}
-
 PeriodTypeLoader::PeriodTypeLoader(QString destPath): DataLoader(std::move(destPath)) {
 }
 

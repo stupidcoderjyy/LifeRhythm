@@ -15,7 +15,6 @@ protected:
     bool selected;
 public:
     explicit SelectableListItem(QWidget* parent = nullptr);
-    virtual void updateItemAfterSelecting(bool selected);
     void syncDataToWidget() override;
 protected:
     void mousePressEvent(QMouseEvent *event) override;

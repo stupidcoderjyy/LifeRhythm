@@ -17,7 +17,6 @@ void TreeNode::addChildren(TreeData* t, TreeNode *c) {
 }
 
 void TreeNode::removeChildren(int childIdx) {
-    auto* c = children[childIdx];
     children.remove(childIdx);
     if (!folded) {
         emit sigChildRemoved(childIdx);
@@ -71,7 +70,6 @@ void TreeData::fromBytes(IByteReader *reader) {
 }
 
 void TreeData::foldNode(int idx, bool folded) {
-    beginEdit();
     auto* node = data.at(idx)->cast<TreeNode>();
     if (node->folded == folded) {
         return;
@@ -81,6 +79,7 @@ void TreeData::foldNode(int idx, bool folded) {
     if (!count) {
         return;
     }
+    beginEdit();
     if (folded) {
         int oldLen = data.length();
         fold0(idx);
@@ -100,12 +99,6 @@ void TreeData::addNode(TreeNode *node) {
 void TreeData::removeNode(int idx) {
     foldNode(idx, true);
     remove(idx);
-}
-
-void TreeData::onNodeFolded(TreeNode *node) {
-}
-
-void TreeData::onNodeExpanded(TreeNode *node) {
 }
 
 TreeNode* TreeData::readElement(IByteReader *reader) {
@@ -143,21 +136,20 @@ void TreeData::expand0(int idx) {
         if (!end && i == data.length()) {
             break;
         }
-        auto* node = data[i]->cast<TreeNode>();
-        if (node == end) {
+        auto* parent = data[i]->cast<TreeNode>();
+        if (parent == end) {
             endNodes.removeLast();
             continue;
         }
         i++;
-        if (node->folded) {
+        if (parent->folded) {
             continue;
         }
-        onNodeExpanded(node);
-        int count = node->children.length();
+        int count = parent->children.length();
         if (count) {
             endNodes << (i == data.length() ? nullptr : data[i]);
             data.insert(i, count, nullptr);
-            memcpy(data.data() + i, node->children.data(), count << 3);
+            memcpy(data.data() + i, parent->children.data(), count << 3);
         }
     }
 }

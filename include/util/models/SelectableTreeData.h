@@ -12,7 +12,6 @@ class SelectableTreeData : public TreeData {
     friend class SelectableTreeItem;
 protected:
     int selectedIdx;
-    TreeNode* selected;
 public:
     SelectableTreeData();
     void selectData(int idx);
@@ -21,7 +20,9 @@ public:
 signals:
     void sigDataSelected(int pre, int cur);
 protected:
-    void onNodeFolded(TreeNode *node) override;
+    void select0(int idx);
+    void fold0(int idx) override;
+    void expand0(int idx) override;
 };
 
 
