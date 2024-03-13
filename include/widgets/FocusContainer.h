@@ -12,17 +12,14 @@
     失去焦点时，显示一个浅边框
 */
 class FocusContainer : public Widget {
-private:
-    static FocusContainer* activated;
 public:
     explicit FocusContainer(QWidget* parent = nullptr);
-    void setContainerState(int focused = true);
-    ~FocusContainer() override;
 protected:
+    void focusInEvent(QFocusEvent *event) override;
+    void focusOutEvent(QFocusEvent *event) override;
     virtual QString getNormalQss();
     virtual QString getFocusedQss();
 protected:
-    void showEvent(QShowEvent *event) override;
     void mousePressEvent(QMouseEvent *event) override;
 };
 

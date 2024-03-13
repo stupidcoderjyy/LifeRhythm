@@ -25,13 +25,21 @@ void MainTab::addStartPeriodType(QString icon, QString typeName, QWidget *menuPa
 }
 
 void MainTab::mainInit() {
-    auto* mt = WidgetFactoryStorage::get("log:widget_maintab");
-    regClazz(mt, MainTab);
-    regClazz(mt, TimeBar);
-    TimeBarItem::mainInit();
-    WidgetStartPeriodMenu::mainInit();
-    auto* mp = WidgetFactoryStorage::get("log:dialog_start_record/widget_mainpage");
-    regClazz(mp, PeriodTypeTreeWidget);
+    auto* f0 = WidgetFactoryStorage::get("log:widget_maintab");
+    auto* f1 = WidgetFactoryStorage::get("log:widget_mainpage");
+    auto* f2 = WidgetFactoryStorage::get("log:item_period_type");
+    auto* f3 = WidgetFactoryStorage::get("log:widget_content");
+    auto* f4 = WidgetFactoryStorage::get("log:item_timebar");
+    auto* f5 = WidgetFactoryStorage::get("log:item_record_type");
+    regClazz(f0, MainTab);
+    regClazz(f0, TimeBar);
+    regClazz(f1, PeriodTypeTreeWidget);
+    regClazz(f2, PeriodTypeIcon);
+    regClazz(f2, PeriodTypeTreeItem);
+    regClazz(f3, WidgetStartPeriodMenu);
+    regClazz(f3, RecordTypeListWidget);
+    regClazz(f4, TimeBarItem);
+    regClazz(f5, RecordTypeItem);
 }
 
 void MainTab::onTabCreated() {
@@ -53,11 +61,11 @@ void MainTab::onTabCreated() {
     });
     loadTask->start();
     modelRecordTypeList = new SelectableListData();
-    auto* content = WidgetFactoryStorage::get("log:dialog_start_record/widget_content")
+    auto* content = WidgetFactoryStorage::get("log:widget_content")
             ->applyAndCast<WidgetStartPeriodMenu>();
     content->setRecordTypeData(modelRecordTypeList, &startRecordMenuPages);
 
-    auto* pageMain = WidgetFactoryStorage::get("log:dialog_start_record/widget_mainpage")->apply();
+    auto* pageMain = WidgetFactoryStorage::get("log:widget_mainpage")->apply();
     addStartPeriodType("lr:dialog_close", "A", pageMain);
 
     lr::LifeRhythm::generateTitledDialog("开始记录", content);

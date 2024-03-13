@@ -6,13 +6,6 @@
 #include "WidgetUtil.h"
 #include "RcManagers.h"
 
-void WidgetStartPeriodMenu::mainInit() {
-    regClazz(WidgetFactoryStorage::get("log:record_type_item"), RecordTypeItem);
-    auto* f = WidgetFactoryStorage::get("log:dialog_content_start_record");
-    regClazz(f, WidgetStartPeriodMenu);
-    regClazz(f, RecordTypeListWidget);
-}
-
 WidgetStartPeriodMenu::WidgetStartPeriodMenu(QWidget* parent):
         Widget(parent), configPages(), recordTypeListWidget(), modelRecordTypes() {
 }

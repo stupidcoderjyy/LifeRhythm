@@ -5,14 +5,16 @@
 #include "PeriodType.h"
 #include "Styles.h"
 #include "RcManagers.h"
-#include "PeriodTypeTreeWidget.h"
+#include "MainTab.h"
+#include "LineEdit.h"
+#include <QTimer>
 
 USING_LR
 
 int main(int argc, char *argv[]) {
     LifeRhythm lr(argc, argv);
     auto cfg = lr.getConfig();
-    cfg.setMode(Config::Test);
+    cfg.setMode(Config::Normal);
     lr.setConfig(cfg);
     lr.onMainInit([](){
         auto* tree = new SelectableTreeData();
@@ -30,21 +32,10 @@ int main(int argc, char *argv[]) {
         tree->addNode(a);
         WidgetDataStorage::add("log:period_type", tree);
 
-        QTimer::singleShot(5000, [tree, aa](){
-//            aa->addChildren(tree, new PeriodType(Styles::GOLD, "测试aac"));
-            aa->removeChildren(0);
-        });
-
-        regClazz(WidgetFactoryStorage::get("log:widget_mainpage"), PeriodTypeTreeWidget);
-        auto* f = WidgetFactoryStorage::get("log:item_period_type");
-        regClazz(f, PeriodTypeIcon);
-        regClazz(f, PeriodTypeTreeItem);
+        MainTab::mainInit();
     });
     lr.onPostInit([](){
-        WidgetFactoryStorage::get("log:widget_mainpage")
-                ->apply()
-                ->show();
-//        LifeRhythm::insertTab("a", "log:widget_maintab");
+        LifeRhythm::insertTab("a", "log:widget_maintab");
     });
     return lr.launch();
 }

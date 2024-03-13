@@ -13,7 +13,7 @@ TextEdit::TextEdit(QWidget *parent) : QTextEdit(parent) {
     setContextMenuPolicy(Qt::NoContextMenu);
     setFont(Styles::FONT_MAIN);
     setObjectName("te");
-    setStyleSheet(qss_t("te", bg(Styles::CLEAR)));
+    setStyleSheet(qss_target("te", bg(Styles::CLEAR)));
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     vBar = new ScrollBar(this, Qt::Vertical);

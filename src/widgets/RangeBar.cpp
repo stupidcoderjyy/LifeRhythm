@@ -28,7 +28,7 @@ AbstractRangeWidgetsContainer::AbstractRangeWidgetsContainer(QWidget *parent):
         Widget(parent),minVal(0), maxVal(99), vpp(1), maxVpp(10), minVpp(1), zoomEnabled(true), zoomStep(2) {
     setFixedSize(0, 0);
     setObjectName("rc");
-    setStyleSheet(qss_t("rc", bg(Styles::BLACK)));
+    setStyleSheet(qss_target("rc", bg(Styles::BLACK)));
 }
 
 void AbstractRangeWidgetsContainer::wheelEvent(QWheelEvent *event) {
@@ -94,7 +94,7 @@ void HRangeItemsContainer::updateBar() {
 
 RangeBarItem::RangeBarItem(QWidget *parent): Widget(parent), begin(), end() {
     setObjectName("rw");
-    setStyleSheet(qss_t("rw", bg(Styles::GRAY_1)));
+    setStyleSheet(qss_target("rw", bg(Styles::GRAY_1)));
 }
 
 void RangeBarItem::syncDataToWidget() {

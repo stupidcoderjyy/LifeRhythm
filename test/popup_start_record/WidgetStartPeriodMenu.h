@@ -16,7 +16,6 @@ private:
     RecordTypeListWidget* recordTypeListWidget;
     SelectableListData* modelRecordTypes;
 public:
-    static void mainInit();
     explicit WidgetStartPeriodMenu(QWidget* parent = nullptr);
     void setRecordTypeData(SelectableListData *modelRecordTypes, QVector<QWidget*>* configPages);
 };

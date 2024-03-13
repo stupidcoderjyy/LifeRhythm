@@ -7,11 +7,6 @@
 #include "ListData.h"
 #include "Period.h"
 
-void TimeBarItem::mainInit() {
-    auto* p = WidgetFactoryStorage::get("log:item_timebar");
-    regClazz(p, TimeBarItem);
-}
-
 TimeBarItem::TimeBarItem(QWidget *parent): RangeBarItem(parent), labelInfo(), labelRange() {
 }
 

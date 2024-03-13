@@ -12,9 +12,9 @@ ScrollArea::ScrollArea(QWidget *parent):QScrollArea(parent),StandardWidget() {
     setFrameShape(QFrame::NoFrame);
     setWidgetResizable(true);
     viewport()->setObjectName("vp");
-    viewport()->setStyleSheet(qss_t("vp", bg(Styles::BLACK)));
+    viewport()->setStyleSheet(qss_target("vp", bg(Styles::BLACK)));
     setObjectName("sa");
-    setStyleSheet(qss_t("sa", bg(Styles::BLACK)));
+    setStyleSheet(qss_target("sa", bg(Styles::BLACK)));
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 }

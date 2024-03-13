@@ -13,7 +13,6 @@ private:
     TextLabel* labelRange;
     TextLabel* labelInfo;
 public:
-    static void mainInit();
     explicit TimeBarItem(QWidget* parent = nullptr);
     void onFinishedParsing(Handlers &handlers, NBT *widgetTag) override;
     void syncDataToWidget() override;

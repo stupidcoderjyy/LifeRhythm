@@ -11,6 +11,7 @@
 #include "LineEdit.h"
 #include "Menu.h"
 #include "ArrowButton.h"
+#include "TextButton.h"
 
 #define reg(T) stdSuppliers->insert(#T, [](QWidget* p){ return new T(p);}); \
     stdEmptyInstances->insert(#T, new T(nullptr));
@@ -27,4 +28,5 @@ void FactoryInit::mainInit(QMap<QString, WidgetFactory::Supplier> *stdSuppliers,
     reg(Menu)
     reg(ArrowButton)
     ArrowButton::mainInit();
+    reg(TextButton);
 }

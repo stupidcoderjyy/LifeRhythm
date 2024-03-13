@@ -35,6 +35,7 @@ set(INCLUDES
 set(INCLUDE_FILES
         include/Config.h
         include/Namespaces.h
+        include/Namespaces.h
         include/core/LifeRhythm.h
         include/core/Plugin.h
         include/core/ui/MainFrame.h
@@ -46,6 +47,7 @@ set(INCLUDE_FILES
         include/util/MemUtil.h
         include/util/Styles.h
         include/util/WidgetUtil.h
+        include/util/FocusManager.h
         include/util/compile/CompileError.h
         include/util/compile/Compiler.h
         include/util/compile/CompilerInput.h
@@ -103,6 +105,7 @@ set(INCLUDE_FILES
         include/widgets/TreeWidget.h
         include/widgets/Widget.h
         include/widgets/SelectableTreeWidget.h
+        include/widgets/TextButton.h
 )
 
 set(SRC_FILES
@@ -118,6 +121,7 @@ set(SRC_FILES
         src/util/MemUtil.cpp
         src/util/Styles.cpp
         src/util/WidgetUtil.cpp
+        src/util/FocusManager.cpp
         src/util/compile/CompileError.cpp
         src/util/compile/Compiler.cpp
         src/util/compile/CompilerInput.cpp
@@ -180,6 +184,7 @@ set(SRC_FILES
         src/widgets/TreeWidget.cpp
         src/widgets/Widget.cpp
         src/widgets/SelectableTreeWidget.cpp
+        src/widgets/TextButton.cpp
 )
 
 set(RESOURCES

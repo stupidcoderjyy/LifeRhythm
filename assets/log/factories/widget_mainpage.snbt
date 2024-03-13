@@ -1,15 +1,53 @@
 {
-    children: ["periodTypeTree"]
+    children: ["info", "periodTypeTree", "buttons"]
 
     layout: {
         type: "Vertical"
-        margins: [0,0,0,0]
-        spacing: 0
+        margins: [10,10,10,10]
+        spacing: 10
+    }
+
+    info: {
+        children: ["title", "editInfo"]
+        layout: {
+            type: "Horizontal"
+            margins: [0,0,0,0]
+            spacing: 20
+        }
+        title: {
+            type: "TextLabel"
+            text: "描述:"
+            h_size_policy: "Max"
+        }
+        editInfo: {
+            type: "LineEdit"
+            h_size_policy: "Min"
+        }
     }
 
     periodTypeTree: {
         type: "PeriodTypeTreeWidget"
+        qss: "bd('1px', 'solid', BLACK)"
         model: "log:period_type"
         pointer: true
+    }
+
+    buttons: {
+        children: ["buttonCancel", "buttonConfirm"]
+        layout: {
+            type: "Horizontal"
+            spacing: 10
+            margins: [5,0,0,0]
+            align: "Right|V_Center"
+        }
+        buttonCancel: {
+            type: "TextButton"
+            text: "取消"
+        }
+        buttonConfirm: {
+            type: "TextButton"
+            buttonType: "Highlighted"
+            text: "确定"
+        }
     }
 }

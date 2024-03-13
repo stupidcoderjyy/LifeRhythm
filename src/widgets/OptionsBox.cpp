@@ -6,6 +6,8 @@
 #include "QHBoxLayout"
 #include "RcManagers.h"
 #include "WidgetUtil.h"
+#include "FocusManager.h"
+#include <QApplication>
 #include <QMouseEvent>
 
 OptionsMenu::OptionsMenu(QWidget *parent): Menu(parent) {
@@ -24,6 +26,26 @@ DisplayOptionsButton::DisplayOptionsButton(QWidget *parent): ArrowButton(parent)
 void DisplayOptionsButton::mousePressEvent(QMouseEvent *evt) {
     ArrowButton::mousePressEvent(evt);
     evt->ignore();
+}
+
+OptionsBoxLineEdit::OptionsBoxLineEdit(QWidget *parent): QLineEdit(parent) {
+    setFrame(false);
+    setFocusPolicy(Qt::ClickFocus);
+    setContextMenuPolicy(Qt::NoContextMenu);
+    setFont(Styles::FONT_MAIN);
+    setObjectName("le");
+    setStyleSheet(qss_this(bg(Styles::CLEAR) + qss("color", Styles::GRAY_TEXT_0)));
+}
+
+void OptionsBoxLineEdit::mousePressEvent(QMouseEvent *e) {
+    QLineEdit::mousePressEvent(e);
+    e->ignore();
+    QApplication::setCursorFlashTime(0);
+}
+
+void OptionsBoxLineEdit::mouseReleaseEvent(QMouseEvent *e) {
+    QLineEdit::mouseReleaseEvent(e);
+    QApplication::setCursorFlashTime(1060);
 }
 
 OptionsBox::OptionsBox(QWidget *parent): FocusContainer(parent), menu(), pressLock() {
@@ -70,13 +92,13 @@ void OptionsBox::mouseReleaseEvent(QMouseEvent *event) {
 }
 
 void OptionsBox::focusOutEvent(QFocusEvent *event) {
-    QWidget::focusOutEvent(event);
+    FocusContainer::focusOutEvent(event);
     pressLock = false;
 }
 
 void OptionsBox::handleButtonClick(bool pressed) {
+    FocusManager::markFocus(this);
     if (pressed) {
-        setContainerState();
         if (pressLock) {
             pressLock = false;
             buttonOpenMenu->setPressed(false);

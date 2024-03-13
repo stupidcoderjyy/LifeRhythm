@@ -11,11 +11,15 @@
 class LineEdit : public QLineEdit, public StandardWidget {
 public:
     explicit LineEdit(QWidget* parent = nullptr);
+    void onPreParsing(Handlers &handlers, NBT *widgetTag) override;
     void onPostParsing(Handlers &handlers, NBT *widgetTag) override;
     void onStateRespondersParsing(Handlers &responders, NBT *stateTag) override;
 protected:
+    void focusInEvent(QFocusEvent *event) override;
+    void focusOutEvent(QFocusEvent *event) override;
     void mousePressEvent(QMouseEvent *e) override;
     void mouseReleaseEvent(QMouseEvent *e) override;
+    void init();
 };
 
 

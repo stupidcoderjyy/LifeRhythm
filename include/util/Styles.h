@@ -42,7 +42,8 @@ public:
     static void initStyles();
 };
 
-#define qss_t(name, qss) QString("#").append(name).append("{").append(qss).append("}")
+#define qss_target(name, qss) QString("#").append(name).append("{").append(qss).append("}")
+#define qss_this(qss) QString("#").append(objectName()).append("{").append(qss).append("}")
 
 #define qss(k,d) QString(k).append(":").append(d).append(";")
 #define bg(c) QString("background-color:").append(c).append(";")
@@ -51,7 +52,7 @@ public:
 #define bd_l(width,style,color) QString("border-left:").append(width).append(" ").append(style).append(" ").append(color).append(";")
 #define bd_r(width,style,color) QString("border-right:").append(width).append(" ").append(style).append(" ").append(color).append(";")
 #define bd(width,style,color) QString("border:").append(width).append(" ").append(style).append(" ").append(color).append(";")
-#define brad(width) qss("border-radius:", width)
+#define brad(width) qss("border-radius", width)
 #define PAINT_QSS \
     protected: void paintEvent(QPaintEvent *event) override{\
         Q_UNUSED(event);\

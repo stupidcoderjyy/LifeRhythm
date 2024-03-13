@@ -5,16 +5,17 @@
 #include "LineEdit.h"
 #include "Styles.h"
 #include "WidgetFactory.h"
+#include "FocusManager.h"
 #include <QApplication>
 #include <QMouseEvent>
 
 LineEdit::LineEdit(QWidget *parent): QLineEdit(parent) {
-    setFrame(false);
-    setFocusPolicy(Qt::ClickFocus);
-    setContextMenuPolicy(Qt::NoContextMenu);
-    setFont(Styles::FONT_MAIN);
-    setObjectName("le");
-    setStyleSheet(qss_t("le", bg(Styles::CLEAR) + qss("color", Styles::GRAY_TEXT_0)));
+}
+
+void LineEdit::onPreParsing(StandardWidget::Handlers &handlers, NBT *widgetTag) {
+    handlers << [](QWidget* target) {
+        static_cast<LineEdit*>(target)->init();
+    };
 }
 
 void LineEdit::onPostParsing(StandardWidget::Handlers &handlers, NBT *widgetTag) {
@@ -27,8 +28,8 @@ void LineEdit::onStateRespondersParsing(StandardWidget::Handlers &responders, NB
 
 void LineEdit::mousePressEvent(QMouseEvent *e) {
     QLineEdit::mousePressEvent(e);
-    e->ignore();
     QApplication::setCursorFlashTime(0);
+    FocusManager::markFocus(this);
 }
 
 void LineEdit::mouseReleaseEvent(QMouseEvent *e) {
@@ -36,3 +37,33 @@ void LineEdit::mouseReleaseEvent(QMouseEvent *e) {
     QApplication::setCursorFlashTime(1060);
 }
 
+void LineEdit::init() {
+    setFrame(false);
+    setFocusPolicy(Qt::ClickFocus);
+    setContextMenuPolicy(Qt::NoContextMenu);
+    setFont(Styles::FONT_MAIN);
+    QPalette p = palette();
+    p.setColor(QPalette::Text, QColor(Styles::GRAY_TEXT_0));
+    setPalette(p);
+    setObjectName("le");
+    setFixedHeight(34);
+    setTextMargins(2,2,2,2);
+    registerResponder(0, [this](QWidget* t){
+        setStyleSheet(qss_this(bg(Styles::CLEAR) + bd("1px", "solid", Styles::GRAY_2) + brad("3px")));
+    });
+    registerResponder(1, [this](QWidget* t){
+        setStyleSheet(qss_this(bg(Styles::CLEAR) + bd("2px", "solid", Styles::BLUE_1) + brad("3px")));
+    });
+    setState(0);
+}
+
+void LineEdit::focusInEvent(QFocusEvent *event) {
+    setState(1);
+    QLineEdit::focusInEvent(event);
+}
+
+void LineEdit::focusOutEvent(QFocusEvent *event) {
+    setState(0);
+    FocusManager::markFocus(nullptr);
+    QLineEdit::focusOutEvent(event);
+}
