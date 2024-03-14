@@ -105,26 +105,31 @@ TreeNode* TreeData::readElement(IByteReader *reader) {
     return new TreeNode;
 }
 
-void TreeData::fold0(int i) {
+int TreeData::fold0(int i) {
     int removeBegin = i + 1;
     QVector<TreeNode*> nodes;
-    nodes << data[i]->cast<TreeNode>();
+    nodes << data[i++]->cast<TreeNode>();
     while (!nodes.empty()) {
-        auto* parent = nodes.takeLast();
-        i++;
-        while (i < data.length()) {
-            auto* child = data[i]->cast<TreeNode>();
-            if (child->parent != parent) {
+        auto* parent = nodes.last();
+        while (true) {
+            if (i == data.length()) {
+                nodes.removeLast();
                 break;
             }
+            auto* child = data[i]->cast<TreeNode>();
+            if (child->parent != parent) {
+                nodes.removeLast();
+                break;
+            }
+            i++;
             if (!child->folded) {
                 nodes << child;
                 break;
             }
-            i++;
         }
     }
     data.remove(removeBegin, i - removeBegin);
+    return i;
 }
 
 void TreeData::expand0(int idx) {

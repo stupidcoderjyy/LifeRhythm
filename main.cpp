@@ -18,18 +18,19 @@ int main(int argc, char *argv[]) {
     lr.setConfig(cfg);
     lr.onMainInit([](){
         auto* tree = new SelectableTreeData();
-        auto* a = new PeriodType(Styles::GOLD, "测试a");
-        auto* aa = new PeriodType(Styles::GOLD, "测试aa");
-        auto* aaa = new PeriodType(Styles::GOLD, "测试aaa");
-        auto* aab = new PeriodType(Styles::GOLD, "测试aab");
-        auto* b = new PeriodType(Styles::GREEN, "测试b");
-        auto* ba = new PeriodType(Styles::GREEN, "测试ba");
-        a->addChildren(tree, aa);
-        aa->addChildren(tree, aaa);
-        aa->addChildren(tree, aab);
-        b->addChildren(tree, ba);
-        tree->addNode(b);
-        tree->addNode(a);
+        for (char c = 'a' ; c < 'c' ; c ++) {
+            QString text = QString(c);
+            auto* t = new PeriodType(Styles::CYAN_0, text);
+            for (char cc = 'a' ; cc < 'z' ; cc++) {
+                auto* tt = new PeriodType(Styles::CYAN_0, text + cc);
+                t->addChildren(tree, tt);
+//                for (char ccc = 'a' ; ccc < 'd' ; ccc++) {
+//                    auto* ttt = new PeriodType(Styles::CYAN_0, text + cc + ccc);
+//                    tt->addChildren(tree, ttt);
+//                }
+            }
+            tree->addNode(t);
+        }
         WidgetDataStorage::add("log:period_type", tree);
 
         MainTab::mainInit();

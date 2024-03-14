@@ -164,7 +164,6 @@ void ListWidget::onDataChanged(int begin, int end) {
     int rBorder = pos <= posMid && idxB != idxA + areaRowCount ?
             idxA + areaRowCount :
             idxA + (areaRowCount << 1);
-    updateMaxGlobalPos();   //对于removeLast的情况，进度条会自动调整
     if (end < idxA || begin >= rBorder) {
         return;
     }
@@ -176,6 +175,7 @@ void ListWidget::onDataChanged(int begin, int end) {
         i++;
         begin++;
     }
+    updateMaxGlobalPos();   //对于removeLast的情况，进度条会自动调整
 }
 
 void ListWidget::scroll(int dy) {

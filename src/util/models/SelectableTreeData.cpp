@@ -51,29 +51,13 @@ void SelectableTreeData::select0(int idx) {
     }
 }
 
-void SelectableTreeData::fold0(int i) {
+int SelectableTreeData::fold0(int i) {
     int removeBegin = i + 1;
-    QVector<TreeNode*> nodes;
-    nodes << data[i]->cast<TreeNode>();
-    while (!nodes.empty()) {
-        auto* parent = nodes.takeLast();
-        i++;
-        while (i < data.length()) {
-            auto* child = data[i]->cast<TreeNode>();
-            if (child->parent != parent) {
-                break;
-            }
-            if (!child->folded) {
-                nodes << child;
-                break;
-            }
-            i++;
-        }
-    }
+    int removeEnd = TreeData::fold0(i);
     if (selectedIdx >= removeBegin) {
-        select0(selectedIdx < i ? removeBegin - 1 : selectedIdx - i + removeBegin);
+        select0(selectedIdx < removeEnd ? removeBegin - 1 : selectedIdx - removeEnd + removeBegin);
     }
-    data.remove(removeBegin, i - removeBegin);
+    return removeEnd;
 }
 
 void SelectableTreeData::expand0(int idx) {

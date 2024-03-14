@@ -21,7 +21,7 @@ signals:
     void sigDataSelected(int pre, int cur);
 protected:
     void select0(int idx);
-    void fold0(int idx) override;
+    int fold0(int idx) override;
     void expand0(int idx) override;
 };
 

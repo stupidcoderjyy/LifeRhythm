@@ -48,7 +48,7 @@ public:
     void foldNode(int idx, bool folded);
 protected:
     TreeNode *readElement(IByteReader *reader) override;
-    virtual void fold0(int idx);
+    virtual int fold0(int idx);
     virtual void expand0(int idx);
 private:
     void toBytes(IByteWriter *writer, TreeNode* node);
