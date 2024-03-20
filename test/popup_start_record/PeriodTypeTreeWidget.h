@@ -8,16 +8,9 @@
 #include "SelectableTreeWidget.h"
 #include "PeriodType.h"
 
-class PeriodTypeIcon : public Widget {
-    friend class PeriodTypeTreeItem;
-public:
-    explicit PeriodTypeIcon(QWidget* parent = nullptr);
-protected:
-    void paintEvent(QPaintEvent *event) override;
-};
-
 class ArrowButton;
 class TextLabel;
+class PeriodTypeIcon;
 
 class PeriodTypeTreeItem : public SelectableTreeItem {
 private:

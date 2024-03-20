@@ -71,6 +71,7 @@ private:
     void parseChildren(NBT* nbt);
     WidgetFactory* findFactory(NBT* nbt, const QString& path);
     void parseLayout(NBT* target);
+    void parseGridLayout(NBT* nbt);
     void parseMargins(NBT* nbt);
     void parseStates(NBT* nbt);
     void parseSingleState(Handlers& op, NBT* stateTag);

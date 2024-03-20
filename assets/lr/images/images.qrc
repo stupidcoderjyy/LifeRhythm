@@ -6,5 +6,11 @@
         <file>tab_close_normal.png</file>
         <file>dialog_close.png</file>
         <file>arrow_down_25x25.png</file>
+        <file>minus_30x30.png</file>
+        <file>move_down_30x30.png</file>
+        <file>move_up_30x30.png</file>
+        <file>pen_30x30.png</file>
+        <file>plus_30x30.png</file>
+        <file>rollback_30x30.png</file>
     </qresource>
 </RCC>

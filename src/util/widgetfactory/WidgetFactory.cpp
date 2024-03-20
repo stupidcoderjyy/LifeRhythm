@@ -8,6 +8,7 @@
 #include "QssParser.h"
 #include "FactoryInit.h"
 #include "WidgetDataStorage.h"
+#include "GridLayout.h"
 
 #include <QLayout>
 #include <utility>
@@ -135,7 +136,11 @@ StandardWidget* WidgetFactory::parseWidgetType(NBT *nbt) {
         if (!layout) {
             return;
         }
-        layout->addWidget(workingWidget);
+        if (auto* gl = dynamic_cast<GridLayout*>(layout)) {
+            gl->appendWidget(workingWidget);
+        } else {
+            layout->addWidget(workingWidget);
+        }
     };
     return stdWidget;
 }
@@ -239,6 +244,9 @@ void WidgetFactory::parseLayout(NBT *nbt) {
         layoutType = 0;
     } else if (type == "Vertical") {
         layoutType = 1;
+    } else if (type == "Grid") {
+        parseGridLayout(nbt);
+        return;
     } else {
         throwInFunc("invalid layout type '" + type + "'");
     }
@@ -255,20 +263,74 @@ void WidgetFactory::parseLayout(NBT *nbt) {
         spacing = nbt->get("spacing")->asInt()->get();
     }
 
-    handlers << [=](QWidget* target) {
-        QLayout* layout = nullptr;
-        switch (layoutType) {
-            case 0:
-                layout = new QHBoxLayout(target);
-                break;
-            case 1:
-                layout = new QVBoxLayout(target);
-                break;
+    handlers << [layoutType, alignment, margins, spacing](QWidget* target) {
+        QLayout* layout;
+        if (layoutType) {
+            layout = new QVBoxLayout(target);
+        } else {
+            layout = new QHBoxLayout(target);
         }
         layout->setAlignment(alignment);
         layout->setContentsMargins(margins);
         layout->setSpacing(spacing);
         target->setLayout(layout);
+    };
+}
+
+void WidgetFactory::parseGridLayout(NBT *nbt) {
+    int maxColumns = nbt->getInt("max_columns", 1);
+    Qt::Alignment align = Qt::AlignCenter;
+    if (nbt->contains("align", Data::STRING)) {
+        align = parseAlign(nbt->getString("align"));
+    }
+    QVector<Qt::Alignment> aligns{};
+    if (nbt->contains("column_aligns", Data::ARR)) {
+        QStringList list;
+        nbt->get("column_aligns")->asArray()->fillString(list, maxColumns, "Center");
+        for (auto& s : list) {
+            aligns << parseAlign(s);
+        }
+    }
+    QMargins margins{};
+    if (nbt->contains("margins", Data::ARR)) {
+        margins = parseMargins(nbt->get("margins")->asArray());
+    }
+    int columnSpacing = nbt->getInt("column_spacing");
+    int rowSpacing = nbt->getInt("row_spacing");
+    QVector<int> rowMinHeights, columnMinWidths, rowStretches, columnStretches;
+    if (nbt->contains("row_heights", Data::ARR)) {
+        nbt->get("row_heights")->asArray()->fillInt(rowMinHeights);
+    }
+    if (nbt->contains("column_widths", Data::ARR)) {
+        nbt->get("column_widths")->asArray()->fillInt(columnMinWidths, maxColumns);
+    }
+    if (nbt->contains("row_stretches", Data::ARR)) {
+        nbt->get("row_stretches")->asArray()->fillInt(rowStretches);
+    }
+    if (nbt->contains("column_stretches", Data::ARR)) {
+        nbt->get("column_stretches")->asArray()->fillInt(columnStretches, maxColumns);
+    }
+    handlers << [maxColumns, align, aligns, margins, columnSpacing, rowSpacing,
+                        rowMinHeights, columnMinWidths, rowStretches, columnStretches](QWidget* target) {
+        auto* l = new GridLayout(target, maxColumns);
+        for (int i = 0 ; i < rowMinHeights.length() ; i ++) {
+            l->setRowMinimumHeight(i, rowMinHeights[i]);
+        }
+        for (int i = 0 ; i < columnMinWidths.length() ; i ++) {
+            l->setColumnMinimumWidth(i, columnMinWidths[i]);
+        }
+        for (int i = 0 ; i < rowStretches.length() ; i ++) {
+            l->setRowStretch(i, rowStretches[i]);
+        }
+        for (int i = 0 ; i < columnStretches.length() ; i ++) {
+            l->setColumnStretch(i, columnStretches[i]);
+        }
+        l->columnAlign = aligns;
+        l->setAlignment(align);
+        l->setContentsMargins(margins);
+        l->setHorizontalSpacing(columnSpacing);
+        l->setVerticalSpacing(rowSpacing);
+        target->setLayout(l);
     };
 }
 
@@ -500,11 +562,11 @@ void WidgetFactory::mainInit() {
     alignments.insert("H_Center",Qt::AlignHCenter);
     alignments.insert("Center",Qt::AlignCenter);
     policies.insert("Min",QSizePolicy::Minimum);
-    policies.insert("Normal",QSizePolicy::Preferred);
+    policies.insert("Preferred",QSizePolicy::Preferred);
     policies.insert("Max",QSizePolicy::Maximum);
     policies.insert("Fixed",QSizePolicy::Fixed);
     policies.insert("Ignored",QSizePolicy::Ignored);
-    policies.insert("MinExpand",QSizePolicy::MinimumExpanding);
+    policies.insert("Expanding",QSizePolicy::Expanding);
 }
 
 WidgetFactory *WidgetFactory::fromResource(const Identifier &loc) {

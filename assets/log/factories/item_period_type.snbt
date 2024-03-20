@@ -21,8 +21,6 @@
 
     icon: {
         type: "PeriodTypeIcon"
-        fixed_width: 20
-        fixed_height: 20
         pointer: true
     }
 

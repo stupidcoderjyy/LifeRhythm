@@ -1,35 +1,100 @@
 {
-    children: ["info", "periodTypeTree", "buttons"]
-
+    children: ["info", "typeConsole", "buttons"]
     layout: {
         type: "Vertical"
         margins: [10,10,10,10]
         spacing: 10
     }
-
     info: {
-        children: ["title", "editInfo"]
+        children: ["title0", "editInfo", "title1", "typeDisplay"]
         layout: {
-            type: "Horizontal"
+            type: "Grid"
             margins: [0,0,0,0]
-            spacing: 20
+            max_columns: 2
+            row_heights: [40,40,40]
+            row_spacing: 5
+            column_widths: [70]
         }
-        title: {
+        title0: {
             type: "TextLabel"
             text: "描述:"
-            h_size_policy: "Max"
         }
         editInfo: {
             type: "LineEdit"
-            h_size_policy: "Min"
+        }
+        title1: {
+            type: "TextLabel"
+            text: "类型:"
+        }
+        typeDisplay: {
+            children: ["iconTypeColor", "labelName"]
+            layout: {
+                type: "Horizontal"
+                margins: [0,0,0,0]
+                spacing: 5
+            }
+            iconTypeColor: {
+                type: "PeriodTypeIcon"
+                model: "log:period_type_example"
+                pointer: true
+            }
+            labelName: {
+                type: "TextLabel"
+                align: "V_Center|Left"
+                text: "测试dwadwadwadwa"
+                pointer: true
+            }
         }
     }
-
-    periodTypeTree: {
-        type: "PeriodTypeTreeWidget"
+    typeConsole: {
+        children: ["buttons", "periodTypeTree"]
         qss: "bd('1px', 'solid', BLACK)"
-        model: "log:period_type"
-        pointer: true
+        layout: {
+            type: "Vertical"
+            margins: [1,1,1,1]
+            spacing: 2
+        }
+        buttons: {
+            children: ["buttonAdd", "buttonRemove", "buttonEdit", "buttonMoveUp", "buttonMoveDown"]
+            fixed_height: 30
+            qss: "bd_b('1px', 'solid', BLACK)"
+            layout: {
+                type: "Horizontal"
+                margins: [1,1,1,1]
+                spacing: 1
+                align: "Left"
+            }
+            buttonAdd: {
+                type: "ImgButton"
+                img: "lr:plus_30x30"
+                pointer: true
+            }
+            buttonRemove: {
+                type: "ImgButton"
+                img: "lr:minus_30x30"
+                pointer: true
+            }
+            buttonEdit: {
+                type: "ImgButton"
+                img: "lr:pen_30x30"
+                pointer: true
+            }
+            buttonMoveUp: {
+                type: "ImgButton"
+                img: "lr:move_up_30x30"
+                pointer: true
+            }
+            buttonMoveDown: {
+                type: "ImgButton"
+                img: "lr:move_down_30x30"
+                pointer: true
+            }
+        }
+        periodTypeTree: {
+            type: "PeriodTypeTreeWidget"
+            model: "log:period_type"
+            pointer: true
+        }
     }
 
     buttons: {

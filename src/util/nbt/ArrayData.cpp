@@ -90,6 +90,20 @@ void ArrayData::fillString(QStringList &target) {
     }
 }
 
+void ArrayData::fillString(QStringList &target, int len, const QString &defaultVal) {
+    int i = 0;
+    target.reserve(qMax(len, data.length()));
+    while (i < data.length()) {
+        auto* e = data[i++];
+        if (e->type == STRING) {
+            target << e->asString()->get();
+        }
+    }
+    while (i++ < len) {
+        target << defaultVal;
+    }
+}
+
 void ArrayData::fillInt(int *arr, int len) {
     for (auto& e : data) {
         if (len == 0) {
@@ -100,6 +114,21 @@ void ArrayData::fillInt(int *arr, int len) {
         }
         *arr++ = e->asInt()->get();
         len--;
+    }
+}
+
+void ArrayData::fillInt(QVector<int> &target, int len, int defaultVal) {
+    int i = 0;
+    int dl = data.length();
+    target.reserve(qMax(len, dl));
+    while (i < dl) {
+        auto* e = data[i++];
+        if (e->type == INT) {
+            target << e->asInt()->get();
+        }
+    }
+    while (i++ < len) {
+        target << defaultVal;
     }
 }
 

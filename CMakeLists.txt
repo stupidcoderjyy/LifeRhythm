@@ -106,6 +106,7 @@ set(INCLUDE_FILES
         include/widgets/Widget.h
         include/widgets/SelectableTreeWidget.h
         include/widgets/TextButton.h
+        include/widgets/GridLayout.h
 )
 
 set(SRC_FILES
@@ -185,6 +186,7 @@ set(SRC_FILES
         src/widgets/Widget.cpp
         src/widgets/SelectableTreeWidget.cpp
         src/widgets/TextButton.cpp
+        src/widgets/GridLayout.cpp
 )
 
 set(RESOURCES
@@ -206,6 +208,8 @@ set(TEST_SRC
         test/popup_start_record/WidgetStartPeriodMenu.cpp
         test/popup_start_record/RecordTypeListWidget.cpp
         test/popup_start_record/RecordTypeListWidget.h
+        test/popup_start_record/PeriodTypeIcon.cpp
+        test/popup_start_record/PeriodTypeIcon.h
         test/elements/RecordType.cpp
         test/elements/RecordType.h
         test/elements/Period.cpp

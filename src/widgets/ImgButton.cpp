@@ -9,19 +9,24 @@
 
 ImgButton::ImgButton(QWidget *parent) : ImgLabel(parent) {
     QString qssBorder = qss("border-style", "none") + qss("border-radius", "2px");
-    qssNormal = bg(Styles::BLACK) + qssBorder;
-    qssActivated = bg(Styles::GRAY_0) + qssBorder;
+    qssNormal = bg(Styles::CLEAR) + qssBorder;
+    qssHovered = bg(Styles::GRAY_1) + qssBorder;
+    qssPressed = bg(Styles::GRAY_2) + qssBorder;
 }
 
 void ImgButton::enterEvent(QEvent *event) {
-    setStyleSheet(qssActivated);
+    setStyleSheet(qssHovered);
 }
 
 void ImgButton::mouseReleaseEvent(QMouseEvent *ev) {
     if (isHovered(this, ev)) {
         emit sigActivated();
-        setStyleSheet(qssActivated);
+        setStyleSheet(qssHovered);
     }
+}
+
+void ImgButton::mousePressEvent(QMouseEvent *ev) {
+    setStyleSheet(qssPressed);
 }
 
 void ImgButton::leaveEvent(QEvent *event) {

@@ -12,6 +12,7 @@
 #include "Period.h"
 #include "PeriodTypeTreeWidget.h"
 #include "RecordType.h"
+#include "PeriodTypeIcon.h"
 #include <QThread>
 #include <utility>
 
@@ -34,6 +35,7 @@ void MainTab::mainInit() {
     regClazz(f0, MainTab);
     regClazz(f0, TimeBar);
     regClazz(f1, PeriodTypeTreeWidget);
+    regClazz(f1, PeriodTypeIcon);
     regClazz(f2, PeriodTypeIcon);
     regClazz(f2, PeriodTypeTreeItem);
     regClazz(f3, WidgetStartPeriodMenu);

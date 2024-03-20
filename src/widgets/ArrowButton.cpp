@@ -127,6 +127,7 @@ void ArrowButton::paintEvent(QPaintEvent *event) {
 
 void ArrowButton::mousePressEvent(QMouseEvent *event) {
     if (type == None) {
+        event->ignore();
         return;
     }
     setPressed(!pressed);

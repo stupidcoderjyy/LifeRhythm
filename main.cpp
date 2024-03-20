@@ -32,7 +32,7 @@ int main(int argc, char *argv[]) {
             tree->addNode(t);
         }
         WidgetDataStorage::add("log:period_type", tree);
-
+        WidgetDataStorage::add("log:period_type_example", new PeriodType(Styles::CYAN_0, "c"));
         MainTab::mainInit();
     });
     lr.onPostInit([](){

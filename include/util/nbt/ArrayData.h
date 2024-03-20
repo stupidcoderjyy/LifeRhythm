@@ -26,7 +26,9 @@ public:
         return data;
     }
     void fillString(QStringList& target);
+    void fillString(QStringList& target, int len, const QString& defaultVal = "");
     void fillInt(int* arr, int len);
+    void fillInt(QVector<int>& target, int len = -1, int defaultVal = 0);
     void fillFloat(float* arr, int len);
 protected:
     void serialize(IByteWriter *writer) override;

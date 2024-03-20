@@ -6,6 +6,7 @@
 #include "Styles.h"
 #include "NBT.h"
 #include "WidgetUtil.h"
+#include "FocusManager.h"
 #include <QHBoxLayout>
 
 TextButtonContent::TextButtonContent(QWidget *parent): TextLabel(parent) {
@@ -103,4 +104,14 @@ void TextButton::mousePressEvent(QMouseEvent *event) {
 QString TextButton::getFocusedQss() {
     layout()->setContentsMargins(3,3,3,3);
     return FocusContainer::getFocusedQss();
+}
+
+void TextButton::focusInEvent(QFocusEvent *event) {
+    FocusManager::markFocus(this);
+    FocusContainer::focusInEvent(event);
+}
+
+void TextButton::focusOutEvent(QFocusEvent *event) {
+    FocusManager::markFocus(nullptr);
+    FocusContainer::focusOutEvent(event);
 }
