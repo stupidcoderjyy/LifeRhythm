@@ -107,6 +107,7 @@ set(INCLUDE_FILES
         include/widgets/SelectableTreeWidget.h
         include/widgets/TextButton.h
         include/widgets/GridLayout.h
+        include/widgets/ColorSelector.h
 )
 
 set(SRC_FILES
@@ -187,14 +188,13 @@ set(SRC_FILES
         src/widgets/SelectableTreeWidget.cpp
         src/widgets/TextButton.cpp
         src/widgets/GridLayout.cpp
+        src/widgets/ColorSelector.cpp
 )
 
 set(RESOURCES
         assets/lr/factories/factories.qrc
         assets/lr/highlightstyles/styles.qrc
         assets/lr/images/images.qrc
-        assets/test/factories/factories.qrc
-        assets/log/factories/factories.qrc
 )
 
 set(TEST_SRC
@@ -218,18 +218,28 @@ set(TEST_SRC
         test/elements/PeriodType.h
 )
 
-include_directories(${INCLUDES} test test/main_tab test/popup_start_record test/elements)
+set(TEST_DIR
+        test
+        test/main_tab
+        test/popup_start_record
+        test/elements
+        test/popup_create_type
+)
 
+set(TEST_RESOURCES
+        assets/test/factories/factories.qrc
+        assets/log/factories/factories.qrc
+)
+
+include_directories(${INCLUDES} ${TEST_DIR})
 set(ALL_FILES ${SRC_FILES} ${INCLUDE_FILES} ${RESOURCES})
 
 if(MAKE_DLL)
     add_library(${PROJECT_NAME} SHARED ${ALL_FILES})
 else ()
     if(CMAKE_BUILD_TYPE MATCHES "Debug")
-        message("Debug Build")
-        add_executable(${PROJECT_NAME} ${ALL_FILES} ${TEST_SRC} main.cpp) # logo.rc)
+        add_executable(${PROJECT_NAME} ${ALL_FILES} ${TEST_SRC} ${TEST_RESOURCES} main.cpp) # logo.rc)
     elseif(CMAKE_BUILD_TYPE MATCHES "Release")
-        message("Release Build")
         add_executable(${PROJECT_NAME} WIN32 ${ALL_FILES} ${TEST_SRC} main.cpp)#  logo.rc)
     endif ()
 endif ()

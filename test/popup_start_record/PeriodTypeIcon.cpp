@@ -17,13 +17,13 @@ void PeriodTypeIcon::paintEvent(QPaintEvent *event) {
     QPainter painter(this);
     auto* type = wData->cast<PeriodType>();
     if (type->getChildren().empty()) {
-        painter.fillRect(rect(), QColor(Styles::GRAY_TEXT_0));
+        painter.fillRect(rect(), QColor(Styles::GRAY_TEXT_0->rgbHex));
         painter.fillRect(fw, fw, width() - dfw, height() - dfw, type->color);
     } else {
         int dw = width() - d, dh = height() - d;
-        painter.fillRect(0, 0, dw, dh, QColor(Styles::GRAY_TEXT_0));
+        painter.fillRect(0, 0, dw, dh, QColor(Styles::GRAY_TEXT_0->rgbHex));
         painter.fillRect(fw, fw, dw - dfw, dh - dfw, type->color);
-        painter.fillRect(d, d, dw, dh, QColor(Styles::GRAY_TEXT_0));
+        painter.fillRect(d, d, dw, dh, QColor(Styles::GRAY_TEXT_0->rgbHex));
         painter.fillRect(d + fw, d + fw, dw - dfw, dh - dfw, type->color);
     }
 }

@@ -127,9 +127,8 @@ void TabBar::selectTab(Tab *tab) {
     selected = tab;
 }
 
-WidgetFactory* tabLoader = nullptr;
-
 void TabBar::insertTab(const QString &title, TabWidget *content, const Identifier &icon) {
+    static WidgetFactory* tabLoader = WidgetFactoryStorage::get("lr:tab");
     auto* tabCard = static_cast<TabCard*>(tabLoader->apply(this));
     tabCard->setTitle(title);
     tabCard->setIcon(icon);
@@ -179,12 +178,6 @@ bool TabBar::event(QEvent *event) {
     return QScrollArea::event(event);
 }
 
-void TabBar::mainInit() {
-    tabLoader = WidgetFactoryStorage::get("lr:tab");
-    regClazz(tabLoader, TabCard);
-    regClazz(tabLoader, CloseButton);
-}
-
 void TabBar::closeAll() {
     for (auto* t : tabs) {
         t->content->onTabDestroyed();
@@ -203,11 +196,12 @@ void TabBar::init() {
     setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Maximum);
     setFixedHeight(61);
     viewport()->setObjectName("vp");
-    viewport()->setStyleSheet(qss_target("vp", bg(Styles::BLACK)));
+    viewport()->setStyleSheet(qss_target("vp", bg(Styles::BLACK->rgbHex)));
     verticalScrollBar()->setVisible(false);
     contents = new ContentWidget(this);
     contents->setObjectName("contents");
-    contents->setStyleSheet(qss_target("contents", bg(Styles::BLACK) + bd_b("1px", "solid", Styles::GRAY_0)));
+    contents->setStyleSheet(qss_target("contents",
+                    bg(Styles::BLACK->rgbHex) + bd_b("1px", "solid", Styles::GRAY_0->rgbHex)));
     contents->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Maximum);
     hLayout = new QHBoxLayout(contents);
     hLayout->setContentsMargins(0,0,0,1);

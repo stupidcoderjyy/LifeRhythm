@@ -1,0 +1,27 @@
+{
+    type: "DefaultColorsListItem"
+    children: ["icon", "name"]
+    layout: {
+        type: "Horizontal"
+        margins: [5,0,0,0]
+        spacing: 5
+    }
+    icon: {
+        type: "ColorIcon"
+        pointer: true
+        fixed_width: 20
+        fixed_height: 20
+    }
+    name: {
+        type: "TextLabel"
+        pointer: true
+    }
+    states: {
+        s0: {
+            qss: "bg(GRAY_0)"
+        }
+        s1: {
+            qss: "bg(BLUE_0)"
+        }
+    }
+}

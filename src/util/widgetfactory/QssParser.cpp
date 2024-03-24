@@ -112,22 +112,9 @@ QStringList QssParser::parseArgs(CompilerInput *input) {
 
 void QssParser::mainInit() {
     addStringConcatItem("bg", "background-color:", ";");
-    regColor(GRAY_0);
-    regColor(GRAY_1);
-    regColor(GRAY_2);
-    regColor(GRAY_3);
-    regColor(GRAY_4);
-    regColor(BLACK);
-    regColor(CYAN_0);
-    regColor(CYAN_1);
-    regColor(CYAN_2);
-    regColor(BLUE_0);
-    regColor(BLUE_1);
-    regColor(RED);
-    regColor(GOLD);
-    regColor(GREEN);
-    regColor(GRAY_TEXT_0);
-    regColor(GRAY_TEXT_1);
+    for (auto& c : Color::defaultColors) {
+        addStringReplaceItem(c->name, c->rgbHex);
+    }
     registerItem(new BorderItem("bd", "border"));
     registerItem(new BorderItem("bd_b", "border-bottom"));
     registerItem(new BorderItem("bd_t", "border-top"));

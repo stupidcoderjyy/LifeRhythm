@@ -117,7 +117,7 @@ void ArrowButton::paintEvent(QPaintEvent *event) {
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);
     QPen pen;
-    pen.setColor(Styles::GRAY_TEXT_0);
+    pen.setColor(Styles::GRAY_TEXT_0->color);
     pen.setWidth(2);
     painter.setPen(pen);
     painter.drawLine(points[0], points[1], points[2], points[3]);

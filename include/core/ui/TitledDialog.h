@@ -26,7 +26,6 @@ public:
     explicit TitledDialog(QWidget* parent);
     void setContent(const QString& title, QWidget* widget);
     void onFinishedParsing(Handlers &handlers, NBT *widgetTag) override;
-    static void mainInit();
 };
 
 class DialogCloseButton : public ImgLabel {

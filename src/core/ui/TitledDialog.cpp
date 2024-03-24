@@ -40,13 +40,6 @@ void TitledDialog::setContent(const QString &title, QWidget *widget) {
     layout()->addWidget(widget);
 }
 
-void TitledDialog::mainInit() {
-    auto* loader = WidgetFactoryStorage::get("lr:titled_dialog");
-    regClazz(loader, TitledDialog);
-    regClazz(loader, DialogCloseButton);
-    regClazz(loader, TopWidget);
-}
-
 DialogCloseButton::DialogCloseButton(QWidget *parent):ImgLabel(parent) {
 }
 

@@ -18,11 +18,11 @@ void FocusContainer::focusOutEvent(QFocusEvent *event) {
 }
 
 QString FocusContainer::getNormalQss() {
-    return qss_this(bg(Styles::CLEAR) + bd("1px", "solid", Styles::GRAY_2));
+    return qss_this(bg(Styles::CLEAR->rgbHex) + bd("1px", "solid", Styles::GRAY_2->rgbHex));
 }
 
 QString FocusContainer::getFocusedQss() {
-    return qss_this(bg(Styles::CLEAR) + bd("2px", "solid", Styles::BLUE_1) + qss("border-radius", "3px"));
+    return qss_this(bg(Styles::CLEAR->rgbHex) + bd("2px", "solid", Styles::BLUE_1->rgbHex) + qss("border-radius", "3px"));
 }
 
 void FocusContainer::mousePressEvent(QMouseEvent *event) {

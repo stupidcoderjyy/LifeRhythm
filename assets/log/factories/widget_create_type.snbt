@@ -1,0 +1,36 @@
+{
+    children: ["l0", "editTypeName", "l1", "colorSelector"]
+    layout: {
+        type: "Grid"
+        max_columns: 2
+        row_heights: [40, 40]
+        row_spacing: 5
+        column_widths: [50]
+    }
+    l0: {
+        type: "TextLabel"
+        text: "名称:"
+    }
+    editTypeName: {
+        type: "LineEdit"
+    }
+    l1: {
+        type: "TextLabel"
+        text: "颜色:"
+    }
+    colorSelector: {
+        children: ["iconColor", "colorSelectBox"]
+        layout: {
+            type: "Horizontal"
+            spacing: 5
+            margins: [0,0,0,0]
+            align: "Right"
+        }
+        iconColor: {
+            type: "PeriodTypeIcon"
+        }
+        colorSelectBox: {
+            type: ""
+        }
+    }
+}

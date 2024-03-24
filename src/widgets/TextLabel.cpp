@@ -9,8 +9,8 @@ TextLabel::TextLabel(QWidget *parent):QLabel(parent), StandardWidget() {
     setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
     setFont(Styles::FONT_MAIN);
     QPalette p = palette();
-    p.setColor(QPalette::WindowText, QColor(Styles::GRAY_TEXT_0));
-    p.setColor(QPalette::Text, QColor(Styles::GRAY_TEXT_0));
+    p.setColor(QPalette::WindowText, QColor(Styles::GRAY_TEXT_0->rgbHex));
+    p.setColor(QPalette::Text, QColor(Styles::GRAY_TEXT_0->rgbHex));
     setPalette(p);
 }
 

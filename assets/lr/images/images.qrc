@@ -12,5 +12,6 @@
         <file>pen_30x30.png</file>
         <file>plus_30x30.png</file>
         <file>rollback_30x30.png</file>
+        <file>v_color_bar.png</file>
     </qresource>
 </RCC>

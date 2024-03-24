@@ -16,7 +16,7 @@ class OptionsMenu : public Menu {
 public:
     explicit OptionsMenu(QWidget* parent = nullptr);
 signals:
-    void sigSelectOption(WidgetData* data);
+    void sigSelectOption();
 protected:
     void mouseReleaseEvent(QMouseEvent *event) override;
 };
@@ -43,7 +43,7 @@ protected:
 */
 class OptionsBox : public FocusContainer {
 protected:
-    LineEdit* optionEditor;
+    QLineEdit* optionEditor;
 private:
     ArrowButton* buttonOpenMenu;
     OptionsMenu* menu;
@@ -52,7 +52,7 @@ public:
     explicit OptionsBox(QWidget* parent = nullptr);
     ~OptionsBox() override;
 protected:
-    virtual void fillOption(WidgetData* data);  //将Menu传递过来的数据填入选择框中
+    //将Menu传递过来的数据填入选择框中
     virtual void initMenu(OptionsMenu* menu);
     void resizeEvent(QResizeEvent *event) override;
     void mouseReleaseEvent(QMouseEvent *event) override;

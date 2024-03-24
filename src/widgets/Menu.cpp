@@ -10,7 +10,8 @@ Menu::Menu(QWidget *parent): QWidget(parent), StandardWidget() {
     setWindowFlag(Qt::FramelessWindowHint);
     setFocusPolicy(Qt::ClickFocus);
     setObjectName("menu");
-    setStyleSheet(qss_target("menu", bg(Styles::GRAY_0) + bd("1px", "solid", Styles::GRAY_2) + brad("2px")));
+    setStyleSheet(qss_target("menu",
+                    bg(Styles::GRAY_0->rgbHex) + bd("1px", "solid", Styles::GRAY_2->rgbHex) + brad("2px")));
 }
 
 void Menu::focusOutEvent(QFocusEvent *event) {

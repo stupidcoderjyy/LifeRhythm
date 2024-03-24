@@ -9,9 +9,9 @@
 
 ImgButton::ImgButton(QWidget *parent) : ImgLabel(parent) {
     QString qssBorder = qss("border-style", "none") + qss("border-radius", "2px");
-    qssNormal = bg(Styles::CLEAR) + qssBorder;
-    qssHovered = bg(Styles::GRAY_1) + qssBorder;
-    qssPressed = bg(Styles::GRAY_2) + qssBorder;
+    qssNormal = bg(Styles::CLEAR->rgbHex) + qssBorder;
+    qssHovered = bg(Styles::GRAY_1->rgbHex) + qssBorder;
+    qssPressed = bg(Styles::GRAY_2->rgbHex) + qssBorder;
 }
 
 void ImgButton::enterEvent(QEvent *event) {

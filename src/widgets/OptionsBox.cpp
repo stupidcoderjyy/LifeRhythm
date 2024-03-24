@@ -34,7 +34,7 @@ OptionsBoxLineEdit::OptionsBoxLineEdit(QWidget *parent): QLineEdit(parent) {
     setContextMenuPolicy(Qt::NoContextMenu);
     setFont(Styles::FONT_MAIN);
     setObjectName("le");
-    setStyleSheet(qss_this(bg(Styles::CLEAR) + qss("color", Styles::GRAY_TEXT_0)));
+    setStyleSheet(qss_this(bg(Styles::CLEAR->rgbHex) + qss("color", Styles::GRAY_TEXT_0->rgbHex)));
 }
 
 void OptionsBoxLineEdit::mousePressEvent(QMouseEvent *e) {
@@ -53,7 +53,7 @@ OptionsBox::OptionsBox(QWidget *parent): FocusContainer(parent), menu(), pressLo
     layout->setSpacing(0);
     layout->setContentsMargins(5, 0, 8, 0);
     setLayout(layout);
-    optionEditor = new LineEdit(this);
+    optionEditor = new OptionsBoxLineEdit(this);
     optionEditor->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed);
     buttonOpenMenu = new DisplayOptionsButton(this);
     layout->addWidget(optionEditor);
@@ -64,9 +64,6 @@ OptionsBox::OptionsBox(QWidget *parent): FocusContainer(parent), menu(), pressLo
     connect(buttonOpenMenu, &ArrowButton::sigActivated, this, &OptionsBox::handleButtonClick);
 }
 
-void OptionsBox::fillOption(WidgetData *data) {
-}
-
 void OptionsBox::initMenu(OptionsMenu* m) {
 }
 
@@ -74,8 +71,8 @@ void OptionsBox::resizeEvent(QResizeEvent *event) {
     if (!menu) {
         menu = new OptionsMenu();
         initMenu(menu);
-        connect(menu, &OptionsMenu::sigSelectOption, this, [this](WidgetData* data){
-            fillOption(data);
+        connect(menu, &OptionsMenu::sigSelectOption, this, [this](){
+            syncDataToWidget();
             emit menu->sigAboutToClose();
             menu->close();
         });

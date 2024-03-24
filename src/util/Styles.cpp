@@ -4,56 +4,46 @@
 
 #include "Styles.h"
 
-QMap<QString, QColor> Styles::colors;
+#include <utility>
+
+QMap<QString, Color*> Color::defaultColors{};
+
+Color::Color(): WidgetData(), name(), rgbHex(), color() {
+}
+
+Color* Color::create(const QString& name, const QString& rgbHex) {
+    auto* c = new Color(name, rgbHex);
+    defaultColors.insert(name, c);
+    return c;
+}
+
+Color::Color(QString name, const QString& rgbHex): WidgetData(), name(std::move(name)), rgbHex(rgbHex), color(rgbHex) {
+}
+
 QTextCharFormat Styles::FORMAT_DEFAULT;
 QTextCharFormat Styles::FORMAT_ERROR;
 QFont Styles::FONT_MAIN;
 
-const QString Styles::BLACK = "#141414";
-const QString Styles::GRAY_0 = "#282828";
-const QString Styles::GRAY_1 = "#363636";
-const QString Styles::GRAY_2 = "#444444";
-const QString Styles::GRAY_3 = "#525252";
-const QString Styles::GRAY_4 = "#606060";
-const QString Styles::CYAN_0 = "#204548";
-const QString Styles::CYAN_1 = "#3a6f74";
-const QString Styles::CYAN_2 = "#4d8f95";
-const QString Styles::BLUE_0 = "#2e436e";
-const QString Styles::BLUE_1 = "#3574f0";
-const QString Styles::RED = "#ff2b59";
-const QString Styles::GOLD = "#eecd66";
-const QString Styles::GREEN = "#48723c";
-const QString Styles::GRAY_TEXT_0 = "#aeaeae";
-const QString Styles::GRAY_TEXT_1 = "#C8C8C8";
-const QString Styles::CLEAR = "#00000000";
+const Color* Styles::BLACK = Color::create("BLACK", "#141414");
+const Color* Styles::GRAY_0 = Color::create("GRAY_0", "#282828");
+const Color* Styles::GRAY_1 = Color::create("GRAY_1", "#363636");
+const Color* Styles::GRAY_2 = Color::create("GRAY_2", "#444444");
+const Color* Styles::GRAY_3 = Color::create("GRAY_3", "#525252");
+const Color* Styles::GRAY_4 = Color::create("GRAY_4", "#606060");
+const Color* Styles::CYAN_0 = Color::create("CYAN_0", "#204548");
+const Color* Styles::CYAN_1 = Color::create("CYAN_1", "#3a6f74");
+const Color* Styles::CYAN_2 = Color::create("CYAN_2", "#4d8f95");
+const Color* Styles::BLUE_0 = Color::create("BLUE_0", "#2e436e");
+const Color* Styles::BLUE_1 = Color::create("BLUE_1", "#3574f0");
+const Color* Styles::RED = Color::create("RED", "#ff2b59");
+const Color* Styles::GOLD = Color::create("GOLD", "#eecd66");
+const Color* Styles::GREEN = Color::create("GREEN", "#48723c");
+const Color* Styles::GRAY_TEXT_0 = Color::create("GRAY_TEXT_0", "#aeaeae");
+const Color* Styles::GRAY_TEXT_1 = Color::create("GRAY_TEXT_1", "#C8C8C8");
+const Color* Styles::CLEAR = Color::create("CLEAR", "#00000000");
 const QString Styles::FF_ZH = "思源黑体 CN Medium";
 const QString Styles::FF_EN = "JetBrains Mono Medium";
 const int Styles::FS_MEDIUM = 10;
-
-#define regColor(c) res.insert(#c, Styles::c)
-
-QMap<QString, QColor> initColors() {
-    QMap<QString, QColor> res{};
-    regColor(GRAY_0);
-    regColor(GRAY_1);
-    regColor(GRAY_2);
-    regColor(GRAY_3);
-    regColor(GRAY_4);
-    regColor(BLACK);
-    regColor(CYAN_0);
-    regColor(CYAN_1);
-    regColor(CYAN_2);
-    regColor(BLUE_0);
-    regColor(BLUE_1);
-    regColor(RED);
-    regColor(GOLD);
-    regColor(GREEN);
-    regColor(GRAY_TEXT_0);
-    regColor(GRAY_TEXT_1);
-    return res;
-}
-
-#undef regColor
 
 QFont fontMain() {
     QFont font;
@@ -65,25 +55,27 @@ QFont fontMain() {
 QTextCharFormat defaultFormat() {
     QTextCharFormat fmt;
     fmt.setFont(fontMain());
-    fmt.setForeground(QColor(Styles::GRAY_TEXT_1));
+    fmt.setForeground(Styles::GRAY_TEXT_1->color);
     return fmt;
 }
 
 QTextCharFormat errorFormat() {
     QTextCharFormat fmt;
     fmt.setFont(fontMain());
-    fmt.setForeground(QColor(Styles::RED));
+    fmt.setForeground(Styles::RED->color);
     return fmt;
 }
 
 void Styles::initStyles() {
-    colors = initColors();
     FONT_MAIN = fontMain();
     FORMAT_DEFAULT = defaultFormat();
     FORMAT_ERROR = errorFormat();
 }
 
 QColor Styles::parseColor(const QString &str) {
-    return colors.value(str, QColor(str));
+    if (Color::defaultColors.contains(str)) {
+        return Color::defaultColors.value(str)->color;
+    }
+    return {str};
 }
 

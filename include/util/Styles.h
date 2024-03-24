@@ -10,29 +10,43 @@
 #include <QPainter>
 #include <QStyleOption>
 #include <QTextCharFormat>
+#include "WidgetData.h"
+
+class Color : public WidgetData {
+public:
+    static QMap<QString, Color*> defaultColors;
+    QString name;
+    QString rgbHex;
+    QColor color;
+public:
+    Color();
+    static Color* create(const QString& name, const QString& rgbHex);
+private:
+    Color(QString name, const QString& rgbHex);
+};
 
 class Styles {
 public:
-    static QMap<QString, QColor> colors;
-    const static QString BLACK;
-    const static QString GRAY_0;
-    const static QString GRAY_1;
-    const static QString GRAY_2;
-    const static QString GRAY_3;
-    const static QString GRAY_4;
-    const static QString CYAN_0;
-    const static QString CYAN_1;
-    const static QString CYAN_2;
-    const static QString BLUE_0;
-    const static QString BLUE_1;
-    const static QString RED;
-    const static QString GOLD;
-    const static QString GREEN;
-    const static QString GRAY_TEXT_0;
-    const static QString GRAY_TEXT_1;
+    const static Color* BLACK;
+    const static Color* GRAY_0;
+    const static Color* GRAY_1;
+    const static Color* GRAY_2;
+    const static Color* GRAY_3;
+    const static Color* GRAY_4;
+    const static Color* CYAN_0;
+    const static Color* CYAN_1;
+    const static Color* CYAN_2;
+    const static Color* BLUE_0;
+    const static Color* BLUE_1;
+    const static Color* RED;
+    const static Color* GOLD;
+    const static Color* GREEN;
+    const static Color* GRAY_TEXT_0;
+    const static Color* GRAY_TEXT_1;
+    const static Color* CLEAR;
+
     const static QString FF_ZH;
     const static QString FF_EN;
-    const static QString CLEAR;
     const static int FS_MEDIUM;
     static QTextCharFormat FORMAT_DEFAULT;
     static QTextCharFormat FORMAT_ERROR;

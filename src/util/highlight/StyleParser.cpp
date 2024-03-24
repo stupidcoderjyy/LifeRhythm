@@ -51,7 +51,7 @@ void StyleParser::parseFont() {
 void StyleParser::parseUnderline() {
     fmt->setUnderlineStyle(underlineStyles.value(
             nbt->getString("ul"),QTextCharFormat::NoUnderline));
-    fmt->setUnderlineColor(Styles::parseColor(nbt->getString("ulc", Styles::GRAY_TEXT_0)));
+    fmt->setUnderlineColor(Styles::parseColor(nbt->getString("ulc", Styles::GRAY_TEXT_0->rgbHex)));
 }
 
 #define reg(k) map.insert(#k, QTextCharFormat::k)

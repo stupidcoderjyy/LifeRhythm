@@ -3,5 +3,7 @@
         <file>tab.snbt</file>
         <file>titled_dialog.snbt</file>
         <file>mainframe.snbt</file>
+        <file>item_default_colors.snbt</file>
+        <file>widget_hue_selector.snbt</file>
     </qresource>
 </RCC>

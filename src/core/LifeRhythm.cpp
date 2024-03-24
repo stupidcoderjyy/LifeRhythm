@@ -8,6 +8,8 @@
 #include "IOUtil.h"
 #include "RcManagers.h"
 #include "TitledDialog.h"
+#include "ColorSelector.h"
+#include "WidgetDataStorage.h"
 #include <QtConcurrent>
 #include <QApplication>
 #include <utility>
@@ -72,9 +74,28 @@ void LifeRhythm::mainInit() {
     ImageStorage::init();
     WidgetFactoryStorage::init();
     WidgetFactory::mainInit();
-    TabBar::mainInit();
-    TitledDialog::mainInit();
-    MainFrame::mainInit();
+    auto* f = WidgetFactoryStorage::get("lr:tab");
+    regClazz(f, TabCard);
+    regClazz(f, CloseButton);
+    f = WidgetFactoryStorage::get("lr:titled_dialog");
+    regClazz(f, TitledDialog);
+    regClazz(f, DialogCloseButton);
+    regClazz(f, TopWidget);
+    f = WidgetFactoryStorage::get("lr:mainframe");
+    regClazz(f, MainFrame);
+    regClazz(f, TabBar);
+    f = WidgetFactoryStorage::get("lr:item_default_colors");
+    regClazz(f, DefaultColorsListItem);
+    regClazz(f, ColorIcon);
+    f = WidgetFactoryStorage::get("lr:widget_hue_selector");
+    regClazz(f, ColorBar);
+    regClazz(f, DefaultColorsList);
+    regClazz(f, HueSelector);
+    auto* m0 = new SelectableListData;
+    for (auto& c : Color::defaultColors) {
+        m0->append(c);
+    }
+    WidgetDataStorage::add("lr:default_colors", m0);
 }
 
 void LifeRhythm::postInit() {

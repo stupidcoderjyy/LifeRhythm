@@ -35,16 +35,16 @@ void TextButton::setButtonType(Type t) {
     QPalette p = content->palette();
     switch (type) {
         case Highlighted:
-            content->setStyleSheet(qss_target("tbc", bg(Styles::BLUE_0) + brad("2px")));
-            p.setColor(QPalette::WindowText, QColor(Styles::GRAY_TEXT_1));
+            content->setStyleSheet(qss_target("tbc", bg(Styles::BLUE_0->rgbHex) + brad("2px")));
+            p.setColor(QPalette::WindowText, Styles::GRAY_TEXT_1->color);
             break;
         case Normal:
-            content->setStyleSheet(qss_target("tbc", bg(Styles::CLEAR)));
-            p.setColor(QPalette::WindowText, QColor(Styles::GRAY_TEXT_0));
+            content->setStyleSheet(qss_target("tbc", bg(Styles::CLEAR->rgbHex)));
+            p.setColor(QPalette::WindowText, Styles::GRAY_TEXT_0->color);
             break;
         case Disabled:
-            content->setStyleSheet(qss_target("tbc", bg(Styles::CLEAR)));
-            p.setColor(QPalette::WindowText, QColor(Styles::GRAY_3));
+            content->setStyleSheet(qss_target("tbc", bg(Styles::CLEAR->rgbHex)));
+            p.setColor(QPalette::WindowText, Styles::GRAY_3->color);
             break;
     }
     content->setPalette(p);
@@ -82,9 +82,9 @@ QString TextButton::getNormalQss() {
         case Highlighted:
             return qss_this("");
         case Normal:
-            return qss_this(bg(Styles::CLEAR) + bd("1px", "solid", Styles::GRAY_2) + brad("3px"));
+            return qss_this(bg(Styles::CLEAR->rgbHex) + bd("1px", "solid", Styles::GRAY_2->rgbHex) + brad("3px"));
         case Disabled:
-            return qss_this(bg(Styles::CLEAR) + bd("1px", "solid", Styles::GRAY_1) + brad("3px"));
+            return qss_this(bg(Styles::CLEAR->rgbHex) + bd("1px", "solid", Styles::GRAY_1->rgbHex) + brad("3px"));
     }
     return "";
 }

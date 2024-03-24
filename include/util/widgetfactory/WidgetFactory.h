@@ -135,7 +135,7 @@ void WidgetFactory::parseTextWidget(WidgetFactory::Handlers &handlers, NBT *nbt)
         };
     }
     if (nbt->contains("color", Data::STRING)) {
-        QColor c = Styles::parseColor(nbt->getString("color", Styles::GRAY_TEXT_0));
+        QColor c = Styles::parseColor(nbt->getString("color", Styles::GRAY_TEXT_0->name));
         handlers << [c](QWidget* target) {
             auto* tw = static_cast<W*>(target);
             QPalette p = tw->palette();

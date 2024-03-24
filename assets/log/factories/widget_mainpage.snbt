@@ -35,7 +35,6 @@
             }
             iconTypeColor: {
                 type: "PeriodTypeIcon"
-                model: "log:period_type_example"
                 pointer: true
             }
             labelName: {
@@ -92,7 +91,6 @@
         }
         periodTypeTree: {
             type: "PeriodTypeTreeWidget"
-            model: "log:period_type"
             pointer: true
         }
     }

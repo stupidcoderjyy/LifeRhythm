@@ -14,9 +14,6 @@
 USING_LR
 
 void MainFrame::mainInit() {
-    auto* mf = WidgetFactoryStorage::get("lr:mainframe");
-    regClazz(mf, MainFrame);
-    regClazz(mf, TabBar);
 }
 
 MainFrame::MainFrame(QWidget* parent): Widget(parent) {

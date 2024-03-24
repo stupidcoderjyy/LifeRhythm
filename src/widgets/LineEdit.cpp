@@ -43,18 +43,19 @@ void LineEdit::init() {
     setContextMenuPolicy(Qt::NoContextMenu);
     setFont(Styles::FONT_MAIN);
     QPalette p = palette();
-    p.setColor(QPalette::Text, QColor(Styles::GRAY_TEXT_0));
+    p.setColor(QPalette::Text, QColor(Styles::GRAY_TEXT_0->rgbHex));
     setPalette(p);
     setObjectName("le");
     setFixedHeight(34);
-    setTextMargins(2,2,2,2);
     registerResponder(0, [this](QWidget* t){
-        setTextMargins(2,2,2,2);
-        setStyleSheet(qss_this(bg(Styles::CLEAR) + bd("1px", "solid", Styles::GRAY_2) + brad("3px")));
+        setTextMargins(2,2,2,0);
+        setStyleSheet(qss_this(
+                bg(Styles::CLEAR->rgbHex) + bd("1px", "solid", Styles::GRAY_2->rgbHex) + brad("3px")));
     });
     registerResponder(1, [this](QWidget* t){
-        setTextMargins(1,1,1,1);
-        setStyleSheet(qss_this(bg(Styles::CLEAR) + bd("2px", "solid", Styles::BLUE_1) + brad("3px")));
+        setTextMargins(1,1,1,0);
+        setStyleSheet(qss_this(
+                bg(Styles::CLEAR->rgbHex) + bd("2px", "solid", Styles::BLUE_1->rgbHex) + brad("3px")));
     });
     setState(0);
 }

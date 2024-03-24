@@ -6,5 +6,6 @@
         <file>item_period_type.snbt</file>
         <file>widget_content.snbt</file>
         <file>widget_mainpage.snbt</file>
+        <file>widget_create_type.snbt</file>
     </qresource>
 </RCC>
