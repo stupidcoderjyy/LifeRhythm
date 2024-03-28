@@ -12,19 +12,36 @@
 
 USING_LR
 
+class TestWidget : public QWidget {
+public:
+    explicit TestWidget(QWidget* parent = nullptr) {
+    }
+
+protected:
+    void mousePressEvent(QMouseEvent *event) override {
+        setFocus();
+    }
+
+    void focusInEvent(QFocusEvent *event) override {
+        qDebug() << "focus in";
+    }
+
+    void focusOutEvent(QFocusEvent *event) override {
+        qDebug() << "focus out";
+    }
+};
+
 int main(int argc, char *argv[]) {
     LifeRhythm lr(argc, argv);
     auto cfg = lr.getConfig();
-    cfg.setMode(Config::Normal);
+    cfg.setMode(Config::Test);
     lr.setConfig(cfg);
     lr.onMainInit([](){
+        MainTab::mainInit();
     });
     lr.onPostInit([](){
-        auto* selector = WidgetFactoryStorage::get("lr:widget_hue_selector")->applyAndCast<HueSelector>();
-        selector->show();
-        QObject::connect(selector, &HueSelector::sigColorSelected, [](const QColor& c){
-            qDebug() << c;
-        });
+        auto* wct = WidgetFactoryStorage::get("log:widget_create_type")->apply();
+        LifeRhythm::generateTitledDialog("新建类型", wct);
     });
     return lr.launch();
 }

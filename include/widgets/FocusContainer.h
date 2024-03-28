@@ -15,10 +15,10 @@ class FocusContainer : public Widget {
 public:
     explicit FocusContainer(QWidget* parent = nullptr);
 protected:
-    void focusInEvent(QFocusEvent *event) override;
     void focusOutEvent(QFocusEvent *event) override;
     virtual QString getNormalQss();
     virtual QString getFocusedQss();
+    void resizeEvent(QResizeEvent *event) override;
 protected:
     void mousePressEvent(QMouseEvent *event) override;
 };

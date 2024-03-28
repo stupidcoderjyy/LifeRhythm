@@ -7,7 +7,7 @@
         spacing: 0
     }
     bar: {
-        type: "ColorBar"
+        type: "VColorBar"
         pointer: true
     }
     list: {

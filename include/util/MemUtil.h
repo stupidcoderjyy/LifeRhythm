@@ -11,11 +11,13 @@ int* allocateArray(int size);
 void freeArray(int** p, int rows);
 
 #define DELETE_MAP(qMap) \
-    for (auto it = qMap.begin() ; it != qMap.end() ; it++) {\
+    for (auto it = (qMap).begin() ; it != (qMap).end() ; it++) {\
         delete it.value();\
-    }
+    }\
+    (qMap).clear();
 #define DELETE_MAP_P(qMap) \
-    for (auto it = qMap->begin() ; it != qMap->end() ; it++) {\
+    for (auto it = (qMap)->begin() ; it != (qMap)->end() ; it++) {\
         delete it.value();\
-    }
+    }\
+    (qMap)->clear();
 #endif //LIFERHYTHM_MEMUTIL_H

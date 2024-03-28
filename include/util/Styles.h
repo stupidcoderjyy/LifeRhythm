@@ -20,9 +20,9 @@ public:
     QColor color;
 public:
     Color();
-    static Color* create(const QString& name, const QString& rgbHex);
-private:
+    Color(const QString& rgbHex);
     Color(QString name, const QString& rgbHex);
+    static Color* createDefault(const QString& name, const QString& rgbHex);
 };
 
 class Styles {

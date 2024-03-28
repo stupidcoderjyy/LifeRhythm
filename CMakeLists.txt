@@ -95,7 +95,7 @@ set(INCLUDE_FILES
         include/widgets/LineEdit.h
         include/widgets/ListWidget.h
         include/widgets/Menu.h
-        include/widgets/OptionsBox.h
+        include/widgets/LineEditOptionsBox.h
         include/widgets/RangeBar.h
         include/widgets/ScrollArea.h
         include/widgets/ScrollBar.h
@@ -108,6 +108,7 @@ set(INCLUDE_FILES
         include/widgets/TextButton.h
         include/widgets/GridLayout.h
         include/widgets/ColorSelector.h
+        include/widgets/AbstractOptionsBox.h
 )
 
 set(SRC_FILES
@@ -176,7 +177,7 @@ set(SRC_FILES
         src/widgets/LineEdit.cpp
         src/widgets/ListWidget.cpp
         src/widgets/Menu.cpp
-        src/widgets/OptionsBox.cpp
+        src/widgets/LineEditOptionsBox.cpp
         src/widgets/RangeBar.cpp
         src/widgets/ScrollArea.cpp
         src/widgets/ScrollBar.cpp
@@ -189,6 +190,7 @@ set(SRC_FILES
         src/widgets/TextButton.cpp
         src/widgets/GridLayout.cpp
         src/widgets/ColorSelector.cpp
+        src/widgets/AbstractOptionsBox.cpp
 )
 
 set(RESOURCES
@@ -216,6 +218,8 @@ set(TEST_SRC
         test/elements/Period.h
         test/elements/PeriodType.cpp
         test/elements/PeriodType.h
+        test/popup_create_type/PeriodTypeColorBox.cpp
+        test/popup_create_type/PeriodTypeColorBox.h
 )
 
 set(TEST_DIR

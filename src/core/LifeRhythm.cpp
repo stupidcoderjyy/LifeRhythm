@@ -86,11 +86,6 @@ void LifeRhythm::mainInit() {
     regClazz(f, TabBar);
     f = WidgetFactoryStorage::get("lr:item_default_colors");
     regClazz(f, DefaultColorsListItem);
-    regClazz(f, ColorIcon);
-    f = WidgetFactoryStorage::get("lr:widget_hue_selector");
-    regClazz(f, ColorBar);
-    regClazz(f, DefaultColorsList);
-    regClazz(f, HueSelector);
     auto* m0 = new SelectableListData;
     for (auto& c : Color::defaultColors) {
         m0->append(c);

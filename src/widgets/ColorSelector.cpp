@@ -10,17 +10,17 @@
 #include <QPainterPath>
 #include <QMouseEvent>
 
-ColorBar::ColorBar(QWidget *parent): Widget(parent), val(-1) {
+VColorBar::VColorBar(QWidget *parent): Widget(parent), val(-1) {
     barImg = ImageStorage::get("lr:v_color_bar");
     setFixedSize(barImg->size());
     step = 360 / barImg->height();
 }
 
-void ColorBar::selectColor(const QColor &c) {
+void VColorBar::selectColor(const QColor &c) {
     onColorSelected(c.hue() / step);
 }
 
-void ColorBar::paintEvent(QPaintEvent *event) {
+void VColorBar::paintEvent(QPaintEvent *event) {
     QPainter painter(this);
     painter.drawPixmap(0, 0, *barImg);
     painter.setPen(Styles::GRAY_TEXT_0->color);
@@ -30,22 +30,22 @@ void ColorBar::paintEvent(QPaintEvent *event) {
     painter.drawLine(0, val, width(), val);
 }
 
-void ColorBar::mousePressEvent(QMouseEvent *event) {
+void VColorBar::mousePressEvent(QMouseEvent *event) {
     pressed = true;
     onColorSelected(qMin(height(), qMax(0, event->y())));
 }
 
-void ColorBar::mouseReleaseEvent(QMouseEvent *event) {
+void VColorBar::mouseReleaseEvent(QMouseEvent *event) {
     pressed = false;
 }
 
-void ColorBar::mouseMoveEvent(QMouseEvent *event) {
+void VColorBar::mouseMoveEvent(QMouseEvent *event) {
     if (pressed) {
         onColorSelected(qMin(height(), qMax(0, event->y())));
     }
 }
 
-QColor ColorBar::getColor() const {
+QColor VColorBar::getColor() const {
     int h = val * step;
     if (h == 360) {
         h = 0;
@@ -53,7 +53,7 @@ QColor ColorBar::getColor() const {
     return QColor::fromHsv(h, 0xFF, 0xFF);
 }
 
-void ColorBar::onColorSelected(int v) {
+void VColorBar::onColorSelected(int v) {
     if (val != v) {
         val = v;
         emit sigColorSelected(getColor());
@@ -105,6 +105,44 @@ void ColorBarImageGenerator::updateAll() {
     }
 }
 
+ColorIcon::ColorIcon(QWidget *parent): Widget(parent), bdWidth(2), bdColor(Styles::GRAY_TEXT_0->color) {
+    setFixedSize(20, 20);
+}
+
+void ColorIcon::paintEvent(QPaintEvent *event) {
+    if (wData) {
+        QPainter painter(this);
+        QRect r = rect();
+        if (bdWidth > 0) {
+            painter.fillRect(r, bdColor);
+        }
+        painter.fillRect(r.adjusted(bdWidth, bdWidth, -bdWidth, -bdWidth), wData->cast<Color>()->color);
+    }
+}
+
+void ColorIcon::onPostParsing(StandardWidget::Handlers &handlers, NBT *nbt) {
+    if (nbt->contains("border_width", Data::INT)) {
+        int w = nbt->getInt("border_width");
+        handlers << [w](QWidget* target) {
+            static_cast<ColorIcon*>(target)->bdWidth = w;
+        };
+    }
+    if (nbt->contains("border_color", Data::STRING)) {
+        QColor c = Styles::parseColor(nbt->getString("border_color"));
+        handlers << [c](QWidget* target) {
+            static_cast<ColorIcon*>(target)->bdColor = c;
+        };
+    }
+}
+
+void ColorIcon::setBorderWidth(int w) {
+    bdWidth = w;
+}
+
+void ColorIcon::setBorderColor(QColor c) {
+    bdColor = std::move(c);
+}
+
 DefaultColorsListItem::DefaultColorsListItem(QWidget *parent): SelectableListItem(parent), icon(), labelName() {
 }
 
@@ -134,18 +172,6 @@ SelectableListItem *DefaultColorsList::createRowItem() {
     return WidgetFactoryStorage::get("lr:item_default_colors")->applyAndCast<SelectableListItem>();
 }
 
-ColorIcon::ColorIcon(QWidget *parent): Widget(parent) {
-}
-
-void ColorIcon::paintEvent(QPaintEvent *event) {
-    if (wData) {
-        QPainter painter(this);
-        QRect r = rect();
-        painter.fillRect(r, Styles::GRAY_TEXT_0->color);
-        painter.fillRect(r.adjusted(2,2,-2,-2), wData->cast<Color>()->color);
-    }
-}
-
 HueSelector::HueSelector(QWidget *parent): Widget(parent) {
 }
 
@@ -156,11 +182,11 @@ void HueSelector::onFinishedParsing(StandardWidget::Handlers &handlers, NBT *wid
 }
 
 void HueSelector::init() {
-    bar = getPointer<ColorBar>("bar");
+    bar = getPointer<VColorBar>("bar");
     auto* modelColors = WidgetDataStorage::get("lr:default_colors")->cast<SelectableListData>();
     connect(modelColors, &SelectableListData::sigDataSelected, this, [this, modelColors](int pre, int cur){
         auto* c = modelColors->at(cur)->cast<Color>();
         bar->selectColor(c->color);
     });
-    connect(bar, &ColorBar::sigColorSelected, this, &HueSelector::sigColorSelected);
+    connect(bar, &VColorBar::sigColorSelected, this, &HueSelector::sigColorSelected);
 }

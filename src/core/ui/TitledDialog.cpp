@@ -23,6 +23,7 @@ void TitledDialog::onFinishedParsing(StandardWidget::Handlers &handlers, NBT *wi
         dialog->titleLabel = dialog->getPointer<TextLabel>("titleLabel");
         dialog->setAttribute(Qt::WA_DeleteOnClose, true);
         dialog->setWindowFlags(Qt::FramelessWindowHint);
+        dialog->setWindowModality(Qt::WindowModality::WindowModal);
         connect(dialog->closeButton, &DialogCloseButton::sigActivated, dialog, [dialog](){
             auto* closeAnimation = new QPropertyAnimation(dialog, "windowOpacity");
             closeAnimation->setDuration(100);

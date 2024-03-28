@@ -9,7 +9,7 @@
 #include "TextLabel.h"
 #include <QWidget>
 
-class ColorBar : public Widget {
+class VColorBar : public Widget {
     Q_OBJECT
 private:
     bool pressed;
@@ -17,7 +17,7 @@ private:
     int val;
     int step;
 public:
-    explicit ColorBar(QWidget* parent = nullptr);
+    explicit VColorBar(QWidget* parent = nullptr);
     void selectColor(const QColor& c);
 signals:
     void sigColorSelected(const QColor& color);
@@ -47,7 +47,18 @@ private:
     void updateAll();
 };
 
-class ColorIcon;
+class ColorIcon : public Widget {
+private:
+    int bdWidth;
+    QColor bdColor;
+public:
+    explicit ColorIcon(QWidget* parent = nullptr);
+    void onPostParsing(Handlers &handlers, NBT *widgetTag) override;
+    void setBorderWidth(int w);
+    void setBorderColor(QColor c);
+protected:
+    void paintEvent(QPaintEvent *event) override;
+};
 
 class DefaultColorsListItem : public SelectableListItem {
 private:
@@ -69,17 +80,10 @@ protected:
     SelectableListItem *createRowItem() override;
 };
 
-class ColorIcon : public Widget {
-public:
-    explicit ColorIcon(QWidget* parent = nullptr);
-protected:
-    void paintEvent(QPaintEvent *event) override;
-};
-
 class HueSelector : public Widget {
     Q_OBJECT
 private:
-    ColorBar* bar;
+    VColorBar* bar;
 public:
     explicit HueSelector(QWidget* parent = nullptr);
     void onFinishedParsing(Handlers &handlers, NBT *widgetTag) override;

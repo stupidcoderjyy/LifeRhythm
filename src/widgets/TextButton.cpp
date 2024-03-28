@@ -105,13 +105,3 @@ QString TextButton::getFocusedQss() {
     layout()->setContentsMargins(3,3,3,3);
     return FocusContainer::getFocusedQss();
 }
-
-void TextButton::focusInEvent(QFocusEvent *event) {
-    FocusManager::markFocus(this);
-    FocusContainer::focusInEvent(event);
-}
-
-void TextButton::focusOutEvent(QFocusEvent *event) {
-    FocusManager::markFocus(nullptr);
-    FocusContainer::focusOutEvent(event);
-}

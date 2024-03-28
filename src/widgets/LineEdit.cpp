@@ -29,7 +29,7 @@ void LineEdit::onStateRespondersParsing(StandardWidget::Handlers &responders, NB
 void LineEdit::mousePressEvent(QMouseEvent *e) {
     QLineEdit::mousePressEvent(e);
     QApplication::setCursorFlashTime(0);
-    FocusManager::markFocus(this);
+    FocusManager::mark(this);
 }
 
 void LineEdit::mouseReleaseEvent(QMouseEvent *e) {
@@ -67,6 +67,6 @@ void LineEdit::focusInEvent(QFocusEvent *event) {
 
 void LineEdit::focusOutEvent(QFocusEvent *event) {
     setState(0);
-    FocusManager::markFocus(nullptr);
+    FocusManager::mark(nullptr);
     QLineEdit::focusOutEvent(event);
 }

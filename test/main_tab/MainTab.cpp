@@ -13,6 +13,7 @@
 #include "PeriodTypeTreeWidget.h"
 #include "RecordType.h"
 #include "PeriodTypeIcon.h"
+#include "PeriodTypeColorBox.h"
 #include <QThread>
 #include <utility>
 
@@ -26,22 +27,24 @@ void MainTab::addStartPeriodType(QString icon, QString typeName, QWidget *menuPa
 }
 
 void MainTab::mainInit() {
-    auto* f0 = WidgetFactoryStorage::get("log:widget_maintab");
-    auto* f1 = WidgetFactoryStorage::get("log:widget_mainpage");
-    auto* f2 = WidgetFactoryStorage::get("log:item_period_type");
-    auto* f3 = WidgetFactoryStorage::get("log:widget_content");
-    auto* f4 = WidgetFactoryStorage::get("log:item_timebar");
-    auto* f5 = WidgetFactoryStorage::get("log:item_record_type");
-    regClazz(f0, MainTab);
-    regClazz(f0, TimeBar);
-    regClazz(f1, PeriodTypeTreeWidget);
-    regClazz(f1, PeriodTypeIcon);
-    regClazz(f2, PeriodTypeIcon);
-    regClazz(f2, PeriodTypeTreeItem);
-    regClazz(f3, WidgetStartPeriodMenu);
-    regClazz(f3, RecordTypeListWidget);
-    regClazz(f4, TimeBarItem);
-    regClazz(f5, RecordTypeItem);
+    auto* f = WidgetFactoryStorage::get("log:widget_maintab");
+    regClazz(f, MainTab);
+    regClazz(f, TimeBar);
+    f = WidgetFactoryStorage::get("log:widget_mainpage");
+    regClazz(f, PeriodTypeTreeWidget);
+    regClazz(f, PeriodTypeIcon);
+    f = WidgetFactoryStorage::get("log:item_period_type");
+    regClazz(f, PeriodTypeIcon);
+    regClazz(f, PeriodTypeTreeItem);
+    f = WidgetFactoryStorage::get("log:widget_content");
+    regClazz(f, WidgetStartPeriodMenu);
+    regClazz(f, RecordTypeListWidget);
+    f = WidgetFactoryStorage::get("log:item_timebar");
+    regClazz(f, TimeBarItem);
+    f = WidgetFactoryStorage::get("log:item_record_type");
+    regClazz(f, RecordTypeItem);
+    f = WidgetFactoryStorage::get("log:widget_create_type");
+    regClazz(f, PeriodTypeColorBox);
 }
 
 void MainTab::onTabCreated() {

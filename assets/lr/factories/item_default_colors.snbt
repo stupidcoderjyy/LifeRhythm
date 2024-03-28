@@ -9,8 +9,6 @@
     icon: {
         type: "ColorIcon"
         pointer: true
-        fixed_width: 20
-        fixed_height: 20
     }
     name: {
         type: "TextLabel"
