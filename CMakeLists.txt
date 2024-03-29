@@ -15,244 +15,29 @@ find_package(Qt5 COMPONENTS
         Concurrent
         REQUIRED)
 
-set(INCLUDES
-        include/core/ui
-        include/core
-        include/resources
-        include/util
-        include/util/compile
-        include/util/error
-        include/util/highlight
-        include/util/io
-        include/util/nbt
-        include/util/models
-        include/util/widgetfactory
-        include/util/concurrent
-        include/widgets
-        include
-)
-
-set(INCLUDE_FILES
-        include/Config.h
-        include/Namespaces.h
-        include/Namespaces.h
-        include/core/LifeRhythm.h
-        include/core/Plugin.h
-        include/core/ui/MainFrame.h
-        include/core/ui/TabBar.h
-        include/core/ui/TitledDialog.h
-        include/resources/RcLoaders.h
-        include/resources/RcManagers.h
-        include/resources/RcTypes.h
-        include/util/MemUtil.h
-        include/util/Styles.h
-        include/util/WidgetUtil.h
-        include/util/FocusManager.h
-        include/util/compile/CompileError.h
-        include/util/compile/Compiler.h
-        include/util/compile/CompilerInput.h
-        include/util/error/Error.h
-        include/util/error/ErrorHandler.h
-        include/util/error/PrintErrorHandler.h
-        include/util/highlight/Highlighter.h
-        include/util/highlight/StyleParser.h
-        include/util/io/AbstractInput.h
-        include/util/io/BufferedInput.h
-        include/util/io/DataLoader.h
-        include/util/io/IByteReader.h
-        include/util/io/IByteWriter.h
-        include/util/io/Identifier.h
-        include/util/io/IOUtil.h
-        include/util/io/RcLoader.h
-        include/util/io/ResourceManager.h
-        include/util/io/Serializable.h
-        include/util/io/StreamByteReader.h
-        include/util/io/StreamByteWriter.h
-        include/util/io/StringByteReader.h
-        include/util/io/StringInput.h
-        include/util/models/WidgetData.h
-        include/util/models/TreeData.h
-        include/util/models/ListData.h
-        include/util/models/SelectableListData.h
-        include/util/models/SelectableTreeData.h
-        include/util/models/WidgetDataStorage.h
-        include/util/nbt/ArrayData.h
-        include/util/nbt/BoolData.h
-        include/util/nbt/Data.h
-        include/util/nbt/FloatData.h
-        include/util/nbt/IntData.h
-        include/util/nbt/NBT.h
-        include/util/nbt/NBTUtil.h
-        include/util/nbt/StringData.h
-        include/util/widgetfactory/StandardWidget.h
-        include/util/widgetfactory/WidgetFactory.h
-        include/util/concurrent/Task.h
-        include/widgets/ArrowButton.h
-        include/widgets/DragWidget.h
-        include/widgets/FocusContainer.h
-        include/widgets/ImgButton.h
-        include/widgets/ImgLabel.h
-        include/widgets/LineEdit.h
-        include/widgets/ListWidget.h
-        include/widgets/Menu.h
-        include/widgets/LineEditOptionsBox.h
-        include/widgets/RangeBar.h
-        include/widgets/ScrollArea.h
-        include/widgets/ScrollBar.h
-        include/widgets/SelectableListWidget.h
-        include/widgets/TextEdit.h
-        include/widgets/TextLabel.h
-        include/widgets/TreeWidget.h
-        include/widgets/Widget.h
-        include/widgets/SelectableTreeWidget.h
-        include/widgets/TextButton.h
-        include/widgets/GridLayout.h
-        include/widgets/ColorSelector.h
-        include/widgets/AbstractOptionsBox.h
-)
-
-set(SRC_FILES
-        src/Config.cpp
-        src/core/LifeRhythm.cpp
-        src/core/Plugin.cpp
-        src/core/ui/MainFrame.cpp
-        src/core/ui/TabBar.cpp
-        src/core/ui/TitledDialog.cpp
-        src/resources/RcLoaders.cpp
-        src/resources/RcManagers.cpp
-        src/resources/RcTypes.cpp
-        src/util/MemUtil.cpp
-        src/util/Styles.cpp
-        src/util/WidgetUtil.cpp
-        src/util/FocusManager.cpp
-        src/util/compile/CompileError.cpp
-        src/util/compile/Compiler.cpp
-        src/util/compile/CompilerInput.cpp
-        src/util/error/Error.cpp
-        src/util/error/PrintErrorHandler.cpp
-        src/util/highlight/Highlighter.cpp
-        src/util/highlight/StyleParser.cpp
-        src/util/io/AbstractInput.cpp
-        src/util/io/BufferedInput.cpp
-        src/util/io/Identifier.cpp
-        src/util/io/IOUtil.cpp
-        src/util/io/ResourceManager.cpp
-        src/util/io/StreamByteReader.cpp
-        src/util/io/StreamByteWriter.cpp
-        src/util/io/StringByteReader.cpp
-        src/util/io/StringInput.cpp
-        src/util/io/DataLoader.cpp
-        src/util/models/WidgetData.cpp
-        src/util/models/TreeData.cpp
-        src/util/models/ListData.cpp
-        src/util/models/SelectableListData.cpp
-        src/util/models/SelectableTreeData.cpp
-        src/util/models/WidgetDataStorage.cpp
-        src/util/nbt/ArrayData.cpp
-        src/util/nbt/BoolData.cpp
-        src/util/nbt/Data.cpp
-        src/util/nbt/FloatData.cpp
-        src/util/nbt/IntData.cpp
-        src/util/nbt/NBT.cpp
-        src/util/nbt/NBTUtil.cpp
-        src/util/nbt/StringData.cpp
-        src/util/nbt/highlight/NBTHighlighter.cpp
-        src/util/nbt/highlight/NBTHighlighter.h
-        src/util/nbt/parser/Lexer.cpp
-        src/util/nbt/parser/Lexer.h
-        src/util/nbt/parser/Parser.cpp
-        src/util/nbt/parser/Parser.h
-        src/util/widgetfactory/FactoryInit.cpp
-        src/util/widgetfactory/QssParser.cpp
-        src/util/widgetfactory/StandardWidget.cpp
-        src/util/widgetfactory/WidgetFactory.cpp
-        src/util/widgetfactory/FactoryInit.h
-        src/util/widgetfactory/QssParser.h
-        src/util/concurrent/Task.cpp
-        src/widgets/ArrowButton.cpp
-        src/widgets/DragWidget.cpp
-        src/widgets/FocusContainer.cpp
-        src/widgets/ImgButton.cpp
-        src/widgets/ImgLabel.cpp
-        src/widgets/LineEdit.cpp
-        src/widgets/ListWidget.cpp
-        src/widgets/Menu.cpp
-        src/widgets/LineEditOptionsBox.cpp
-        src/widgets/RangeBar.cpp
-        src/widgets/ScrollArea.cpp
-        src/widgets/ScrollBar.cpp
-        src/widgets/SelectableListWidget.cpp
-        src/widgets/TextEdit.cpp
-        src/widgets/TextLabel.cpp
-        src/widgets/TreeWidget.cpp
-        src/widgets/Widget.cpp
-        src/widgets/SelectableTreeWidget.cpp
-        src/widgets/TextButton.cpp
-        src/widgets/GridLayout.cpp
-        src/widgets/ColorSelector.cpp
-        src/widgets/AbstractOptionsBox.cpp
-)
+add_subdirectory(core)
+add_subdirectory(modules)
 
 set(RESOURCES
         assets/lr/factories/factories.qrc
         assets/lr/highlightstyles/styles.qrc
         assets/lr/images/images.qrc
-)
-
-set(TEST_SRC
-        test/main_tab/MainTab.cpp
-        test/main_tab/MainTab.h
-        test/main_tab/TimeBar.cpp
-        test/main_tab/TimeBar.h
-        test/popup_start_record/PeriodTypeTreeWidget.cpp
-        test/popup_start_record/PeriodTypeTreeWidget.h
-        test/popup_start_record/WidgetStartPeriodMenu.h
-        test/popup_start_record/WidgetStartPeriodMenu.cpp
-        test/popup_start_record/RecordTypeListWidget.cpp
-        test/popup_start_record/RecordTypeListWidget.h
-        test/popup_start_record/PeriodTypeIcon.cpp
-        test/popup_start_record/PeriodTypeIcon.h
-        test/elements/RecordType.cpp
-        test/elements/RecordType.h
-        test/elements/Period.cpp
-        test/elements/Period.h
-        test/elements/PeriodType.cpp
-        test/elements/PeriodType.h
-        test/popup_create_type/PeriodTypeColorBox.cpp
-        test/popup_create_type/PeriodTypeColorBox.h
-)
-
-set(TEST_DIR
-        test
-        test/main_tab
-        test/popup_start_record
-        test/elements
-        test/popup_create_type
-)
-
-set(TEST_RESOURCES
-        assets/test/factories/factories.qrc
         assets/log/factories/factories.qrc
 )
 
-include_directories(${INCLUDES} ${TEST_DIR})
-set(ALL_FILES ${SRC_FILES} ${INCLUDE_FILES} ${RESOURCES})
-
-if(MAKE_DLL)
-    add_library(${PROJECT_NAME} SHARED ${ALL_FILES})
-else ()
-    if(CMAKE_BUILD_TYPE MATCHES "Debug")
-        add_executable(${PROJECT_NAME} ${ALL_FILES} ${TEST_SRC} ${TEST_RESOURCES} main.cpp) # logo.rc)
-    elseif(CMAKE_BUILD_TYPE MATCHES "Release")
-        add_executable(${PROJECT_NAME} WIN32 ${ALL_FILES} ${TEST_SRC} main.cpp)#  logo.rc)
-    endif ()
+if(CMAKE_BUILD_TYPE MATCHES "Debug")
+    add_executable(${PROJECT_NAME} main.cpp ${RESOURCES}) # logo.rc)
+elseif(CMAKE_BUILD_TYPE MATCHES "Release")
+    add_executable(${PROJECT_NAME} WIN32 main.cpp ${RESOURCES})#  logo.rc)
 endif ()
 
-target_link_libraries(LifeRhythm
+target_link_libraries(${PROJECT_NAME}
         Qt5::Core
         Qt5::Gui
         Qt5::Widgets
         Qt5::Concurrent
+        lr::core
+        lr::logging
 )
 
 if (WIN32 AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)

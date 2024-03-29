@@ -5,7 +5,7 @@
 #include "RecordTypeListWidget.h"
 #include "WidgetFactory.h"
 #include "RcManagers.h"
-#include "elements/RecordType.h"
+#include "RecordType.h"
 
 RecordTypeItem::RecordTypeItem(QWidget *parent): SelectableListItem(parent), labelIcon(), labelName() {
 }

@@ -12,14 +12,6 @@
             </PerProfileState>
           </value>
         </entry>
-        <entry key="MakeDll">
-          <value>
-            <PerProfileState>
-              <option name="myQmlPath" value="$PROJECT_DIR$/../../Qt/5.15.2/mingw81_64/qml" />
-              <option name="myQtBinPath" value="$PROJECT_DIR$/../../Qt/5.15.2/mingw81_64/bin" />
-            </PerProfileState>
-          </value>
-        </entry>
         <entry key="Release">
           <value>
             <PerProfileState>
