@@ -10,7 +10,7 @@
 #include "TabBar.h"
 #include <QLayout>
 
-LR_BEGIN
+BEGIN_NAMESPACE(lr)
 
 class TabBar;
 
@@ -27,7 +27,7 @@ private:
     void init();
 };
 
-LR_END
+END_NAMESPACE
 
 
 #endif //LIFERHYTHM_MAINFRAME_H

@@ -7,6 +7,9 @@
 
 #include "RangeBar.h"
 #include "TextLabel.h"
+#include "Namespaces.h"
+
+BEGIN_NAMESPACE(lr::log)
 
 class TimeBarItem : public RangeBarItem {
 private:
@@ -26,7 +29,9 @@ public:
     explicit TimeBar(QWidget* parent = nullptr);
 protected:
     RangeBarItem *createRangeWidget() override;
+    ScrollBar *createVerticalScrollBar() override;
 };
 
+END_NAMESPACE
 
 #endif //LIFERHYTHM_TIMEBAR_H

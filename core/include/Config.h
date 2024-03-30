@@ -8,7 +8,7 @@
 #include <QString>
 #include "Namespaces.h"
 
-LR_BEGIN
+BEGIN_NAMESPACE(lr)
 
 class Version {
 private:
@@ -35,11 +35,11 @@ public:
         Test
     };
 private:
-    Mode mode = Normal;
-    QString savePath = "C:\\LifeRhythm";
-    bool frozen = false;
+    Mode mode;
+    QString savePath;
+    bool frozen;
 public:
-    Config() = default;
+    Config();
     Config(const Config& o);
     const QString &getSavePath() const;
     void setSavePath(const QString &savePath);
@@ -48,6 +48,6 @@ public:
     void froze();
 };
 
-LR_END
+END_NAMESPACE
 
 #endif //LIFERHYTHM_CONFIG_H

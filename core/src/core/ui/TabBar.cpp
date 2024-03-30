@@ -10,7 +10,7 @@
 #include "TextLabel.h"
 #include "RcManagers.h"
 
-USING_LR
+USING_NAMESPACE(lr)
 
 TabWidget::TabWidget(QWidget *parent) : Widget(parent) {
 }

@@ -11,7 +11,7 @@
 #include "RcManagers.h"
 #include "WidgetUtil.h"
 
-USING_LR
+USING_NAMESPACE(lr)
 
 void MainFrame::mainInit() {
 }
@@ -32,5 +32,10 @@ void MainFrame::init() {
         switchSingleLayoutWidget(layoutTabContent, pre ? pre->content : nullptr, cur->content);
     });
     layoutTabContent = tabContent->layout();
-    showFullScreen();
+    auto* lr = LifeRhythm::get();
+    if (lr->getConfig().getMode() == Config::Test) {
+        setVisible(false);
+    } else {
+        showFullScreen();
+    }
 }

@@ -37,7 +37,7 @@ target_link_libraries(${PROJECT_NAME}
         Qt5::Widgets
         Qt5::Concurrent
         lr::core
-        lr::logging
+        lr::log
 )
 
 if (WIN32 AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)

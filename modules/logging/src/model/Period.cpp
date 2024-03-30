@@ -6,6 +6,8 @@
 
 #include <utility>
 
+USING_NAMESPACE(lr::log)
+
 Period::Period(int b, int e, QString info) : begin(b), end(e), info(std::move(info)) {
 }
 

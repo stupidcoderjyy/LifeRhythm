@@ -5,8 +5,8 @@
 #ifndef LIFERHYTHM_NAMESPACES_H
 #define LIFERHYTHM_NAMESPACES_H
 
-#define LR_BEGIN namespace lr {
-#define LR_END }
-#define USING_LR using namespace lr;
+#define BEGIN_NAMESPACE(x) namespace x {
+#define END_NAMESPACE }
+#define USING_NAMESPACE(x) using namespace x;
 
 #endif //LIFERHYTHM_NAMESPACES_H

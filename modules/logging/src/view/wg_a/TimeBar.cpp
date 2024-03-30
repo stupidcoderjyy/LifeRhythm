@@ -7,6 +7,8 @@
 #include "ListData.h"
 #include "Period.h"
 
+USING_NAMESPACE(lr::log)
+
 TimeBarItem::TimeBarItem(QWidget *parent): RangeBarItem(parent), labelInfo(), labelRange() {
 }
 
@@ -39,7 +41,12 @@ TimeBar::TimeBar(QWidget *parent): RangeBar(true, parent) {
     setZoomStep(0.5);
 }
 
+ScrollBar *TimeBar::createVerticalScrollBar() {
+    auto* bar = ScrollArea::createVerticalScrollBar();
+    bar->setVisible(false);
+    return bar;
+}
+
 RangeBarItem *TimeBar::createRangeWidget() {
-    static auto* f = WidgetFactoryStorage::get("log:item_timebar");
-    return static_cast<RangeBarItem*>(f->apply());
+    return WidgetFactoryStorage::get("log:item_timebar")->applyAndCast<RangeBarItem>();
 }

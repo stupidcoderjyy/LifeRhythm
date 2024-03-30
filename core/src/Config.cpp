@@ -5,7 +5,7 @@
 #include "Config.h"
 #include "Error.h"
 
-USING_LR
+USING_NAMESPACE(lr)
 
 Version::Version(int major, int minor): major(major), minor(minor) {
 }
@@ -54,6 +54,12 @@ QString Version::toString() const {
 
 const QString &Config::getSavePath() const {
     return savePath;
+}
+
+Config::Config() {
+    mode = Normal;
+    savePath = "C:\\LifeRhythm";
+    frozen = false;
 }
 
 Config::Config(const Config &o) {

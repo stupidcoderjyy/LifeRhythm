@@ -21,7 +21,6 @@ public:
     explicit IconTextButton(QWidget* parent = nullptr);
     void set(const Identifier& iconLoc, const QString& name);
     void onPostParsing(Handlers &handlers, NBT *widgetTag) override;
-    void onFinishedParsing(Handlers &handlers, NBT *widgetTag) override;
 signals:
     void sigActivated();
 protected:
@@ -29,6 +28,7 @@ protected:
     void resizeEvent(QResizeEvent *event) override;
 private:
     void init();
+    void setText(const QString& text);
 };
 
 

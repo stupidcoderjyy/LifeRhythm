@@ -20,12 +20,15 @@ void IconTextButton::set(const Identifier &iconLoc, const QString &s) {
     if (img) {
         icon->setPixmap(*img);
     }
-    name->setText(s);
+    setText(s);
 }
 
 void IconTextButton::onPostParsing(StandardWidget::Handlers &handlers, NBT *nbt) {
-    if (nbt->contains("img", Data::STRING)) {
-        auto loc = Identifier(nbt->getString("img"));
+    handlers << [](QWidget* target) {
+        static_cast<IconTextButton*>(target)->init();
+    };
+    if (nbt->contains("icon", Data::STRING)) {
+        auto loc = Identifier(nbt->getString("icon"));
         handlers << [loc](QWidget* target) {
             auto* img = ImageStorage::get(loc);
             if (img) {
@@ -36,15 +39,9 @@ void IconTextButton::onPostParsing(StandardWidget::Handlers &handlers, NBT *nbt)
     if (nbt->contains("text", Data::STRING)) {
         auto text = nbt->getString("text");
         handlers << [text](QWidget* target) {
-            static_cast<IconTextButton*>(target)->name->setText(text);
+            static_cast<IconTextButton*>(target)->setText(text);
         };
     }
-}
-
-void IconTextButton::onFinishedParsing(StandardWidget::Handlers &handlers, NBT *widgetTag) {
-    handlers << [](QWidget* target) {
-        static_cast<IconTextButton*>(target)->init();
-    };
 }
 
 void IconTextButton::mouseReleaseEvent(QMouseEvent *event) {
@@ -66,4 +63,10 @@ void IconTextButton::init() {
     name = getPointer<TextLabel>("name");
     hasInit = true;
     connect(icon, &ImgLabel::sigActivated, this, &IconTextButton::sigActivated);
+}
+
+void IconTextButton::setText(const QString &text) {
+    name->setText(text);
+    QFontMetrics fm(name->font());
+    name->setFixedWidth(fm.horizontalAdvance(text) + 20);
 }

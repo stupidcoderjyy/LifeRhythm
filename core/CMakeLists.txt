@@ -21,9 +21,8 @@ set(INCLUDES
 set(INCLUDE_FILES
         include/Config.h
         include/Namespaces.h
-        include/Namespaces.h
         include/core/LifeRhythm.h
-        include/core/Plugin.h
+        include/core/Module.h
         include/core/ui/MainFrame.h
         include/core/ui/TabBar.h
         include/core/ui/TitledDialog.h
@@ -101,7 +100,7 @@ set(INCLUDE_FILES
 set(SRC_FILES
         src/Config.cpp
         src/core/LifeRhythm.cpp
-        src/core/Plugin.cpp
+        src/core/Module.cpp
         src/core/ui/MainFrame.cpp
         src/core/ui/TabBar.cpp
         src/core/ui/TitledDialog.cpp

@@ -1,6 +1,7 @@
 {
     children: ["icon", "name"]
     fixed_height: 40
+    h_size_policy: "Max"
     layout: {
         type: "Horizontal"
         margins: [5,5,5,5]
@@ -16,6 +17,5 @@
     name: {
         type: "TextLabel"
         pointer: true
-        align: "Left|V_Center"
     }
 }

@@ -34,7 +34,7 @@ void ScrollBar::onRangeChanged(int min, int max) {
     setPageStep((int)(0.75 * (height() + max)));
     if (max <= 0) {
         hide();
-    } else {
+    } else if (isVisible()) {
         show();
     }
 }

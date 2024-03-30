@@ -15,7 +15,8 @@
 class WidgetFactory;
 class TextLabel;
 
-LR_BEGIN
+BEGIN_NAMESPACE(lr)
+
 class CloseButton;
 
 class TabWidget : public Widget {
@@ -107,6 +108,6 @@ private:
     void init();
 };
 
-LR_END
+END_NAMESPACE
 
 #endif //LIFERHYTHM_TABBAR_H

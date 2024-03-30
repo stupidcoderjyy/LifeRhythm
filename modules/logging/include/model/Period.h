@@ -8,6 +8,9 @@
 #include "ListData.h"
 #include "PeriodType.h"
 #include "DataLoader.h"
+#include "Namespaces.h"
+
+BEGIN_NAMESPACE(lr::log)
 
 class Period : public WidgetData {
     Q_OBJECT
@@ -32,5 +35,7 @@ public:
 protected:
     WidgetData *createData() noexcept override;
 };
+
+END_NAMESPACE
 
 #endif //LIFERHYTHM_PERIOD_H

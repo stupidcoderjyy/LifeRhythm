@@ -13,7 +13,7 @@
 
 class TextLabel;
 
-LR_BEGIN
+BEGIN_NAMESPACE(lr)
 
 class DialogCloseButton;
 
@@ -50,6 +50,6 @@ protected:
     void mouseMoveEvent(QMouseEvent *event) override;
 };
 
-LR_END
+END_NAMESPACE
 
 #endif //LIFERHYTHM_TITLEDDIALOG_H

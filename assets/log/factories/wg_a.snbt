@@ -1,0 +1,67 @@
+{
+    type: "WidgetA"
+    children: ["timeBar", "w0"]
+    layout: {
+        type: "Horizontal"
+        margins: [10, 10, 10, 10]
+        spacing: 20
+    }
+    timeBar: {
+        type: "TimeBar"
+        fixed_width: 300
+        pointer: true
+    }
+    w0: {
+        children: ["w0", "w1"]
+        h_size_policy: "Min"
+        layout: {
+            type: "Vertical"
+            margins: [0,0,0,0]
+            spacing: 15
+            align: "Top"
+        }
+        w0: {
+            children: ["time", "date"]
+            v_size_policy: "Max"
+            qss: "bd_b('2px', 'solid', GRAY_0)"
+            layout: {
+                type: "Vertical"
+                margins: [0,0,0,15]
+                spacing: 0
+            }
+            time: {
+                type: "TextLabel"
+                text: "18:43"
+                fs: 40
+                pointer: true
+            }
+            date: {
+                type: "TextLabel"
+                text: "2024年3月30日"
+                fs: 17
+                pointer: true
+            }
+        }
+        w1: {
+            children: ["buttonStartRecord", "buttonCheckProfile"]
+            layout: {
+                type: "Horizontal"
+                margins: [0,0,0,0]
+                spacing: 20
+                align: "Left"
+            }
+            buttonStartRecord: {
+                type: "IconTextButton"
+                icon: "lr:rollback_30x30"
+                text: "开始记录"
+                pointer: true
+            }
+            buttonCheckProfile: {
+                type: "IconTextButton"
+                icon: "lr:plus_30x30"
+                text: "查看档案"
+                pointer: true
+            }
+        }
+    }
+}

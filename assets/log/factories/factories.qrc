@@ -2,7 +2,7 @@
     <qresource prefix="/assets/log/factories">
         <file>item_recordtype.snbt</file>
         <file>item_timebar.snbt</file>
-        <file>widget_maintab.snbt</file>
+        <file>wg_a.snbt</file>
         <file>item_periodtype.snbt</file>
         <file>widget_content.snbt</file>
         <file>widget_mainpage.snbt</file>
