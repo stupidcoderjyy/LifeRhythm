@@ -33,7 +33,7 @@ void MainTab::mainInit() {
     f = WidgetFactoryStorage::get("log:widget_mainpage");
     regClazz(f, PeriodTypeTreeWidget);
     regClazz(f, PeriodTypeIcon);
-    f = WidgetFactoryStorage::get("log:item_period_type");
+    f = WidgetFactoryStorage::get("log:item_periodtype");
     regClazz(f, PeriodTypeIcon);
     regClazz(f, PeriodTypeTreeItem);
     f = WidgetFactoryStorage::get("log:widget_content");
@@ -41,9 +41,9 @@ void MainTab::mainInit() {
     regClazz(f, RecordTypeListWidget);
     f = WidgetFactoryStorage::get("log:item_timebar");
     regClazz(f, TimeBarItem);
-    f = WidgetFactoryStorage::get("log:item_record_type");
+    f = WidgetFactoryStorage::get("log:item_recordtype");
     regClazz(f, RecordTypeItem);
-    f = WidgetFactoryStorage::get("log:widget_create_type");
+    f = WidgetFactoryStorage::get("log:widget_newtype");
     regClazz(f, PeriodTypeColorBox);
 }
 

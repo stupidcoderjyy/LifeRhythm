@@ -1,14 +1,14 @@
 cmake_minimum_required(VERSION 3.27)
 project(LifeRhythmLogging)
 
-set(LOGGING_INCLUDES
+set(INCLUDES
         include
         include/model
         include/view
         include/view/pp_newtype
         include/view/pp_startlogging
         include/view/tab_main
-CACHE FORCE STRING INTERNAL)
+)
 
 set(INCLUDE_FILES
         include/model/Period.h
@@ -36,16 +36,11 @@ set(SRC_FILES
         src/view/tab_main/TimeBar.cpp
 )
 
-set(RESOURCES
-        ../../assets/log/factories/factories.qrc
-)
-
-add_library(${PROJECT_NAME} ${SRC_FILES} ${INCLUDE_FILES} ${RESOURCES})
+add_library(${PROJECT_NAME} ${SRC_FILES} ${INCLUDE_FILES})
 add_library(lr::logging ALIAS ${PROJECT_NAME})
 
 target_include_directories(${PROJECT_NAME} PUBLIC
-        ${LOGGING_INCLUDES}
-        ${LifeRhythmCore_SOURCE_DIR}/include
+        ${INCLUDES}
 )
 
 target_link_libraries(${PROJECT_NAME}

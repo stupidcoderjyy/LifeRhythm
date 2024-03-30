@@ -169,7 +169,7 @@ DefaultColorsList::DefaultColorsList(QWidget *parent): SelectableListWidget(pare
 }
 
 SelectableListItem *DefaultColorsList::createRowItem() {
-    return WidgetFactoryStorage::get("lr:item_default_colors")->applyAndCast<SelectableListItem>();
+    return WidgetFactoryStorage::get("lr:item_defaultcolors")->applyAndCast<SelectableListItem>();
 }
 
 HueSelector::HueSelector(QWidget *parent): Widget(parent) {

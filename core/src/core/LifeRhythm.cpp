@@ -74,17 +74,17 @@ void LifeRhythm::mainInit() {
     ImageStorage::init();
     WidgetFactoryStorage::init();
     WidgetFactory::mainInit();
-    auto* f = WidgetFactoryStorage::get("lr:tab");
+    auto* f = WidgetFactoryStorage::get("lr:widget_tabcard");
     regClazz(f, TabCard);
     regClazz(f, CloseButton);
-    f = WidgetFactoryStorage::get("lr:titled_dialog");
+    f = WidgetFactoryStorage::get("lr:widget_titleddialog");
     regClazz(f, TitledDialog);
     regClazz(f, DialogCloseButton);
     regClazz(f, TopWidget);
-    f = WidgetFactoryStorage::get("lr:mainframe");
+    f = WidgetFactoryStorage::get("lr:widget_mainframe");
     regClazz(f, MainFrame);
     regClazz(f, TabBar);
-    f = WidgetFactoryStorage::get("lr:item_default_colors");
+    f = WidgetFactoryStorage::get("lr:item_defaultcolors");
     regClazz(f, DefaultColorsListItem);
     auto* m0 = new SelectableListData;
     for (auto& c : Color::defaultColors) {
@@ -101,7 +101,7 @@ void LifeRhythm::prepareScreen() {
     if (config.mode == Config::Test) {
         return;
     }
-    mainFrame = static_cast<MainFrame*>(WidgetFactoryStorage::get("lr:mainframe")->apply());
+    mainFrame = static_cast<MainFrame*>(WidgetFactoryStorage::get("lr:widget_mainframe")->apply());
 }
 
 LifeRhythm::LifeRhythm(int argc, char *argv[]):QObject(),
@@ -113,7 +113,7 @@ LifeRhythm::LifeRhythm(int argc, char *argv[]):QObject(),
 }
 
 void LifeRhythm::generateTitledDialog(const QString &title, QWidget *content) {
-    auto* dialog = static_cast<TitledDialog*>(WidgetFactoryStorage::get("lr:titled_dialog")->apply());
+    auto* dialog = static_cast<TitledDialog*>(WidgetFactoryStorage::get("lr:widget_titleddialog")->apply());
     dialog->setContent(title, content);
     connect(lr, &LifeRhythm::sigCloseDialog, dialog->closeButton, &CloseButton::sigActivated);
     auto* animation = new QPropertyAnimation(dialog,"windowOpacity");

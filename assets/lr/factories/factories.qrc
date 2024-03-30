@@ -1,9 +1,10 @@
 <RCC>
     <qresource prefix="/assets/lr/factories">
-        <file>tab.snbt</file>
-        <file>titled_dialog.snbt</file>
-        <file>mainframe.snbt</file>
-        <file>item_default_colors.snbt</file>
-        <file>widget_hue_selector.snbt</file>
+        <file>widget_tabcard.snbt</file>
+        <file>widget_titleddialog.snbt</file>
+        <file>widget_mainframe.snbt</file>
+        <file>item_defaultcolors.snbt</file>
+        <file>widget_hueselector.snbt</file>
+        <file>widget_icontextbutton.snbt</file>
     </qresource>
 </RCC>

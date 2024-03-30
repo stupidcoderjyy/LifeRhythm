@@ -95,6 +95,7 @@ set(INCLUDE_FILES
         include/widgets/GridLayout.h
         include/widgets/ColorSelector.h
         include/widgets/AbstractOptionsBox.h
+        include/widgets/IconTextButton.h
 )
 
 set(SRC_FILES
@@ -177,6 +178,7 @@ set(SRC_FILES
         src/widgets/GridLayout.cpp
         src/widgets/ColorSelector.cpp
         src/widgets/AbstractOptionsBox.cpp
+        src/widgets/IconTextButton.cpp
 )
 
 add_library(${PROJECT_NAME} ${SRC_FILES} ${INCLUDE_FILES})

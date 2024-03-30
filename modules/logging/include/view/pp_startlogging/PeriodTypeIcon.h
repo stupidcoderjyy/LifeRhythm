@@ -15,5 +15,4 @@ protected:
     void paintEvent(QPaintEvent *event) override;
 };
 
-
 #endif //LIFERHYTHM_PERIODTYPEICON_H

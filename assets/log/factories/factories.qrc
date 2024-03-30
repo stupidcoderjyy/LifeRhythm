@@ -1,11 +1,11 @@
 <RCC>
     <qresource prefix="/assets/log/factories">
-        <file>item_record_type.snbt</file>
+        <file>item_recordtype.snbt</file>
         <file>item_timebar.snbt</file>
         <file>widget_maintab.snbt</file>
-        <file>item_period_type.snbt</file>
+        <file>item_periodtype.snbt</file>
         <file>widget_content.snbt</file>
         <file>widget_mainpage.snbt</file>
-        <file>widget_create_type.snbt</file>
+        <file>widget_newtype.snbt</file>
     </qresource>
 </RCC>

@@ -13,6 +13,7 @@
 #include "ArrowButton.h"
 #include "TextButton.h"
 #include "ColorSelector.h"
+#include "IconTextButton.h"
 
 #define reg(T) stdSuppliers->insert(#T, [](QWidget* p){ return new T(p);}); \
     stdEmptyInstances->insert(#T, new T(nullptr));
@@ -29,9 +30,10 @@ void FactoryInit::mainInit(QMap<QString, WidgetFactory::Supplier> *stdSuppliers,
     reg(Menu)
     reg(ArrowButton)
     ArrowButton::mainInit();
-    reg(TextButton);
-    reg(ColorIcon);
-    reg(DefaultColorsList);
-    reg(HueSelector);
-    reg(VColorBar);
+    reg(TextButton)
+    reg(ColorIcon)
+    reg(DefaultColorsList)
+    reg(HueSelector)
+    reg(VColorBar)
+    reg(IconTextButton)
 }

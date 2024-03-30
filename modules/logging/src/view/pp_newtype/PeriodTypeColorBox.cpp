@@ -28,7 +28,7 @@ PeriodTypeColorBox::~PeriodTypeColorBox() {
 
 void PeriodTypeColorBox::initMenu(OptionsMenu *menu) {
     menu->setFixedWidth(300);
-    hueSelector = WidgetFactoryStorage::get("lr:widget_hue_selector")->applyAndCast<HueSelector>();
+    hueSelector = WidgetFactoryStorage::get("lr:widget_hueselector")->applyAndCast<HueSelector>();
     connect(hueSelector, &HueSelector::sigColorSelected, icon, [this](const QColor& c){
         iconData->color.setHsvF(c.hueF(), 0.4, 0.7);
         icon->update();

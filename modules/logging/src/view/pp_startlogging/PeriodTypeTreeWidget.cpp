@@ -50,5 +50,5 @@ PeriodTypeTreeWidget::PeriodTypeTreeWidget(QWidget *parent): SelectableTreeWidge
 }
 
 SelectableTreeItem *PeriodTypeTreeWidget::createRowItem() {
-    return WidgetFactoryStorage::get("log:item_period_type")->applyAndCast<PeriodTypeTreeItem>();
+    return WidgetFactoryStorage::get("log:item_periodtype")->applyAndCast<PeriodTypeTreeItem>();
 }

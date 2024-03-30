@@ -128,7 +128,7 @@ void TabBar::selectTab(Tab *tab) {
 }
 
 void TabBar::insertTab(const QString &title, TabWidget *content, const Identifier &icon) {
-    static WidgetFactory* tabLoader = WidgetFactoryStorage::get("lr:tab");
+    static WidgetFactory* tabLoader = WidgetFactoryStorage::get("lr:widget_tabcard");
     auto* tabCard = static_cast<TabCard*>(tabLoader->apply(this));
     tabCard->setTitle(title);
     tabCard->setIcon(icon);

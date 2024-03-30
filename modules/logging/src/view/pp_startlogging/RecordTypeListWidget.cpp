@@ -38,7 +38,7 @@ void RecordTypeItem::init() {
 }
 
 SelectableListItem *RecordTypeListWidget::createRowItem() {
-    auto* item = WidgetFactoryStorage::get("log:item_record_type")->apply();
+    auto* item = WidgetFactoryStorage::get("log:item_recordtype")->apply();
     return static_cast<SelectableListItem*>(item);
 }
 
