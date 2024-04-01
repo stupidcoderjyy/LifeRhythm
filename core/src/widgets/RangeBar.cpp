@@ -2,6 +2,7 @@
 // Created by stupid_coder_jyy on 2024/2/23.
 //
 
+#include <QHBoxLayout>
 #include "RangeBar.h"
 #include "Error.h"
 
@@ -25,7 +26,8 @@ void RangeBarData::setEnd(int e) {
 }
 
 AbstractRangeWidgetsContainer::AbstractRangeWidgetsContainer(QWidget *parent):
-        Widget(parent),minVal(0), maxVal(99), vpp(1), maxVpp(10), minVpp(1), zoomEnabled(true), zoomStep(2) {
+        Widget(parent),minVal(0), maxVal(99), vpp(1), maxVpp(10), minVpp(1),
+        zoomEnabled(true), zoomStep(2), rangeWidgets() {
     setFixedSize(0, 0);
     setObjectName("rc");
     setStyleSheet(qss_target("rc", bg(Styles::BLACK->rgbHex)));
@@ -61,11 +63,7 @@ void VRangeItemsContainer::updateRangeWidget(RangeBarItem* rw) {
 
 void VRangeItemsContainer::updateBar() {
     int height = qRound((maxVal - minVal) * vpp);
-    int width = rect().width();
-    if (width == 0) {
-        width = static_cast<QWidget*>(parent())->width();
-    }
-    setFixedSize(width, height);
+    setFixedSize(parentWidget()->width(), height);
     for (auto* rw : rangeWidgets) {
         updateRangeWidget(rw);
     }
@@ -82,11 +80,7 @@ void HRangeItemsContainer::updateRangeWidget(RangeBarItem *rw) {
 
 void HRangeItemsContainer::updateBar() {
     int width = qRound((maxVal - minVal) * vpp);
-    int height = rect().height();
-    if (height == 0) {
-        height = static_cast<QWidget*>(parent())->height();
-    }
-    setFixedSize(width, height);
+    setFixedSize(width, parentWidget()->height());
     for (auto* rw : rangeWidgets) {
         updateRangeWidget(rw);
     }
@@ -118,26 +112,32 @@ void RangeBarItem::syncWidgetToData() {
     data->end = end;
 }
 
-RangeBar::RangeBar(bool isVertical, QWidget *parent): ScrollArea(parent) {
-    if (isVertical) {
-        setContainer(new VRangeItemsContainer(this));
-    } else {
-        setContainer(new HRangeItemsContainer(this));
+RangeBar::RangeBar(AbstractRangeWidgetsContainer* c, QWidget *parent): ScrollArea(parent), rootContent() {
+    assembled = false;
+    rootContent = new QWidget(this);
+    rootContent->setObjectName("root");
+    rootContent->setStyleSheet(qss_target("root", bg(Styles::CLEAR->rgbHex)));
+    setWidget(rootContent);
+    if (!c) {
+        throwInFunc("null container");
     }
+    if (dynamic_cast<VRangeItemsContainer*>(c)) {
+        isVertical = true;
+    } else if (dynamic_cast<HRangeItemsContainer*>(c)) {
+        isVertical = false;
+    } else {
+        throwInFunc("do not directly override AbstractRangeWidgetsContainer");
+    }
+    connect(c, &AbstractRangeWidgetsContainer::sigZoom, this, &RangeBar::barDataChanged);
+    c->setParent(rootContent);
+    container = c;
 }
 
 void RangeBar::setData(ListData *d) {
     ScrollArea::setData(d);
 }
 
-RangeBarItem *RangeBar::createRangeWidget() {
-    return new RangeBarItem();
-}
-
-#define CHECK_CONTAINER if (!container) throwInFunc("null container");
-
 void RangeBar::initPeriodWidget(RangeBarItem* rw) {
-    CHECK_CONTAINER
     connect(rw, &RangeBarItem::sigUpdateWidget, [this, rw](){
         container->updateRangeWidget(rw);
     });
@@ -145,44 +145,7 @@ void RangeBar::initPeriodWidget(RangeBarItem* rw) {
     container->rangeWidgets << rw;
 }
 
-
-void RangeBar::setContainer(AbstractRangeWidgetsContainer *c) {
-    delete container;
-    if (!c) {
-        throwInFunc("null container");
-    }
-    if (dynamic_cast<VRangeItemsContainer*>(c)) {
-        connect(c, &AbstractRangeWidgetsContainer::sigZoom, this, [this](){
-            auto* bar = verticalScrollBar();
-            double halfVp = (double)height() / 2.0f;
-            double ratio = ((double)bar->value() / bar->maximum() * container->height() + halfVp) / container->height();
-            container->updateBar();
-            ratio = (ratio * container->height() - halfVp) / container->height();
-            bar->setValue(qRound(ratio * bar->maximum()));
-        });
-    } else if (dynamic_cast<HRangeItemsContainer*>(c)) {
-        connect(c, &AbstractRangeWidgetsContainer::sigZoom, this, [this](){
-            auto* bar = horizontalScrollBar();
-            double halfVp = (double)width() / 2.0f;
-            double ratio = ((double)bar->value() / bar->maximum() * container->width() + halfVp) / container->width();
-            container->updateBar();
-            ratio = (ratio * container->width() - halfVp) / container->width();
-            bar->setValue(qRound(ratio * bar->maximum()));
-        });
-    } else {
-        throwInFunc("do not directly override AbstractRangeWidgetsContainer");
-    }
-    container = c;
-}
-
-void RangeBar::updateBar() {
-    CHECK_CONTAINER
-    container->updateBar();
-    setWidget(container);
-}
-
 void RangeBar::setBarRange(int minVal, int maxVal) {
-    CHECK_CONTAINER
     if (minVal >= maxVal) {
         throwInFunc("invalid range");
     }
@@ -191,7 +154,6 @@ void RangeBar::setBarRange(int minVal, int maxVal) {
 }
 
 void RangeBar::setZoomRange(double minVpp, double maxVpp) {
-    CHECK_CONTAINER
     if (minVpp >= maxVpp) {
         throwInFunc("invalid range");
     }
@@ -200,12 +162,10 @@ void RangeBar::setZoomRange(double minVpp, double maxVpp) {
 }
 
 void RangeBar::setZoomEnabled(bool enabled) {
-    CHECK_CONTAINER
     container->zoomEnabled = enabled;
 }
 
 void RangeBar::setZoomStep(double step) {
-    CHECK_CONTAINER
     if (step <= 0) {
         throwInFunc("invalid step");
     }
@@ -213,7 +173,6 @@ void RangeBar::setZoomStep(double step) {
 }
 
 void RangeBar::setVpp(double vpp) {
-    CHECK_CONTAINER
     container->vpp = vpp;
 }
 
@@ -232,13 +191,61 @@ void RangeBar::syncDataToWidget() {
     }
 }
 
-void RangeBar::showEvent(QShowEvent *event) {
-    ScrollArea::showEvent(event);
-    updateBar();
+RangeBarItem *RangeBar::createRangeWidget() {
+    return new RangeBarItem();
+}
+
+void RangeBar::assembleContainer() {
+    auto* l = new QHBoxLayout(rootContent);
+    l->setContentsMargins({});
+    rootContent->setLayout(l);
+    l->addWidget(container);
+}
+
+void RangeBar::updateContainerSize() {
+    setFixedSize(container->size());
+}
+
+void RangeBar::barDataChanged() {
+    if (isVertical) {
+        auto* bar = verticalScrollBar();
+        auto dy = (QCursor::pos() - mapToGlobal(pos())).y();
+        double dh = qMax(0, qMin(height(), dy));
+        //指针所指位置高度相对于容器高度的比值
+        double ratio = ((double)bar->value() / bar->maximum() * (container->height() - viewport()->height()) + dh) / container->height();
+        container->updateBar();
+        bar->setMaximum(container->height() - viewport()->height());
+        ratio = (ratio * container->height() - dh) / (container->height() - viewport()->height());
+        bar->setValue(qRound(ratio * bar->maximum()));
+    } else {
+        auto* bar = horizontalScrollBar();
+        auto dx = (QCursor::pos() - mapToGlobal(pos())).x();
+        double dw = qMax(0, qMin(width(), dx));
+        double ratio = ((double)bar->value() / bar->maximum() * (container->width() - viewport()->width()) + dw) / container->width();
+        container->updateBar();
+        bar->setMaximum(container->width() - viewport()->width());
+        ratio = (ratio * container->width() - dw) / container->width();
+        bar->setValue(qRound(ratio * bar->maximum()));
+    }
+    updateContainerSize();
+    emit sigBarDataChanged(container->vpp);
 }
 
 void RangeBar::connectModelView() {
     dc << connect(wData, &WidgetData::sigDataChanged, this, [this](){
         syncDataToWidget();
     });
+}
+
+void RangeBar::initBar() {
+    assembleContainer();
+    barDataChanged();
+}
+
+void RangeBar::resizeEvent(QResizeEvent *event) {
+    ScrollArea::resizeEvent(event);
+    if (!assembled) {
+        initBar();
+        assembled = true;
+    }
 }

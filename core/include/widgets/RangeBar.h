@@ -50,7 +50,7 @@ protected:
     double minVpp;         //缩小过程中最小可以达到的vpp
     int zoomEnabled;    //是否允许缩放
     double zoomStep;       //缩放一次变化的vpp值
-    QVector<RangeBarItem*> rangeWidgets{};
+    QVector<RangeBarItem*> rangeWidgets;
 protected:
     explicit AbstractRangeWidgetsContainer(QWidget* parent = nullptr);
     virtual void updateBar() = 0;                           //更新容器的大小和内部的RangeWidget
@@ -78,24 +78,31 @@ protected:
 
 class RangeBar : public ScrollArea {
     Q_OBJECT
-private:
-    AbstractRangeWidgetsContainer* container{};
+protected:
+    bool assembled;
+    bool isVertical;
+    QWidget* rootContent;
+    AbstractRangeWidgetsContainer* container;
 public:
-    explicit RangeBar(bool isVertical, QWidget* parent = nullptr);
+    explicit RangeBar(AbstractRangeWidgetsContainer* c, QWidget* parent = nullptr);
     void setData(ListData* d);
     void initPeriodWidget(RangeBarItem* rw);
-    void setContainer(AbstractRangeWidgetsContainer* c);    //设置自定义容器
-    void updateBar();
     void setBarRange(int minVal, int maxVal);
     void setZoomRange(double minVpp, double maxVpp);
     void setZoomEnabled(bool enabled = true);
     void setZoomStep(double step);
     void setVpp(double vpp);
     void syncDataToWidget() override;
+signals:
+    void sigBarDataChanged(double vpp);
 protected:
     virtual RangeBarItem* createRangeWidget();
-    void showEvent(QShowEvent *event) override;
+    virtual void assembleContainer();
+    virtual void updateContainerSize();
+    void barDataChanged();
     void connectModelView() override;
+    void resizeEvent(QResizeEvent *event) override;
+    void initBar();
 };
 
 #endif //LIFERHYTHM_RANGEBAR_H

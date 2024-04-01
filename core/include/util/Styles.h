@@ -20,7 +20,7 @@ public:
     QColor color;
 public:
     Color();
-    Color(const QString& rgbHex);
+    explicit Color(const QString& rgbHex);
     Color(QString name, const QString& rgbHex);
     static Color* createDefault(const QString& name, const QString& rgbHex);
 };
@@ -48,9 +48,11 @@ public:
     const static QString FF_ZH;
     const static QString FF_EN;
     const static int FS_MEDIUM;
+    const static int FS_SMALL;
     static QTextCharFormat FORMAT_DEFAULT;
     static QTextCharFormat FORMAT_ERROR;
     static QFont FONT_MAIN;
+    static QFont FONT_SMALL;
 
     static QColor parseColor(const QString& str);
     static void initStyles();

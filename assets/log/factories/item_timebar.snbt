@@ -1,21 +1,18 @@
 {
     type: "TimeBarItem"
-    qss: "bg(GRAY_0)bd('4px', 'solid', BLACK)"
-    children: ["labelRange", "labelInfo"]
-
+    children: ["labelInfo", "labelRange"]
     layout: {
         type: "Vertical"
         align: "Top"
-        margins: [7,6,6,0]
+        margins: [5,2,5,0]
         spacing: 0
     }
-
     labelRange: {
         type: "TextLabel"
         align: "Left"
+        fs: 9
         pointer: true
     }
-
     labelInfo: {
         type: "TextLabel"
         align: "Left"

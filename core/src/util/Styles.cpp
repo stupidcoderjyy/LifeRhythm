@@ -26,6 +26,7 @@ Color* Color::createDefault(const QString& name, const QString& rgbHex) {
 QTextCharFormat Styles::FORMAT_DEFAULT;
 QTextCharFormat Styles::FORMAT_ERROR;
 QFont Styles::FONT_MAIN;
+QFont Styles::FONT_SMALL;
 
 const Color* Styles::BLACK = Color::createDefault("BLACK", "#141414");
 const Color* Styles::GRAY_0 = Color::createDefault("GRAY_0", "#282828");
@@ -47,11 +48,19 @@ const Color* Styles::CLEAR = Color::createDefault("CLEAR", "#00000000");
 const QString Styles::FF_ZH = "思源黑体 CN Medium";
 const QString Styles::FF_EN = "JetBrains Mono Medium";
 const int Styles::FS_MEDIUM = 10;
+const int Styles::FS_SMALL = 8;
 
 QFont fontMain() {
     QFont font;
     font.setFamilies({Styles::FF_EN, Styles::FF_ZH});
     font.setPointSize(Styles::FS_MEDIUM);
+    return font;
+}
+
+QFont fontSmall() {
+    QFont font;
+    font.setFamilies({Styles::FF_EN, Styles::FF_ZH});
+    font.setPointSize(Styles::FS_SMALL);
     return font;
 }
 
@@ -71,6 +80,7 @@ QTextCharFormat errorFormat() {
 
 void Styles::initStyles() {
     FONT_MAIN = fontMain();
+    FONT_SMALL = fontSmall();
     FORMAT_DEFAULT = defaultFormat();
     FORMAT_ERROR = errorFormat();
 }

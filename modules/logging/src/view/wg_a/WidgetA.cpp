@@ -30,7 +30,7 @@ void WidgetA::onTabCreated() {
         if (d->getData().isEmpty()) {
             d->beginEdit();
             d->append(new Period(4 * 60, 5 * 60, "aaaaa"));
-            d->append(new Period(6 * 60 + 30, 8 * 60, "bbbbbb"));
+            d->append(new Period(5 * 60, 8 * 60, "bbbbbb"));
             d->endEdit();
         }
         bar->syncDataToWidget();
