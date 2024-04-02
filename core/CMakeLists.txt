@@ -61,6 +61,7 @@ set(INCLUDE_FILES
         include/util/models/SelectableListData.h
         include/util/models/SelectableTreeData.h
         include/util/models/WidgetDataStorage.h
+        include/util/models/NestedListData.h
         include/util/nbt/ArrayData.h
         include/util/nbt/BoolData.h
         include/util/nbt/Data.h
@@ -95,6 +96,7 @@ set(INCLUDE_FILES
         include/widgets/ColorSelector.h
         include/widgets/AbstractOptionsBox.h
         include/widgets/IconTextButton.h
+        include/widgets/RangeBarList.h
 )
 
 set(SRC_FILES
@@ -134,6 +136,7 @@ set(SRC_FILES
         src/util/models/SelectableListData.cpp
         src/util/models/SelectableTreeData.cpp
         src/util/models/WidgetDataStorage.cpp
+        src/util/models/NestedListData.cpp
         src/util/nbt/ArrayData.cpp
         src/util/nbt/BoolData.cpp
         src/util/nbt/Data.cpp
@@ -178,6 +181,7 @@ set(SRC_FILES
         src/widgets/ColorSelector.cpp
         src/widgets/AbstractOptionsBox.cpp
         src/widgets/IconTextButton.cpp
+        src/widgets/RangeBarList.cpp
 )
 
 add_library(${PROJECT_NAME} ${SRC_FILES} ${INCLUDE_FILES})

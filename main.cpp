@@ -6,6 +6,8 @@
 #include <QVBoxLayout>
 #include <QDebug>
 
+#include "NestedListData.h"
+
 USING_NAMESPACE(lr)
 
 int main(int argc, char *argv[]) {

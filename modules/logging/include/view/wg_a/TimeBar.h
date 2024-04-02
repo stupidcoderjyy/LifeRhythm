@@ -27,13 +27,13 @@ private:
     void init();
 };
 
-class TimeBarContainer : public VRangeItemsContainer {
+class TimeBarContainer : public VBarContainer {
     friend class TimeBar;
 public:
     explicit TimeBarContainer(QWidget* parent = nullptr);
 protected:
     void paintEvent(QPaintEvent *event) override;
-    void updateBar() override;
+    void updateBarGeometry() override;
 };
 
 class TimeScale;

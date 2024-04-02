@@ -68,8 +68,7 @@ void ListData::insert(int idx, WidgetData *d) {
 }
 
 WidgetData *ListData::remove(int idx) {
-    auto* d = data.at(idx);
-    data.remove(idx);
+    auto* d = data.takeAt(idx);
     markChange(idx, data.length());
     return d;
 }

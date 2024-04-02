@@ -46,7 +46,7 @@ void TimeBarItem::paintEvent(QPaintEvent *event) {
     p.fillPath(path, colorBg);
 }
 
-TimeBarContainer::TimeBarContainer(QWidget *parent): VRangeItemsContainer(parent) {
+TimeBarContainer::TimeBarContainer(QWidget *parent): VBarContainer(parent) {
 }
 
 void TimeBarContainer::paintEvent(QPaintEvent *event) {
@@ -65,11 +65,11 @@ void TimeBarContainer::paintEvent(QPaintEvent *event) {
     }
 }
 
-void TimeBarContainer::updateBar() {
+void TimeBarContainer::updateBarGeometry() {
     int height = qRound((maxVal - minVal) * vpp);
     setFixedSize(parentWidget()->width() - 55, height); // scale 50, spacing 5
     for (auto* rw : rangeWidgets) {
-        updateRangeWidget(rw);
+        updateRangeWidgetGeometry(rw);
     }
 }
 
