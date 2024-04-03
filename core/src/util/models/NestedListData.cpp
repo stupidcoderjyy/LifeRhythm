@@ -10,6 +10,8 @@
     }\
     delete pList;
 
+NestedListNode::NestedListNode(): WidgetData(), row(-1) {
+}
 
 NestedListData::NestedListData(): WidgetData(), columnChangeBegin(), columnChangeEnd(), rowChangeBegin(),
           rowChangeEnd(-1), data(), editType(None), editing() {
@@ -29,52 +31,48 @@ void NestedListData::removeRow(int idx) {
 void NestedListData::insertRow(int idx, int count) {
     data.insert(idx, count, nullptr);
     for (int i = 0 ; i < count ; i ++) {
-        data[idx++] = new QVector<WidgetData*>();
+        data[idx++] = new QVector<NestedListNode*>();
     }
     markRow(idx, data.length() - 1);
-}
-
-void NestedListData::insertRow(int idx) {
-    insertRow(idx, 1);
 }
 
 void NestedListData::appendRow(int count) {
     int len = data.length();
     for (int i = 0 ; i < count ; i ++) {
-        data << new QVector<WidgetData*>();
+        data << new QVector<NestedListNode*>();
     }
     markRow(len, len + count - 1);
 }
 
-void NestedListData::appendRow() {
-    appendRow(1);
-}
-
-void NestedListData::append(int row, WidgetData *d) {
+void NestedListData::append(int row, NestedListNode *d) {
+    if (row >= data.length()) {
+        appendRow(data.length() - row + 1);
+    }
     auto* c = data[row];
     int len = c->length();
     c->append(d);
+    initNode(d, row);
     markColumn(row, len, len);
 }
 
-void NestedListData::insert(int row, int n, WidgetData *d) {
+void NestedListData::insert(int row, int n, NestedListNode *d) {
+    if (row >= data.length()) {
+        appendRow(data.length() - row);
+    }
     auto* c = data[row];
+    initNode(d, row);
     c->insert(n, d);
     markColumn(row, n, c->length() - 1);
 }
 
-WidgetData *NestedListData::remove(int row, int n) {
+NestedListNode *NestedListData::remove(int row, int n) {
+    if (row >= data.length()) {
+        return nullptr;
+    }
     auto* d = data[row]->takeAt(n);
+    d->row = -1;
     markColumn(row, n, data[row]->length());
     return d;
-}
-
-QVector<WidgetData *> *NestedListData::getRow(int row) {
-    return data[row];
-}
-
-WidgetData *NestedListData::at(int row, int n) {
-    return data[row]->at(n);
 }
 
 void NestedListData::beginEdit() {
@@ -115,6 +113,7 @@ void NestedListData::markColumn(int row, int min, int max) {
     }
     if (editType == Row) {
         emit sigDataChanged();
+        columnChangeBegin = -1;
     }
     editType = Column;
     if (columnChangeBegin < 0) {
@@ -142,26 +141,14 @@ void NestedListData::endEdit() {
     editing = false;
 }
 
-int NestedListData::getColumnChangeBegin() const {
-    return columnChangeBegin;
-}
-
-int NestedListData::getColumnChangeEnd() const {
-    return columnChangeEnd;
-}
-
-int NestedListData::getDirtyRow() const {
-    return dirtyRow;
-}
-
-int NestedListData::getRowChangeBegin() const {
-    return rowChangeBegin;
-}
-
-int NestedListData::getRowChangeEnd() const {
-    return rowChangeEnd;
-}
-
-NestedListData::EditType NestedListData::getEditType() const {
-    return editType;
+void NestedListData::initNode(NestedListNode *d, int row) {
+    d->row = row;
+    connect(d, &NestedListNode::sigRowChanged, this, [this, d](int old, int cur){
+        beginEdit();
+        if (old >= 0) {
+            remove(old, data[old]->indexOf(d));
+        }
+        append(cur, d);
+        endEdit();
+    }, Qt::UniqueConnection);
 }

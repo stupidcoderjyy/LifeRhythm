@@ -11,7 +11,7 @@
 
 BEGIN_NAMESPACE(lr::log)
 
-class TimeBarItem : public RangeBarItem {
+class TimeBarItem : public BarItem {
     friend class TimeBarContainer;
 private:
     QColor colorBg;
@@ -45,7 +45,7 @@ private:
 public:
     explicit TimeBar(QWidget* parent = nullptr);
 protected:
-    RangeBarItem *createRangeWidget() override;
+    BarItem *createRangeWidget() override;
     ScrollBar *createVerticalScrollBar() override;
     void assembleContainer() override;
     void updateContainerSize() override;

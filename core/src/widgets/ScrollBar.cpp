@@ -4,7 +4,7 @@
 
 #include "ScrollBar.h"
 
-ScrollBar::ScrollBar(QWidget *parent, Qt::Orientation t):QScrollBar(parent) {
+ScrollBar::ScrollBar(QWidget *parent, Qt::Orientation t): QScrollBar(parent) {
     setOrientation(t);
     setRange(0,0);
     hide();
@@ -34,7 +34,7 @@ void ScrollBar::onRangeChanged(int min, int max) {
     setPageStep((int)(0.75 * (height() + max)));
     if (max <= 0) {
         hide();
-    } else if (isVisible()) {
+    } else if (isEnabled()) {
         show();
     }
 }

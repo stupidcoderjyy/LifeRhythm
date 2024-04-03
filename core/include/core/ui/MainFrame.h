@@ -20,7 +20,6 @@ private:
     TabBar* tabBar;
     QLayout* layoutTabContent;
 public:
-    static void mainInit();
     explicit MainFrame(QWidget* parent = nullptr);
     void onFinishedParsing(Handlers &handlers, NBT *widgetTag) override;
 private:

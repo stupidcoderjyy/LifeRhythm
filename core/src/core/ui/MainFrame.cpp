@@ -13,9 +13,6 @@
 
 USING_NAMESPACE(lr)
 
-void MainFrame::mainInit() {
-}
-
 MainFrame::MainFrame(QWidget* parent): Widget(parent) {
 }
 

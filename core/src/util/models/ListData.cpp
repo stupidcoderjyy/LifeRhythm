@@ -45,17 +45,6 @@ void ListData::markChange(int min, int max) {
     changeEnd = qMax(changeEnd, max);
 }
 
-int ListData::length() const {
-    return data.length();
-}
-
-WidgetData *ListData::at(int idx) noexcept {
-    if (idx < 0 || idx >= data.length()) {
-        return nullptr;
-    }
-    return data.at(idx);
-}
-
 void ListData::append(WidgetData *d) {
     int i = data.length();
     data.append(d);
@@ -85,18 +74,6 @@ void ListData::fromBytes(IByteReader *reader) {
     for (int i = 0 ; i < l ; i ++) {
         append(readElement(reader));
     }
-}
-
-int ListData::getChangeBegin() const {
-    return changeBegin;
-}
-
-int ListData::getChangeEnd() const {
-    return changeEnd;
-}
-
-QVector<WidgetData *> &ListData::getData() {
-    return data;
 }
 
 WidgetData *ListData::readElement(IByteReader *reader) {

@@ -94,6 +94,9 @@ void LifeRhythm::preInit() {
     config.froze();
     QTextCodec::setCodecForLocale(QTextCodec::codecForName("UTF-8"));
     Styles::initStyles();
+    if (config.mode == Config::Test) {
+        return;
+    }
     for (auto* m : modules) {
         m->preInit();
     }
@@ -120,6 +123,9 @@ void LifeRhythm::mainInit() {
         m0->append(c);
     }
     WidgetDataStorage::add("lr:default_colors", m0);
+    if (config.mode == Config::Test) {
+        return;
+    }
     for (auto* m : modules) {
         m->mainInit();
     }
@@ -128,6 +134,9 @@ void LifeRhythm::mainInit() {
 void LifeRhythm::postInit() {
     WidgetFactoryStorage::parseAll();
     mainFrame = static_cast<MainFrame*>(WidgetFactoryStorage::get("lr:widget_mainframe")->apply());
+    if (config.mode == Config::Test) {
+        return;
+    }
     for (auto* m : modules) {
         m->postInit();
     }

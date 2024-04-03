@@ -11,7 +11,7 @@
 
 USING_NAMESPACE(lr::log)
 
-TimeBarItem::TimeBarItem(QWidget *parent): RangeBarItem(parent), labelInfo(), labelRange() {
+TimeBarItem::TimeBarItem(QWidget *parent): BarItem(parent), labelInfo(), labelRange() {
     colorBg = Styles::GRAY_1->color;
 }
 
@@ -27,7 +27,7 @@ void TimeBarItem::init() {
 }
 
 void TimeBarItem::syncDataToWidget() {
-    RangeBarItem::syncDataToWidget();
+    BarItem::syncDataToWidget();
     if (wData) {
         show();
         auto* d = wData->cast<Period>();
@@ -82,19 +82,21 @@ TimeBar::TimeBar(QWidget *parent): RangeBar(new TimeBarContainer(), parent) {
 
 ScrollBar *TimeBar::createVerticalScrollBar() {
     auto* bar = ScrollArea::createVerticalScrollBar();
-    bar->setVisible(false);
+    bar->setEnabled(false);
     return bar;
 }
 
-RangeBarItem *TimeBar::createRangeWidget() {
-    return WidgetFactoryStorage::get("log:item_timebar")->applyAndCast<RangeBarItem>();
+BarItem *TimeBar::createRangeWidget() {
+    return WidgetFactoryStorage::get("log:item_timebar")->applyAndCast<BarItem>();
 }
 
 void TimeBar::assembleContainer() {
     auto* l = new QHBoxLayout(rootContent);
     rootContent->setLayout(l);
     scale = new TimeScale(rootContent);
-    connect(this, &RangeBar::sigBarDataChanged, scale, &TimeScale::setVpp);
+    connect(this, &RangeBar::sigBarLayoutChanged, scale, [this](){
+        scale->setVpp(container->getVpp());
+    });
     l->setContentsMargins(0,0,0,0);
     l->setSpacing(5);
     l->addWidget(scale);
