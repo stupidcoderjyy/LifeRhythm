@@ -10,6 +10,7 @@
 #include "ColorSelector.h"
 #include "WidgetDataStorage.h"
 #include "Module.h"
+#include "Calendar.h"
 #include <QtConcurrent>
 #include <QApplication>
 #include <utility>
@@ -93,6 +94,7 @@ void LifeRhythm::launch0() {
 void LifeRhythm::preInit() {
     config.froze();
     QTextCodec::setCodecForLocale(QTextCodec::codecForName("UTF-8"));
+    QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
     Styles::initStyles();
     if (config.mode == Config::Test) {
         return;
@@ -118,6 +120,9 @@ void LifeRhythm::mainInit() {
     regClazz(f, TabBar);
     f = WidgetFactoryStorage::get("lr:item_defaultcolors");
     regClazz(f, DefaultColorsListItem);
+    f = WidgetFactoryStorage::get("lr:widget_calendar");
+    regClazz(f, WeekDayTitleDrawer);
+    regClazz(f, CalendarContentDrawer);
     auto* m0 = new SelectableListData;
     for (auto& c : Color::defaultColors) {
         m0->append(c);

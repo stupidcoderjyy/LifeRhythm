@@ -23,10 +23,66 @@ Color* Color::createDefault(const QString& name, const QString& rgbHex) {
     return c;
 }
 
+FontType::FontType(QStringList f1, QStringList f2): ffMedium(std::move(f1)), ffBold(std::move(f2)) {
+}
+
+FontBuilder::FontBuilder(): font(), type({}, {}) {
+}
+
+FontBuilder::FontBuilder(const FontType& type): font(), type(type) {
+}
+
+FontBuilder::FontBuilder(const FontType &type, const QFont& f): type(type), font(f) {
+}
+
+FontBuilder &FontBuilder::setSmallSize() {
+    font.setPointSize(Styles::FS_SMALL);
+    return *this;
+}
+
+FontBuilder &FontBuilder::setMediumSize() {
+    font.setPointSize(Styles::FS_MEDIUM);
+    return *this;
+}
+
+FontBuilder &FontBuilder::setLargeSize() {
+    font.setPointSize(Styles::FS_LARGE);
+    return *this;
+}
+
+FontBuilder &FontBuilder::setBoldWeight() {
+    if (type.getFFBold().empty()) {
+        return *this;
+    }
+    if (type.getFFBold().size() > 1) {
+        font.setFamilies(type.getFFBold());
+    } else {
+        font.setFamily(type.getFFBold()[0]);
+    }
+    return *this;
+}
+
+FontBuilder &FontBuilder::setNormalWeight() {
+    if (type.getFFMedium().empty()) {
+        return *this;
+    }
+    if (type.getFFMedium().size() > 1) {
+        font.setFamilies(type.getFFMedium());
+    } else {
+        font.setFamily(type.getFFMedium()[0]);
+    }
+    return *this;
+}
+
+const QFont& FontBuilder::get() {
+    return font;
+}
+
 QTextCharFormat Styles::FORMAT_DEFAULT;
 QTextCharFormat Styles::FORMAT_ERROR;
-QFont Styles::FONT_MAIN;
 QFont Styles::FONT_SMALL;
+QFont Styles::FONT_MAIN;
+QFont Styles::FONT_LARGE;
 
 const Color* Styles::BLACK = Color::createDefault("BLACK", "#141414");
 const Color* Styles::GRAY_0 = Color::createDefault("GRAY_0", "#282828");
@@ -45,42 +101,32 @@ const Color* Styles::GREEN = Color::createDefault("GREEN", "#48723c");
 const Color* Styles::GRAY_TEXT_0 = Color::createDefault("GRAY_TEXT_0", "#aeaeae");
 const Color* Styles::GRAY_TEXT_1 = Color::createDefault("GRAY_TEXT_1", "#C8C8C8");
 const Color* Styles::CLEAR = Color::createDefault("CLEAR", "#00000000");
-const QString Styles::FF_ZH = "思源黑体 CN Medium";
-const QString Styles::FF_EN = "JetBrains Mono Medium";
-const int Styles::FS_MEDIUM = 10;
+const FontType Styles::FONT_TYPE_MAIN = FontType(
+        {"JetBrains Mono Medium", "思源黑体 CN Medium"},
+        {"JetBrains Mono Bold", "思源黑体 CN Bold"});
 const int Styles::FS_SMALL = 8;
-
-QFont fontMain() {
-    QFont font;
-    font.setFamilies({Styles::FF_EN, Styles::FF_ZH});
-    font.setPointSize(Styles::FS_MEDIUM);
-    return font;
-}
-
-QFont fontSmall() {
-    QFont font;
-    font.setFamilies({Styles::FF_EN, Styles::FF_ZH});
-    font.setPointSize(Styles::FS_SMALL);
-    return font;
-}
+const int Styles::FS_MEDIUM = 10;
+const int Styles::FS_LARGE = 12;
 
 QTextCharFormat defaultFormat() {
     QTextCharFormat fmt;
-    fmt.setFont(fontMain());
+    fmt.setFont(Styles::FONT_MAIN);
     fmt.setForeground(Styles::GRAY_TEXT_1->color);
     return fmt;
 }
 
 QTextCharFormat errorFormat() {
     QTextCharFormat fmt;
-    fmt.setFont(fontMain());
+    fmt.setFont(Styles::FONT_MAIN);
     fmt.setForeground(Styles::RED->color);
     return fmt;
 }
 
 void Styles::initStyles() {
-    FONT_MAIN = fontMain();
-    FONT_SMALL = fontSmall();
+    auto fb = FontBuilder(Styles::FONT_TYPE_MAIN).setNormalWeight();
+    FONT_MAIN = fb.setMediumSize().get();
+    FONT_SMALL = fb.setSmallSize().get();
+    FONT_LARGE = fb.setLargeSize().get();
     FORMAT_DEFAULT = defaultFormat();
     FORMAT_ERROR = errorFormat();
 }

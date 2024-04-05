@@ -25,6 +25,41 @@ public:
     static Color* createDefault(const QString& name, const QString& rgbHex);
 };
 
+class FontType {
+private:
+    QStringList ffMedium;
+    QStringList ffBold;
+public:
+    FontType(QStringList ffMedium, QStringList ffBold);
+    FontType(const FontType& o) = default;
+    inline const QStringList& getFFMedium();
+    inline const QStringList& getFFBold();
+};
+
+inline const QStringList& FontType::getFFMedium() {
+    return ffMedium;
+}
+inline const QStringList& FontType::getFFBold() {
+    return ffBold;
+}
+
+class FontBuilder {
+private:
+    QFont font;
+    FontType type;
+public:
+    FontBuilder();
+    explicit FontBuilder(const FontType& type);
+    FontBuilder(const FontType& type, const QFont& f);
+    FontBuilder(const FontBuilder& o) = default;
+    FontBuilder& setSmallSize();
+    FontBuilder& setMediumSize();
+    FontBuilder& setLargeSize();
+    FontBuilder& setBoldWeight();
+    FontBuilder& setNormalWeight();
+    const QFont& get();
+};
+
 class Styles {
 public:
     const static Color* BLACK;
@@ -45,14 +80,15 @@ public:
     const static Color* GRAY_TEXT_1;
     const static Color* CLEAR;
 
-    const static QString FF_ZH;
-    const static QString FF_EN;
-    const static int FS_MEDIUM;
+    const static FontType FONT_TYPE_MAIN;
     const static int FS_SMALL;
+    const static int FS_MEDIUM;
+    const static int FS_LARGE;
     static QTextCharFormat FORMAT_DEFAULT;
     static QTextCharFormat FORMAT_ERROR;
-    static QFont FONT_MAIN;
     static QFont FONT_SMALL;
+    static QFont FONT_MAIN;
+    static QFont FONT_LARGE;
 
     static QColor parseColor(const QString& str);
     static void initStyles();

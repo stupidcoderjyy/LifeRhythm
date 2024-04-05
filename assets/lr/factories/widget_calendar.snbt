@@ -1,0 +1,41 @@
+{
+    children: ["w", "weekDays", "content"]
+    qss: "bg(BLACK)"
+    layout: {
+        type: "Vertical"
+        spacing: 0
+    }
+    w: {
+        children: ["title", "buttonPrev", "buttonNext"]
+        fixed_height: 50
+        layout: {
+            type: "Horizontal"
+            margins: [0,0,10,0]
+            spacing: 10
+        }
+        title: {
+            type: "TextLabel"
+            align: "Left|V_Center"
+            fs: 13
+            margins: [5,0,0,0]
+            pointer: true
+        }
+        buttonPrev: {
+            type: "ImgButton"
+            img: "lr:arrow_up_25x25"
+            pointer: true
+        }
+        buttonNext: {
+            type: "ImgButton"
+            img: "lr:arrow_down_25x25"
+            pointer: true
+        }
+    }
+    weekDays: {
+        type: "WeekDayTitleDrawer"
+    }
+    content: {
+        type: "CalendarContentDrawer"
+        pointer: true
+    }
+}

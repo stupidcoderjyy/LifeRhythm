@@ -97,6 +97,8 @@ set(INCLUDE_FILES
         include/widgets/AbstractOptionsBox.h
         include/widgets/IconTextButton.h
         include/widgets/RangeBarList.h
+        include/widgets/Calendar.h
+        include/widgets/AbstractSlotsDrawer.h
 )
 
 set(SRC_FILES
@@ -182,6 +184,8 @@ set(SRC_FILES
         src/widgets/AbstractOptionsBox.cpp
         src/widgets/IconTextButton.cpp
         src/widgets/RangeBarList.cpp
+        src/widgets/Calendar.cpp
+        src/widgets/AbstractSlotsDrawer.cpp
 )
 
 add_library(${PROJECT_NAME} ${SRC_FILES} ${INCLUDE_FILES})

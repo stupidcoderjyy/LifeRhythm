@@ -12,6 +12,7 @@ ImgButton::ImgButton(QWidget *parent) : ImgLabel(parent) {
     qssNormal = bg(Styles::CLEAR->rgbHex) + qssBorder;
     qssHovered = bg(Styles::GRAY_1->rgbHex) + qssBorder;
     qssPressed = bg(Styles::GRAY_2->rgbHex) + qssBorder;
+    setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
 }
 
 void ImgButton::enterEvent(QEvent *event) {

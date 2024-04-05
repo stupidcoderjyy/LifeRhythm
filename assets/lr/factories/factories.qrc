@@ -6,5 +6,6 @@
         <file>item_defaultcolors.snbt</file>
         <file>widget_hueselector.snbt</file>
         <file>widget_icontextbutton.snbt</file>
+        <file>widget_calendar.snbt</file>
     </qresource>
 </RCC>
