@@ -17,14 +17,16 @@ WidgetFactory::WidgetFactory(QString id):
         id(std::move(id)),
         customSuppliers(new QMap<QString, Supplier>()),
         customEmptyInstances(new QMap<QString, StandardWidget*>()),
-        parentFactory(nullptr){
+        parentFactory(nullptr),
+        stateResponders(), childFactories(), globalResponders() {
 }
 
 WidgetFactory::WidgetFactory(WidgetFactory *parent, const QString& id, NBT *nbt):
         id(id),
         customSuppliers(parent->customSuppliers),
         customEmptyInstances(parent->customEmptyInstances),
-        parentFactory(parent){
+        parentFactory(parent),
+        stateResponders(), childFactories(), globalResponders() {
     parent->childFactories.insert(id, this);
     source = nbt;
 }
@@ -39,7 +41,7 @@ void WidgetFactory::setSource(NBT *nbt) {
     source = nbt;
 }
 
-QWidget* WidgetFactory::apply(QWidget *parent, QWidget *target) noexcept{
+QWidget* WidgetFactory::apply(QWidget *parent, QWidget *target) noexcept {
     try {
         if (state != Ready) {
             throwInFunc("factory '" + id + "' is not in ready state");
@@ -57,7 +59,7 @@ QWidget* WidgetFactory::apply(QWidget *parent, QWidget *target) noexcept{
     return workingWidget;
 }
 
-void WidgetFactory::parse() noexcept{
+void WidgetFactory::parse() noexcept {
     try {
         if (state != Empty) {
             if (state == Ready) {
@@ -78,6 +80,7 @@ void WidgetFactory::parse() noexcept{
         stdType->onPostParsing(handlers, source);
         parseChildren(source);
         parsePointer(source);
+        parseSpacers(source);
         handlers << [](QWidget* target){
             auto* stdWidget = dynamic_cast<StandardWidget*>(target);
             if (stdWidget) {
@@ -277,6 +280,54 @@ void WidgetFactory::parseLayout(NBT *nbt) {
     };
 }
 
+void WidgetFactory::parseSpacers(NBT *nbt) {
+    if (!nbt->contains("layout", Data::COMPOUND)) {
+        return;
+    }
+    nbt = nbt->get("layout")->asCompound();
+    auto type = nbt->getString("type");
+    if (type != "Horizontal" && type != "Vertical") {
+        return;
+    }
+    if (!nbt->contains("spacers", Data::ARR)) {
+        return;
+    }
+    QVector<QSpacerItem*> temp;
+    for (auto* c : *nbt->getArr("spacers")) {
+        if (c->type != Data::COMPOUND) {
+            continue;
+        }
+        nbt = c->asCompound();
+        int w = nbt->getInt("width", 1);
+        int h = nbt->getInt("height", 1);
+        auto hsp = QSizePolicy::Fixed, vsp = QSizePolicy::Fixed;
+        if (nbt->contains("h_size_policy", Data::STRING)) {
+            hsp = parsePolicy(nbt->getString("h_size_policy"));
+        }
+        if (nbt->contains("v_size_policy", Data::STRING)) {
+            vsp = parsePolicy(nbt->getString("v_size_policy"));
+        }
+        int pos = nbt->getInt("pos");
+        auto* tempItem = new QSpacerItem(w, h, hsp, vsp);
+        if (pos < temp.size()) {
+            delete temp.data()[pos];
+        } else {
+            temp.insert(temp.size(), pos - temp.size() + 1, nullptr);
+        }
+        temp.data()[pos] = tempItem;
+    }
+    handlers << [temp](QWidget* target) {
+        if (auto* l = dynamic_cast<QBoxLayout*>(target->layout())) {
+            for (int i = temp.size() - 1; i >= 0; i--) {
+                if (!temp.at(i)) {
+                    continue;
+                }
+                l->insertItem(i, new QSpacerItem(*temp.at(i)));
+            }
+        }
+    };
+}
+
 void WidgetFactory::parseGridLayout(NBT *nbt) {
     int maxColumns = nbt->getInt("max_columns", 1);
     Qt::Alignment align = Qt::AlignCenter;
@@ -470,20 +521,10 @@ void WidgetFactory::parseSizePolicy(WidgetFactory::Handlers& handlers, NBT* nbt)
         return;
     }
     if (hasH) {
-        auto hs = nbt->getString("h_size_policy");
-        if (policies.contains(hs)) {
-            h = policies.value(hs);
-        } else {
-            throwInFunc("invalid size policy:" + hs);
-        }
+        h = parsePolicy(nbt->getString("h_size_policy"));
     }
     if (hasV) {
-        auto vs = nbt->getString("v_size_policy");
-        if (policies.contains(vs)) {
-            v = policies.value(vs);
-        } else {
-            throwInFunc("invalid size policy:" + vs);
-        }
+        v = parsePolicy(nbt->getString("v_size_policy"));
     }
     handlers << [hasH, hasV, h, v](QWidget* target) {
         auto policy = target->sizePolicy();
@@ -491,6 +532,14 @@ void WidgetFactory::parseSizePolicy(WidgetFactory::Handlers& handlers, NBT* nbt)
         auto realV = hasV ? v : policy.verticalPolicy();
         target->setSizePolicy(realH,realV);
     };
+}
+
+QSizePolicy::Policy WidgetFactory::parsePolicy(const QString &name) {
+    if (policies.contains(name)) {
+        return policies.value(name);
+    } else {
+        throwInFunc("invalid size policy:" + name);
+    }
 }
 
 QSize WidgetFactory::parseSize(ArrayData *arr) {

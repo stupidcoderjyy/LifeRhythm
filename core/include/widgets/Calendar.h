@@ -71,20 +71,4 @@ protected:
     virtual void init();
 };
 
-inline void AbstractSlotsDrawer::setSlotSize(int w, int h) {
-    if (slotWidth != w || slotHeight != h) {
-        slotWidth = w;
-        slotHeight = h;
-        shouldResize = true;
-    }
-}
-
-inline void AbstractSlotsDrawer::setSlotCount(int c, int r) {
-    if (columns != c || rows != r) {
-        columns = c;
-        rows = r;
-        shouldResize = true;
-    }
-}
-
 #endif //LIFERHYTHM_CALENDAR_H

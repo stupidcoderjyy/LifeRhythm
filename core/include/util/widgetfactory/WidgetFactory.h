@@ -7,6 +7,7 @@
 
 #include <QMap>
 #include <QWidget>
+#include <QSpacerItem>
 #include "StandardWidget.h"
 #include "Identifier.h"
 #include "NBT.h"
@@ -34,9 +35,9 @@ private:
     };
     QMap<QString, Supplier>* customSuppliers;
     QMap<QString, StandardWidget*>* customEmptyInstances;
-    QMap<QString, WidgetFactory*> childFactories{};
-    QMap<int, Handlers> stateResponders{};
-    Handlers globalResponders{};
+    QMap<QString, WidgetFactory*> childFactories;
+    QMap<int, Handlers> stateResponders;
+    Handlers globalResponders;
     WidgetFactory* parentFactory;
     Handlers handlers{};
     QWidget* workingWidget{};
@@ -65,12 +66,14 @@ private:
     static void parseSize(Handlers& op, NBT* nbt);
     static QMargins parseMargins(ArrayData* array);
     static void parseSizePolicy(Handlers& op, NBT* nbt);
+    static QSizePolicy::Policy parsePolicy(const QString& name);
     explicit WidgetFactory(QString id);
     explicit WidgetFactory(WidgetFactory* parent, const QString& id, NBT* nbt);
     StandardWidget* parseWidgetType(NBT* nbt);
     void parseChildren(NBT* nbt);
     WidgetFactory* findFactory(NBT* nbt, const QString& path);
     void parseLayout(NBT* target);
+    void parseSpacers(NBT* nbt);
     void parseGridLayout(NBT* nbt);
     void parseMargins(NBT* nbt);
     void parseStates(NBT* nbt);

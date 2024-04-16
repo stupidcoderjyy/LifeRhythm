@@ -30,15 +30,28 @@
         }
     }
     b3: {
-        children: ["wvTitle", "wv"]
+        children: ["w0", "wv"]
         layout: {
             type: "Vertical"
             margins: [0,0,0,0]
             spacing: 0
         }
-        wvTitle: {
-            type: "WeekViewTitle"
-            pointer: true
+        w0: {
+            children: ["wvTitle"]
+            layout: {
+                type: "Horizontal"
+                margins: [0,0,0,0]
+                spacing: 0
+                align: "Left"
+                spacers: [{
+                    pos: 0
+                    width: 55
+                }]
+            }
+            wvTitle: {
+                type: "WeekViewTitle"
+                pointer: true
+            }
         }
         wv: {
             type: "WeekView"
