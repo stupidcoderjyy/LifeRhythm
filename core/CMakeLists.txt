@@ -97,7 +97,7 @@ set(INCLUDE_FILES
         include/widgets/IconTextButton.h
         include/widgets/RangeBar.h
         include/widgets/Calendar.h
-        include/widgets/AbstractSlotsDrawer.h
+        include/widgets/SlotsDrawer.h
 )
 
 set(SRC_FILES
@@ -183,7 +183,7 @@ set(SRC_FILES
         src/widgets/IconTextButton.cpp
         src/widgets/RangeBar.cpp
         src/widgets/Calendar.cpp
-        src/widgets/AbstractSlotsDrawer.cpp
+        src/widgets/SlotsDrawer.cpp
 )
 
 add_library(${PROJECT_NAME} ${SRC_FILES} ${INCLUDE_FILES})

@@ -7,7 +7,7 @@
 
 #include "RangeBar.h"
 #include "Namespaces.h"
-#include "AbstractSlotsDrawer.h"
+#include "SlotsDrawer.h"
 #include "TimeScale.h"
 #include <QDate>
 

@@ -196,12 +196,11 @@ void TabBar::init() {
     setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Maximum);
     setFixedHeight(61);
     viewport()->setObjectName("vp");
-    viewport()->setStyleSheet(qss_target("vp", bg(Styles::BLACK->rgbHex)));
+    viewport()->setStyleSheet(qss_target("vp", bg(Styles::GRAY_0->rgbHex)));
     verticalScrollBar()->setVisible(false);
     contents = new ContentWidget(this);
     contents->setObjectName("contents");
-    contents->setStyleSheet(qss_target("contents",
-                    bg(Styles::BLACK->rgbHex) + bd_b("1px", "solid", Styles::GRAY_0->rgbHex)));
+    contents->setStyleSheet(qss_target("contents", bg(Styles::GRAY_0->rgbHex)));
     contents->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Maximum);
     hLayout = new QHBoxLayout(contents);
     hLayout->setContentsMargins(0,0,0,1);

@@ -120,8 +120,6 @@ void LifeRhythm::mainInit() {
     regClazz(f, TabBar);
     f = WidgetFactoryStorage::get("lr:item_defaultcolors");
     regClazz(f, DefaultColorsListItem);
-    f = WidgetFactoryStorage::get("lr:widget_calendar");
-    regClazz(f, WeekDayTitleDrawer);
     auto* m0 = new SelectableListData;
     for (auto& c : Color::defaultColors) {
         m0->append(c);

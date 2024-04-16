@@ -46,8 +46,13 @@ public:
     //将组件内的数据同步到data中
     virtual void syncWidgetToData();
     virtual ~StandardWidget();
+    inline WidgetData* widgetData();
 protected:
     virtual void connectModelView();
 };
+
+inline WidgetData *StandardWidget::widgetData() {
+    return wData;
+}
 
 #endif //LIFERHYTHM_STANDARDWIDGET_H

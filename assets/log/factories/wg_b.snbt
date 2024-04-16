@@ -38,6 +38,7 @@
         }
         w0: {
             children: ["wvTitle"]
+            qss: "bd_b('1px', 'solid', GRAY_1)"
             layout: {
                 type: "Horizontal"
                 margins: [0,0,0,0]

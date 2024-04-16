@@ -7,7 +7,7 @@
 
 USING_NAMESPACE(lr::log)
 
-WeekViewTitle::WeekViewTitle(QWidget *parent): AbstractSlotsDrawer(parent) {
+WeekViewTitle::WeekViewTitle(QWidget *parent): SlotsDrawer(parent) {
     setSlotSize(200, 40);
     setSlotCount(7, 1);
     memset(months, 0, 28);
@@ -27,12 +27,19 @@ void WeekViewTitle::syncDataToWidget() {
     update();
 }
 
-void WeekViewTitle::beforeDrawing(QPainter &p, QRect &area) {
+void WeekViewTitle::initLayers() {
+    appendLayer(new WeekViewTitleLayer(months, days));
+}
+
+WeekViewTitleLayer::WeekViewTitleLayer(int* months, int* days): months(months), days(days) {
+}
+
+void WeekViewTitleLayer::beforeDrawing(QPainter &p, QRect &area) {
     p.setFont(Styles::FONT_MAIN);
     p.setPen(Styles::GRAY_TEXT_0->color);
 }
 
-void WeekViewTitle::drawSlot(QPainter &p, QRect &area, int row, int column) {
-    p.drawText(area, Qt::AlignLeft | Qt::AlignVCenter,
+void WeekViewTitleLayer::drawSlot(QPainter &p, QRect &area, int row, int column) {
+    p.drawText(area, Qt::AlignCenter,
                QString::number(months[column]) + "月" + QString::number(days[column]) + "日");
 }

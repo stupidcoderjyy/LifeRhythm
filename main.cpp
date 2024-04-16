@@ -20,7 +20,7 @@ int main(int argc, char *argv[]) {
     lr.setConfig(cfg);
     lr.registerModule(new log::ModuleLog());
     lr.onPostInit([](){
-//        auto* c = new Calendar(new CalendarContentDrawer);
+//        auto* c = new Calendar(new WeekDayTitleDrawer, new CalendarContentDrawer);
 //        c->show();
     });
     return lr.launch();
