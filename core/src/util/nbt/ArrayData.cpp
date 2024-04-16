@@ -109,11 +109,10 @@ void ArrayData::fillInt(int *arr, int len) {
         if (len == 0) {
             break;
         }
-        if (e->type != INT) {
-            continue;
+        if (e->type == INT) {
+            *arr++ = e->asInt()->get();
+            len--;
         }
-        *arr++ = e->asInt()->get();
-        len--;
     }
 }
 
@@ -145,5 +144,17 @@ void ArrayData::fillFloat(float* arr, int len) {
             continue;
         }
         len--;
+    }
+}
+
+void ArrayData::fillBool(bool *arr, int len) {
+    for (auto& e : data) {
+        if (len == 0) {
+            break;
+        }
+        if (e->type == BOOL) {
+            *arr++ = e->asBool()->get();
+            len--;
+        }
     }
 }

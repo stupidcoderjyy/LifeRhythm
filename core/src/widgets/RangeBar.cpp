@@ -1,15 +1,27 @@
 //
-// Created by stupid_coder_jyy on 2024/2/23.
+// Created by stupid_coder_jyy on 2024/4/2.
 //
 
-#include <QHBoxLayout>
 #include "RangeBar.h"
 #include "WidgetUtil.h"
+#include "NBT.h"
+#include "MemUtil.h"
+#include <QHBoxLayout>
 
 BarData::BarData(): NestedListNode(), begin(), end() {
 }
 
 BarData::BarData(int begin, int end): NestedListNode(), begin(begin), end(end) {
+}
+
+void BarData::toBytes(IByteWriter *writer) {
+    writer->writeInt(begin);
+    writer->writeInt(end);
+}
+
+void BarData::fromBytes(IByteReader *reader) {
+    begin = reader->readInt();
+    end = reader->readInt();
 }
 
 BarItem::BarItem(QWidget *parent): Widget(parent), row(), begin(), end() {
@@ -45,63 +57,84 @@ void BarItem::connectModelView() {
 }
 
 AbstractBarContainer::AbstractBarContainer(QWidget *parent):
-        Widget(parent),minVal(0), maxVal(99), vpp(1), maxVpp(10), minVpp(1),
-        zoomEnabled(true), zoomStep(2), rangeWidgets() {
-    setFixedSize(0, 0);
-    setObjectName("rc");
-    setStyleSheet(qss_target("rc", bg(Styles::BLACK->rgbHex)));
+        QWidget(parent), minVal(0), maxVal(99), vpp(1), maxVpp(1), minVpp(1),
+        mainZoomEnabled(false), mainZoomStep(0), sideZoomEnabled(false), sideZoomStep(0),
+        minSideLen(40), maxSideLen(40), sideLen(40) {
+}
+
+AbstractBarContainer::~AbstractBarContainer() {
+    DELETE_LIST(bars)
 }
 
 void AbstractBarContainer::wheelEvent(QWheelEvent *event) {
-    if (event->modifiers() != Qt::ControlModifier || !zoomEnabled) {
-        return;
-    }
-    event->accept();
-    if (event->angleDelta().y() > 0) {
-        if (vpp == maxVpp) {
+    if (event->modifiers() == Qt::ControlModifier) {
+        if (!mainZoomEnabled) {
+            event->accept();
             return;
         }
-        vpp = qMin(maxVpp, vpp + zoomStep);
-    } else  {
-        if (vpp == minVpp) {
+        if (event->angleDelta().y() > 0) {
+            if (vpp != maxVpp) {
+                vpp = qMin(maxVpp, vpp + mainZoomStep);
+                emit sigMainZoom();
+            }
+        } else if (vpp != minVpp) {
+            vpp = qMax(minVpp, vpp - mainZoomStep);
+            emit sigMainZoom();
+        }
+        event->accept();
+    } else if (event->modifiers() == Qt::ShiftModifier) {
+        if (!sideZoomEnabled) {
+            event->accept();
             return;
         }
-        vpp = qMax(minVpp, vpp - zoomStep);
+        if (event->angleDelta().y() > 0) {
+            if (sideLen != maxSideLen) {
+                sideLen = qMin(maxSideLen, sideLen + sideZoomStep);
+                emit sigSideZoom();
+            }
+        } else if (sideLen != minSideLen) {
+            sideLen = qMax(minSideLen, sideLen - sideZoomStep);
+            emit sigSideZoom();
+        }
+        event->accept();
     }
-    emit sigZoom();
 }
 
 VBarContainer::VBarContainer(QWidget *parent): AbstractBarContainer(parent) {
 }
 
-void VBarContainer::updateRangeWidgetGeometry(BarItem* rw) {
-    int y = qRound(rw->begin * vpp);
-    int height = qRound((rw->end - rw->begin) * vpp);
-    rw->setGeometry(0, y, rect().width(), height);
-}
-
 void VBarContainer::updateBarGeometry() {
     int height = qRound((maxVal - minVal) * vpp);
-    setFixedSize(parentWidget()->width(), height);
-    for (auto* rw : rangeWidgets) {
-        updateRangeWidgetGeometry(rw);
-    }
+    int width = bars.size() * sideLen;
+    setFixedSize(width, height);
+}
+
+void VBarContainer::updateRangeWidgetGeometry(BarItem *rw) {
+    int y = qRound(rw->begin * vpp);
+    int height = qRound((rw->end - rw->begin) * vpp);
+    rw->setGeometry(rw->row * sideLen, y, sideLen, height);
 }
 
 HBarContainer::HBarContainer(QWidget *parent): AbstractBarContainer(parent) {
 }
 
+void HBarContainer::updateBarGeometry() {
+    int width = qRound((maxVal - minVal) * vpp);
+    int height = bars.size() * sideLen;
+    setFixedSize(width, height);
+}
+
 void HBarContainer::updateRangeWidgetGeometry(BarItem *rw) {
     int x = qRound(rw->begin * vpp);
     int width = qRound((rw->end - rw->begin) * vpp);
-    rw->setGeometry(x, 0, width, rect().height());
+    rw->setGeometry(x, rw->row * sideLen, width, sideLen);
 }
 
-void HBarContainer::updateBarGeometry() {
-    int width = qRound((maxVal - minVal) * vpp);
-    setFixedSize(width, parentWidget()->height());
-    for (auto* rw : rangeWidgets) {
-        updateRangeWidgetGeometry(rw);
+void HBarContainer::wheelEvent(QWheelEvent *event) {
+    AbstractBarContainer::wheelEvent(event);
+    if (!event->isAccepted()) {
+        emit sigScroll(event->angleDelta().y() >> 1);
+        event->accept();
     }
 }
 
@@ -116,31 +149,140 @@ RangeBar::RangeBar(AbstractBarContainer* c, QWidget *parent): ScrollArea(parent)
     }
     if (dynamic_cast<VBarContainer*>(c)) {
         isVertical = true;
-    } else if (dynamic_cast<HBarContainer*>(c)) {
+    } else if (auto* hBar = dynamic_cast<HBarContainer*>(c)) {
+        connect(hBar, &HBarContainer::sigScroll, this, [this](int dx){
+            auto* bar = horizontalScrollBar();
+            bar->setValue(bar->value() - dx);
+        });
         isVertical = false;
     } else {
         throwInFunc("do not directly override AbstractRangeWidgetsContainer");
     }
-    connect(c, &AbstractBarContainer::sigZoom, this, [this](){
-        barDataChanged(Zoom);
+    connect(c, &AbstractBarContainer::sigMainZoom, this, [this](){
+        barDataChanged(MainZoom);
     });
-    c->setParent(rootContent);
+    connect(c, &AbstractBarContainer::sigSideZoom, this, [this](){
+        barDataChanged(SideZoom);
+    });
     container = c;
 }
 
 void RangeBar::syncDataToWidget() {
-    auto* ld = wData->cast<ListData>();
-    int j = ld->getChangeEnd();
-    int size = container->rangeWidgets.length();
-    while (size++ <= j) {
-        auto* rw = createRangeWidget();
-        initPeriodWidget(rw);
-        container->rangeWidgets << rw;
+    auto* nd = wData->cast<NestedListData>();
+    switch (nd->getEditType()) {
+        case NestedListData::None:
+            return;
+        case NestedListData::Row: {
+            int j = nd->getRowChangeEnd();
+            int size = container->bars.length();
+            while (size++ <= j) {
+                container->bars << new QVector<BarItem*>();
+            }
+            if (!assembled) {
+                assemble();
+            } else {
+                barDataChanged(BarCountChanged);
+            }
+            break;
+        }
+        case NestedListData::Column: {
+            auto* bar = container->bars[nd->getDirtyRow()];
+            int j = nd->getColumnChangeEnd();
+            int size = bar->length();
+            while (size++ <= j) {
+                auto* rw = createRangeWidget();
+                initPeriodWidget(rw);
+                bar->append(rw);
+            }
+            for (int i = nd->getColumnChangeBegin(); i <= j; i++) {
+                auto* rw = bar->at(i);
+                rw->setData(nd->at(nd->getDirtyRow(), i));
+                rw->syncDataToWidget();
+            }
+            break;
+        }
     }
-    for (int i = ld->getChangeBegin(); i <= j; i++) {
-        auto* rw = container->rangeWidgets.at(i);
-        rw->setData(ld->at(i));
-        rw->syncDataToWidget();
+}
+
+void RangeBar::onPostParsing(StandardWidget::Handlers &handlers, NBT *nbt) {
+    if (nbt->contains("barRange", Data::ARR)) {
+        int arr[2]{0, 0};
+        nbt->get("barRange")->asArray()->fillInt(arr, 2);
+        if (arr[0] <= 0 && arr[1] <= 0 && arr[0] >= arr[1]) {
+            throwInFunc("invalid barRange");
+        }
+        handlers << [arr](QWidget* target){
+            static_cast<RangeBar*>(target)->setBarRange(arr[0], arr[1]);
+        };
+    }
+    if (nbt->contains("mainZoomRange", Data::ARR)) {
+        float arr[2]{0, 0};
+        nbt->get("mainZoomRange")->asArray()->fillFloat(arr, 2);
+        if (arr[0] <= 0 && arr[1] <= 0 && arr[0] >= arr[1]) {
+            throwInFunc("invalid mainZoomRange");
+        }
+        handlers << [arr](QWidget* target){
+            static_cast<RangeBar*>(target)->setMainZoomRange(arr[0], arr[1]);
+        };
+    }
+    if (nbt->contains("sideZoomRange", Data::ARR)) {
+        int arr[2]{0, 0};
+        nbt->get("sideZoomRange")->asArray()->fillInt(arr, 2);
+        if (arr[0] <= 0 && arr[1] <= 0 && arr[0] >= arr[1]) {
+            throwInFunc("invalid sideZoomRange");
+        }
+        handlers << [arr](QWidget* target){
+            static_cast<RangeBar*>(target)->setSideZoomRange(arr[0], arr[1]);
+        };
+    }
+    if (nbt->contains("zoomEnabled", Data::ARR)) {
+        bool arr[2]{false, false};
+        nbt->get("zoomEnabled")->asArray()->fillBool(arr, 2);
+        handlers << [arr](QWidget* target){
+            static_cast<RangeBar*>(target)->setZoomEnabled(arr[0], arr[1]);
+        };
+    }
+    if (nbt->contains("mainZoomStep", Data::FLOAT)) {
+        float s = nbt->getFloat("mainZoomStep");
+        if (s <= 0) {
+            throwInFunc("invalid mainZoomStep");
+        }
+        handlers << [s](QWidget* target){
+            static_cast<RangeBar*>(target)->setMainZoomStep(s);
+        };
+    }
+    if (nbt->contains("sideZoomStep", Data::INT)) {
+        int s = nbt->getInt("sideZoomStep");
+        if (s <= 0) {
+            throwInFunc("invalid sideZoomStep");
+        }
+        handlers << [s](QWidget* target){
+            static_cast<RangeBar*>(target)->setSideZoomStep(s);
+        };
+    }
+    if (nbt->contains("vpp", Data::FLOAT)) {
+        float v = nbt->getFloat("vpp");
+        if (v <= 0) {
+            throwInFunc("invalid vpp");
+        }
+        handlers << [v](QWidget* target){
+            static_cast<RangeBar*>(target)->setVpp(v);
+        };
+    }
+    if (nbt->contains("sideLen", Data::INT)) {
+        int l = nbt->getInt("sideLen");
+        if (l <= 0) {
+            throwInFunc("invalid sideLen");
+        }
+        handlers << [l](QWidget* target){
+            static_cast<RangeBar*>(target)->setSideLen(l);
+        };
+    }
+}
+
+void RangeBar::setData(WidgetData *d) {
+    if (auto* nd = dynamic_cast<NestedListData*>(d)) {
+        ScrollArea::setData(nd);
     }
 }
 
@@ -153,9 +295,7 @@ void RangeBar::connectModelView() {
 void RangeBar::resizeEvent(QResizeEvent *event) {
     ScrollArea::resizeEvent(event);
     if (!assembled) {
-        assembleContainer();
-        barDataChanged(Content);
-        assembled = true;
+        assemble();
     }
 }
 
@@ -174,7 +314,7 @@ void RangeBar::updateContainerSize() {
     rootContent->setFixedSize(container->size());
 }
 
-void RangeBar::initPeriodWidget(BarItem* rw) {
+void RangeBar::initPeriodWidget(BarItem *rw) {
     connect(rw, &BarItem::sigUpdateWidget, [this, rw](){
         container->updateRangeWidgetGeometry(rw);
     });
@@ -182,14 +322,36 @@ void RangeBar::initPeriodWidget(BarItem* rw) {
 }
 
 void RangeBar::barDataChanged(BarUpdateType type) {
-    if (type == Content) {
-        container->updateBarGeometry();
-    } else if (isVertical) {
-        performVerticalZoom();
-    } else {
-        performHorizontalZoom();
+    switch (type) {
+        case Init:
+            container->updateBarGeometry();
+            break;
+        case BarCountChanged:
+            container->updateBarGeometry();
+            updateContainerSize();
+            emit sigBarLayoutChanged();
+            return;
+        case MainZoom:
+            if (isVertical) {
+                performVerticalZoom();
+            } else {
+                performHorizontalZoom();
+            }
+            break;
+        case SideZoom:
+            if (isVertical) {
+                performHorizontalZoom();
+            } else {
+                performVerticalZoom();
+            }
+            break;
     }
     updateContainerSize();
+    for (auto bar : container->bars) {
+        for (auto* item : *bar) {
+            container->updateRangeWidgetGeometry(item);
+        }
+    }
     emit sigBarLayoutChanged();
 }
 
@@ -211,4 +373,10 @@ void RangeBar::performVerticalZoom() {
     container->updateBarGeometry();
     bar->setMaximum(container->height() - viewport()->height());
     bar->setValue(qRound(ratio * container->height() - dh));
+}
+
+void RangeBar::assemble() {
+    assembleContainer();
+    barDataChanged(Init);
+    assembled = true;
 }

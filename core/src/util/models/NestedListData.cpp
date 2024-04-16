@@ -3,12 +3,7 @@
 //
 
 #include "NestedListData.h"
-
-#define FREE_LIST(pList) \
-    for (auto* d : *pList) {\
-        delete d;\
-    }\
-    delete pList;
+#include "MemUtil.h"
 
 NestedListNode::NestedListNode(): WidgetData(), row(-1) {
 }
@@ -18,13 +13,11 @@ NestedListData::NestedListData(): WidgetData(), columnChangeBegin(), columnChang
 }
 
 NestedListData::~NestedListData() {
-    for (auto* list : data) {
-        FREE_LIST(list)
-    }
+    DELETE_NESTED_LIST(data)
 }
 
 void NestedListData::removeRow(int idx) {
-    FREE_LIST(data.takeAt(idx))
+    DELETE_LIST_P(data.takeAt(idx))
     markRow(idx, data.length());
 }
 
@@ -36,7 +29,7 @@ void NestedListData::insertRow(int idx, int count) {
     markRow(idx, data.length() - 1);
 }
 
-void NestedListData::appendRow(int count) {
+void NestedListData::makeRow(int count) {
     int len = data.length();
     for (int i = 0 ; i < count ; i ++) {
         data << new QVector<NestedListNode*>();
@@ -46,7 +39,7 @@ void NestedListData::appendRow(int count) {
 
 void NestedListData::append(int row, NestedListNode *d) {
     if (row >= data.length()) {
-        appendRow(data.length() - row + 1);
+        makeRow(data.length() - row + 1);
     }
     auto* c = data[row];
     int len = c->length();
@@ -57,7 +50,7 @@ void NestedListData::append(int row, NestedListNode *d) {
 
 void NestedListData::insert(int row, int n, NestedListNode *d) {
     if (row >= data.length()) {
-        appendRow(data.length() - row);
+        makeRow(data.length() - row);
     }
     auto* c = data[row];
     initNode(d, row);
@@ -131,6 +124,15 @@ void NestedListData::markColumn(int row, int min, int max) {
     }
     columnChangeBegin = qMin(columnChangeBegin, min);
     columnChangeEnd = qMax(columnChangeEnd, max);
+}
+
+void NestedListData::markAll() {
+    beginEdit();
+    markRow(0, data.length() - 1);
+    for (int i = 0 ; i < data.length() ; i ++) {
+        markColumn(i, 0, data[i]->length() - 1);
+    }
+    endEdit();
 }
 
 void NestedListData::endEdit() {

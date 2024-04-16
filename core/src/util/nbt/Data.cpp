@@ -5,8 +5,6 @@
 #include "Data.h"
 #include "NBT.h"
 #include "Error.h"
-#include "WidgetData.h"
-
 
 Data::Data(char type):type(type) {
 }

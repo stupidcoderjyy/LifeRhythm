@@ -5,6 +5,7 @@
 #include "Calendar.h"
 #include "RcManagers.h"
 #include <QWheelEvent>
+#include <QLayout>
 
 CalendarData::CalendarData(): topLeftDate(), mainMonth(), posMark1(), posMark2() {
 }
@@ -105,8 +106,8 @@ void CalendarContentDrawer::wheelEvent(QWheelEvent *event) {
     }
 }
 
-Calendar::Calendar(QWidget *parent):
-        Widget(parent), shouldInit(true), title(), contentDrawer() {
+Calendar::Calendar(CalendarContentDrawer* content, QWidget *parent):
+        Widget(parent), shouldInit(true), title(), contentDrawer(content) {
 }
 
 Calendar::~Calendar() {
@@ -140,7 +141,8 @@ void Calendar::connectModelView() {
 void Calendar::init() {
     if (shouldInit) {
         WidgetFactoryStorage::get("widget_calendar")->apply(nullptr, this);
-        contentDrawer = getPointer<CalendarContentDrawer>("content");
+        contentDrawer->setParent(this);
+        layout()->addWidget(contentDrawer);
         title = getPointer<TextLabel>("title");
         buttonPrev = getPointer<ImgButton>("buttonPrev");
         buttonNext = getPointer<ImgButton>("buttonNext");

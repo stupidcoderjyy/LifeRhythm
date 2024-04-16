@@ -8,7 +8,7 @@
 #include <QTimer>
 
 #include "NestedListData.h"
-#include "RangeBarList.h"
+#include "RangeBar.h"
 #include "Calendar.h"
 
 USING_NAMESPACE(lr)
@@ -16,12 +16,12 @@ USING_NAMESPACE(lr)
 int main(int argc, char *argv[]) {
     LifeRhythm lr(argc, argv);
     auto cfg = lr.getConfig();
-    cfg.setMode(Config::Test);
+    cfg.setMode(Config::Normal);
     lr.setConfig(cfg);
     lr.registerModule(new log::ModuleLog());
     lr.onPostInit([](){
-        auto* c = new Calendar;
-        c->show();
+//        auto* c = new Calendar(new CalendarContentDrawer);
+//        c->show();
     });
     return lr.launch();
 }

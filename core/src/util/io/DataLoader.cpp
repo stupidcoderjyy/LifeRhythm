@@ -74,6 +74,7 @@ void ListDataLoader::load() {
         wData->fromBytes(reader);
     } catch (Error& e) {
     }
+    delete reader;
     listData->endEdit();
     loaded = true;
     emit sigLoaded();

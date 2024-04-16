@@ -11,10 +11,12 @@
 BEGIN_NAMESPACE(lr::log)
 
 class WidgetA;
+class WidgetB;
 
 class ModuleLog : public Module {
 private:
     WidgetA* tabMain;
+    WidgetB* tabProfiles;
 public:
     ModuleLog();
 protected:

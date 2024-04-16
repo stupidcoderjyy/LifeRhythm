@@ -8,33 +8,18 @@
 
 USING_NAMESPACE(lr::log)
 
-Period::Period(int b, int e, QString info) : begin(b), end(e), info(std::move(info)) {
+Period::Period(int b, int e, QString info): BarData(b, e), info(std::move(info)) {
 }
 
-Period::Period(): begin(), end(), info() {
+Period::Period(): BarData(), info() {
 }
 
 void Period::toBytes(IByteWriter *writer) {
-    writer->writeInt(begin);
-    writer->writeInt(end);
+    BarData::toBytes(writer);
     writer->writeString(info);
 }
 
 void Period::fromBytes(IByteReader *reader) {
-    begin = reader->readInt();
-    end = reader->readInt();
+    BarData::fromBytes(reader);
     info = reader->readString();
-}
-
-WidgetData *PeriodList::readElement(IByteReader *reader) {
-    auto* d = new Period();
-    d->fromBytes(reader);
-    return d;
-}
-
-PeriodDataLoader::PeriodDataLoader(QString destPath): ListDataLoader(std::move(destPath)) {
-}
-
-WidgetData *PeriodDataLoader::createData() noexcept {
-    return new PeriodList;
 }

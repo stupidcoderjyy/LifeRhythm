@@ -60,7 +60,7 @@ private:
     TextLabel* title;
     bool shouldInit;
 public:
-    explicit Calendar(QWidget* parent = nullptr);
+    explicit Calendar(CalendarContentDrawer* content, QWidget* parent = nullptr);
     ~Calendar() override;
     void onFinishedParsing(Handlers &handlers, NBT *widgetTag) override;
     void syncDataToWidget() override;

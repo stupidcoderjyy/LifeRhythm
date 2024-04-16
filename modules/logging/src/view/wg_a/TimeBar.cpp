@@ -4,47 +4,9 @@
 
 #include "TimeBar.h"
 #include "RcManagers.h"
-#include "ListData.h"
-#include "Period.h"
 #include <QHBoxLayout>
-#include <QPainterPath>
 
 USING_NAMESPACE(lr::log)
-
-TimeBarItem::TimeBarItem(QWidget *parent): BarItem(parent), labelInfo(), labelRange() {
-    colorBg = Styles::GRAY_1->color;
-}
-
-void TimeBarItem::onFinishedParsing(StandardWidget::Handlers &handlers, NBT *widgetTag) {
-    handlers << [](QWidget* target) {
-        static_cast<TimeBarItem*>(target)->init();
-    };
-}
-
-void TimeBarItem::init() {
-    labelInfo = getPointer<TextLabel>("labelInfo");
-    labelRange = getPointer<TextLabel>("labelRange");
-}
-
-void TimeBarItem::syncDataToWidget() {
-    BarItem::syncDataToWidget();
-    if (wData) {
-        show();
-        auto* d = wData->cast<Period>();
-        labelInfo->setText(d->info);
-        labelRange->setText(QString::asprintf("%02d:%02d-%02d:%02d", d->begin / 60, d->begin % 60, d->end / 60, d->end % 60));
-    } else {
-        close();
-    }
-}
-
-void TimeBarItem::paintEvent(QPaintEvent *event) {
-    QPainter p(this);
-    p.setRenderHint(QPainter::Antialiasing);
-    QPainterPath path;
-    path.addRoundedRect(QRect(4, 2, width() - 8, height() - 4), 3, 3);
-    p.fillPath(path, colorBg);
-}
 
 TimeBarContainer::TimeBarContainer(QWidget *parent): VBarContainer(parent) {
 }
@@ -65,19 +27,7 @@ void TimeBarContainer::paintEvent(QPaintEvent *event) {
     }
 }
 
-void TimeBarContainer::updateBarGeometry() {
-    int height = qRound((maxVal - minVal) * vpp);
-    setFixedSize(parentWidget()->width() - 55, height); // scale 50, spacing 5
-    for (auto* rw : rangeWidgets) {
-        updateRangeWidgetGeometry(rw);
-    }
-}
-
-TimeBar::TimeBar(QWidget *parent): RangeBar(new TimeBarContainer(), parent) {
-    setBarRange(0, 1440);
-    setZoomRange(0.8, 2.4);
-    setZoomStep(0.4);
-    setVpp(1.2);
+TimeBar::TimeBar(QWidget *parent): RangeBar(new TimeBarContainer(), parent), scale() {
 }
 
 ScrollBar *TimeBar::createVerticalScrollBar() {
@@ -106,29 +56,4 @@ void TimeBar::assembleContainer() {
 void TimeBar::updateContainerSize() {
     scale->setFixedHeight(container->height());
     rootContent->updateGeometry();
-}
-
-TimeScale::TimeScale(QWidget *parent): QWidget(parent), vpp(-1) {
-    setFixedWidth(50);
-}
-
-void TimeScale::setVpp(double v3) {
-    vpp = v3;
-    update();
-}
-
-void TimeScale::paintEvent(QPaintEvent *event) {
-    if (vpp < 0) {
-        return;
-    }
-    QPainter p(this);
-    QPen pen;
-    pen.setColor(Styles::GRAY_3->color);
-    p.setPen(pen);
-    p.setFont(Styles::FONT_SMALL);
-    for (int hour = 1 ; hour < 24 ; hour ++) {
-        QString str = hour == 12 ? "正午" : QString::number(hour).append(":00");
-        QRect r(0, qRound(hour * 60 * vpp) - 20, width(), 40);
-        p.drawText(r, Qt::AlignVCenter | Qt::AlignRight, str);
-    }
 }

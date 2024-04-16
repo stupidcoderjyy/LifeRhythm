@@ -10,11 +10,14 @@
 #include "PeriodTypeTreeWidget.h"
 #include "WidgetStartPeriodMenu.h"
 #include "PeriodTypeColorBox.h"
+#include "TimeBarItem.h"
 #include "LifeRhythm.h"
+#include "WidgetB.h"
+#include "WidgetDataStorage.h"
 
 USING_NAMESPACE(lr::log)
 
-ModuleLog::ModuleLog(): Module("log"), tabMain() {
+ModuleLog::ModuleLog(): Module("log"), tabMain(), tabProfiles() {
 }
 
 void ModuleLog::mainInit() {
@@ -36,9 +39,15 @@ void ModuleLog::mainInit() {
     regClazz(f, RecordTypeItem);
     f = WidgetFactoryStorage::get("log:widget_newtype");
     regClazz(f, PeriodTypeColorBox);
+    f = WidgetFactoryStorage::get("log:wg_b");
+    regClazz(f, WidgetB);
+    regClazz(f, WeekView);
+    regClazz(f, WeekViewTitle);
 }
 
 void ModuleLog::postInit() {
     tabMain = WidgetFactoryStorage::get("log:wg_a")->applyAndCast<WidgetA>();
     LifeRhythm::insertTab("测试", tabMain);
+    tabProfiles = WidgetFactoryStorage::get("log:wg_b")->applyAndCast<WidgetB>();
+    LifeRhythm::insertTab("档案", tabProfiles);
 }

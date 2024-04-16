@@ -12,13 +12,16 @@ class WidgetData : public QObject, public Serializable{
     Q_OBJECT
 public:
     WidgetData();
-    template<class T> inline constexpr T* cast() {
-        return static_cast<T*>(this);
-    }
+    template<class T> inline constexpr T* cast();
     void toBytes(IByteWriter *writer) override;
     void fromBytes(IByteReader *reader) override;
 signals:
     void sigDataChanged();
 };
+
+template<class T>
+inline constexpr T *WidgetData::cast() {
+    return static_cast<T*>(this);
+}
 
 #endif //LIFERHYTHM_WIDGET_DATA_H

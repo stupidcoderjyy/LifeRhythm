@@ -1,0 +1,55 @@
+{
+    type: "WidgetB"
+    children: ["w0", "b3"]
+    layout: {
+        type: "Horizontal"
+        margins: [0,0,0,0]
+        spacing: 0
+    }
+    w0: {
+        children: ["b0", "b1"]
+        fixed_width: 400
+        layout: {
+            type: "Vertical"
+            margins: [0,0,0,0]
+            spacing: 0
+        }
+        b0: {
+            type: "TextLabel"
+            text: "日历"
+            qss: "bg(GRAY_0) bd('2px', 'solid', BLACK)"
+            align: "Center"
+            fs: 50
+        }
+        b1: {
+            type: "TextLabel"
+            text: "统计"
+            qss: "bg(GRAY_0) bd('2px', 'solid', BLACK)"
+            align: "Center"
+            fs: 50
+        }
+    }
+    b3: {
+        children: ["wvTitle", "wv"]
+        layout: {
+            type: "Vertical"
+            margins: [0,0,0,0]
+            spacing: 0
+        }
+        wvTitle: {
+            type: "WeekViewTitle"
+            pointer: true
+        }
+        wv: {
+            type: "WeekView"
+            fixed_width: 1455
+            pointer: true
+            barRange: [0, 1440]
+            mainZoomRange: [0.8, 2.4]
+            zoomEnabled: [true, false]
+            mainZoomStep: 0.4
+            vpp: 1.2
+            sideLen: 200
+        }
+    }
+}

@@ -7,7 +7,6 @@
 
 #include "TimeBar.h"
 #include "TabBar.h"
-#include "SelectableListData.h"
 
 BEGIN_NAMESPACE(lr::log)
 
@@ -17,7 +16,6 @@ class WidgetA : public TabWidget {
     Q_OBJECT
 private:
     TimeBar* bar;
-    PeriodDataLoader* loader;
 public:
     explicit WidgetA(QWidget* parent = nullptr);
 protected:

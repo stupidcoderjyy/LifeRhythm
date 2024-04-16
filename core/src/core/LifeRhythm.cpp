@@ -122,7 +122,6 @@ void LifeRhythm::mainInit() {
     regClazz(f, DefaultColorsListItem);
     f = WidgetFactoryStorage::get("lr:widget_calendar");
     regClazz(f, WeekDayTitleDrawer);
-    regClazz(f, CalendarContentDrawer);
     auto* m0 = new SelectableListData;
     for (auto& c : Color::defaultColors) {
         m0->append(c);
@@ -138,7 +137,7 @@ void LifeRhythm::mainInit() {
 
 void LifeRhythm::postInit() {
     WidgetFactoryStorage::parseAll();
-    mainFrame = static_cast<MainFrame*>(WidgetFactoryStorage::get("lr:widget_mainframe")->apply());
+    mainFrame = WidgetFactoryStorage::get("lr:widget_mainframe")->applyAndCast<MainFrame>();
     if (config.mode == Config::Test) {
         return;
     }

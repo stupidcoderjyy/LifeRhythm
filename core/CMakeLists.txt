@@ -82,7 +82,6 @@ set(INCLUDE_FILES
         include/widgets/ListWidget.h
         include/widgets/Menu.h
         include/widgets/LineEditOptionsBox.h
-        include/widgets/RangeBar.h
         include/widgets/ScrollArea.h
         include/widgets/ScrollBar.h
         include/widgets/SelectableListWidget.h
@@ -96,7 +95,7 @@ set(INCLUDE_FILES
         include/widgets/ColorSelector.h
         include/widgets/AbstractOptionsBox.h
         include/widgets/IconTextButton.h
-        include/widgets/RangeBarList.h
+        include/widgets/RangeBar.h
         include/widgets/Calendar.h
         include/widgets/AbstractSlotsDrawer.h
 )
@@ -169,7 +168,6 @@ set(SRC_FILES
         src/widgets/ListWidget.cpp
         src/widgets/Menu.cpp
         src/widgets/LineEditOptionsBox.cpp
-        src/widgets/RangeBar.cpp
         src/widgets/ScrollArea.cpp
         src/widgets/ScrollBar.cpp
         src/widgets/SelectableListWidget.cpp
@@ -183,7 +181,7 @@ set(SRC_FILES
         src/widgets/ColorSelector.cpp
         src/widgets/AbstractOptionsBox.cpp
         src/widgets/IconTextButton.cpp
-        src/widgets/RangeBarList.cpp
+        src/widgets/RangeBar.cpp
         src/widgets/Calendar.cpp
         src/widgets/AbstractSlotsDrawer.cpp
 )

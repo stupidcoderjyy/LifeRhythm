@@ -30,6 +30,7 @@ public:
     void fillInt(int* arr, int len);
     void fillInt(QVector<int>& target, int len = -1, int defaultVal = 0);
     void fillFloat(float* arr, int len);
+    void fillBool(bool* arr, int len);
 protected:
     void serialize(IByteWriter *writer) override;
     void deserialize(IByteReader *reader) override;

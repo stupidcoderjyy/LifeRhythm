@@ -1,5 +1,5 @@
 {
-    children: ["w", "weekDays", "content"]
+    children: ["w", "weekDays"]
     qss: "bg(BLACK)"
     layout: {
         type: "Vertical"
@@ -33,9 +33,5 @@
     }
     weekDays: {
         type: "WeekDayTitleDrawer"
-    }
-    content: {
-        type: "CalendarContentDrawer"
-        pointer: true
     }
 }

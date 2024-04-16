@@ -11,7 +11,7 @@ class NestedListNode : public WidgetData {
     Q_OBJECT
     friend class NestedListData;
 protected:
-    int row;
+    int row;    //由NestedListData设置，如果需要更改调用changeRow
 public:
     NestedListNode();
     inline int getRow() const;
@@ -43,8 +43,8 @@ public:
     virtual void removeRow(int idx);
     virtual void insertRow(int idx, int count);
     inline void insertRow(int idx);
-    virtual void appendRow(int count);
-    inline void appendRow();
+    virtual void makeRow(int count);
+    inline void makeRow();
     virtual void append(int row, NestedListNode* d);
     virtual void insert(int row, int n, NestedListNode* d);
     virtual NestedListNode* remove(int row, int n);
@@ -53,6 +53,7 @@ public:
     void beginEdit();
     void markRow(int begin, int end);
     void markColumn(int row, int begin, int end);
+    void markAll();
     void endEdit();
     inline int getColumnChangeBegin() const;
     inline int getColumnChangeEnd() const;
@@ -79,8 +80,8 @@ inline void NestedListData::insertRow(int idx) {
     insertRow(idx, 1);
 }
 
-inline void NestedListData::appendRow() {
-    appendRow(1);
+inline void NestedListData::makeRow() {
+    makeRow(1);
 }
 
 inline QVector<NestedListNode*> *NestedListData::getRow(int row) {
@@ -121,6 +122,5 @@ inline int NestedListData::getRowChangeEnd() const {
 inline NestedListData::EditType NestedListData::getEditType() const {
     return editType;
 }
-
 
 #endif //LIFERHYTHM_NESTEDLISTDATA_H

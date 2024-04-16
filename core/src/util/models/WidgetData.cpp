@@ -9,9 +9,7 @@ WidgetData::WidgetData(): QObject() {
 }
 
 void WidgetData::toBytes(IByteWriter *writer) {
-
 }
 
 void WidgetData::fromBytes(IByteReader *reader) {
-
 }

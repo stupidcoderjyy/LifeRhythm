@@ -7,5 +7,6 @@
         <file>widget_content.snbt</file>
         <file>widget_mainpage.snbt</file>
         <file>widget_newtype.snbt</file>
+        <file>wg_b.snbt</file>
     </qresource>
 </RCC>

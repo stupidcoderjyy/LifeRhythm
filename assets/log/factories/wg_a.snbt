@@ -10,6 +10,12 @@
         type: "TimeBar"
         fixed_width: 300
         pointer: true
+        barRange: [0, 1440]
+        mainZoomRange: [0.8, 2.4]
+        mainZoomStep: 0.4
+        zoomEnabled: [true, false]
+        vpp: 1.2
+        sideLen: 245
     }
     w0: {
         children: ["w0", "w1"]
