@@ -9,20 +9,9 @@
 #include "FocusManager.h"
 #include <QHBoxLayout>
 
-TextButtonContent::TextButtonContent(QWidget *parent): TextLabel(parent) {
-    setObjectName("tbc");
-}
-
-void TextButtonContent::mousePressEvent(QMouseEvent *ev) {
-    ev->ignore();
-}
-
-void TextButtonContent::mouseReleaseEvent(QMouseEvent *event) {
-    event->ignore();
-}
-
 TextButton::TextButton(QWidget *parent): FocusContainer(parent), type(Normal) {
-    content = new TextButtonContent(this);
+    content = new TextLabel(this);
+    content->setObjectName("tbc");
     content->setAlignment(Qt::AlignCenter);
     auto* layout = new QHBoxLayout(this);
     setLayout(layout);

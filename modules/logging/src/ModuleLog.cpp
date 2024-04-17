@@ -4,7 +4,7 @@
 
 #include "ModuleLog.h"
 #include "RcManagers.h"
-#include "WidgetA.h"
+#include "A.h"
 #include "TimeBar.h"
 #include "PeriodTypeIcon.h"
 #include "PeriodTypeTreeWidget.h"
@@ -12,8 +12,10 @@
 #include "PeriodTypeColorBox.h"
 #include "TimeBarItem.h"
 #include "LifeRhythm.h"
-#include "WidgetB.h"
-#include "WidgetDataStorage.h"
+#include "B.h"
+#include "B0.h"
+#include "B1.h"
+#include "DateRangeSelector.h"
 
 USING_NAMESPACE(lr::log)
 
@@ -22,7 +24,7 @@ ModuleLog::ModuleLog(): Module("log"), tabMain(), tabProfiles() {
 
 void ModuleLog::mainInit() {
     auto* f = WidgetFactoryStorage::get("log:wg_a");
-    regClazz(f, WidgetA);
+    regClazz(f, A);
     regClazz(f, TimeBar);
     f = WidgetFactoryStorage::get("log:widget_mainpage");
     regClazz(f, PeriodTypeTreeWidget);
@@ -40,14 +42,17 @@ void ModuleLog::mainInit() {
     f = WidgetFactoryStorage::get("log:widget_newtype");
     regClazz(f, PeriodTypeColorBox);
     f = WidgetFactoryStorage::get("log:wg_b");
-    regClazz(f, WidgetB);
-    regClazz(f, WeekView);
-    regClazz(f, WeekViewTitle);
+    regClazz(f, B);
+    regClazz(f, B0);
+    regClazz(f, B1);
+    regClazz(f, B4);
+    regClazz(f, B3);
+    regClazz(f, DateRangeSelector);
 }
 
 void ModuleLog::postInit() {
-    tabMain = WidgetFactoryStorage::get("log:wg_a")->applyAndCast<WidgetA>();
+    tabMain = WidgetFactoryStorage::get("log:wg_a")->applyAndCast<A>();
     LifeRhythm::insertTab("测试", tabMain);
-    tabProfiles = WidgetFactoryStorage::get("log:wg_b")->applyAndCast<WidgetB>();
+    tabProfiles = WidgetFactoryStorage::get("log:wg_b")->applyAndCast<B>();
     LifeRhythm::insertTab("档案", tabProfiles);
 }

@@ -1,5 +1,5 @@
 {
-    type: "WidgetA"
+    type: "A"
     children: ["timeBar", "w0"]
     layout: {
         type: "Horizontal"

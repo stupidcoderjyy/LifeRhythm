@@ -17,7 +17,6 @@ signals:
     void sigSelectOption();
 protected:
     void mouseReleaseEvent(QMouseEvent *event) override;
-
     void focusOutEvent(QFocusEvent *event) override;
 };
 
@@ -31,6 +30,7 @@ public:
     ~AbstractOptionsBox() override;
 protected:
     void resizeEvent(QResizeEvent *event) override;
+    void mousePressEvent(QMouseEvent *event) override;
     void mouseReleaseEvent(QMouseEvent *event) override;
     void focusOutEvent(QFocusEvent *event) override;
     virtual void clickBox(bool open);                    //点击生成弹窗或关闭弹窗

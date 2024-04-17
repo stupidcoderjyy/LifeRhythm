@@ -28,7 +28,7 @@ protected:
     BarItem *createRangeWidget() override;
     ScrollBar *createVerticalScrollBar() override;
     void assembleContainer() override;
-    void updateContainerSize() override;
+    void updateContentSize() override;
 };
 
 END_NAMESPACE

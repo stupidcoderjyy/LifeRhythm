@@ -53,7 +53,7 @@ void TimeBar::assembleContainer() {
     l->addWidget(container);
 }
 
-void TimeBar::updateContainerSize() {
+void TimeBar::updateContentSize() {
     scale->setFixedHeight(container->height());
     rootContent->updateGeometry();
 }

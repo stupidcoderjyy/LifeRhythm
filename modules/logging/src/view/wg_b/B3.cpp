@@ -2,19 +2,19 @@
 // Created by stupid_coder_jyy on 2024/4/15.
 //
 
-#include "WeekViewTitle.h"
+#include "B3.h"
 #include "WeekViewData.h"
 
 USING_NAMESPACE(lr::log)
 
-WeekViewTitle::WeekViewTitle(QWidget *parent): SlotsDrawer(parent) {
+B3::B3(QWidget *parent): SlotsDrawer(parent) {
     setSlotSize(200, 40);
     setSlotCount(7, 1);
     memset(months, 0, 28);
     memset(days, 0, 28);
 }
 
-void WeekViewTitle::syncDataToWidget() {
+void B3::syncDataToWidget() {
     if (!wData) {
         return;
     }
@@ -27,7 +27,7 @@ void WeekViewTitle::syncDataToWidget() {
     update();
 }
 
-void WeekViewTitle::initLayers() {
+void B3::initLayers() {
     appendLayer(new WeekViewTitleLayer(months, days));
 }
 

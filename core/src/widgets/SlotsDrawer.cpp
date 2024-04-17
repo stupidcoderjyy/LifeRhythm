@@ -4,6 +4,7 @@
 
 #include "SlotsDrawer.h"
 #include "MemUtil.h"
+#include <QMouseEvent>
 
 SlotsDrawer::SlotsDrawer(QWidget *parent):
         Widget(parent), slotWidth(40), slotHeight(40), columns(0), rows(0),
@@ -17,11 +18,11 @@ SlotsDrawer::~SlotsDrawer() {
 void SlotsDrawer::paintEvent(QPaintEvent *event) {
     QPainter p(this);
     QRect area;
-    area.setRect(0, 0, slotWidth, slotHeight);
     for (auto* l : layers) {
         if (!l->shouldDraw()) {
             continue;
         }
+        area.setRect(0, 0, slotWidth, slotHeight);
         l->beforeDrawing(p, area);
         for (int r = 0; r < rows; r++) {
             for (int c = 0; c < columns; c++) {
@@ -42,6 +43,14 @@ void SlotsDrawer::resizeEvent(QResizeEvent *event) {
         initLayers();
         init = true;
     }
+}
+
+void SlotsDrawer::mousePressEvent(QMouseEvent *event) {
+    auto p = event->pos();
+    onSlotClicked(event, p.y() / slotHeight, p.x() / slotWidth);
+}
+
+void SlotsDrawer::onSlotClicked(QMouseEvent* evt, int row, int column) {
 }
 
 DrawerLayer::DrawerLayer(): parent() {

@@ -12,10 +12,9 @@
 #include <QDateTime>
 
 class CalendarData : public WidgetData {
-    friend class CalendarContentLayer;
     friend class CalendarContentDrawer;
     friend class Calendar;
-private:
+protected:
     QDate topLeftDate;
     QDate mainMonth;
     int posMark1;
@@ -33,11 +32,15 @@ protected:
 };
 
 class CalendarContentLayer : public DrawerLayer {
+    friend class Calendar;
 private:
-    int day;
-    int count;
+    int firstDay;
     int mainMonthBegin;
     int mainMonthEnd;
+    int day;
+    int count;
+public:
+    CalendarContentLayer();
 protected:
     bool shouldDraw() override;
     void beforeDrawing(QPainter &p, QRect &area) override;
@@ -45,45 +48,49 @@ protected:
 };
 
 class WeekDayTitleDrawer : public SlotsDrawer {
+public:
+    explicit WeekDayTitleDrawer(QWidget* parent = nullptr);
 protected:
     void initLayers() override;
 };
 
 class CalendarContentDrawer : public SlotsDrawer {
+    friend class Calendar;
+protected:
+    CalendarContentLayer* baseLayer;
 public:
     explicit CalendarContentDrawer(QWidget* parent = nullptr);
-    void syncDataToWidget() override;
 protected:
     void initLayers() override;
-    void connectModelView() override;
     void wheelEvent(QWheelEvent *event) override;
 };
 
 class Calendar : public Widget {
 public:
     static const QStringList WEEKDAYS_CN;
+    static const QSize SIZE;
 protected:
-    CalendarData* cd;
     CalendarContentDrawer* contentDrawer;
     WeekDayTitleDrawer* titleDrawer;
     ImgButton* buttonPrev;
     ImgButton* buttonNext;
     TextLabel* title;
-private:
     bool shouldInit;
 public:
     explicit Calendar(
             WeekDayTitleDrawer* t,
             CalendarContentDrawer* c,
             QWidget* parent = nullptr);
-    ~Calendar() override;
     void onFinishedParsing(Handlers &handlers, NBT *widgetTag) override;
     void syncDataToWidget() override;
     void loadDate(const QDate& d);
+    void setData(WidgetData *d) override;
 protected:
     void resizeEvent(QResizeEvent *event) override;
     void connectModelView() override;
     virtual void init();
+private:
+    void init0();
 };
 
 #endif //LIFERHYTHM_CALENDAR_H

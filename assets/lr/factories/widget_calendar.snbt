@@ -1,13 +1,16 @@
 {
     children: ["w"]
-    qss: "bg(BLACK)"
+    fixed_height: 380
+    fixed_width: 350
     layout: {
         type: "Vertical"
         spacing: 0
+        margins: [0,0,0,0]
     }
     w: {
         children: ["title", "buttonPrev", "buttonNext"]
-        fixed_height: 50
+        fixed_height: 40
+        qss: "bg(GRAY_0) bd_b('1px', 'solid', BLACK)"
         layout: {
             type: "Horizontal"
             margins: [0,0,10,0]
@@ -16,7 +19,6 @@
         title: {
             type: "TextLabel"
             align: "Left|V_Center"
-            fs: 13
             margins: [5,0,0,0]
             pointer: true
         }

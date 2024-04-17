@@ -2,7 +2,7 @@
 // Created by stupid_coder_jyy on 2024/4/15.
 //
 
-#include "WeekView.h"
+#include "B4.h"
 #include "RcManagers.h"
 #include <QHBoxLayout>
 
@@ -30,14 +30,14 @@ void WeekViewContainer::paintEvent(QPaintEvent *event) {
     }
 }
 
-WeekView::WeekView(QWidget *parent): RangeBar(new WeekViewContainer, parent) {
+B4::B4(QWidget *parent): RangeBar(new WeekViewContainer, parent) {
 }
 
-void WeekView::assembleContainer() {
+void B4::assembleContainer() {
     auto* l = new QHBoxLayout(rootContent);
     rootContent->setLayout(l);
     scale = new TimeScale(rootContent);
-    connect(this, &WeekView::sigBarLayoutChanged, scale, [this](){
+    connect(this, &B4::sigBarLayoutChanged, scale, [this](){
         scale->setVpp(container->getVpp());
     });
     l->setContentsMargins(0,0,0,0);
@@ -46,16 +46,16 @@ void WeekView::assembleContainer() {
     l->addWidget(container);
 }
 
-void WeekView::updateContainerSize() {
+void B4::updateContentSize() {
     scale->setFixedHeight(container->height());
     rootContent->updateGeometry();
 }
 
-BarItem *WeekView::createRangeWidget() {
+BarItem *B4::createRangeWidget() {
     return WidgetFactoryStorage::get("log:item_timebar")->applyAndCast<BarItem>();
 }
 
-ScrollBar *WeekView::createVerticalScrollBar() {
+ScrollBar *B4::createVerticalScrollBar() {
     auto* bar = ScrollArea::createVerticalScrollBar();
     bar->setEnabled(false);
     return bar;

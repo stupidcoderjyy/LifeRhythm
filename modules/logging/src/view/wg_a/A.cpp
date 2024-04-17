@@ -2,15 +2,15 @@
 // Created by stupid_coder_jyy on 2024/3/2.
 //
 
-#include "WidgetA.h"
+#include "A.h"
 #include "Period.h"
 
 USING_NAMESPACE(lr::log)
 
-WidgetA::WidgetA(QWidget *parent): TabWidget(parent) {
+A::A(QWidget *parent): TabWidget(parent) {
 }
 
-void WidgetA::onTabCreated() {
+void A::onTabCreated() {
     bar = getPointer<TimeBar>("timeBar");
     auto* d = new NestedListData;
     d->makeRow();

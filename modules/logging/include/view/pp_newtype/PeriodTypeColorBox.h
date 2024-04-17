@@ -20,7 +20,6 @@ public:
     ~PeriodTypeColorBox() override;
 protected:
     void initMenu(OptionsMenu *menu) override;
-    void mousePressEvent(QMouseEvent *event) override;
 };
 
 #endif //LIFERHYTHM_PERIODTYPECOLORBOX_H

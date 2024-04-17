@@ -9,6 +9,7 @@ set(INCLUDES
         include/view/pp_startlogging
         include/view/wg_a
         include/view/wg_b
+        include/view/wg_b/b1
         include/view/shared
 )
 
@@ -18,16 +19,20 @@ set(INCLUDE_FILES
         include/model/PeriodType.h
         include/model/RecordType.h
         include/model/WeekViewData.h
+        include/model/DRSData.h
         include/view/pp_newtype/PeriodTypeColorBox.h
         include/view/pp_startlogging/PeriodTypeIcon.h
         include/view/pp_startlogging/PeriodTypeTreeWidget.h
         include/view/pp_startlogging/RecordTypeListWidget.h
         include/view/pp_startlogging/WidgetStartPeriodMenu.h
-        include/view/wg_a/WidgetA.h
+        include/view/wg_a/A.h
         include/view/wg_a/TimeBar.h
-        include/view/wg_b/WeekView.h
-        include/view/wg_b/WeekViewTitle.h
-        include/view/wg_b/WidgetB.h
+        include/view/wg_b/B.h
+        include/view/wg_b/B0.h
+        include/view/wg_b/B3.h
+        include/view/wg_b/B4.h
+        include/view/wg_b/b1/B1.h
+        include/view/wg_b/b1/DateRangeSelector.h
         include/view/shared/TimeBarItem.h
         include/view/shared/TimeScale.h
 )
@@ -38,16 +43,20 @@ set(SRC_FILES
         src/model/PeriodType.cpp
         src/model/RecordType.cpp
         src/model/WeekViewData.cpp
+        src/model/DRSData.cpp
         src/view/pp_newtype/PeriodTypeColorBox.cpp
         src/view/pp_startlogging/PeriodTypeIcon.cpp
         src/view/pp_startlogging/PeriodTypeTreeWidget.cpp
         src/view/pp_startlogging/RecordTypeListWidget.cpp
         src/view/pp_startlogging/WidgetStartPeriodMenu.cpp
-        src/view/wg_a/WidgetA.cpp
+        src/view/wg_a/A.cpp
         src/view/wg_a/TimeBar.cpp
-        src/view/wg_b/WeekView.cpp
-        src/view/wg_b/WeekViewTitle.cpp
-        src/view/wg_b/WidgetB.cpp
+        src/view/wg_b/B.cpp
+        src/view/wg_b/B0.cpp
+        src/view/wg_b/B3.cpp
+        src/view/wg_b/B4.cpp
+        src/view/wg_b/b1/B1.cpp
+        src/view/wg_b/b1/DateRangeSelector.cpp
         src/view/shared/TimeBarItem.cpp
         src/view/shared/TimeScale.cpp
 )

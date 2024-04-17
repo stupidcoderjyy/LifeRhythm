@@ -14,5 +14,6 @@
         <file>rollback_30x30.png</file>
         <file>v_color_bar.png</file>
         <file>arrow_up_25x25.png</file>
+        <file>reload_30x30.png</file>
     </qresource>
 </RCC>

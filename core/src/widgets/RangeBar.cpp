@@ -310,7 +310,7 @@ void RangeBar::assembleContainer() {
     l->addWidget(container);
 }
 
-void RangeBar::updateContainerSize() {
+void RangeBar::updateContentSize() {
     rootContent->setFixedSize(container->size());
 }
 
@@ -328,7 +328,7 @@ void RangeBar::barDataChanged(BarUpdateType type) {
             break;
         case BarCountChanged:
             container->updateBarGeometry();
-            updateContainerSize();
+            updateContentSize();
             emit sigBarLayoutChanged();
             return;
         case MainZoom:
@@ -346,7 +346,7 @@ void RangeBar::barDataChanged(BarUpdateType type) {
             }
             break;
     }
-    updateContainerSize();
+    updateContentSize();
     for (auto bar : container->bars) {
         for (auto* item : *bar) {
             container->updateRangeWidgetGeometry(item);

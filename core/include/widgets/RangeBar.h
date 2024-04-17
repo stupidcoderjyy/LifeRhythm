@@ -141,7 +141,7 @@ protected:
     void resizeEvent(QResizeEvent *event) override;
     virtual BarItem* createRangeWidget();
     virtual void assembleContainer();
-    virtual void updateContainerSize();
+    virtual void updateContentSize();
 private:
     void initPeriodWidget(BarItem *rw);
     void barDataChanged(BarUpdateType type);

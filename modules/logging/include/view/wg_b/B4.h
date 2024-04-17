@@ -2,8 +2,8 @@
 // Created by stupid_coder_jyy on 2024/4/15.
 //
 
-#ifndef LIFERHYTHM_WEEKVIEW_H
-#define LIFERHYTHM_WEEKVIEW_H
+#ifndef LIFERHYTHM_B4_H
+#define LIFERHYTHM_B4_H
 
 #include "RangeBar.h"
 #include "Namespaces.h"
@@ -20,19 +20,19 @@ protected:
     void paintEvent(QPaintEvent *event) override;
 };
 
-class WeekView : public RangeBar {
+class B4 : public RangeBar {
     Q_OBJECT
 private:
     TimeScale* scale;
 public:
-    explicit WeekView(QWidget* parent = nullptr);
+    explicit B4(QWidget* parent = nullptr);
 protected:
     void assembleContainer() override;
-    void updateContainerSize() override;
+    void updateContentSize() override;
     BarItem *createRangeWidget() override;
     ScrollBar *createVerticalScrollBar() override;
 };
 
 END_NAMESPACE
 
-#endif //LIFERHYTHM_WEEKVIEW_H
+#endif //LIFERHYTHM_B4_H

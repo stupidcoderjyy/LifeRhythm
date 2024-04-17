@@ -27,7 +27,9 @@ public:
     inline void setSlotCount(int columns, int rows);
 protected:
     void resizeEvent(QResizeEvent *event) override;
+    void mousePressEvent(QMouseEvent *event) override;
     virtual void initLayers() = 0;
+    virtual void onSlotClicked(QMouseEvent* evt, int row, int column);
     inline void appendLayer(DrawerLayer* layer);
     inline void insertLayer(int i, DrawerLayer* layer);
 };

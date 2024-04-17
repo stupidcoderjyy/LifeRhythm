@@ -8,15 +8,6 @@
 #include "TextLabel.h"
 #include "FocusContainer.h"
 
-class TextButtonContent : public TextLabel {
-    friend class TextButton;
-private:
-    explicit TextButtonContent(QWidget* parent);
-protected:
-    void mousePressEvent(QMouseEvent *ev) override;
-    void mouseReleaseEvent(QMouseEvent *event) override;
-};
-
 class TextButton : public FocusContainer {
     Q_OBJECT
 public:
@@ -26,7 +17,7 @@ public:
         Disabled
     };
 private:
-    TextButtonContent* content;
+    TextLabel* content;
     Type type;
 public:
     explicit TextButton(QWidget* parent = nullptr);

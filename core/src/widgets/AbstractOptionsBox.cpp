@@ -46,6 +46,13 @@ void AbstractOptionsBox::resizeEvent(QResizeEvent *event) {
     }
 }
 
+void AbstractOptionsBox::mousePressEvent(QMouseEvent *event) {
+    FocusContainer::mousePressEvent(event);
+    if (!menuOpen && !pressLock) {
+        clickBox(true);
+    }
+}
+
 void AbstractOptionsBox::mouseReleaseEvent(QMouseEvent *event) {
     pressLock = false;
 }

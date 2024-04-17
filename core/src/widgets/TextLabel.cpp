@@ -4,6 +4,7 @@
 
 #include "TextLabel.h"
 #include "WidgetFactory.h"
+#include <QMouseEvent>
 
 TextLabel::TextLabel(QWidget *parent):QLabel(parent), StandardWidget() {
     setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
@@ -20,4 +21,12 @@ void TextLabel::onPostParsing(Handlers &handlers, NBT *widgetTag) {
 
 void TextLabel::onStateRespondersParsing(StandardWidget::Handlers &responders, NBT *stateTag) {
     onPostParsing(responders, stateTag);
+}
+
+void TextLabel::mousePressEvent(QMouseEvent *ev) {
+    ev->ignore();
+}
+
+void TextLabel::mouseReleaseEvent(QMouseEvent *ev) {
+    ev->ignore();
 }

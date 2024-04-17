@@ -13,6 +13,9 @@ public:
     explicit TextLabel(QWidget* parent = nullptr);
     void onPostParsing(Handlers &handlers, NBT *widgetTag) override;
     void onStateRespondersParsing(Handlers &responders, NBT *stateTag) override;
+protected:
+    void mousePressEvent(QMouseEvent *ev) override;
+    void mouseReleaseEvent(QMouseEvent *ev) override;
 };
 
 

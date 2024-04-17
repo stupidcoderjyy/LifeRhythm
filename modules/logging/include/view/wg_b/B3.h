@@ -2,8 +2,8 @@
 // Created by stupid_coder_jyy on 2024/4/15.
 //
 
-#ifndef LIFERHYTHM_WEEKVIEWTITLE_H
-#define LIFERHYTHM_WEEKVIEWTITLE_H
+#ifndef LIFERHYTHM_B3_H
+#define LIFERHYTHM_B3_H
 
 #include "Namespaces.h"
 #include "SlotsDrawer.h"
@@ -11,12 +11,12 @@
 
 BEGIN_NAMESPACE(lr::log)
 
-class WeekViewTitle : public SlotsDrawer {
+class B3 : public SlotsDrawer {
 private:
     int months[7];
     int days[7];
 public:
-    explicit WeekViewTitle(QWidget* parent = nullptr);
+    explicit B3(QWidget* parent = nullptr);
     void syncDataToWidget() override;
     void initLayers() override;
 };
@@ -34,4 +34,4 @@ protected:
 
 END_NAMESPACE
 
-#endif //LIFERHYTHM_WEEKVIEWTITLE_H
+#endif //LIFERHYTHM_B3_H

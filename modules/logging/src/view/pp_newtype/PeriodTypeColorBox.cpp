@@ -38,10 +38,3 @@ void PeriodTypeColorBox::initMenu(OptionsMenu *menu) {
     l->addWidget(hueSelector);
     menu->setLayout(l);
 }
-
-void PeriodTypeColorBox::mousePressEvent(QMouseEvent *event) {
-    AbstractOptionsBox::mousePressEvent(event);
-    if (!menuOpen && !pressLock) {
-        clickBox(true);
-    }
-}

@@ -2,8 +2,8 @@
 // Created by stupid_coder_jyy on 2024/3/2.
 //
 
-#ifndef LIFERHYTHM_WIDGETA_H
-#define LIFERHYTHM_WIDGETA_H
+#ifndef LIFERHYTHM_A_H
+#define LIFERHYTHM_A_H
 
 #include "TimeBar.h"
 #include "TabBar.h"
@@ -12,16 +12,16 @@ BEGIN_NAMESPACE(lr::log)
 
 class PeriodDataLoader;
 
-class WidgetA : public TabWidget {
+class A : public TabWidget {
     Q_OBJECT
 private:
     TimeBar* bar;
 public:
-    explicit WidgetA(QWidget* parent = nullptr);
+    explicit A(QWidget* parent = nullptr);
 protected:
     void onTabCreated() override;
 };
 
 END_NAMESPACE
 
-#endif //LIFERHYTHM_WIDGETA_H
+#endif //LIFERHYTHM_A_H
