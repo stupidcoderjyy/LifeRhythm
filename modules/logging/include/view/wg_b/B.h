@@ -7,14 +7,17 @@
 
 #include "TabBar.h"
 #include "Namespaces.h"
-#include "B4.h"
-#include "B3.h"
 
 BEGIN_NAMESPACE(lr::log)
+
+class B2;
+class B3;
+class B4;
 
 class B : public TabWidget {
     Q_OBJECT
 private:
+    B2* timeUsage;
     B3* wvTitle;
     B4* wv;
 public:

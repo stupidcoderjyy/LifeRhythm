@@ -11,20 +11,17 @@ class DrawerLayer;
 
 class SlotsDrawer : public Widget {
 protected:
-    int slotWidth;
-    int slotHeight;
-    int columns;
-    int rows;
+    const int slotWidth;
+    const int slotHeight;
+    const int columns;
+    const int rows;
 private:
-    bool shouldResize;
     bool init;
     QVector<DrawerLayer*> layers;
 public:
-    explicit SlotsDrawer(QWidget* parent = nullptr);
+    explicit SlotsDrawer(int slotsWidth, int slotsHeight, int columns, int rows, QWidget* parent = nullptr);
     ~SlotsDrawer() override;
     void paintEvent(QPaintEvent *event) override;
-    inline void setSlotSize(int width, int height);
-    inline void setSlotCount(int columns, int rows);
 protected:
     void resizeEvent(QResizeEvent *event) override;
     void mousePressEvent(QMouseEvent *event) override;
@@ -46,22 +43,6 @@ protected:
     virtual void drawSlot(QPainter& p, QRect& area, int row, int column);
     virtual void afterDrawing(QPainter& p);
 };
-
-inline void SlotsDrawer::setSlotSize(int w, int h) {
-    if (slotWidth != w || slotHeight != h) {
-        slotWidth = w;
-        slotHeight = h;
-        shouldResize = true;
-    }
-}
-
-inline void SlotsDrawer::setSlotCount(int c, int r) {
-    if (columns != c || rows != r) {
-        columns = c;
-        rows = r;
-        shouldResize = true;
-    }
-}
 
 inline void SlotsDrawer::appendLayer(DrawerLayer *layer) {
     layer->parent = this;

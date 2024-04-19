@@ -7,9 +7,7 @@
 
 USING_NAMESPACE(lr::log)
 
-B3::B3(QWidget *parent): SlotsDrawer(parent) {
-    setSlotSize(200, 40);
-    setSlotCount(7, 1);
+B3::B3(QWidget *parent): SlotsDrawer(200, 40, 7, 1, parent) {
     memset(months, 0, 28);
     memset(days, 0, 28);
 }

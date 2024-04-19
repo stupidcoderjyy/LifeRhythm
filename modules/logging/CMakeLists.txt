@@ -20,6 +20,7 @@ set(INCLUDE_FILES
         include/model/RecordType.h
         include/model/WeekViewData.h
         include/model/DRSData.h
+        include/model/TimeUsage.h
         include/view/pp_newtype/PeriodTypeColorBox.h
         include/view/pp_startlogging/PeriodTypeIcon.h
         include/view/pp_startlogging/PeriodTypeTreeWidget.h
@@ -29,6 +30,7 @@ set(INCLUDE_FILES
         include/view/wg_a/TimeBar.h
         include/view/wg_b/B.h
         include/view/wg_b/B0.h
+        include/view/wg_b/B2.h
         include/view/wg_b/B3.h
         include/view/wg_b/B4.h
         include/view/wg_b/b1/B1.h
@@ -44,6 +46,7 @@ set(SRC_FILES
         src/model/RecordType.cpp
         src/model/WeekViewData.cpp
         src/model/DRSData.cpp
+        src/model/TimeUsage.cpp
         src/view/pp_newtype/PeriodTypeColorBox.cpp
         src/view/pp_startlogging/PeriodTypeIcon.cpp
         src/view/pp_startlogging/PeriodTypeTreeWidget.cpp
@@ -53,6 +56,7 @@ set(SRC_FILES
         src/view/wg_a/TimeBar.cpp
         src/view/wg_b/B.cpp
         src/view/wg_b/B0.cpp
+        src/view/wg_b/B2.cpp
         src/view/wg_b/B3.cpp
         src/view/wg_b/B4.cpp
         src/view/wg_b/b1/B1.cpp

@@ -29,9 +29,11 @@ void DateRangeSelector::syncDataToWidget() {
 
 void DateRangeSelector::initMenu(OptionsMenu *menu) {
     auto* l = new QHBoxLayout(menu);
+    QMargins margins = {2,2,2,2};
+    menu->setFixedSize(Calendar::SIZE.grownBy(margins));
     menu->setLayout(l);
     calendar = new DRSCalendar(menu);
-    l->setContentsMargins(2,2,2,2);
+    l->setContentsMargins(margins);
     l->addWidget(calendar);
     setData(new DRSData);
 }
@@ -45,6 +47,7 @@ void DateRangeSelector::connectModelView() {
 void DateRangeSelector::setData(WidgetData *d) {
     Widget::setData(d);
     calendar->setData(d);
+    calendar->initCalendar();
 }
 
 DRSCalendar::DRSCalendar(QWidget *parent):
@@ -64,7 +67,6 @@ void DRSCalendar::syncDataToWidget() {
 void DRSCalendar::init() {
     Calendar::init();
     loadDate(QDate::currentDate());
-    parentWidget()->setFixedSize(size().grownBy(parentWidget()->layout()->contentsMargins()));
 }
 
 DRSCalendarDrawer::DRSCalendarDrawer(QWidget *parent): CalendarContentDrawer(parent), drsLayer(new DRSCalendarLayer) {

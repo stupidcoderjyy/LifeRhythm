@@ -76,9 +76,7 @@ void CalendarContentLayer::drawSlot(QPainter &p, QRect &area, int row, int colum
 }
 
 
-WeekDayTitleDrawer::WeekDayTitleDrawer(QWidget *parent): SlotsDrawer(parent) {
-    setSlotCount(7, 1);
-    setSlotSize(50, 40);
+WeekDayTitleDrawer::WeekDayTitleDrawer(QWidget *parent): SlotsDrawer(50, 40, 7, 1, parent) {
 }
 
 void WeekDayTitleDrawer::initLayers() {
@@ -86,9 +84,7 @@ void WeekDayTitleDrawer::initLayers() {
 }
 
 CalendarContentDrawer::CalendarContentDrawer(QWidget *parent):
-        SlotsDrawer(parent), baseLayer(new CalendarContentLayer) {
-    setSlotCount(7, 6);
-    setSlotSize(50, 50);
+        SlotsDrawer(50, 50, 7, 6, parent), baseLayer(new CalendarContentLayer) {
 }
 
 void CalendarContentDrawer::initLayers() {
@@ -108,6 +104,7 @@ void CalendarContentDrawer::wheelEvent(QWheelEvent *event) {
 }
 
 const QStringList Calendar::WEEKDAYS_CN{"一", "二", "三", "四", "五", "六", "日"};
+const QSize Calendar::SIZE(350, 380);
 
 Calendar::Calendar(WeekDayTitleDrawer* t, CalendarContentDrawer* c, QWidget *parent):
         Widget(parent), shouldInit(true), title(), contentDrawer(c), titleDrawer(t) {
@@ -115,7 +112,7 @@ Calendar::Calendar(WeekDayTitleDrawer* t, CalendarContentDrawer* c, QWidget *par
 
 void Calendar::onFinishedParsing(StandardWidget::Handlers &handlers, NBT *widgetTag) {
     handlers << [](QWidget* target) {
-        static_cast<Calendar*>(target)->init0();
+        static_cast<Calendar *>(target)->initCalendar();
     };
 }
 
@@ -144,8 +141,15 @@ void Calendar::setData(WidgetData *d) {
     }
 }
 
+void Calendar::initCalendar() {
+    if (shouldInit) {
+        init();
+        shouldInit = false;
+    }
+}
+
 void Calendar::resizeEvent(QResizeEvent *event) {
-    init0();
+    initCalendar();
 }
 
 void Calendar::connectModelView() {
@@ -179,11 +183,4 @@ void Calendar::init() {
             cd->setTopLeftDate(d.addDays(1 - d.dayOfWeek()));
         }
     });
-}
-
-void Calendar::init0() {
-    if (shouldInit) {
-        init();
-        shouldInit = false;
-    }
 }

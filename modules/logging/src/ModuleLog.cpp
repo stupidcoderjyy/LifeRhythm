@@ -16,6 +16,9 @@
 #include "B0.h"
 #include "B1.h"
 #include "DateRangeSelector.h"
+#include "B2.h"
+#include "B3.h"
+#include "B4.h"
 
 USING_NAMESPACE(lr::log)
 
@@ -45,6 +48,7 @@ void ModuleLog::mainInit() {
     regClazz(f, B);
     regClazz(f, B0);
     regClazz(f, B1);
+    regClazz(f, B2);
     regClazz(f, B4);
     regClazz(f, B3);
     regClazz(f, DateRangeSelector);

@@ -21,9 +21,6 @@ private:
     QPoint dragStart;
 public:
     explicit ListItem(QWidget* parent = nullptr);
-public:
-    void syncDataToWidget() override;
-    void syncWidgetToData() override;
 protected:
     void dragEnterEvent(QDragEnterEvent *event) override;
     void dragMoveEvent(QDragMoveEvent *event) override;
@@ -44,8 +41,7 @@ class ListWidget : public ScrollArea {
     Q_OBJECT
 protected:
     QVector<ListItem*> items;
-    QMetaObject::Connection mc;
-    QVBoxLayout* layout;
+//    QVBoxLayout* layout;
     QWidget* container;
     QTimer scrollTimer;
     int dragScrollStep;
@@ -61,13 +57,13 @@ public:
     void setRowHeight(int s);
     void setMinAreaRowCount(int count);
     void onPostParsing(Handlers &handlers, NBT *widgetTag) override;
-    void setData(ListData* d);
+    void setData(WidgetData* d) override;
 protected:
     void resizeEvent(QResizeEvent *event) override;
+    void wheelEvent(QWheelEvent *event) override;
     ScrollBar* createVerticalScrollBar() override;
     virtual ListItem* createRowItem();
     virtual void prepareNewItem(ListItem* item);
-    void wheelEvent(QWheelEvent *event) override;
     virtual void onItemDragStart(ListItem* item);
     virtual void onItemDragEnter(ListItem* item);
     virtual void onItemDragLeave(ListItem* item);

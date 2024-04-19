@@ -12,12 +12,6 @@
 ListItem::ListItem(QWidget *parent): Widget(parent), dataIdx(), dragStart() {
 }
 
-void ListItem::syncDataToWidget() {
-}
-
-void ListItem::syncWidgetToData() {
-}
-
 void ListItem::dragEnterEvent(QDragEnterEvent *event) {
     if (event->source() == this) {
         event->ignore();
@@ -69,10 +63,10 @@ ListWidget::ListWidget(QWidget *parent): ScrollArea(parent), rowHeight(40),
         areaRowCount(0), container(new QWidget(this)), pos(0), items(),
         idxA(-1), idxB(-1), globalPos(), scrollTimer(), dragScrollStep() {
     setWidget(container);
-    layout = new QVBoxLayout(container);
-    layout->setSpacing(0);
-    layout->setContentsMargins(0,0,0,0);
-    container->setLayout(layout);
+//    layout = new QVBoxLayout(container);
+//    layout->setSpacing(0);
+//    layout->setContentsMargins(0,0,0,0);
+//    container->setLayout(layout);
     scrollTimer.setInterval(5);
     connect(&scrollTimer, &QTimer::timeout, this, [this](){
         setGlobalPos(globalPos + dragScrollStep);
@@ -87,13 +81,51 @@ void ListWidget::setMinAreaRowCount(int count) {
     areaRowCount = count;
 }
 
+void ListWidget::onPostParsing(StandardWidget::Handlers &handlers, NBT *widgetTag) {
+    if (!widgetTag->contains("row_height", Data::INT)) {
+        return;
+    }
+    int height = widgetTag->getInt("row_height");
+    handlers << [height](QWidget* target) {
+        auto* list = static_cast<ListWidget*>(target);
+        list->setRowHeight(height);
+    };
+}
+
+void ListWidget::setData(WidgetData *d) {
+    if (dynamic_cast<ListData*>(d)) {
+        ScrollArea::setData(d);
+    }
+}
+
+void ListWidget::resizeEvent(QResizeEvent *event) {
+    ScrollArea::resizeEvent(event);
+    updateListBase();
+}
+
+void ListWidget::wheelEvent(QWheelEvent *event) {
+    int dy = rowHeight;
+    if (event->modifiers() == Qt::ControlModifier) {
+        dy = dy << 2;
+    }
+    scroll(event->angleDelta().y() > 0 ? -dy : dy);
+}
+
+ScrollBar* ListWidget::createVerticalScrollBar() {
+    auto* b = new ScrollBar(this, Qt::Vertical);
+    connect(b, &QScrollBar::valueChanged, this, [this](int v){
+        setGlobalPos(v);
+    });
+    return b;
+}
+
 ListItem *ListWidget::createRowItem() {
     return new ListItem();
 }
 
 void ListWidget::prepareNewItem(ListItem* w) {
     w->setParent(container);
-    w->setFixedHeight(rowHeight);
+//    w->setFixedHeight(rowHeight);
     w->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed);
     connect(w, &ListItem::sigDragEnter, this, &ListWidget::onItemDragEnter);
     connect(w, &ListItem::sigDragLeave, this, &ListWidget::onItemDragLeave);
@@ -108,16 +140,10 @@ void ListWidget::prepareNewItem(ListItem* w) {
     connect(w, &ListItem::sigDragEnd, this, [this](){
         scrollTimer.stop();
     });
-    layout->addWidget(w);
+//    layout->addWidget(w);
+//    items << w;
+    w->setGeometry(0, items.size() * rowHeight, container->width(), rowHeight);
     items << w;
-}
-
-void ListWidget::wheelEvent(QWheelEvent *event) {
-    int dy = rowHeight;
-    if (event->modifiers() == Qt::ControlModifier) {
-        dy = dy << 2;
-    }
-    scroll(event->angleDelta().y() > 0 ? -dy : dy);
 }
 
 void ListWidget::onItemDragStart(ListItem *item) {
@@ -162,8 +188,8 @@ void ListWidget::setGlobalPos(int gp, bool forceUpdate) {
 
 void ListWidget::onDataChanged(int begin, int end) {
     int rBorder = pos <= posMid && idxB != idxA + areaRowCount ?
-            idxA + areaRowCount :
-            idxA + (areaRowCount << 1);
+                  idxA + areaRowCount :
+                  idxA + (areaRowCount << 1);
     if (end < idxA || begin >= rBorder) {
         return;
     }
@@ -219,34 +245,6 @@ void ListWidget::connectModelView() {
         auto* d = wData->cast<ListData>();
         onDataChanged(d->getChangeBegin(), d->getChangeEnd());
     });
-}
-
-void ListWidget::onPostParsing(StandardWidget::Handlers &handlers, NBT *widgetTag) {
-    if (!widgetTag->contains("row_height", Data::INT)) {
-        return;
-    }
-    int height = widgetTag->getInt("row_height");
-    handlers << [height](QWidget* target) {
-        auto* list = static_cast<ListWidget*>(target);
-        list->setRowHeight(height);
-    };
-}
-
-void ListWidget::setData(ListData *d) {
-    ScrollArea::setData(d);
-}
-
-void ListWidget::resizeEvent(QResizeEvent *event) {
-    ScrollArea::resizeEvent(event);
-    updateListBase();
-}
-
-ScrollBar* ListWidget::createVerticalScrollBar() {
-    auto* b = new ScrollBar(this, Qt::Vertical);
-    connect(b, &QScrollBar::valueChanged, this, [this](int v){
-        setGlobalPos(v);
-    });
-    return b;
 }
 
 void ListWidget::updateListBase() {

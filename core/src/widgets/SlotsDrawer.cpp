@@ -6,9 +6,10 @@
 #include "MemUtil.h"
 #include <QMouseEvent>
 
-SlotsDrawer::SlotsDrawer(QWidget *parent):
-        Widget(parent), slotWidth(40), slotHeight(40), columns(0), rows(0),
-        shouldResize(true), layers(), init() {
+SlotsDrawer::SlotsDrawer(int slotsWidth, int slotsHeight, int columns, int rows, QWidget *parent):
+        Widget(parent), layers(), init(), slotWidth(slotsWidth),
+        slotHeight(slotsHeight), columns(columns), rows(rows) {
+    setFixedSize(slotWidth * columns, slotHeight * rows);
 }
 
 SlotsDrawer::~SlotsDrawer() {
@@ -36,9 +37,6 @@ void SlotsDrawer::paintEvent(QPaintEvent *event) {
 }
 
 void SlotsDrawer::resizeEvent(QResizeEvent *event) {
-    if (shouldResize) {
-        setFixedSize(slotWidth * columns, slotHeight * rows);
-    }
     if (!init) {
         initLayers();
         init = true;

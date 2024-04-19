@@ -45,6 +45,12 @@ void ListData::markChange(int min, int max) {
     changeEnd = qMax(changeEnd, max);
 }
 
+void ListData::markAll() {
+    beginEdit();
+    markChange(0, data.length() - 1);
+    endEdit();
+}
+
 void ListData::append(WidgetData *d) {
     int i = data.length();
     data.append(d);

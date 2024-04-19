@@ -85,12 +85,11 @@ public:
     void syncDataToWidget() override;
     void loadDate(const QDate& d);
     void setData(WidgetData *d) override;
+    void initCalendar();
 protected:
     void resizeEvent(QResizeEvent *event) override;
     void connectModelView() override;
     virtual void init();
-private:
-    void init0();
 };
 
 #endif //LIFERHYTHM_CALENDAR_H

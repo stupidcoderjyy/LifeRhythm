@@ -12,7 +12,7 @@ ScrollBar::ScrollBar(QWidget *parent, Qt::Orientation t): QScrollBar(parent) {
         setFixedWidth(7);
         setStyleSheet("QScrollBar:vertical{background-color:transparent;padding-top:10px;padding-bottom:10px;}"
                       "QScrollBar::add-page:vertical,QScrollBar::sub-page:vertical{background-color:transparent;}"
-                      "QScrollBar::handle:vertical{background:rgba(80,80,80,0.2);}"
+                      "QScrollBar::handle:vertical{background:rgba(150,150,150,0.3);}"
                       "QScrollBar::handle:vertical:hover,QScrollBar::handle:vertical:pressed{background:rgb(100,100,100);}"
                       "QScrollBar::sub-line:vertical{background:transparent;}"
                       "QScrollBar::add-line:vertical{background:transparent;}");
@@ -20,7 +20,7 @@ ScrollBar::ScrollBar(QWidget *parent, Qt::Orientation t): QScrollBar(parent) {
         setFixedHeight(7);
         setStyleSheet("QScrollBar:horizontal{background-color:transparent;padding-left:10px;padding-right:10px;}"
                       "QScrollBar::add-page:horizontal,QScrollBar::sub-page:horizontal{background-color:transparent;}"
-                      "QScrollBar::handle:horizontal{background:rgba(80,80,80,0.2);}"
+                      "QScrollBar::handle:horizontal{background:rgba(150,150,150,0.3);}"
                       "QScrollBar::handle:horizontal:hover,QScrollBar::handle:horizontal:pressed{background:rgb(100,100,100);}"
                       "QScrollBar::sub-line:horizontal{background:transparent;}"
                       "QScrollBar::add-line:horizontal{background:transparent;}");

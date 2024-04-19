@@ -17,6 +17,7 @@ public:
     void beginEdit();
     void endEdit();
     void markChange(int min, int max);
+    void markAll();
     inline int length() const;
     inline WidgetData* at(int idx) noexcept;
     virtual void append(WidgetData* data);
