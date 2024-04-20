@@ -23,6 +23,7 @@ set(RESOURCES
         assets/lr/highlightstyles/styles.qrc
         assets/lr/images/images.qrc
         assets/log/factories/factories.qrc
+        assets/log/images/images.qrc
 )
 
 if(CMAKE_BUILD_TYPE MATCHES "Debug")

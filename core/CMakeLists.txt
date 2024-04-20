@@ -98,6 +98,7 @@ set(INCLUDE_FILES
         include/widgets/RangeBar.h
         include/widgets/Calendar.h
         include/widgets/SlotsDrawer.h
+        include/widgets/Separator.h
 )
 
 set(SRC_FILES
@@ -184,6 +185,7 @@ set(SRC_FILES
         src/widgets/RangeBar.cpp
         src/widgets/Calendar.cpp
         src/widgets/SlotsDrawer.cpp
+        src/widgets/Separator.cpp
 )
 
 add_library(${PROJECT_NAME} ${SRC_FILES} ${INCLUDE_FILES})

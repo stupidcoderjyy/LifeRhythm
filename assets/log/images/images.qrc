@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/assets/log/images">
+        <file>push_30x30.png</file>
+        <file>pop_30x30.png</file>
+        <file>loop_30x30.png</file>
+        <file>profile_30x30.png</file>
+    </qresource>
+</RCC>

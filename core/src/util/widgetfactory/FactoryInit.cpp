@@ -14,6 +14,7 @@
 #include "TextButton.h"
 #include "ColorSelector.h"
 #include "IconTextButton.h"
+#include "Separator.h"
 
 #define reg(T) stdSuppliers->insert(#T, [](QWidget* p){ return new T(p);}); \
     stdEmptyInstances->insert(#T, new T(nullptr));
@@ -36,4 +37,5 @@ void FactoryInit::mainInit(QMap<QString, WidgetFactory::Supplier> *stdSuppliers,
     reg(HueSelector)
     reg(VColorBar)
     reg(IconTextButton)
+    reg(Separator)
 }
