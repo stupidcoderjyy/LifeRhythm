@@ -4,7 +4,7 @@
 
 #include "TreeWidget.h"
 
-TreeItem::TreeItem(QWidget *parent):ListItem(parent), folded(true) {
+TreeItem::TreeItem(QWidget *parent): ListItem(parent), folded(true) {
 }
 
 void TreeItem::mouseDoubleClickEvent(QMouseEvent *event) {
@@ -14,7 +14,7 @@ void TreeItem::mouseDoubleClickEvent(QMouseEvent *event) {
 }
 
 void TreeItem::syncDataToWidget() {
-    folded = wData ? wData->cast<TreeNode>()->isFolded() : true;
+    folded = wData == nullptr || wData->cast<TreeNode>()->isFolded();
 }
 
 void TreeItem::syncWidgetToData() {
@@ -32,13 +32,13 @@ void TreeItem::setFolded(bool f) {
 
 void TreeItem::connectModelView() {
     auto* node = wData->cast<TreeNode>();
-    dc << connect(node, &TreeNode::sigChildCreated, this, [this, node](TreeNode* child){
+    connect(node, &TreeNode::sigChildCreated, this, [this, node](TreeNode* child){
         auto* tree = node->tree;
         tree->beginEdit();
         tree->insert(dataIdx + node->children.length(), child);
         tree->endEdit();
     });
-    dc << connect(node, &TreeNode::sigChildRemoved, this, [this, node](int childIdx) {
+    connect(node, &TreeNode::sigChildRemoved, this, [this, node](int childIdx) {
         auto* tree = node->tree;
         tree->beginEdit();
         tree->remove(dataIdx + childIdx + 1);

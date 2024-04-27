@@ -6,6 +6,7 @@
 #include "Styles.h"
 #include "WidgetUtil.h"
 #include "QMouseEvent"
+#include "FocusManager.h"
 
 ImgButton::ImgButton(QWidget *parent) : ImgLabel(parent) {
     QString qssBorder = qss("border-style", "none") + qss("border-radius", "2px");
@@ -28,6 +29,7 @@ void ImgButton::mouseReleaseEvent(QMouseEvent *ev) {
 
 void ImgButton::mousePressEvent(QMouseEvent *ev) {
     setStyleSheet(qssPressed);
+    FocusManager::mark(this);
 }
 
 void ImgButton::leaveEvent(QEvent *event) {

@@ -5,17 +5,15 @@
 #ifndef LIFERHYTHM_A_H
 #define LIFERHYTHM_A_H
 
-#include "TimeBar.h"
+#include "A0.h"
 #include "TabBar.h"
 
 BEGIN_NAMESPACE(lr::log)
 
-class PeriodDataLoader;
-
 class A : public TabWidget {
     Q_OBJECT
 private:
-    TimeBar* bar;
+    A0* bar;
 public:
     explicit A(QWidget* parent = nullptr);
 protected:

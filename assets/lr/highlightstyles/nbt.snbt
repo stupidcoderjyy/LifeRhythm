@@ -12,6 +12,6 @@
         fg: "GOLD"
     }
     string: {
-        fg: "GREEN"
+        fg: "GREEN_0"
     }
 }

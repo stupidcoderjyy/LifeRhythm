@@ -7,7 +7,7 @@
         spacing: 20
     }
     timeBar: {
-        type: "TimeBar"
+        type: "A0"
         fixed_width: 300
         pointer: true
         barRange: [0, 1440]
@@ -18,7 +18,7 @@
         sideLen: 245
     }
     w0: {
-        children: ["buttons", "sp", "labelState"]
+        children: ["buttons", "sp", "labelState", "a1"]
         h_size_policy: "Min"
         layout: {
             type: "Vertical"
@@ -62,7 +62,13 @@
         labelState: {
             type: "TextLabel"
             fs: 25
-            text: "测试"
+            fixed_height: 50
+            color: "BLUE_1"
+            text: "记录中"
+        }
+        a1: {
+            type: "A1"
+            pointer: true
         }
     }
 }

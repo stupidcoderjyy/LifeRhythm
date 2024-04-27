@@ -108,10 +108,9 @@ QStringList QssParser::parseArgs(CompilerInput *input) {
     }
 }
 
-#define regColor(c) addStringReplaceItem(#c, Styles::c)
-
 void QssParser::mainInit() {
     addStringConcatItem("bg", "background-color:", ";");
+    addStringConcatItem("brad", "border-radius:", ";");
     for (auto& c : Color::defaultColors) {
         addStringReplaceItem(c->name, c->rgbHex);
     }
@@ -120,10 +119,7 @@ void QssParser::mainInit() {
     registerItem(new BorderItem("bd_t", "border-top"));
     registerItem(new BorderItem("bd_l", "border-left"));
     registerItem(new BorderItem("bd_r", "border-right"));
-    registerItem(new TargetItem());
 }
-
-#undef regColor
 
 void QssParser::addStringConcatItem(const QString& key, QString prefix, QString suffix) {
     registerItem(new StringConcatItem(key, std::move(prefix), std::move(suffix)));
@@ -169,19 +165,4 @@ QString BorderItem::translate(const QStringList &args) {
         res = res % arg % ' ';
     }
     return res + ";";
-}
-
-TargetItem::TargetItem():QssItem("t") {
-}
-
-QString TargetItem::translate(const QStringList &args) {
-    if (args.empty()) {
-        return {};
-    }
-    QString res = '#' + args[0] + '{';
-    if (args.length() > 1) {
-        res += args[1];
-    }
-    res += '}';
-    return res;
 }

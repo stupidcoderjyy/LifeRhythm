@@ -75,7 +75,9 @@ public:
     const static Color* BLUE_1;
     const static Color* RED;
     const static Color* GOLD;
-    const static Color* GREEN;
+    const static Color* GREEN_0;
+    const static Color* GREEN_1;
+    const static Color* GREEN_2;
     const static Color* GRAY_TEXT_0;
     const static Color* GRAY_TEXT_1;
     const static Color* CLEAR;

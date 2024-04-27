@@ -7,7 +7,7 @@
 #include "B3.h"
 #include "B4.h"
 #include "Period.h"
-#include "TimeUsage.h"
+#include "UsageInfo.h"
 #include "QRandomGenerator"
 
 USING_NAMESPACE(lr::log)
@@ -29,7 +29,7 @@ void B::onTabCreated() {
     timeUsage->setData(ld);
     for (int i = 0 ; i < 200 ; i ++) {
         int v = QRandomGenerator::global()->bounded(0, 100);
-        ld->append(new TimeUsage(v, QString::number(v) + "%", "2小时15分钟"));
+        ld->append(new UsageInfo(v, QString::number(v) + "%", "2小时15分钟"));
     }
     ld->markAll();
 }

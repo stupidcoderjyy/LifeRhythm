@@ -63,10 +63,6 @@ ListWidget::ListWidget(QWidget *parent): ScrollArea(parent), rowHeight(40),
         areaRowCount(0), container(new QWidget(this)), pos(0), items(),
         idxA(-1), idxB(-1), globalPos(), scrollTimer(), dragScrollStep() {
     setWidget(container);
-//    layout = new QVBoxLayout(container);
-//    layout->setSpacing(0);
-//    layout->setContentsMargins(0,0,0,0);
-//    container->setLayout(layout);
     scrollTimer.setInterval(5);
     connect(&scrollTimer, &QTimer::timeout, this, [this](){
         setGlobalPos(globalPos + dragScrollStep);
@@ -125,7 +121,6 @@ ListItem *ListWidget::createRowItem() {
 
 void ListWidget::prepareNewItem(ListItem* w) {
     w->setParent(container);
-//    w->setFixedHeight(rowHeight);
     w->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed);
     connect(w, &ListItem::sigDragEnter, this, &ListWidget::onItemDragEnter);
     connect(w, &ListItem::sigDragLeave, this, &ListWidget::onItemDragLeave);
@@ -140,8 +135,6 @@ void ListWidget::prepareNewItem(ListItem* w) {
     connect(w, &ListItem::sigDragEnd, this, [this](){
         scrollTimer.stop();
     });
-//    layout->addWidget(w);
-//    items << w;
     w->setGeometry(0, items.size() * rowHeight, container->width(), rowHeight);
     items << w;
 }

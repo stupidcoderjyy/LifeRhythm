@@ -4,7 +4,7 @@
 
 #include "TreeData.h"
 
-TreeNode::TreeNode(): WidgetData(), parent(), children(), folded(true), depth(), tree() {
+TreeNode::TreeNode(WidgetData *d): WidgetData(), parent(), children(), folded(true), depth(), tree(), d(d) {
 }
 
 void TreeNode::addChildren(TreeData* t, TreeNode *c) {
@@ -28,28 +28,12 @@ void TreeNode::setParent(TreeNode *p) {
     depth = p->depth + 1;
 }
 
-bool TreeNode::isFolded() const {
-    return folded;
-}
-
-void TreeNode::setFolded(bool f) {
-    folded = f;
-}
-
 void TreeNode::toBytes(IByteWriter *writer) {
     writer->writeBool(folded);
 }
 
 void TreeNode::fromBytes(IByteReader *reader) {
     folded = reader->readBool();
-}
-
-const QVector<TreeNode *> &TreeNode::getChildren() const {
-    return children;
-}
-
-int TreeNode::getDepth() const {
-    return depth;
 }
 
 TreeData::TreeData(): ListData() {

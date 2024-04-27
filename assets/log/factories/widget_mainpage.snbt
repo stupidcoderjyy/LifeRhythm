@@ -34,7 +34,7 @@
                 spacing: 5
             }
             iconTypeColor: {
-                type: "PeriodTypeIcon"
+                type: "UsageTypeIcon"
                 pointer: true
             }
             labelName: {
@@ -90,7 +90,7 @@
             }
         }
         periodTypeTree: {
-            type: "PeriodTypeTreeWidget"
+            type: "UsageTypeTreeWidget"
             pointer: true
         }
     }

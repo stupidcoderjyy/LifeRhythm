@@ -1,5 +1,5 @@
 {
-    type: "PeriodTypeTreeItem"
+    type: "UsageTypeTreeItem"
     children: ["arrowButton", "icon", "label"]
 
     layout: {
@@ -20,7 +20,7 @@
     }
 
     icon: {
-        type: "PeriodTypeIcon"
+        type: "UsageTypeIcon"
         pointer: true
     }
 

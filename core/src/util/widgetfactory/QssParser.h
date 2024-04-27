@@ -58,11 +58,4 @@ protected:
     QString translate(const QStringList &args) override;
 };
 
-class TargetItem : public QssItem{
-public:
-    TargetItem();
-protected:
-    QString translate(const QStringList &args) override;
-};
-
 #endif //LIFERHYTHM_QSSPARSER_H

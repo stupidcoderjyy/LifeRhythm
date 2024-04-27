@@ -5,9 +5,9 @@
 #include "ModuleLog.h"
 #include "RcManagers.h"
 #include "A.h"
-#include "TimeBar.h"
-#include "PeriodTypeIcon.h"
-#include "PeriodTypeTreeWidget.h"
+#include "A0.h"
+#include "UsageTypeIcon.h"
+#include "UsageTypeTreeWidget.h"
 #include "WidgetStartPeriodMenu.h"
 #include "PeriodTypeColorBox.h"
 #include "TimeBarItem.h"
@@ -19,6 +19,8 @@
 #include "B2.h"
 #include "B3.h"
 #include "B4.h"
+#include "UsageTypeLabel.h"
+#include "A1.h"
 
 USING_NAMESPACE(lr::log)
 
@@ -28,13 +30,14 @@ ModuleLog::ModuleLog(): Module("log"), tabMain(), tabProfiles() {
 void ModuleLog::mainInit() {
     auto* f = WidgetFactoryStorage::get("log:wg_a");
     regClazz(f, A);
-    regClazz(f, TimeBar);
+    regClazz(f, A0);
+    regClazz(f, A1);
     f = WidgetFactoryStorage::get("log:widget_mainpage");
-    regClazz(f, PeriodTypeTreeWidget);
-    regClazz(f, PeriodTypeIcon);
+    regClazz(f, UsageTypeTreeWidget);
+    regClazz(f, UsageTypeIcon);
     f = WidgetFactoryStorage::get("log:item_periodtype");
-    regClazz(f, PeriodTypeIcon);
-    regClazz(f, PeriodTypeTreeItem);
+    regClazz(f, UsageTypeIcon);
+    regClazz(f, UsageTypeTreeItem);
     f = WidgetFactoryStorage::get("log:widget_content");
     regClazz(f, WidgetStartPeriodMenu);
     regClazz(f, RecordTypeListWidget);
@@ -52,6 +55,9 @@ void ModuleLog::mainInit() {
     regClazz(f, B4);
     regClazz(f, B3);
     regClazz(f, DateRangeSelector);
+    f = WidgetFactoryStorage::get("log:item_a1");
+    regClazz(f, UsageTypeLabel);
+    regClazz(f, ItemA1);
 }
 
 void ModuleLog::postInit() {

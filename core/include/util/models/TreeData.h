@@ -21,21 +21,48 @@ protected:
     TreeNode* parent;
     QVector<TreeNode*> children;
     TreeData* tree;
+    WidgetData* d;
 public:
-    TreeNode();
+    explicit TreeNode(WidgetData* d = nullptr);
     virtual void addChildren(TreeData* tree, TreeNode* child);
     virtual void removeChildren(int childIdx);
     virtual void setParent(TreeNode* parent);
-    bool isFolded() const;
-    void setFolded(bool folded);
     void toBytes(IByteWriter *writer) override;
     void fromBytes(IByteReader *reader) override;
-    const QVector<TreeNode *>& getChildren() const;
-    int getDepth() const;
+    inline bool isFolded() const;
+    inline void setFolded(bool folded);
+    inline const QVector<TreeNode *>& getChildren() const;
+    inline int getDepth() const;
+    inline void setNodeData(WidgetData* data);
+    inline WidgetData* nodeData();
 signals:
     void sigChildCreated(TreeNode* child);
     void sigChildRemoved(int childIdx);
 };
+
+inline bool TreeNode::isFolded() const {
+    return folded;
+}
+
+inline void TreeNode::setFolded(bool f) {
+    folded = f;
+}
+
+inline const QVector<TreeNode *> &TreeNode::getChildren() const {
+    return children;
+}
+
+inline int TreeNode::getDepth() const {
+    return depth;
+}
+
+inline void TreeNode::setNodeData(WidgetData *data) {
+    d = data;
+}
+
+WidgetData *TreeNode::nodeData() {
+    return d;
+}
 
 class TreeData : public ListData {
     friend class TreeWidget;

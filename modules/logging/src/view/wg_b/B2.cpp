@@ -3,7 +3,7 @@
 //
 
 #include "B2.h"
-#include "TimeUsage.h"
+#include "UsageInfo.h"
 
 USING_NAMESPACE(lr::log)
 
@@ -16,7 +16,7 @@ void TimeUsageItem::syncDataToWidget() {
     if (!wData) {
         return;
     }
-    auto* tu = wData->cast<TimeUsage>();
+    auto* tu = wData->cast<UsageInfo>();
     usagePerc = tu->usagePerc;
     usageName = tu->usageName;
     usage = tu->usage;

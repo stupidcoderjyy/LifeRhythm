@@ -15,6 +15,7 @@
 class ListItem : public Widget {
     Q_OBJECT
     friend class ListWidget;
+    friend class TreeWidget;
 protected:
     int dataIdx;
 private:
@@ -41,7 +42,6 @@ class ListWidget : public ScrollArea {
     Q_OBJECT
 protected:
     QVector<ListItem*> items;
-//    QVBoxLayout* layout;
     QWidget* container;
     QTimer scrollTimer;
     int dragScrollStep;

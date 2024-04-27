@@ -8,5 +8,6 @@
         <file>widget_mainpage.snbt</file>
         <file>widget_newtype.snbt</file>
         <file>wg_b.snbt</file>
+        <file>item_a1.snbt</file>
     </qresource>
 </RCC>

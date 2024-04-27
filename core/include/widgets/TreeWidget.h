@@ -25,7 +25,7 @@ protected:
     void connectModelView() override;
 };
 
-class TreeWidget : public ListWidget{
+class TreeWidget : public ListWidget {
 public:
     explicit TreeWidget(QWidget* parent = nullptr);
     void setData(TreeData* d);

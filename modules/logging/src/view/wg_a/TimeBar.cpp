@@ -2,7 +2,7 @@
 // Created by stupid_coder_jyy on 2024/3/2.
 //
 
-#include "TimeBar.h"
+#include "A0.h"
 #include "RcManagers.h"
 #include <QHBoxLayout>
 
@@ -27,20 +27,20 @@ void TimeBarContainer::paintEvent(QPaintEvent *event) {
     }
 }
 
-TimeBar::TimeBar(QWidget *parent): RangeBar(new TimeBarContainer(), parent), scale() {
+A0::A0(QWidget *parent): RangeBar(new TimeBarContainer(), parent), scale() {
 }
 
-ScrollBar *TimeBar::createVerticalScrollBar() {
+ScrollBar *A0::createVerticalScrollBar() {
     auto* bar = ScrollArea::createVerticalScrollBar();
     bar->setEnabled(false);
     return bar;
 }
 
-BarItem *TimeBar::createRangeWidget() {
+BarItem *A0::createRangeWidget() {
     return WidgetFactoryStorage::get("log:item_timebar")->applyAndCast<BarItem>();
 }
 
-void TimeBar::assembleContainer() {
+void A0::assembleContainer() {
     auto* l = new QHBoxLayout(rootContent);
     rootContent->setLayout(l);
     scale = new TimeScale(rootContent);
@@ -53,7 +53,7 @@ void TimeBar::assembleContainer() {
     l->addWidget(container);
 }
 
-void TimeBar::updateContentSize() {
+void A0::updateContentSize() {
     scale->setFixedHeight(container->height());
     rootContent->updateGeometry();
 }
