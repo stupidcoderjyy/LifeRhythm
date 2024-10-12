@@ -72,7 +72,7 @@ void Config::setSavePath(const QString &path) {
     if (frozen) {
         throwInFunc("frozen");
     }
-    Config::savePath = path;
+    savePath = path;
 }
 
 void Config::froze() {

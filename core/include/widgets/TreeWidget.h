@@ -15,7 +15,7 @@ private:
     bool folded;
 public:
     explicit TreeItem(QWidget* parent = nullptr);
-    virtual void setFolded(bool f);
+    void setFolded(bool f);
     void syncDataToWidget() override;
     void syncWidgetToData() override;
 signals:

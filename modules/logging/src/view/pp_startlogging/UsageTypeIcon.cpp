@@ -3,6 +3,8 @@
 //
 
 #include "UsageTypeIcon.h"
+
+#include "TreeData.h"
 #include "UsageType.h"
 
 USING_NAMESPACE(lr::log)
@@ -15,7 +17,7 @@ void UsageTypeIcon::paintEvent(QPaintEvent *event) {
     if (!wData) {
         return;
     }
-    int fw = 2, dfw = fw << 1, d = 5;
+    int fw = 2, dfw = fw << 1;
     QPainter painter(this);
     auto* node = wData->cast<TreeNode>();
     auto* type = node->nodeData()->cast<UsageType>();
@@ -23,6 +25,7 @@ void UsageTypeIcon::paintEvent(QPaintEvent *event) {
         painter.fillRect(rect(), QColor(Styles::GRAY_TEXT_0->rgbHex));
         painter.fillRect(fw, fw, width() - dfw, height() - dfw, type->getColor());
     } else {
+        int d = 5;
         int dw = width() - d, dh = height() - d;
         painter.fillRect(0, 0, dw, dh, QColor(Styles::GRAY_TEXT_0->rgbHex));
         painter.fillRect(fw, fw, dw - dfw, dh - dfw, type->getColor());

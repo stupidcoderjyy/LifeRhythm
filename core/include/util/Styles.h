@@ -5,14 +5,11 @@
 #ifndef LIFERHYTHM_STYLES_H
 #define LIFERHYTHM_STYLES_H
 
-#include <QString>
-#include <QStyle>
-#include <QPainter>
 #include <QStyleOption>
 #include <QTextCharFormat>
 #include "WidgetData.h"
 
-class Color : public WidgetData {
+class Color final : public WidgetData {
 public:
     static QMap<QString, Color*> defaultColors;
     QString name;

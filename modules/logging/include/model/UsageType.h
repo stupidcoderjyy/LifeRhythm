@@ -6,12 +6,10 @@
 #define LIFERHYTHM_USAGETYPE_H
 
 #include <QColor>
-#include "SelectableTreeData.h"
-#include "DataLoader.h"
 #include "Namespaces.h"
+#include "WidgetData.h"
 
 BEGIN_NAMESPACE(lr::log)
-
 class UsageType : public WidgetData {
 private:
     QColor color;
@@ -19,7 +17,7 @@ private:
 public:
     UsageType(QColor color, QString name);
     UsageType(const UsageType& o);
-    UsageType();
+    UsageType() = default;
     inline const QColor& getColor();
     inline const QString& getName();
 };

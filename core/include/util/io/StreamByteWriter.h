@@ -8,7 +8,7 @@
 #include "IByteWriter.h"
 #include <QDataStream>
 
-class StreamByteWriter : public IByteWriter {
+class StreamByteWriter final : public IByteWriter {
 private:
     QDataStream* stream{};
 public:

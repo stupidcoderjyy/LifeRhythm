@@ -4,7 +4,7 @@
 
 #include "ListData.h"
 
-ListData::ListData(): WidgetData(), changeBegin(), changeEnd(), editing() {
+ListData::ListData(): WidgetData(), selectedIdx(-1), changeBegin(), changeEnd(), editing() {
 }
 
 void ListData::beginEdit() {
@@ -51,6 +51,22 @@ void ListData::markAll() {
     endEdit();
 }
 
+void ListData::selectData(int idx) {
+    if (selectedIdx != idx) {
+        beginEdit();
+        int old = selectedIdx;
+        selectedIdx = idx;
+        if (old >= 0) {
+            markChange(old, old);
+        }
+        if (idx >= 0) {
+            markChange(idx, idx);
+        }
+        endEdit();
+        emit sigDataSelected(old, idx);
+    }
+}
+
 void ListData::append(WidgetData *d) {
     int i = data.length();
     data.append(d);
@@ -58,30 +74,20 @@ void ListData::append(WidgetData *d) {
 }
 
 void ListData::insert(int idx, WidgetData *d) {
+    if (selectedIdx >= 0 && idx <= selectedIdx) {
+        selectedIdx++;
+    }
     data.insert(idx, d);
     markChange(idx, data.length() - 1);
 }
 
 WidgetData *ListData::remove(int idx) {
+    if (idx == selectedIdx) {
+        selectedIdx = -1;
+    } else if (idx < selectedIdx) {
+        selectedIdx--;
+    }
     auto* d = data.takeAt(idx);
     markChange(idx, data.length());
     return d;
-}
-
-void ListData::toBytes(IByteWriter *writer) {
-    writer->writeInt(data.length());
-    for (WidgetData* d : data) {
-        d->toBytes(writer);
-    }
-}
-
-void ListData::fromBytes(IByteReader *reader) {
-    int l = reader->readInt();
-    for (int i = 0 ; i < l ; i ++) {
-        append(readElement(reader));
-    }
-}
-
-WidgetData *ListData::readElement(IByteReader *reader) {
-    return nullptr;
 }

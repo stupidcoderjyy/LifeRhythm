@@ -9,7 +9,15 @@
 #include <QDrag>
 #include <QMimeData>
 
-ListItem::ListItem(QWidget *parent): Widget(parent), dataIdx(), dragStart() {
+ListItem::ListItem(QWidget *parent): Widget(parent), listData(), selected(), dataIdx() {
+}
+
+void ListItem::syncDataToWidget() {
+    bool s = listData->selectedIdx == dataIdx;
+    if (selected == s) {
+        return;
+    }
+    selected = s;
 }
 
 void ListItem::dragEnterEvent(QDragEnterEvent *event) {
@@ -57,14 +65,17 @@ void ListItem::mousePressEvent(QMouseEvent *event) {
     if (acceptDrops() && event->buttons() & Qt::LeftButton) {
         dragStart = event->pos();
     }
+    if (wData) {
+        listData->selectData(dataIdx);
+    }
 }
 
-ListWidget::ListWidget(QWidget *parent): ScrollArea(parent), rowHeight(40),
-        areaRowCount(0), container(new QWidget(this)), pos(0), items(),
-        idxA(-1), idxB(-1), globalPos(), scrollTimer(), dragScrollStep() {
+ListWidget::ListWidget(QWidget *parent): ScrollArea(parent), container(new QWidget(this)),
+        dragScrollStep(), rowHeight(40), areaRowCount(0), pos(0),
+        globalPos(), maxGlobalPos(), posMid(), posBottom(), idxA(-1), idxB(-1) {
     setWidget(container);
     scrollTimer.setInterval(5);
-    connect(&scrollTimer, &QTimer::timeout, this, [this](){
+    connect(&scrollTimer, &QTimer::timeout, this, [this] {
         setGlobalPos(globalPos + dragScrollStep);
     });
 }
@@ -77,7 +88,7 @@ void ListWidget::setMinAreaRowCount(int count) {
     areaRowCount = count;
 }
 
-void ListWidget::onPostParsing(StandardWidget::Handlers &handlers, NBT *widgetTag) {
+void ListWidget::onPostParsing(Handlers &handlers, NBT *widgetTag) {
     if (!widgetTag->contains("row_height", Data::INT)) {
         return;
     }
@@ -109,7 +120,7 @@ void ListWidget::wheelEvent(QWheelEvent *event) {
 
 ScrollBar* ListWidget::createVerticalScrollBar() {
     auto* b = new ScrollBar(this, Qt::Vertical);
-    connect(b, &QScrollBar::valueChanged, this, [this](int v){
+    connect(b, &QScrollBar::valueChanged, this, [this](const int v){
         setGlobalPos(v);
     });
     return b;
@@ -120,6 +131,7 @@ ListItem *ListWidget::createRowItem() {
 }
 
 void ListWidget::prepareNewItem(ListItem* w) {
+    w->setList(wData->cast<ListData>());
     w->setParent(container);
     w->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed);
     connect(w, &ListItem::sigDragEnter, this, &ListWidget::onItemDragEnter);
@@ -291,7 +303,7 @@ void ListWidget::fillB(int begin, bool forceUpdate) {
     }
 }
 
-void ListWidget::setItemData(ListItem *item, int idx) {
+void ListWidget::setItemData(ListItem *item, int idx) const {
     auto* d = wData->cast<ListData>()->at(idx);
     item->setData(d);
     item->dataIdx = idx;
@@ -303,9 +315,8 @@ void ListWidget::updateMaxGlobalPos() {
     getVScrollBar()->onRangeChanged(0, maxGlobalPos);
 }
 
-void ListWidget::performDragScroll(ListItem* src, QDragMoveEvent *event) {
-    int y = (event->pos() + src->pos()).y() - pos;
-    if (y < 30) {
+void ListWidget::performDragScroll(const ListItem* src, const QDragMoveEvent *event) {
+    if (int y = (event->pos() + src->pos()).y() - pos; y < 30) {
         dragScrollStep = -2;
         scrollTimer.start();
     } else if (y > viewport()->height() - 30) {

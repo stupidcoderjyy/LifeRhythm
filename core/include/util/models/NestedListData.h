@@ -15,7 +15,7 @@ protected:
 public:
     NestedListNode();
     inline int getRow() const;
-    inline void changeRow(int row);
+    inline void changeRow(int r);
 protected:
 signals:
     void sigRowChanged(int old, int cur);

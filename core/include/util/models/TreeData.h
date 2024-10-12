@@ -9,10 +9,8 @@
 
 class TreeData;
 
-class TreeNode : public WidgetData {
+class TreeNode final : public WidgetData {
     friend class TreeData;
-    friend class SelectableTreeData;
-    friend class SelectableTreeItem;
     friend class TreeItem;
     Q_OBJECT
 protected:
@@ -24,17 +22,15 @@ protected:
     WidgetData* d;
 public:
     explicit TreeNode(WidgetData* d = nullptr);
-    virtual void addChildren(TreeData* tree, TreeNode* child);
-    virtual void removeChildren(int childIdx);
-    virtual void setParent(TreeNode* parent);
-    void toBytes(IByteWriter *writer) override;
-    void fromBytes(IByteReader *reader) override;
+    void addChildren(TreeData* tree, TreeNode* child);
+    void removeChildren(int childIdx);
+    void setParent(TreeNode* parent);
     inline bool isFolded() const;
     inline void setFolded(bool folded);
     inline const QVector<TreeNode *>& getChildren() const;
     inline int getDepth() const;
     inline void setNodeData(WidgetData* data);
-    inline WidgetData* nodeData();
+    inline WidgetData* nodeData() const;
 signals:
     void sigChildCreated(TreeNode* child);
     void sigChildRemoved(int childIdx);
@@ -60,26 +56,20 @@ inline void TreeNode::setNodeData(WidgetData *data) {
     d = data;
 }
 
-WidgetData *TreeNode::nodeData() {
+WidgetData *TreeNode::nodeData() const {
     return d;
 }
 
-class TreeData : public ListData {
+class TreeData final : public ListData {
     friend class TreeWidget;
 public:
-    TreeData();
-    void toBytes(IByteWriter *writer) override;
-    void fromBytes(IByteReader *reader) override;
     void addNode(TreeNode* node);
     void removeNode(int idx);
     void foldNode(int idx, bool folded);
+    WidgetData* remove(int idx) override;
 protected:
-    TreeNode *readElement(IByteReader *reader) override;
-    virtual int fold0(int idx);
-    virtual void expand0(int idx);
-private:
-    void toBytes(IByteWriter *writer, TreeNode* node);
-    void fromBytes(IByteReader* reader, TreeNode* parent);
+    int fold0(int idx);
+    void expand0(int idx);
 };
 
 

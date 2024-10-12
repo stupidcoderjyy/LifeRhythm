@@ -10,7 +10,6 @@
 #include "ColorSelector.h"
 #include "WidgetDataStorage.h"
 #include "Module.h"
-#include "Calendar.h"
 #include <QtConcurrent>
 #include <QApplication>
 #include <utility>
@@ -39,8 +38,7 @@ void LifeRhythm::insertTab(const QString& title, TabWidget *tab, const Identifie
     lr->mainFrame->tabBar->insertTab(title, tab, icon);
 }
 
-LifeRhythm::LifeRhythm(int argc, char *argv[]):QObject(),
-        app(argc, argv), config(), mainFrame(), modules() {
+LifeRhythm::LifeRhythm(int argc, char *argv[]): app(argc, argv), mainFrame() {
     lr = this;
 }
 
@@ -48,11 +46,11 @@ void LifeRhythm::onPreInit(std::function<void()> handler) {
     connect(this, &LifeRhythm::sigPreInit, this, std::move(handler));
 }
 
-void LifeRhythm::onPostInit(std::function<void()> handler, Qt::ConnectionType type) {
+void LifeRhythm::onPostInit(std::function<void()> handler, const Qt::ConnectionType type) {
     connect(this, &LifeRhythm::sigPostInit, this, std::move(handler), type);
 }
 
-void LifeRhythm::onMainInit(std::function<void()> handler, Qt::ConnectionType type) {
+void LifeRhythm::onMainInit(std::function<void()> handler, const Qt::ConnectionType type) {
     connect(this, &LifeRhythm::sigMainInit, this, std::move(handler), type);
 }
 
@@ -82,6 +80,10 @@ void LifeRhythm::registerModule(Module *m) {
     modules.insert(m->id, m);
 }
 
+IOManager& LifeRhythm::getIOManager() {
+    return ioManager;
+}
+
 void LifeRhythm::launch0() {
     preInit();
     emit sigPreInit();
@@ -93,6 +95,7 @@ void LifeRhythm::launch0() {
 
 void LifeRhythm::preInit() {
     config.froze();
+    atexit(exit);
     QTextCodec::setCodecForLocale(QTextCodec::codecForName("UTF-8"));
     QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
     Styles::initStyles();
@@ -120,14 +123,15 @@ void LifeRhythm::mainInit() {
     regClazz(f, TabBar);
     f = WidgetFactoryStorage::get("lr:item_defaultcolors");
     regClazz(f, DefaultColorsListItem);
-    auto* m0 = new SelectableListData;
-    for (auto& c : Color::defaultColors) {
+    auto* m0 = new ListData;
+    for (const auto& c : Color::defaultColors) {
         m0->append(c);
     }
-    WidgetDataStorage::add("lr:default_colors", m0);
+    WidgetDataStorage::add(LOC("lr:default_colors"), m0);
     if (config.mode == Config::Test) {
         return;
     }
+    ioManager.load();
     for (auto* m : modules) {
         m->mainInit();
     }
@@ -142,4 +146,8 @@ void LifeRhythm::postInit() {
     for (auto* m : modules) {
         m->postInit();
     }
+}
+
+void LifeRhythm::exit() {
+    lr->ioManager.save();
 }

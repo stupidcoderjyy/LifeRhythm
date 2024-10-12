@@ -11,8 +11,8 @@
 
 class BufferedInput : public AbstractInput{
 protected:
-    const static int DEFAULT_BUFFER_SIZE = 2048;
-    const static int MAX_BUFFER_SIZE = 4096;
+    static constexpr int DEFAULT_BUFFER_SIZE = 2048;
+    static constexpr int MAX_BUFFER_SIZE = 4096;
     IByteReader* reader;
     QVector<int> marks{};
     char* buffer{};
@@ -37,7 +37,7 @@ public:
     int read() override;
     int forward() override;
     QString capture() override;
-    virtual ~BufferedInput();
+    ~BufferedInput() override;
 protected:
     virtual void fillA();
     virtual void fillB();

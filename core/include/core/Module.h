@@ -12,7 +12,6 @@ BEGIN_NAMESPACE(lr)
 
 class Module : public QObject {
     friend class LifeRhythm;
-private:
     QString id;
 public:
     explicit Module(QString name);

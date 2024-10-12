@@ -11,14 +11,14 @@
 #include "Namespaces.h"
 #include "Identifier.h"
 #include "Config.h"
+#include "IOManager.h"
 
 BEGIN_NAMESPACE(lr)
-
-class MainFrame;
+    class MainFrame;
 class TabWidget;
 class Module;
 
-class LifeRhythm : public QObject{
+class LifeRhythm final : public QObject {
     Q_OBJECT
 public:
     const static QString NAME;
@@ -28,10 +28,11 @@ private:
     QApplication app;
     MainFrame* mainFrame;
     QMap<QString, Module*> modules;
+    IOManager ioManager;
 public:
     static LifeRhythm* get();
     static void generateTitledDialog(const QString& title, QWidget* content);
-    static void insertTab(const QString& title, TabWidget* tab, const Identifier& icon = "lr:icon_30");
+    static void insertTab(const QString& title, TabWidget* tab, const Identifier& icon = LOC("lr:icon_30"));
     LifeRhythm(int argc, char *argv[]);
     void onPreInit(std::function<void()> handler);
     void onPostInit(std::function<void()> handler, Qt::ConnectionType type = Qt::DirectConnection);
@@ -40,6 +41,7 @@ public:
     void setConfig(const Config& cfg);
     const Config& getConfig();
     void registerModule(Module* m);
+    IOManager& getIOManager();
 signals:
     void sigPreInit();
     void sigMainInit();
@@ -50,6 +52,7 @@ private:
     void preInit();
     void mainInit();
     void postInit();
+    static void exit();
 };
 
 END_NAMESPACE

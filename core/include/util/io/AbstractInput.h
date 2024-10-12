@@ -11,6 +11,7 @@ class AbstractInput {
 private:
     bool bitClazz[128]{};
 public:
+    virtual ~AbstractInput() = default;
     virtual int read() = 0;
     virtual int forward() = 0;
     virtual QString readUtf();

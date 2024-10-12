@@ -3,18 +3,20 @@
 //
 
 #include "UsageTypeTreeWidget.h"
+#include <QLayout>
 #include "ArrowButton.h"
 #include "TextLabel.h"
 #include "RcManagers.h"
+#include "UsageType.h"
 #include "UsageTypeIcon.h"
 
 USING_NAMESPACE(lr::log)
 
-UsageTypeTreeItem::UsageTypeTreeItem(QWidget *parent): SelectableTreeItem(parent) {
+UsageTypeTreeItem::UsageTypeTreeItem(QWidget *parent): TreeItem(parent), buttonFoldItem(), icon(), labelName() {
 }
 
 void UsageTypeTreeItem::syncDataToWidget() {
-    SelectableTreeItem::syncDataToWidget();
+    TreeItem::syncDataToWidget();
     setState(selected);
     icon->setData(wData);
     if (wData) {
@@ -30,7 +32,7 @@ void UsageTypeTreeItem::syncDataToWidget() {
     labelName->setVisible(wData);
 }
 
-void UsageTypeTreeItem::onFinishedParsing(StandardWidget::Handlers &handlers, NBT *widgetTag) {
+void UsageTypeTreeItem::onFinishedParsing(Handlers &handlers, NBT *widgetTag) {
     handlers << [](QWidget* target) {
         static_cast<UsageTypeTreeItem*>(target)->init();
     };
@@ -48,10 +50,10 @@ void UsageTypeTreeItem::init() {
     labelName->setVisible(false);
 }
 
-UsageTypeTreeWidget::UsageTypeTreeWidget(QWidget *parent): SelectableTreeWidget(parent) {
+UsageTypeTreeWidget::UsageTypeTreeWidget(QWidget *parent): TreeWidget(parent) {
     setRowHeight(30);
 }
 
-SelectableTreeItem *UsageTypeTreeWidget::createRowItem() {
+TreeItem *UsageTypeTreeWidget::createRowItem() {
     return WidgetFactoryStorage::get("log:item_periodtype")->applyAndCast<UsageTypeTreeItem>();
 }

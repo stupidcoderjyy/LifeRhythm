@@ -14,10 +14,10 @@ private:
     QVector<QWidget*>* configPages;
     QLayout* layoutPage;
     RecordTypeListWidget* recordTypeListWidget;
-    SelectableListData* modelRecordTypes;
+    ListData* modelRecordTypes;
 public:
     explicit WidgetStartPeriodMenu(QWidget* parent = nullptr);
-    void setRecordTypeData(SelectableListData *modelRecordTypes, QVector<QWidget*>* configPages);
+    void setRecordTypeData(ListData *modelRecordTypes, QVector<QWidget*>* configPages);
 };
 
 #endif //LIFERHYTHM_WIDGETSTARTPERIODMENU_H

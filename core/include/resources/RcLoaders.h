@@ -9,20 +9,20 @@
 #include "WidgetFactory.h"
 #include <QTextCharFormat>
 
-class ImageRcLoader : public RcLoader<QPixmap> {
+class ImageRcLoader final : public RcLoader<QPixmap> {
 public:
     QPixmap *load(const Identifier &loc, const QString &absolutePath) override;
 SINGLETON_HEADER(ImageRcLoader)
 };
 
-class WidgetFactoryRcLoader : public RcLoader<WidgetFactory> {
+class WidgetFactoryRcLoader final : public RcLoader<WidgetFactory> {
 public:
     WidgetFactory *load(const Identifier &loc, const QString &absolutePath) override;
     void onLoadFailed(std::exception &e) noexcept override;
 SINGLETON_HEADER(WidgetFactoryRcLoader)
 };
 
-class StyleGroupRcLoader : public RcLoader<QMap<QString, QTextCharFormat>> {
+class StyleGroupRcLoader final : public RcLoader<QMap<QString, QTextCharFormat>> {
 public:
     QMap<QString, QTextCharFormat> *load(const Identifier &loc, const QString &absolutePath) override;
 SINGLETON_HEADER(StyleGroupRcLoader)

@@ -5,8 +5,6 @@
 #ifndef LIFERHYTHM_WIDGETFACTORY_H
 #define LIFERHYTHM_WIDGETFACTORY_H
 
-#include <QMap>
-#include <QWidget>
 #include <QSpacerItem>
 #include "StandardWidget.h"
 #include "Identifier.h"
@@ -17,7 +15,7 @@
 
 class NBT;
 
-class WidgetFactory{
+class WidgetFactory final {
 public:
     typedef std::function<QWidget*(QWidget* parent)> Supplier;
     typedef StandardWidget::Handlers Handlers;
@@ -50,17 +48,17 @@ public:
     static void mainInit();
     static WidgetFactory* fromResource(const Identifier& loc);
     static WidgetFactory* fromNbt(const QString& id, NBT* nbt);
-    template<class W> static void parseTextWidget(WidgetFactory::Handlers& handlers, NBT* nbt);
+    template<class W> static void parseTextWidget(Handlers& handlers, NBT* nbt);
     static Qt::Alignment parseAlign(const QString& align);
     static QSize parseSize(ArrayData* arr);
     void setSource(NBT* nbt);
     void parse() noexcept;
-    void registerStdWidget(const QString& type, const Supplier& supplier, StandardWidget* instance);
+    void registerStdWidget(const QString& type, const Supplier& supplier, StandardWidget* instance) const;
     QWidget* apply(QWidget* parent = nullptr, QWidget* target = nullptr) noexcept;
-    template<class T> inline T* applyAndCast(QWidget* parent = nullptr, QWidget* target = nullptr) {
+    template<class T> T* applyAndCast(QWidget* parent = nullptr, QWidget* target = nullptr) {
         return static_cast<T*>(apply(parent, target));
     }
-    virtual ~WidgetFactory();
+    ~WidgetFactory();
 private:
     static void parseQss(Handlers& target, NBT* nbt);
     static void parseSize(Handlers& op, NBT* nbt);
@@ -77,14 +75,14 @@ private:
     void parseGridLayout(NBT* nbt);
     void parseMargins(NBT* nbt);
     void parseStates(NBT* nbt);
-    void parseSingleState(Handlers& op, NBT* stateTag);
+    void parseSingleState(Handlers& op, NBT* stateTag) const;
     void parsePointer(NBT* nbt);
-    QWidget* createWidget(const QString& type, QWidget* parent = nullptr);
+    QWidget* createWidget(const QString& type) const;
     void parseModel(NBT* nbt);
 };
 
 template<class W>
-void WidgetFactory::parseTextWidget(WidgetFactory::Handlers &handlers, NBT *nbt) {
+void WidgetFactory::parseTextWidget(Handlers &handlers, NBT *nbt) {
     if (nbt->contains("text", Data::STRING)) {
         QString text = nbt->getString("text", "");
         handlers << [text](QWidget* target) {

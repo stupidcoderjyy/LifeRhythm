@@ -10,25 +10,24 @@
 
 BEGIN_NAMESPACE(lr::log)
 
-class DRSData : public CalendarData {
+class DRSData final : public CalendarData {
     friend class DRSCalendar;
     friend class DRSCalendarDrawer;
-private:
     QDate rangeBegin, rangeEnd;
 public:
     DRSData();
     QString getRangeText();
 private:
     void selectDate(bool begin, int row, int column);
-    inline int getBeginPos();
+    inline int getBeginPos() const;
     inline int getEndPos();
 };
 
-inline int DRSData::getBeginPos() {
+inline int DRSData::getBeginPos() const {
     if (rangeBegin.isNull()) {
         return -1;
     }
-    return (int)topLeftDate.daysTo(rangeBegin);
+    return static_cast<int>(topLeftDate.daysTo(rangeBegin));
 }
 
 inline int DRSData::getEndPos() {

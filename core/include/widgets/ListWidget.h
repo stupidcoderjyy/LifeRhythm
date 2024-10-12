@@ -8,20 +8,21 @@
 #include "Widget.h"
 #include "ListData.h"
 #include "ScrollArea.h"
-#include <QVBoxLayout>
 #include <QTimer>
-#include <QDrag>
 
 class ListItem : public Widget {
     Q_OBJECT
     friend class ListWidget;
     friend class TreeWidget;
 protected:
+    ListData* listData;
+    bool selected;
     int dataIdx;
 private:
     QPoint dragStart;
 public:
     explicit ListItem(QWidget* parent = nullptr);
+    void syncDataToWidget() override;
 protected:
     void dragEnterEvent(QDragEnterEvent *event) override;
     void dragMoveEvent(QDragMoveEvent *event) override;
@@ -36,6 +37,10 @@ signals:
     void sigDragLeave(ListItem* item);
     void sigDragMove(ListItem* item, QDragMoveEvent *event);
     void sigDropped(ListItem* item);
+private:
+    void setList(ListData* data) {
+        this->listData = data;
+    }
 };
 
 class ListWidget : public ScrollArea {
@@ -77,9 +82,9 @@ private:
     void updateListBase();
     void fillA(int begin, bool forceUpdate = false);
     void fillB(int begin, bool forceUpdate = false);
-    void setItemData(ListItem* item, int idx);
+    void setItemData(ListItem* item, int idx) const;
     void updateMaxGlobalPos();
-    void performDragScroll(ListItem* src, QDragMoveEvent *event);
+    void performDragScroll(const ListItem* src, const QDragMoveEvent *event);
 };
 
 #endif //LIFERHYTHM_LISTWIDGET_H

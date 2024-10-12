@@ -15,6 +15,7 @@ void TreeItem::mouseDoubleClickEvent(QMouseEvent *event) {
 
 void TreeItem::syncDataToWidget() {
     folded = wData == nullptr || wData->cast<TreeNode>()->isFolded();
+    ListItem::syncDataToWidget();
 }
 
 void TreeItem::syncWidgetToData() {

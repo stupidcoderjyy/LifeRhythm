@@ -4,6 +4,7 @@
 
 #include "TimeScale.h"
 #include "Styles.h"
+#include <QPainter>
 
 USING_NAMESPACE(lr::log)
 

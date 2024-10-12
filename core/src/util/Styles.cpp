@@ -8,10 +8,10 @@
 
 QMap<QString, Color*> Color::defaultColors{};
 
-Color::Color(): WidgetData(), name(), rgbHex(), color() {
+Color::Color(): WidgetData() {
 }
 
-Color::Color(const QString &rgbHex): name(), rgbHex(rgbHex), color(rgbHex) {
+Color::Color(const QString &rgbHex): rgbHex(rgbHex), color(rgbHex) {
 }
 
 Color::Color(QString name, const QString& rgbHex): WidgetData(), name(std::move(name)), rgbHex(rgbHex), color(rgbHex) {

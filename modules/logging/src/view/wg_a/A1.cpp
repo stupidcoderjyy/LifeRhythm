@@ -3,6 +3,9 @@
 //
 
 #include "A1.h"
+
+#include <QLayout>
+
 #include "DataA1.h"
 #include "RcManagers.h"
 
@@ -16,10 +19,10 @@ ListItem *A1::createRowItem() {
     return WidgetFactoryStorage::get("log:item_a1")->applyAndCast<ListItem>();
 }
 
-ItemA1::ItemA1(QWidget *parent): TreeItem(parent), labelType(), labelTimeUsage(), active() {
+ItemA1::ItemA1(QWidget *parent): TreeItem(parent), active(), labelType(), labelName(), labelTimeUsage() {
 }
 
-void ItemA1::onFinishedParsing(StandardWidget::Handlers &handlers, NBT *widgetTag) {
+void ItemA1::onFinishedParsing(Handlers &handlers, NBT *widgetTag) {
     handlers << [](QWidget* t) {
         static_cast<ItemA1*>(t)->init();
     };
@@ -27,7 +30,7 @@ void ItemA1::onFinishedParsing(StandardWidget::Handlers &handlers, NBT *widgetTa
 
 void ItemA1::syncDataToWidget() {
     TreeItem::syncDataToWidget();
-    TreeNode* node;
+    TreeNode* node = nullptr;
     DataA1* d = nullptr;
     if (wData) {
         node = wData->cast<TreeNode>();

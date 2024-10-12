@@ -11,17 +11,7 @@
 BarData::BarData(): NestedListNode(), begin(), end() {
 }
 
-BarData::BarData(int begin, int end): NestedListNode(), begin(begin), end(end) {
-}
-
-void BarData::toBytes(IByteWriter *writer) {
-    writer->writeInt(begin);
-    writer->writeInt(end);
-}
-
-void BarData::fromBytes(IByteReader *reader) {
-    begin = reader->readInt();
-    end = reader->readInt();
+BarData::BarData(int begin, int end): begin(begin), end(end) {
 }
 
 BarItem::BarItem(QWidget *parent): Widget(parent), row(), begin(), end() {

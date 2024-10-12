@@ -122,7 +122,9 @@ public:
     private:               \
         static CLAZZ instance;     \
     public:                \
+        static TARGET* get(const QString& loc) { return instance._get(LOC(loc)); } \
         static TARGET* get(const Identifier& loc) { return instance._get(loc); } \
+        static bool exists(const QString& loc) { return instance._exists(LOC(loc)); } \
         static bool exists(const Identifier& loc) { return instance._exists(loc); } \
         static void addManager(ResourceManager<TARGET>* manager) { instance._addManager(manager); } \
         static void init() { instance._init(); } \

@@ -8,8 +8,8 @@
 USING_NAMESPACE(lr::log)
 
 Usage::Usage(UsageType *type, QString name, int duration):
-        TreeNode(), type(type), name(std::move(name)), duration(duration) {
+        type(type), name(std::move(name)), duration(duration) {
 }
 
-Usage::Usage(): TreeNode(), type(), name(), duration() {
+Usage::Usage(): type(), name(), duration() {
 }

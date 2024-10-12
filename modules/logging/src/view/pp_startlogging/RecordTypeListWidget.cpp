@@ -7,17 +7,17 @@
 #include "RcManagers.h"
 #include "RecordType.h"
 
-RecordTypeItem::RecordTypeItem(QWidget *parent): SelectableListItem(parent), labelIcon(), labelName() {
+RecordTypeItem::RecordTypeItem(QWidget *parent): ListItem(parent), labelIcon(), labelName() {
 }
 
-void RecordTypeItem::onFinishedParsing(StandardWidget::Handlers &handlers, NBT *widgetTag) {
+void RecordTypeItem::onFinishedParsing(Handlers &handlers, NBT *widgetTag) {
     handlers << [](QWidget* target) {
         static_cast<RecordTypeItem*>(target)->init();
     };
 }
 
 void RecordTypeItem::syncDataToWidget() {
-    SelectableListItem::syncDataToWidget();
+    ListItem::syncDataToWidget();
     setState(selected);
     if (!wData) {
         setVisible(false);
@@ -25,8 +25,7 @@ void RecordTypeItem::syncDataToWidget() {
     }
     auto* t = wData->cast<RecordType>();
     labelName->setText(t->name);
-    auto* icon = ImageStorage::get(Identifier(t->iconPath));
-    if (icon) {
+    if (auto* icon = ImageStorage::get(Identifier(t->iconPath))) {
         labelIcon->setPixmap(*icon);
     }
     setVisible(true);
@@ -37,10 +36,10 @@ void RecordTypeItem::init() {
     labelName = getPointer<TextLabel>("name");
 }
 
-SelectableListItem *RecordTypeListWidget::createRowItem() {
+ListItem *RecordTypeListWidget::createRowItem() {
     auto* item = WidgetFactoryStorage::get("log:item_recordtype")->apply();
-    return static_cast<SelectableListItem*>(item);
+    return static_cast<ListItem*>(item);
 }
 
-RecordTypeListWidget::RecordTypeListWidget(QWidget *parent): SelectableListWidget(parent) {
+RecordTypeListWidget::RecordTypeListWidget(QWidget *parent): ListWidget(parent) {
 }

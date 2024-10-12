@@ -13,7 +13,7 @@ BEGIN_NAMESPACE(lr::log)
 class A;
 class B;
 
-class ModuleLog : public Module {
+class ModuleLog final : public Module {
 private:
     A* tabMain;
     B* tabProfiles;

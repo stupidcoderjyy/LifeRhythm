@@ -5,13 +5,9 @@
 #ifndef LIFERHYTHM_TASK_H
 #define LIFERHYTHM_TASK_H
 
-#include <QRunnable>
-#include <QString>
-#include <QFutureInterface>
-#include <QFuture>
 #include <QFutureWatcher>
 
-class Task : public QObject, public QRunnable{
+class Task final : public QObject, public QRunnable{
     Q_OBJECT
 protected:
     QFutureInterface<void> futureInterface;
@@ -20,10 +16,10 @@ protected:
 public:
     explicit Task(std::function<void(QFutureInterface<void>& fi)> task);
     QFuture<void> future();
-    const QFutureWatcher<void>* getFutureWatcher();
+    const QFutureWatcher<void>* getFutureWatcher() const;
     void start();
-    void onFinished(QObject* target, std::function<void()> func) const;
-    void onProgressChanged(QObject* target, const std::function<void(int)> &func);
+    void onFinished(const QObject* target, std::function<void()> func) const;
+    void onProgressChanged(const QObject* target, const std::function<void(int)> &func);
 signals:
     void sigTaskFinished();
 private:

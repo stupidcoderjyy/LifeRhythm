@@ -8,7 +8,7 @@
 
 using namespace highlight;
 
-NBTLexer::NBTLexer():Lexer("lr:nbt", 15, 7) {
+NBTLexer::NBTLexer():Lexer(LOC("lr:nbt"), 15, 7) {
     goTo[4][95] = 4;
     goTo[5][70] = 12;
     goTo[5][102] = 12;
@@ -72,14 +72,14 @@ NBTLexer::NBTLexer():Lexer("lr:nbt", 15, 7) {
         accepted[i] = true;
     }
 
-    TokenSupplier e1 = []() {return (new TokenString());};
-    TokenSupplier e4 = []() {return (new TokenFloat());};
-    TokenSupplier e5 = []() {return (new TokenInt());};
-    tokens[1] = []() {return (new TokenSingle());};
+    const TokenSupplier e1 = [] {return new TokenString();};
+    const TokenSupplier e4 = [] {return new TokenFloat();};
+    const TokenSupplier e5 = [] {return new TokenInt();};
+    tokens[1] = [] {return new TokenSingle();};
     tokens[2] = e1;
     tokens[13] = e1;
-    tokens[3] = []() {return (new TokenComment());};
-    tokens[4] = []() {return (new TokenId());};
+    tokens[3] = [] {return new TokenComment();};
+    tokens[4] = [] {return new TokenId();};
     tokens[5] = e4;
     tokens[12] = e4;
     tokens[6] = e5;
@@ -119,7 +119,7 @@ int TokenFloat::type() {
 }
 
 Token::Op TokenComment::onMatched(const QString &lexeme, Input *input, Context* ctx) {
-    auto* nbtCtx = static_cast<NBTContext*>(ctx);
+    const auto* nbtCtx = static_cast<NBTContext*>(ctx);
     if (lexeme[1] == '*') {
         if (nbtCtx->highlighter->previousBlockState() == 1) {
             return Everything;
@@ -166,7 +166,7 @@ QMap<QString, int> TokenId::initMap() {
     return map;
 }
 
-QMap<QString, int> TokenId::keyWords = TokenId::initMap();
+QMap<QString, int> TokenId::keyWords = initMap();
 
 NBTHighlighter::NBTHighlighter(NBTContext *ctx, Lexer *lexer, QTextDocument *parent):
         Highlighter(ctx, lexer,parent) {

@@ -6,12 +6,11 @@
 #define LIFERHYTHM_USAGE_H
 
 #include "Namespaces.h"
-#include "WidgetData.h"
 #include "UsageType.h"
 
 BEGIN_NAMESPACE(lr::log)
 
-class Usage : public TreeNode {
+class Usage : public WidgetData {
 private:
     UsageType* type;
     QString name;

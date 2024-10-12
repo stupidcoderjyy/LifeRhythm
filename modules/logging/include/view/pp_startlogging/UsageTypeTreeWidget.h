@@ -5,9 +5,9 @@
 #ifndef LIFERHYTHM_USAGETYPETREEWIDGET_H
 #define LIFERHYTHM_USAGETYPETREEWIDGET_H
 
-#include "SelectableTreeWidget.h"
-#include "UsageType.h"
 #include "Namespaces.h"
+#include "NBT.h"
+#include "TreeWidget.h"
 
 class ArrowButton;
 class TextLabel;
@@ -16,7 +16,7 @@ BEGIN_NAMESPACE(lr::log)
 
 class UsageTypeIcon;
 
-class UsageTypeTreeItem : public SelectableTreeItem {
+class UsageTypeTreeItem : public TreeItem {
 private:
     ArrowButton* buttonFoldItem;
     UsageTypeIcon* icon;
@@ -29,11 +29,11 @@ private:
     void init();
 };
 
-class UsageTypeTreeWidget : public SelectableTreeWidget {
+class UsageTypeTreeWidget : public TreeWidget {
 public:
     explicit UsageTypeTreeWidget(QWidget* parent = nullptr);
 protected:
-    SelectableTreeItem *createRowItem() override;
+    TreeItem *createRowItem() override;
 };
 
 END_NAMESPACE

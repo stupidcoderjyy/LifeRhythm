@@ -8,6 +8,7 @@
 #include <QMenu>
 #include "StandardWidget.h"
 #include "Styles.h"
+#include <QPainter>
 
 class Menu : public QWidget, public StandardWidget {
     Q_OBJECT
@@ -20,6 +21,5 @@ protected:
     void showEvent(QShowEvent *event) override;
 PAINT_QSS
 };
-
 
 #endif //LIFERHYTHM_MENU_H

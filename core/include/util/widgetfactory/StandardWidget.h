@@ -20,7 +20,7 @@ protected:
     QMap<int, Handlers*> stateResponders{};
     Handlers globalResponders{};
     int state = -1;
-    WidgetData* wData;
+    WidgetData* wData = nullptr;
     QVector<QMetaObject::Connection> dc;
 public:
     int getState() const;
@@ -46,13 +46,11 @@ public:
     //将组件内的数据同步到data中
     virtual void syncWidgetToData();
     virtual ~StandardWidget();
-    inline WidgetData* widgetData();
+    WidgetData* widgetData() const {
+        return wData;
+    }
 protected:
     virtual void connectModelView();
 };
-
-inline WidgetData *StandardWidget::widgetData() {
-    return wData;
-}
 
 #endif //LIFERHYTHM_STANDARDWIDGET_H

@@ -15,6 +15,7 @@ set(INCLUDES
         include/util/widgetfactory
         include/util/concurrent
         include/widgets
+        include/test/io
         include
 )
 
@@ -43,14 +44,12 @@ set(INCLUDE_FILES
         include/util/highlight/StyleParser.h
         include/util/io/AbstractInput.h
         include/util/io/BufferedInput.h
-        include/util/io/DataLoader.h
         include/util/io/IByteReader.h
         include/util/io/IByteWriter.h
         include/util/io/Identifier.h
         include/util/io/IOUtil.h
         include/util/io/RcLoader.h
         include/util/io/ResourceManager.h
-        include/util/io/Serializable.h
         include/util/io/StreamByteReader.h
         include/util/io/StreamByteWriter.h
         include/util/io/StringByteReader.h
@@ -58,8 +57,6 @@ set(INCLUDE_FILES
         include/util/models/WidgetData.h
         include/util/models/TreeData.h
         include/util/models/ListData.h
-        include/util/models/SelectableListData.h
-        include/util/models/SelectableTreeData.h
         include/util/models/WidgetDataStorage.h
         include/util/models/NestedListData.h
         include/util/nbt/ArrayData.h
@@ -84,12 +81,10 @@ set(INCLUDE_FILES
         include/widgets/LineEditOptionsBox.h
         include/widgets/ScrollArea.h
         include/widgets/ScrollBar.h
-        include/widgets/SelectableListWidget.h
         include/widgets/TextEdit.h
         include/widgets/TextLabel.h
         include/widgets/TreeWidget.h
         include/widgets/Widget.h
-        include/widgets/SelectableTreeWidget.h
         include/widgets/TextButton.h
         include/widgets/GridLayout.h
         include/widgets/ColorSelector.h
@@ -99,6 +94,7 @@ set(INCLUDE_FILES
         include/widgets/Calendar.h
         include/widgets/SlotsDrawer.h
         include/widgets/Separator.h
+        include/test/io/IOManager.h
 )
 
 set(SRC_FILES
@@ -131,12 +127,8 @@ set(SRC_FILES
         src/util/io/StreamByteWriter.cpp
         src/util/io/StringByteReader.cpp
         src/util/io/StringInput.cpp
-        src/util/io/DataLoader.cpp
-        src/util/models/WidgetData.cpp
         src/util/models/TreeData.cpp
         src/util/models/ListData.cpp
-        src/util/models/SelectableListData.cpp
-        src/util/models/SelectableTreeData.cpp
         src/util/models/WidgetDataStorage.cpp
         src/util/models/NestedListData.cpp
         src/util/nbt/ArrayData.cpp
@@ -171,12 +163,10 @@ set(SRC_FILES
         src/widgets/LineEditOptionsBox.cpp
         src/widgets/ScrollArea.cpp
         src/widgets/ScrollBar.cpp
-        src/widgets/SelectableListWidget.cpp
         src/widgets/TextEdit.cpp
         src/widgets/TextLabel.cpp
         src/widgets/TreeWidget.cpp
         src/widgets/Widget.cpp
-        src/widgets/SelectableTreeWidget.cpp
         src/widgets/TextButton.cpp
         src/widgets/GridLayout.cpp
         src/widgets/ColorSelector.cpp
@@ -186,6 +176,7 @@ set(SRC_FILES
         src/widgets/Calendar.cpp
         src/widgets/SlotsDrawer.cpp
         src/widgets/Separator.cpp
+        src/test/io/IOManager.cpp
 )
 
 add_library(${PROJECT_NAME} ${SRC_FILES} ${INCLUDE_FILES})

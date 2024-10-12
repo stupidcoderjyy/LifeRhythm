@@ -22,7 +22,7 @@ public:
     QString toString() override;
     Data *copy() override;
     ~ArrayData() override;
-    inline QVector<Data*>& get() {
+    QVector<Data*>& get() {
         return data;
     }
     void fillString(QStringList& target);

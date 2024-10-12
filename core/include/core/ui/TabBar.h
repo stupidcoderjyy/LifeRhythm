@@ -11,6 +11,7 @@
 #include "Namespaces.h"
 #include <QScrollArea>
 #include <QHBoxLayout>
+#include <QPainter>
 
 class WidgetFactory;
 class TextLabel;
@@ -96,7 +97,7 @@ public:
     explicit TabBar(QWidget* parent);
     void onFinishedParsing(Handlers &handlers, NBT *widgetTag) override;
     void selectTab(Tab* tab);
-    void insertTab(const QString& title, TabWidget* tab, const Identifier& icon = "lr:icon_30");
+    void insertTab(const QString& title, TabWidget* tab, const Identifier& icon = Identifier("lr:icon_30"));
     void closeTab(Tab* tab);
     void closeAll();
     ~TabBar() override;

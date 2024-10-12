@@ -6,22 +6,16 @@
 #define LIFERHYTHM_WIDGET_DATA_H
 
 #include <QObject>
-#include "Serializable.h"
 
-class WidgetData : public QObject, public Serializable{
+class WidgetData : public QObject {
     Q_OBJECT
 public:
-    WidgetData();
-    template<class T> inline constexpr T* cast();
-    void toBytes(IByteWriter *writer) override;
-    void fromBytes(IByteReader *reader) override;
+    WidgetData() = default;
+    template<class T> constexpr T* cast() {
+        return static_cast<T*>(this);
+    }
 signals:
     void sigDataChanged();
 };
-
-template<class T>
-inline constexpr T *WidgetData::cast() {
-    return static_cast<T*>(this);
-}
 
 #endif //LIFERHYTHM_WIDGET_DATA_H

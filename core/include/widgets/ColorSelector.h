@@ -5,9 +5,10 @@
 #ifndef LIFERHYTHM_COLORSELECTOR_H
 #define LIFERHYTHM_COLORSELECTOR_H
 
-#include "SelectableListWidget.h"
 #include "TextLabel.h"
 #include <QWidget>
+
+#include "ListWidget.h"
 
 class VColorBar : public Widget {
     Q_OBJECT
@@ -60,7 +61,7 @@ protected:
     void paintEvent(QPaintEvent *event) override;
 };
 
-class DefaultColorsListItem : public SelectableListItem {
+class DefaultColorsListItem : public ListItem {
 private:
     ColorIcon* icon;
     TextLabel* labelName;
@@ -72,12 +73,12 @@ private:
     void init();
 };
 
-class DefaultColorsList : public SelectableListWidget {
+class DefaultColorsList : public ListWidget {
     Q_OBJECT
 public:
     explicit DefaultColorsList(QWidget* parent = nullptr);
 protected:
-    SelectableListItem *createRowItem() override;
+    ListItem *createRowItem() override;
 };
 
 class HueSelector : public Widget {

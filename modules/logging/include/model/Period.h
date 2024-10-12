@@ -16,8 +16,6 @@ public:
     QString info;
     Period(int begin, int end, QString info);
     Period();
-    void toBytes(IByteWriter *writer) override;
-    void fromBytes(IByteReader *reader) override;
 };
 
 END_NAMESPACE

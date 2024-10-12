@@ -5,9 +5,9 @@
 #ifndef LIFERHYTHM_IDENTIFIER_H
 #define LIFERHYTHM_IDENTIFIER_H
 
-#include <QString>
-#include <QFile>
 #include <QDir>
+
+#define LOC(x) Identifier(x)
 
 class Identifier{
 private:
@@ -17,7 +17,7 @@ private:
 public:
     Identifier(QString _namespace, QString _path);
     explicit Identifier(const QString& _path);
-    Identifier(const char *_path); // NOLINT(*-explicit-constructor)
+    explicit Identifier(const char *_path);
     Identifier(const Identifier& o);
     Identifier(Identifier&& o) noexcept;
     Identifier& operator=(const Identifier& o);

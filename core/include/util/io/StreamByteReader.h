@@ -10,7 +10,7 @@
 
 class QFile;
 
-class StreamByteReader: public IByteReader {
+class StreamByteReader final : public IByteReader {
 private:
     QDataStream* stream = nullptr;
     QFile* file;

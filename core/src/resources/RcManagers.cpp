@@ -11,11 +11,11 @@ STATIC_INSTANCE(WidgetFactoryStorage)
 STATIC_INSTANCE(StyleGroupStorage)
 
 ImageStorage::ImageStorage() {
-    _addManager(new BuiltInResourceManager<QPixmap>(RcTypes::IMG, ImageRcLoader::get()));
+    _addManager(new BuiltInResourceManager(RcTypes::IMG, ImageRcLoader::get()));
 }
 
 WidgetFactoryStorage::WidgetFactoryStorage() {
-    _addManager(new BuiltInResourceManager<WidgetFactory>(RcTypes::FACTORY, WidgetFactoryRcLoader::get()));
+    _addManager(new BuiltInResourceManager(RcTypes::FACTORY, WidgetFactoryRcLoader::get()));
 }
 
 void WidgetFactoryStorage::parseAll() {
@@ -27,5 +27,5 @@ void WidgetFactoryStorage::parseAll() {
 }
 
 StyleGroupStorage::StyleGroupStorage() {
-    _addManager(new BuiltInResourceManager<StyleGroup>(RcTypes::STYLE_GROUP, StyleGroupRcLoader::get()));
+    _addManager(new BuiltInResourceManager(RcTypes::STYLE_GROUP, StyleGroupRcLoader::get()));
 }

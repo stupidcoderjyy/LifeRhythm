@@ -50,7 +50,7 @@ ArrayData::~ArrayData() {
     }
 }
 
-ArrayData *ArrayData::add(int val) {
+ArrayData *ArrayData::add(const int val) {
     data.append((new IntData())->setVal(val));
     return this;
 }

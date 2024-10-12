@@ -10,6 +10,7 @@
 template<class T>
 class RcLoader {
 public:
+    virtual ~RcLoader() = default;
     virtual T* load(const Identifier& loc, const QString& absolutePath) = 0;
     virtual void onLoadFailed(std::exception& e) noexcept {};
     virtual void deleteElement(T* p) { delete p; }

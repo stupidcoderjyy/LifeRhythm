@@ -4,7 +4,7 @@
 
 #include "TreeData.h"
 
-TreeNode::TreeNode(WidgetData *d): WidgetData(), parent(), children(), folded(true), depth(), tree(), d(d) {
+TreeNode::TreeNode(WidgetData *d): WidgetData(), depth(), folded(true), parent(), tree(), d(d) {
 }
 
 void TreeNode::addChildren(TreeData* t, TreeNode *c) {
@@ -26,31 +26,6 @@ void TreeNode::removeChildren(int childIdx) {
 void TreeNode::setParent(TreeNode *p) {
     parent = p;
     depth = p->depth + 1;
-}
-
-void TreeNode::toBytes(IByteWriter *writer) {
-    writer->writeBool(folded);
-}
-
-void TreeNode::fromBytes(IByteReader *reader) {
-    folded = reader->readBool();
-}
-
-TreeData::TreeData(): ListData() {
-}
-
-void TreeData::toBytes(IByteWriter *writer) {
-    writer->writeInt(data.count());
-    for (auto* node : data) {
-        toBytes(writer, node->cast<TreeNode>());
-    }
-}
-
-void TreeData::fromBytes(IByteReader *reader) {
-    int count = reader->readInt();
-    for (int i = 0 ; i < count ; i ++) {
-        fromBytes(reader, readElement(reader));
-    }
 }
 
 void TreeData::foldNode(int idx, bool folded) {
@@ -75,6 +50,24 @@ void TreeData::foldNode(int idx, bool folded) {
     endEdit();
 }
 
+WidgetData * TreeData::remove(int idx) {
+    if (idx == selectedIdx) {
+        if (auto* node = data[idx]->cast<TreeNode>(); node->parent) {
+            int i = idx;
+            while (data[--i]->cast<TreeNode>()->parent == node->parent) {}
+            selectData(i);
+        } else {
+            selectData(-1);
+        }
+        beginEdit();
+    } else if (idx < selectedIdx) {
+        selectedIdx--;
+    }
+    auto* d = data.takeAt(idx);
+    markChange(idx, data.length());
+    return d;
+}
+
 void TreeData::addNode(TreeNode *node) {
     append(node);
     node->tree = this;
@@ -85,12 +78,8 @@ void TreeData::removeNode(int idx) {
     remove(idx);
 }
 
-TreeNode* TreeData::readElement(IByteReader *reader) {
-    return new TreeNode;
-}
-
 int TreeData::fold0(int i) {
-    int removeBegin = i + 1;
+    const int removeBegin = i + 1;
     QVector<TreeNode*> nodes;
     nodes << data[i++]->cast<TreeNode>();
     while (!nodes.empty()) {
@@ -113,10 +102,14 @@ int TreeData::fold0(int i) {
         }
     }
     data.remove(removeBegin, i - removeBegin);
-    return i;
+    const int removeEnd = i;
+    if (selectedIdx >= removeBegin) {
+        selectData(selectedIdx < removeEnd ? removeBegin - 1 : selectedIdx - removeEnd + removeBegin);
+    }
+    return removeEnd;
 }
 
-void TreeData::expand0(int idx) {
+void TreeData::expand0(const int idx) {
     int i = idx;
     QVector<WidgetData*> endNodes;
     endNodes << (idx == data.length() - 1 ? nullptr : data[idx + 1]);
@@ -134,30 +127,13 @@ void TreeData::expand0(int idx) {
         if (parent->folded) {
             continue;
         }
-        int count = parent->children.length();
-        if (count) {
+        if (int count = parent->children.length()) {
             endNodes << (i == data.length() ? nullptr : data[i]);
             data.insert(i, count, nullptr);
             memcpy(data.data() + i, parent->children.data(), count << 3);
         }
     }
-}
-
-void TreeData::toBytes(IByteWriter *writer, TreeNode *node) {
-    writer->writeInt(node->children.count());
-    for (auto* childNode : node->children) {
-        childNode->toBytes(writer);
-        toBytes(writer, childNode);
-    }
-}
-
-void TreeData::fromBytes(IByteReader *reader, TreeNode *parent) {
-    int count = reader->readInt();
-    parent->children.reserve(count);
-    for (int i = 0 ; i < count ; i ++) {
-        auto* child = readElement(reader);
-        parent->addChildren(this, child);
-        child->fromBytes(reader);
-        fromBytes(reader, child);
+    if (selectedIdx > idx) {
+        selectData(selectedIdx + i - idx - 1);
     }
 }

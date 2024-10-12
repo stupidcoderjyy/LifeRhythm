@@ -8,6 +8,7 @@
 #include <QWidget>
 #include "StandardWidget.h"
 #include "Styles.h"
+#include <QPainter>
 
 class Widget : public QWidget, public StandardWidget {
 public:

@@ -12,6 +12,3 @@ UsageType::UsageType(QColor color, QString name): color(std::move(color)), name(
 
 UsageType::UsageType(const UsageType &o): color(o.color), name(o.name) {
 }
-
-UsageType::UsageType(): color(), name() {
-}

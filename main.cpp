@@ -13,15 +13,15 @@
 
 USING_NAMESPACE(lr)
 
-int main(int argc, char *argv[]) {
-    LifeRhythm lr(argc, argv);
-    auto cfg = lr.getConfig();
+int main(const int argc, char *argv[]) {
+    auto* lr = new LifeRhythm(argc, argv);
+    auto cfg = lr->getConfig();
     cfg.setMode(Config::Normal);
-    lr.setConfig(cfg);
-    lr.registerModule(new log::ModuleLog());
-    lr.onPostInit([](){
+    lr->setConfig(cfg);
+    lr->registerModule(new log::ModuleLog());
+    lr->onPostInit([] {
 //        auto* c = new Calendar(new WeekDayTitleDrawer, new CalendarContentDrawer);
 //        c->show();
     });
-    return lr.launch();
+    return lr->launch();
 }

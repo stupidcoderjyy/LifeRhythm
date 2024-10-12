@@ -23,8 +23,6 @@ public:
     inline int getEnd() const;
     inline void setBegin(int begin);
     inline void setEnd(int end);
-    void toBytes(IByteWriter *writer) override;
-    void fromBytes(IByteReader *reader) override;
 };
 
 class BarItem : public Widget {
@@ -126,14 +124,14 @@ public:
     void syncDataToWidget() override;
     void onPostParsing(Handlers &handlers, NBT *widgetTag) override;
     void setData(WidgetData* d) override;
-    inline void setBarRange(int minVal, int maxVal);
-    inline void setZoomEnabled(bool main, bool side);
-    inline void setMainZoomRange(double minVpp, double maxVpp);
-    inline void setMainZoomStep(double step);
-    inline void setVpp(double vpp);
-    inline void setSideZoomStep(int step);
-    inline void setSideZoomRange(int minSideLen, int maxSideLen);
-    inline void setSideLen(int len);
+    inline void setBarRange(int minVal, int maxVal) const;
+    inline void setZoomEnabled(bool main, bool side) const;
+    inline void setMainZoomRange(double minVpp, double maxVpp) const;
+    inline void setMainZoomStep(double step) const;
+    inline void setVpp(double vpp) const;
+    inline void setSideZoomStep(int step) const;
+    inline void setSideZoomRange(int minSideLen, int maxSideLen) const;
+    inline void setSideLen(int len) const;
 signals:
     void sigBarLayoutChanged();
 protected:
@@ -214,7 +212,7 @@ inline int AbstractBarContainer::getSideLen() const {
     return sideLen;
 }
 
-inline void RangeBar::setBarRange(int minVal, int maxVal) {
+inline void RangeBar::setBarRange(const int minVal, const int maxVal) const {
     if (minVal >= maxVal) {
         throwInFunc("invalid bar range");
     }
@@ -222,12 +220,12 @@ inline void RangeBar::setBarRange(int minVal, int maxVal) {
     container->maxVal = maxVal;
 }
 
-inline void RangeBar::setZoomEnabled(bool main, bool side) {
+inline void RangeBar::setZoomEnabled(const bool main, const bool side) const {
     container->mainZoomEnabled = main;
     container->sideZoomEnabled = side;
 }
 
-inline void RangeBar::setMainZoomRange(double minVpp, double maxVpp) {
+inline void RangeBar::setMainZoomRange(const double minVpp, const double maxVpp) const {
     if (minVpp >= maxVpp) {
         throwInFunc("invalid main zoom range");
     }
@@ -235,19 +233,19 @@ inline void RangeBar::setMainZoomRange(double minVpp, double maxVpp) {
     container->maxVpp = maxVpp;
 }
 
-inline void RangeBar::setMainZoomStep(double step) {
+inline void RangeBar::setMainZoomStep(const double step) const {
     container->mainZoomStep = step;
 }
 
-inline void RangeBar::setVpp(double vpp) {
+inline void RangeBar::setVpp(const double vpp) const {
     container->vpp = vpp;
 }
 
-inline void RangeBar::setSideZoomStep(int step) {
+inline void RangeBar::setSideZoomStep(const int step) const {
     container->sideZoomStep = step;
 }
 
-inline void RangeBar::setSideZoomRange(int minSideLen, int maxSideLen) {
+inline void RangeBar::setSideZoomRange(const int minSideLen, const int maxSideLen) const {
     if (minSideLen >= maxSideLen) {
         throwInFunc("invalid side zoom range");
     }
@@ -255,7 +253,7 @@ inline void RangeBar::setSideZoomRange(int minSideLen, int maxSideLen) {
     container->maxSideLen = maxSideLen;
 }
 
-inline void RangeBar::setSideLen(int len) {
+inline void RangeBar::setSideLen(const int len) const {
     container->sideLen = len;
 }
 

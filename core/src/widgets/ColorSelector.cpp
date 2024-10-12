@@ -10,7 +10,7 @@
 #include <QPainterPath>
 #include <QMouseEvent>
 
-VColorBar::VColorBar(QWidget *parent): Widget(parent), val(-1) {
+VColorBar::VColorBar(QWidget *parent): Widget(parent), pressed(), val(-1) {
     barImg = ImageStorage::get("lr:v_color_bar");
     setFixedSize(barImg->size());
     step = 360 / barImg->height();
@@ -143,7 +143,7 @@ void ColorIcon::setBorderColor(QColor c) {
     bdColor = std::move(c);
 }
 
-DefaultColorsListItem::DefaultColorsListItem(QWidget *parent): SelectableListItem(parent), icon(), labelName() {
+DefaultColorsListItem::DefaultColorsListItem(QWidget *parent): ListItem(parent), icon(), labelName() {
 }
 
 void DefaultColorsListItem::init() {
@@ -152,30 +152,30 @@ void DefaultColorsListItem::init() {
 }
 
 void DefaultColorsListItem::syncDataToWidget() {
-    SelectableListItem::syncDataToWidget();
+    ListItem::syncDataToWidget();
     icon->setData(wData);
     labelName->setText(wData ? wData->cast<Color>()->name : "");
     setState(selected);
 }
 
-void DefaultColorsListItem::onFinishedParsing(StandardWidget::Handlers &handlers, NBT *widgetTag) {
+void DefaultColorsListItem::onFinishedParsing(Handlers &handlers, NBT *widgetTag) {
     handlers << [](QWidget* target) {
         static_cast<DefaultColorsListItem*>(target)->init();
     };
 }
 
-DefaultColorsList::DefaultColorsList(QWidget *parent): SelectableListWidget(parent) {
+DefaultColorsList::DefaultColorsList(QWidget *parent): ListWidget(parent) {
     setRowHeight(30);
 }
 
-SelectableListItem *DefaultColorsList::createRowItem() {
-    return WidgetFactoryStorage::get("lr:item_defaultcolors")->applyAndCast<SelectableListItem>();
+ListItem *DefaultColorsList::createRowItem() {
+    return WidgetFactoryStorage::get("lr:item_defaultcolors")->applyAndCast<ListItem>();
 }
 
-HueSelector::HueSelector(QWidget *parent): Widget(parent) {
+HueSelector::HueSelector(QWidget *parent): Widget(parent), bar() {
 }
 
-void HueSelector::onFinishedParsing(StandardWidget::Handlers &handlers, NBT *widgetTag) {
+void HueSelector::onFinishedParsing(Handlers &handlers, NBT *widgetTag) {
     handlers << [](QWidget* target) {
         static_cast<HueSelector*>(target)->init();
     };
@@ -183,8 +183,8 @@ void HueSelector::onFinishedParsing(StandardWidget::Handlers &handlers, NBT *wid
 
 void HueSelector::init() {
     bar = getPointer<VColorBar>("bar");
-    auto* modelColors = WidgetDataStorage::get("lr:default_colors")->cast<SelectableListData>();
-    connect(modelColors, &SelectableListData::sigDataSelected, this, [this, modelColors](int pre, int cur){
+    auto* modelColors = WidgetDataStorage::get(LOC("lr:default_colors"))->cast<ListData>();
+    connect(modelColors, &ListData::sigDataSelected, this, [this, modelColors](int pre, int cur){
         auto* c = modelColors->at(cur)->cast<Color>();
         bar->selectColor(c->color);
     });

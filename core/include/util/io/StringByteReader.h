@@ -7,7 +7,7 @@
 
 #include "IByteReader.h"
 
-class StringByteReader : public IByteReader {
+class StringByteReader final : public IByteReader {
 private:
     QByteArray data;
     int next{};

@@ -5,11 +5,11 @@
 #ifndef LIFERHYTHM_RECORDTYPELISTWIDGET_H
 #define LIFERHYTHM_RECORDTYPELISTWIDGET_H
 
-#include "SelectableListWidget.h"
 #include "ImgLabel.h"
+#include "ListWidget.h"
 #include "TextLabel.h"
 
-class RecordTypeItem : public SelectableListItem {
+class RecordTypeItem : public ListItem {
 private:
     ImgLabel* labelIcon;
     TextLabel* labelName;
@@ -21,9 +21,9 @@ private:
     void init();
 };
 
-class RecordTypeListWidget : public SelectableListWidget {
+class RecordTypeListWidget : public ListWidget {
 protected:
-    SelectableListItem *createRowItem() override;
+    ListItem *createRowItem() override;
 public:
     explicit RecordTypeListWidget(QWidget* parent = nullptr);
 };

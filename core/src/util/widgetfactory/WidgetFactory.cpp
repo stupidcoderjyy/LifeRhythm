@@ -14,19 +14,17 @@
 #include <utility>
 
 WidgetFactory::WidgetFactory(QString id):
-        id(std::move(id)),
         customSuppliers(new QMap<QString, Supplier>()),
         customEmptyInstances(new QMap<QString, StandardWidget*>()),
         parentFactory(nullptr),
-        stateResponders(), childFactories(), globalResponders() {
+        id(std::move(id)) {
 }
 
 WidgetFactory::WidgetFactory(WidgetFactory *parent, const QString& id, NBT *nbt):
-        id(id),
         customSuppliers(parent->customSuppliers),
         customEmptyInstances(parent->customEmptyInstances),
         parentFactory(parent),
-        stateResponders(), childFactories(), globalResponders() {
+        id(id) {
     parent->childFactories.insert(id, this);
     source = nbt;
 }
@@ -82,8 +80,7 @@ void WidgetFactory::parse() noexcept {
         parsePointer(source);
         parseSpacers(source);
         handlers << [](QWidget* target){
-            auto* stdWidget = dynamic_cast<StandardWidget*>(target);
-            if (stdWidget) {
+            if (auto* stdWidget = dynamic_cast<StandardWidget*>(target)) {
                 stdWidget->setState(0); //设置默认状态
             }
         };
@@ -192,7 +189,7 @@ WidgetFactory *WidgetFactory::findFactory(NBT* nbt, const QString &path) {
         //从WidgetFactoryStorage找
         int i = path.indexOf('$');
         QString loaderPath = path.mid(1, i > 0 ? i - 1 : path.length() - 1);
-        Identifier loaderLoc = Identifier(loaderPath);
+        auto loaderLoc = Identifier(loaderPath);
         auto* loader = WidgetFactoryStorage::get(loaderLoc);
         if (loader && i > 0) {
             QStringList children = path.mid(i, path.length() - i).split('/');
@@ -285,8 +282,7 @@ void WidgetFactory::parseSpacers(NBT *nbt) {
         return;
     }
     nbt = nbt->get("layout")->asCompound();
-    auto type = nbt->getString("type");
-    if (type != "Horizontal" && type != "Vertical") {
+    if (auto type = nbt->getString("type"); type != "Horizontal" && type != "Vertical") {
         return;
     }
     if (!nbt->contains("spacers", Data::ARR)) {
@@ -316,7 +312,7 @@ void WidgetFactory::parseSpacers(NBT *nbt) {
         }
         temp.data()[pos] = tempItem;
     }
-    handlers << [temp](QWidget* target) {
+    handlers << [temp](const QWidget* target) {
         if (auto* l = dynamic_cast<QBoxLayout*>(target->layout())) {
             for (int i = temp.size() - 1; i >= 0; i--) {
                 if (!temp.at(i)) {
@@ -346,8 +342,8 @@ void WidgetFactory::parseGridLayout(NBT *nbt) {
     if (nbt->contains("margins", Data::ARR)) {
         margins = parseMargins(nbt->get("margins")->asArray());
     }
-    int columnSpacing = nbt->getInt("column_spacing");
-    int rowSpacing = nbt->getInt("row_spacing");
+    const int columnSpacing = nbt->getInt("column_spacing");
+    const int rowSpacing = nbt->getInt("row_spacing");
     QVector<int> rowMinHeights, columnMinWidths, rowStretches, columnStretches;
     if (nbt->contains("row_heights", Data::ARR)) {
         nbt->get("row_heights")->asArray()->fillInt(rowMinHeights);
@@ -400,7 +396,7 @@ void WidgetFactory::parseStates(NBT *nbt) {
         return;
     }
     auto& children = nbt->get("states")->asCompound()->get();
-    for (auto it = children.begin() ; it != children.end() ; it++) {
+    for (auto it = children.begin() ; it != children.end() ; ++it) {
         if (it.value()->type != Data::COMPOUND) {
             continue;
         }
@@ -424,7 +420,7 @@ void WidgetFactory::parseStates(NBT *nbt) {
         for (auto& r : globalResponders) {
             std->registerGlobalResponder(r);
         }
-        for (auto it = stateResponders.begin() ; it != stateResponders.end() ; it++) {
+        for (auto it = stateResponders.begin() ; it != stateResponders.end() ; ++it) {
             for (auto& r : it.value()) {
                 std->registerResponder(it.key(), r);
             }
@@ -432,7 +428,7 @@ void WidgetFactory::parseStates(NBT *nbt) {
     };
 }
 
-void WidgetFactory::parseSingleState(WidgetFactory::Handlers &op, NBT *stateTag) {
+void WidgetFactory::parseSingleState(Handlers &op, NBT *stateTag) const {
     parseSize(op, stateTag);
     parseQss(op, stateTag);
     stdType->onStateRespondersParsing(op, stateTag);
@@ -462,7 +458,7 @@ void WidgetFactory::parsePointer(NBT *nbt) {
     }\
 
 
-void WidgetFactory::parseSize(WidgetFactory::Handlers &op, NBT *nbt) {
+void WidgetFactory::parseSize(Handlers &op, NBT *nbt) {
     bool hasElement[6];
     int val[6];
     bool nothingToDo = true;
@@ -573,12 +569,12 @@ WidgetFactory::~WidgetFactory() {
     }
 }
 
-QWidget *WidgetFactory::createWidget(const QString &type, QWidget *parent) {
+QWidget *WidgetFactory::createWidget(const QString &type) const {
     if (stdSuppliers.contains(type)) {
-        return stdSuppliers.value(type)(parent);
+        return stdSuppliers.value(type)(nullptr);
     }
     if (customSuppliers->contains(type)) {
-        return customSuppliers->value(type)(parent);
+        return customSuppliers->value(type)(nullptr);
     }
     return nullptr;
 }
@@ -628,9 +624,7 @@ WidgetFactory *WidgetFactory::fromNbt(const QString& id, NBT *nbt) {
     return loader;
 }
 
-void WidgetFactory::registerStdWidget(const QString &type,
-                                      const WidgetFactory::Supplier &supplier,
-                                      StandardWidget *instance) {
+void WidgetFactory::registerStdWidget(const QString &type, const Supplier &supplier, StandardWidget *instance) const {
     if (!customSuppliers->contains(type)) {
         customSuppliers->insert(type, supplier);
         customEmptyInstances->insert(type, instance);
