@@ -5,10 +5,10 @@
 #ifndef LIFERHYTHM_FOCUSMANAGER_H
 #define LIFERHYTHM_FOCUSMANAGER_H
 
-#include <QVector>
 #include <QWidget>
+#include "Plugin.h"
 
-class FocusManager {
+class CORE_API FocusManager {
 private:
     static FocusManager* manager;
     QWidget* focusedWidget;

@@ -9,7 +9,7 @@
 #include "LineEdit.h"
 #include "Menu.h"
 
-class OptionsMenu : public Menu {
+class CORE_API OptionsMenu : public Menu {
     Q_OBJECT
 public:
     explicit OptionsMenu(QWidget* parent = nullptr);
@@ -20,7 +20,7 @@ protected:
     void focusOutEvent(QFocusEvent *event) override;
 };
 
-class AbstractOptionsBox : public FocusContainer {
+class CORE_API AbstractOptionsBox : public FocusContainer {
 protected:
     OptionsMenu* menu;
     bool pressLock;

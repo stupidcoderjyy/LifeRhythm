@@ -6,10 +6,11 @@
 #define LIFERHYTHM_IDENTIFIER_H
 
 #include <QDir>
+#include "Plugin.h"
 
 #define LOC(x) Identifier(x)
 
-class Identifier{
+class CORE_API Identifier{
 private:
     QString _namespace;
     QString _path;

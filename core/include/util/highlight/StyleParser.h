@@ -5,13 +5,12 @@
 #ifndef LIFERHYTHM_STYLEPARSER_H
 #define LIFERHYTHM_STYLEPARSER_H
 
-#include <functional>
 #include <QTextCharFormat>
 #include "NBT.h"
 
 namespace highlight {
 
-class StyleParser {
+class CORE_API StyleParser {
 private:
     static QMap<QString, QTextCharFormat::UnderlineStyle> underlineStyles;
     QTextCharFormat* fmt;

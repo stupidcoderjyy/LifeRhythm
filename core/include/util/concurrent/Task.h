@@ -6,8 +6,9 @@
 #define LIFERHYTHM_TASK_H
 
 #include <QFutureWatcher>
+#include "Plugin.h"
 
-class Task final : public QObject, public QRunnable{
+class CORE_API Task final : public QObject, public QRunnable{
     Q_OBJECT
 protected:
     QFutureInterface<void> futureInterface;

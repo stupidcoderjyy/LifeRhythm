@@ -9,9 +9,8 @@
 #include <QVector>
 #include "IByteReader.h"
 #include "CompileError.h"
-#include "ErrorHandler.h"
 
-class CompilerInput : public BufferedInput{
+class CORE_API CompilerInput : public BufferedInput{
 protected:
     static const int RESERVED_SIZE = 16;
     static const int MARK_LEN = 8;

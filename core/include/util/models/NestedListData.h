@@ -7,7 +7,7 @@
 
 #include "ListData.h"
 
-class NestedListNode : public WidgetData {
+class CORE_API NestedListNode : public WidgetData {
     Q_OBJECT
     friend class NestedListData;
 protected:
@@ -21,7 +21,7 @@ signals:
     void sigRowChanged(int old, int cur);
 };
 
-class NestedListData : public WidgetData {
+class CORE_API NestedListData : public WidgetData {
 public:
     enum EditType {
         None,

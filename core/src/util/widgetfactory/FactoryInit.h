@@ -8,7 +8,7 @@
 #include <QString>
 #include "WidgetFactory.h"
 
-class FactoryInit {
+class CORE_API FactoryInit {
     friend class WidgetFactory;
 private:
     static void mainInit(QMap<QString, WidgetFactory::Supplier>* stdSuppliers,

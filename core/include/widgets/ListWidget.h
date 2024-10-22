@@ -10,7 +10,7 @@
 #include "ScrollArea.h"
 #include <QTimer>
 
-class ListItem : public Widget {
+class CORE_API ListItem : public Widget {
     Q_OBJECT
     friend class ListWidget;
     friend class TreeWidget;
@@ -43,7 +43,7 @@ private:
     }
 };
 
-class ListWidget : public ScrollArea {
+class CORE_API ListWidget : public ScrollArea {
     Q_OBJECT
 protected:
     QVector<ListItem*> items;

@@ -7,17 +7,18 @@
 
 #include <exception>
 #include <QString>
+#include "Plugin.h"
 
 #define throwInFunc(what)  throw Error(__FILE__ + QString("::") + __FUNCTION__, what)
 
-class Error : public std::exception {
+class CORE_API Error : public std::exception {
 public:
     QString where;
     QString why;
 
 public:
-    explicit Error(QString  where);
-    explicit Error(QString  where, QString  what);
+    explicit Error(QString where);
+    explicit Error(QString where, QString  what);
     const char *what() const _GLIBCXX_TXN_SAFE_DYN _GLIBCXX_NOTHROW override;
 };
 

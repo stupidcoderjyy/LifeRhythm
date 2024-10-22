@@ -10,6 +10,7 @@
 #include <QTimer>
 #include <QPropertyAnimation>
 #include <QLayout>
+#include <QMouseEvent>
 
 USING_NAMESPACE(lr)
 

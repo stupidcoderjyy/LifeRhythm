@@ -8,7 +8,7 @@
 #include "AbstractInput.h"
 #include <QVector>
 
-class StringInput : public AbstractInput{
+class CORE_API StringInput : public AbstractInput{
 private:
     QByteArray data;
     QVector<int> marks{};
@@ -26,7 +26,7 @@ public:
     int retract(int count) override;
     int retract() override;
 private:
-    QString capture(int end, int start);
+    QString capture(int end, int start) const;
 };
 
 

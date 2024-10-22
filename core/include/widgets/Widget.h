@@ -10,7 +10,7 @@
 #include "Styles.h"
 #include <QPainter>
 
-class Widget : public QWidget, public StandardWidget {
+class CORE_API Widget : public QWidget, public StandardWidget {
 public:
     explicit Widget(QWidget* parent = nullptr);
 PAINT_QSS

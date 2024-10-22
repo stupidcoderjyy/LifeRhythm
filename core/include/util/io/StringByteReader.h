@@ -6,8 +6,9 @@
 #define LIFERHYTHM_STRINGBYTEREADER_H
 
 #include "IByteReader.h"
+#include "Plugin.h"
 
-class StringByteReader final : public IByteReader {
+class CORE_API StringByteReader final : public IByteReader {
 private:
     QByteArray data;
     int next{};
@@ -22,6 +23,7 @@ public:
     bool readBool() override;
     short readShort() override;
     QString readString() override;
+    bool available() override;
 };
 
 #endif //LIFERHYTHM_STRINGBYTEREADER_H

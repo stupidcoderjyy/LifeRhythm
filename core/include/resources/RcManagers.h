@@ -7,19 +7,20 @@
 
 #include "ResourceManager.h"
 #include "WidgetFactory.h"
+#include "Plugin.h"
 #include <QTextCharFormat>
 
 typedef QMap<QString, QTextCharFormat> StyleGroup;
 
-class ImageStorage : public MultiSourceResourceManager<QPixmap>{
+class CORE_API ImageStorage : public MultiSourceResourceManager<QPixmap>{
     STATIC_DEFINE(ImageStorage, QPixmap)
 };
 
-class StyleGroupStorage : public MultiSourceResourceManager<StyleGroup>{
+class CORE_API StyleGroupStorage : public MultiSourceResourceManager<StyleGroup>{
     STATIC_DEFINE(StyleGroupStorage, StyleGroup)
 };
 
-class WidgetFactoryStorage : public MultiSourceResourceManager<WidgetFactory>{
+class CORE_API WidgetFactoryStorage : public MultiSourceResourceManager<WidgetFactory>{
     STATIC_DEFINE(WidgetFactoryStorage, WidgetFactory)
 public:
     static void parseAll();

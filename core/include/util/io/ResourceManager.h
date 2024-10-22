@@ -15,8 +15,9 @@
 #include <QMap>
 #include <utility>
 #include "RcLoader.h"
+#include "Plugin.h"
 
-class ResourceType{
+class CORE_API ResourceType{
 private:
     QString typeDir;
     QString fileType;
@@ -30,7 +31,7 @@ public:
 };
 
 template<class T>
-class ResourceManager{
+class CORE_API ResourceManager{
 protected:
     QMap<Identifier, T*> data;
     QStringList nameFilters;
@@ -56,6 +57,9 @@ public:
     void init() {
         QFileInfoList namespaces = QDir(rootPath).entryInfoList({}, QDir::AllDirs);
         for (auto& ns : namespaces) {
+            if (ns.baseName().isEmpty()) {
+                continue;
+            }
             _init(ns.baseName(), rootPath + "/" + ns.baseName() + "/" + type.getTypeDir(), "");
         }
     }
@@ -89,12 +93,13 @@ private:
         QString dirPath = concatPath(basePath, childPath);
         QFileInfoList files = QDir(dirPath).entryInfoList(nameFilters, QDir::AllDirs | QDir::Files);
         for (auto& info : files) {
-            QString extendedPath = childPath.isEmpty() ?
-                    info.baseName() :
-                    childPath + "/" + info.baseName();
+            if (info.baseName().isEmpty()) {
+                continue;
+            }
+            QString extendedPath = concatPath(childPath, info.baseName());
             if (info.isFile()) {
                 QString filePath = dirPath + "/" + info.fileName();
-                Identifier fileLoc = Identifier(ns, extendedPath);
+                auto fileLoc = Identifier(ns, extendedPath);
                 try {
                     T* val = loader->load(fileLoc, filePath);
                     data.insert(fileLoc, val);
@@ -111,10 +116,10 @@ private:
 };
 
 template<class T>
-class BuiltInResourceManager : public ResourceManager<T> {
+class CORE_API BuiltInResourceManager : public ResourceManager<T> {
 public:
     explicit BuiltInResourceManager(const ResourceType &type, RcLoader<T>* loader):
-            ResourceManager<T>(":/assets", type, loader) {
+            ResourceManager<T>("assets", type, loader) {
     }
 };
 
@@ -133,7 +138,7 @@ public:
 #define STATIC_INSTANCE(CLAZZ) CLAZZ CLAZZ::instance{};
 
 template<class T>
-class MultiSourceResourceManager {
+class CORE_API MultiSourceResourceManager {
 protected:
     QVector<ResourceManager<T>*> managers{};
 protected:

@@ -9,7 +9,7 @@
 #include "ScrollBar.h"
 #include "StandardWidget.h"
 
-class TextEdit : public QTextEdit, public StandardWidget {
+class CORE_API TextEdit : public QTextEdit, public StandardWidget {
 protected:
     ScrollBar *vBar{};
     ScrollBar *hBar{};

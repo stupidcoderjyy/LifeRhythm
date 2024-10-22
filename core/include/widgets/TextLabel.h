@@ -8,7 +8,7 @@
 #include <QLabel>
 #include "StandardWidget.h"
 
-class TextLabel : public QLabel, public StandardWidget{
+class CORE_API TextLabel : public QLabel, public StandardWidget{
 public:
     explicit TextLabel(QWidget* parent = nullptr);
     void onPostParsing(Handlers &handlers, NBT *widgetTag) override;

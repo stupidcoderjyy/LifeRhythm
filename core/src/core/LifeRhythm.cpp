@@ -13,6 +13,7 @@
 #include <QtConcurrent>
 #include <QApplication>
 #include <utility>
+#include <windows.h>
 
 USING_NAMESPACE(lr)
 
@@ -23,7 +24,7 @@ LifeRhythm *LifeRhythm::get() {
 }
 
 void LifeRhythm::generateTitledDialog(const QString &title, QWidget *content) {
-    auto* dialog = static_cast<TitledDialog*>(WidgetFactoryStorage::get("lr:widget_titleddialog")->apply());
+    auto* dialog = WidgetFactoryStorage::get("lr:widget_titleddialog")->applyAndCast<TitledDialog>();
     dialog->setContent(title, content);
     connect(lr, &LifeRhythm::sigCloseDialog, dialog->closeButton, &CloseButton::sigActivated);
     auto* animation = new QPropertyAnimation(dialog,"windowOpacity");
@@ -102,6 +103,7 @@ void LifeRhythm::preInit() {
     if (config.mode == Config::Test) {
         return;
     }
+    loadPlugins();
     for (auto* m : modules) {
         m->preInit();
     }
@@ -131,7 +133,7 @@ void LifeRhythm::mainInit() {
     if (config.mode == Config::Test) {
         return;
     }
-    ioManager.load();
+    ioManager.globalLoad();
     for (auto* m : modules) {
         m->mainInit();
     }
@@ -148,6 +150,28 @@ void LifeRhythm::postInit() {
     }
 }
 
+void LifeRhythm::loadPlugins() {
+    auto files = QDir("").entryList({"*.dll"}, QDir::Files);
+    for (const auto& file : files) {
+        if (!file.startsWith("lr-")) {
+            continue;
+        }
+        qDebug() << "loading plugin: " << file;
+        QLibrary lib(file);
+        if (!lib.load()) {
+            qDebug() << lib.errorString();
+            continue;
+        }
+        auto entrypoint = lib.resolve("pluginEntryPoint");
+        if (!entrypoint) {
+            qDebug() << "FAILED: missing entrypoint";
+            continue;
+        }
+        entrypoint();
+        qDebug() << "SUCCESS\n";
+    }
+}
+
 void LifeRhythm::exit() {
-    lr->ioManager.save();
+    lr->ioManager.globalSave();
 }

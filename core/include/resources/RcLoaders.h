@@ -7,22 +7,23 @@
 
 #include "RcLoader.h"
 #include "WidgetFactory.h"
+#include "Plugin.h"
 #include <QTextCharFormat>
 
-class ImageRcLoader final : public RcLoader<QPixmap> {
+class CORE_API ImageRcLoader final : public RcLoader<QPixmap> {
 public:
     QPixmap *load(const Identifier &loc, const QString &absolutePath) override;
 SINGLETON_HEADER(ImageRcLoader)
 };
 
-class WidgetFactoryRcLoader final : public RcLoader<WidgetFactory> {
+class CORE_API WidgetFactoryRcLoader final : public RcLoader<WidgetFactory> {
 public:
     WidgetFactory *load(const Identifier &loc, const QString &absolutePath) override;
     void onLoadFailed(std::exception &e) noexcept override;
 SINGLETON_HEADER(WidgetFactoryRcLoader)
 };
 
-class StyleGroupRcLoader final : public RcLoader<QMap<QString, QTextCharFormat>> {
+class CORE_API StyleGroupRcLoader final : public RcLoader<QMap<QString, QTextCharFormat>> {
 public:
     QMap<QString, QTextCharFormat> *load(const Identifier &loc, const QString &absolutePath) override;
 SINGLETON_HEADER(StyleGroupRcLoader)

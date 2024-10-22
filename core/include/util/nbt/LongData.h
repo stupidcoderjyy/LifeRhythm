@@ -1,22 +1,22 @@
 //
-// Created by stupid_coder_jyy on 2024/1/1.
+// Created by JYY on 24-10-15.
 //
 
-#ifndef LIFERHYTHM_BOOLDATA_H
-#define LIFERHYTHM_BOOLDATA_H
+#ifndef LONGDATA_H
+#define LONGDATA_H
 
 #include "Data.h"
 
-class CORE_API BoolData : public Data{
+class CORE_API LongData final : public Data {
 private:
-    bool data = false;
+    long long data = 0;
 public:
-    explicit BoolData();
-    inline BoolData* setVal(bool val) {
+    explicit LongData();
+    LongData* setVal(long long val) {
         this->data = val;
         return this;
     }
-    inline bool get() const {
+    long long get() const {
         return data;
     }
 protected:
@@ -26,4 +26,4 @@ protected:
     Data *copy() override;
 };
 
-#endif
+#endif //LONGDATA_H

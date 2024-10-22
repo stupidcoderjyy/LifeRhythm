@@ -8,7 +8,7 @@
 #include "ListWidget.h"
 #include "TreeData.h"
 
-class TreeItem : public ListItem {
+class CORE_API TreeItem : public ListItem {
     Q_OBJECT
     friend class TreeWidget;
 private:
@@ -25,7 +25,7 @@ protected:
     void connectModelView() override;
 };
 
-class TreeWidget : public ListWidget {
+class CORE_API TreeWidget : public ListWidget {
 public:
     explicit TreeWidget(QWidget* parent = nullptr);
     void setData(TreeData* d);

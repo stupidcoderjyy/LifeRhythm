@@ -14,11 +14,11 @@
 #include "IOManager.h"
 
 BEGIN_NAMESPACE(lr)
-    class MainFrame;
+class MainFrame;
 class TabWidget;
 class Module;
 
-class LifeRhythm final : public QObject {
+class CORE_API LifeRhythm final : public QObject {
     Q_OBJECT
 public:
     const static QString NAME;
@@ -52,6 +52,7 @@ private:
     void preInit();
     void mainInit();
     void postInit();
+    static void loadPlugins() ;
     static void exit();
 };
 

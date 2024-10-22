@@ -173,8 +173,7 @@ void ListWidget::setGlobalPos(int gp, bool forceUpdate) {
     gp = qMin(maxGlobalPos, qMax(0, gp));
     int areaHeight = container->height() >> 1;
     if (!forceUpdate) {
-        int resPos = pos + gp - globalPos;
-        if (resPos >= 0 && resPos < areaHeight) {
+        if (int resPos = pos + gp - globalPos; resPos >= 0 && resPos < areaHeight) {
             scroll(gp - globalPos);
             return;
         }

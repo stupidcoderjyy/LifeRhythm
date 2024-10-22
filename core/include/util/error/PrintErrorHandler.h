@@ -7,7 +7,7 @@
 #include "ErrorHandler.h"
 #include "Error.h"
 
-class PrintErrorHandler : public ErrorHandler<Error>{
+class CORE_API PrintErrorHandler : public ErrorHandler<Error> {
 public:
     void onErrorCaught(Error &err) override;
 };

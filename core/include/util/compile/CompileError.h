@@ -7,8 +7,9 @@
 
 #include <QString>
 #include "ErrorHandler.h"
+#include "Plugin.h"
 
-class CompileError : public std::exception{
+class CORE_API CompileError : public std::exception{
 public:
     const int row;
     const QString line;
@@ -26,7 +27,7 @@ public:
     CompileError(CompileError&& o) noexcept ;
 };
 
-class PrintCompileErrorHandler : public ErrorHandler<CompileError> {
+class CORE_API PrintCompileErrorHandler : public ErrorHandler<CompileError> {
 public:
     void onErrorCaught(CompileError &err) override;
 };

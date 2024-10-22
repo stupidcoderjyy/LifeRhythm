@@ -6,7 +6,8 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-set(CMAKE_PREFIX_PATH "D:/Qt/5.15.2/mingw81_64/lib/cmake")
+set(CMAKE_PREFIX_PATH "C:/Program Files/Qt/5.15.2/mingw81_64/lib/cmake")
+
 
 find_package(Qt5 COMPONENTS
         Core
@@ -16,20 +17,17 @@ find_package(Qt5 COMPONENTS
         REQUIRED)
 
 add_subdirectory(core)
-add_subdirectory(modules)
 
-set(RESOURCES
-        assets/lr/factories/factories.qrc
-        assets/lr/highlightstyles/styles.qrc
-        assets/lr/images/images.qrc
-        assets/log/factories/factories.qrc
-        assets/log/images/images.qrc
-)
+if (MAKE_DLL)
+    return()
+endif ()
+
+file(COPY "assets" DESTINATION "${CMAKE_CURRENT_BINARY_DIR}")
 
 if(CMAKE_BUILD_TYPE MATCHES "Debug")
-    add_executable(${PROJECT_NAME} main.cpp ${RESOURCES}) # logo.rc)
+    add_executable(${PROJECT_NAME} main.cpp) # logo.rc)
 elseif(CMAKE_BUILD_TYPE MATCHES "Release")
-    add_executable(${PROJECT_NAME} WIN32 main.cpp ${RESOURCES})#  logo.rc)
+    add_executable(${PROJECT_NAME} WIN32 main.cpp)#  logo.rc)
 endif ()
 
 target_link_libraries(${PROJECT_NAME}
@@ -38,7 +36,6 @@ target_link_libraries(${PROJECT_NAME}
         Qt5::Widgets
         Qt5::Concurrent
         lr::core
-        lr::log
 )
 
 if (WIN32 AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)

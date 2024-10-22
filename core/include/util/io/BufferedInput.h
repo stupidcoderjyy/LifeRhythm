@@ -7,9 +7,8 @@
 #include <QVector>
 #include "IByteReader.h"
 #include "AbstractInput.h"
-#include <initializer_list>
 
-class BufferedInput : public AbstractInput{
+class CORE_API BufferedInput : public AbstractInput{
 protected:
     static constexpr int DEFAULT_BUFFER_SIZE = 2048;
     static constexpr int MAX_BUFFER_SIZE = 4096;

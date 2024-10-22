@@ -6,8 +6,9 @@
 #define LIFERHYTHM_RCTYPES_H
 
 #include "ResourceManager.h"
+#include "Plugin.h"
 
-class RcTypes {
+class CORE_API RcTypes {
 public:
     static ResourceType FACTORY;
     static ResourceType STYLE_GROUP;

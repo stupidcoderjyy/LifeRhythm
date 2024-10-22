@@ -11,7 +11,7 @@
     一个容器组件。在获得焦点的状态下高亮边框，
     失去焦点时，显示一个浅边框
 */
-class FocusContainer : public Widget {
+class CORE_API FocusContainer : public Widget {
 public:
     explicit FocusContainer(QWidget* parent = nullptr);
 protected:

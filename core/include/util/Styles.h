@@ -9,7 +9,7 @@
 #include <QTextCharFormat>
 #include "WidgetData.h"
 
-class Color final : public WidgetData {
+class CORE_API Color final : public WidgetData {
 public:
     static QMap<QString, Color*> defaultColors;
     QString name;
@@ -22,7 +22,7 @@ public:
     static Color* createDefault(const QString& name, const QString& rgbHex);
 };
 
-class FontType {
+class CORE_API FontType {
 private:
     QStringList ffMedium;
     QStringList ffBold;
@@ -40,7 +40,7 @@ inline const QStringList& FontType::getFFBold() {
     return ffBold;
 }
 
-class FontBuilder {
+class CORE_API FontBuilder {
 private:
     QFont font;
     FontType type;
@@ -57,7 +57,7 @@ public:
     const QFont& get();
 };
 
-class Styles {
+class CORE_API Styles {
 public:
     const static Color* BLACK;
     const static Color* GRAY_0;

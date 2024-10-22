@@ -46,3 +46,7 @@ short StringByteReader::readShort() {
 QString StringByteReader::readString() {
     return "";
 }
+
+bool StringByteReader::available() {
+    return false;
+}

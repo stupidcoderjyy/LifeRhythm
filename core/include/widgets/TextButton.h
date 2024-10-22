@@ -8,7 +8,7 @@
 #include "TextLabel.h"
 #include "FocusContainer.h"
 
-class TextButton : public FocusContainer {
+class CORE_API TextButton : public FocusContainer {
     Q_OBJECT
 public:
     enum Type {

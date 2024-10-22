@@ -11,7 +11,7 @@
 #include "SlotsDrawer.h"
 #include <QDateTime>
 
-class CalendarData : public WidgetData {
+class CORE_API CalendarData : public WidgetData {
     friend class CalendarContentDrawer;
     friend class Calendar;
 protected:
@@ -25,13 +25,13 @@ public:
     void setTopLeftDate(const QDate& d);
 };
 
-class WeekDayTitleLayer : public DrawerLayer {
+class CORE_API WeekDayTitleLayer : public DrawerLayer {
 protected:
     void beforeDrawing(QPainter &p, QRect &area) override;
     void drawSlot(QPainter &p, QRect &area, int row, int column) override;
 };
 
-class CalendarContentLayer : public DrawerLayer {
+class CORE_API CalendarContentLayer : public DrawerLayer {
     friend class Calendar;
 private:
     int firstDay;
@@ -47,14 +47,14 @@ protected:
     void drawSlot(QPainter &p, QRect &area, int row, int column) override;
 };
 
-class WeekDayTitleDrawer : public SlotsDrawer {
+class CORE_API WeekDayTitleDrawer : public SlotsDrawer {
 public:
     explicit WeekDayTitleDrawer(QWidget* parent = nullptr);
 protected:
     void initLayers() override;
 };
 
-class CalendarContentDrawer : public SlotsDrawer {
+class CORE_API CalendarContentDrawer : public SlotsDrawer {
     friend class Calendar;
 protected:
     CalendarContentLayer* baseLayer;
@@ -65,7 +65,7 @@ protected:
     void wheelEvent(QWheelEvent *event) override;
 };
 
-class Calendar : public Widget {
+class CORE_API Calendar : public Widget {
 public:
     static const QStringList WEEKDAYS_CN;
     static const QSize SIZE;

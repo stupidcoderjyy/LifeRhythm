@@ -10,6 +10,7 @@
 #include "ImgLabel.h"
 #include "Widget.h"
 #include "Namespaces.h"
+#include "Plugin.h"
 
 class TextLabel;
 
@@ -17,7 +18,7 @@ BEGIN_NAMESPACE(lr)
 
 class DialogCloseButton;
 
-class TitledDialog : public QDialog, public StandardWidget {
+class CORE_API TitledDialog : public QDialog, public StandardWidget {
     friend class LifeRhythm;
 private:
     DialogCloseButton* closeButton{};
@@ -28,7 +29,7 @@ public:
     void onFinishedParsing(Handlers &handlers, NBT *widgetTag) override;
 };
 
-class DialogCloseButton : public ImgLabel {
+class CORE_API DialogCloseButton : public ImgLabel {
 public:
     explicit DialogCloseButton(QWidget* parent);
 protected:
@@ -37,7 +38,7 @@ protected:
     void leaveEvent(QEvent *event) override;
 };
 
-class TopWidget : public Widget {
+class CORE_API TopWidget : public Widget {
 private:
     bool drag{};
     QPoint mouseStartPos{};

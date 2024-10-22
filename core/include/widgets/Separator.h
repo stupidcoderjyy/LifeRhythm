@@ -7,7 +7,7 @@
 
 #include "Widget.h"
 
-class Separator : public Widget {
+class CORE_API Separator : public Widget {
 private:
     QColor color;
 public:

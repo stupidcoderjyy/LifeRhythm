@@ -6,11 +6,12 @@
 #define LIFERHYTHM_MODULE_H
 
 #include "Namespaces.h"
+#include "Plugin.h"
 #include <QObject>
 
 BEGIN_NAMESPACE(lr)
 
-class Module : public QObject {
+class CORE_API Module : public QObject {
     friend class LifeRhythm;
     QString id;
 public:

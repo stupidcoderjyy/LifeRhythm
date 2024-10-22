@@ -5,6 +5,7 @@
 #include "Data.h"
 #include "NBT.h"
 #include "Error.h"
+#include "LongData.h"
 
 Data::Data(char type):type(type) {
 }
@@ -29,14 +30,17 @@ BoolData *Data::asBool() {
     return static_cast<BoolData*>(this);
 }
 
+LongData *Data::asLong() {
+    return static_cast<LongData*>(this);
+}
+
 NBT *Data::asCompound() {
     return static_cast<NBT*>(this);
 }
 
 Data *Data::parseData(IByteReader* reader) {
     Data* data = nullptr;
-    int type = reader->readByte();
-    switch (type) {
+    switch (int type = reader->readByte()) {
         case BOOL: {
             data = new BoolData();
             break;
@@ -59,6 +63,10 @@ Data *Data::parseData(IByteReader* reader) {
         }
         case STRING: {
             data = new StringData();
+            break;
+        }
+        case LONG: {
+            data = new LongData();
             break;
         }
         default:

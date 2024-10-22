@@ -6,10 +6,10 @@
 #define LIFERHYTHM_TREEDATA_H
 
 #include "ListData.h"
+#include "Plugin.h"
 
 class TreeData;
-
-class TreeNode final : public WidgetData {
+class CORE_API TreeNode final : public WidgetData {
     friend class TreeData;
     friend class TreeItem;
     Q_OBJECT
@@ -60,7 +60,7 @@ WidgetData *TreeNode::nodeData() const {
     return d;
 }
 
-class TreeData final : public ListData {
+class CORE_API TreeData final : public ListData {
     friend class TreeWidget;
 public:
     void addNode(TreeNode* node);

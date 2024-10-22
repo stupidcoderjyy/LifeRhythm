@@ -71,6 +71,10 @@ QString StreamByteReader::readString() {
     return QString::fromUtf8(data, len);
 }
 
+bool StreamByteReader::available() {
+    return !stream->atEnd();
+}
+
 StreamByteReader::~StreamByteReader() {
     file->close();
     delete file;

@@ -8,10 +8,11 @@
 #include <QMap>
 #include <QWidget>
 #include "WidgetData.h"
+#include "Plugin.h"
 
 class NBT;
 
-class StandardWidget {
+class CORE_API StandardWidget {
 public:
     typedef std::function<void(QWidget*)> Handler;
     typedef QVector<Handler> Handlers;

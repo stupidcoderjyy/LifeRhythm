@@ -6,8 +6,9 @@
 #define LIFERHYTHM_WIDGET_DATA_H
 
 #include <QObject>
+#include "Plugin.h"
 
-class WidgetData : public QObject {
+class CORE_API WidgetData : public QObject {
     Q_OBJECT
 public:
     WidgetData() = default;

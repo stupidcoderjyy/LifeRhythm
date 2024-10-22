@@ -10,7 +10,7 @@
 #include "Styles.h"
 #include <QPainter>
 
-class Menu : public QWidget, public StandardWidget {
+class CORE_API Menu : public QWidget, public StandardWidget {
     Q_OBJECT
 public:
     explicit Menu(QWidget* parent = nullptr);

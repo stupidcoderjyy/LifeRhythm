@@ -11,7 +11,7 @@
 class ImgLabel;
 class TextLabel;
 
-class IconTextButton : public FocusContainer {
+class CORE_API IconTextButton : public FocusContainer {
     Q_OBJECT
 private:
     bool hasInit;

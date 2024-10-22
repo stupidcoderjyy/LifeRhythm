@@ -6,15 +6,15 @@
 #define LIFERHYTHM_WIDGETUTIL_H
 
 #include <QWidget>
-#include <QMouseEvent>
-#include <QLayout>
 
-bool isHovered(QWidget* widget, QMouseEvent* evt);
-bool isHovered(QWidget* widget, const QPoint& pos);
-bool isMouseHovered(QWidget* widget);
-QPoint getGlobalPos(QWidget* widget);
-void moveWidget(QWidget* widget, const QPoint& pos);
-void moveWidget(QWidget* widget, int x, int y);
-void switchSingleLayoutWidget(QLayout* layout, QWidget* pre, QWidget* cur);
+#include "Plugin.h"
+
+CORE_API bool isHovered(QWidget* widget, QMouseEvent* evt);
+CORE_API bool isHovered(QWidget* widget, const QPoint& pos);
+CORE_API bool isMouseHovered(QWidget* widget);
+CORE_API QPoint getGlobalPos(QWidget* widget);
+CORE_API void moveWidget(QWidget* widget, const QPoint& pos);
+CORE_API void moveWidget(QWidget* widget, int x, int y);
+CORE_API void switchSingleLayoutWidget(QLayout* layout, QWidget* pre, QWidget* cur);
 
 #endif //LIFERHYTHM_WIDGETUTIL_H

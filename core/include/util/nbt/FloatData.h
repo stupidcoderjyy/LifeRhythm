@@ -7,7 +7,7 @@
 
 #include "Data.h"
 
-class FloatData : public Data{
+class CORE_API FloatData : public Data{
 private:
     float data{};
 public:

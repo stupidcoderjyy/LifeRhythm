@@ -7,7 +7,7 @@
 
 #include "ImgLabel.h"
 
-class ImgButton : public ImgLabel{
+class CORE_API ImgButton : public ImgLabel{
 private:
     QString qssHovered, qssNormal, qssPressed;
 public:

@@ -10,7 +10,7 @@
 
 class QFile;
 
-class StreamByteReader final : public IByteReader {
+class CORE_API StreamByteReader final : public IByteReader {
 private:
     QDataStream* stream = nullptr;
     QFile* file;
@@ -25,6 +25,7 @@ public:
     bool readBool() override;
     short readShort() override;
     QString readString() override;
+    bool available() override;
     ~StreamByteReader() override;
 };
 

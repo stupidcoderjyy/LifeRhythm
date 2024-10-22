@@ -4,6 +4,7 @@
 #include "NBT.h"
 #include <QStringBuilder>
 #include "Error.h"
+#include "LongData.h"
 #include "./parser/Parser.h"
 
 NBT::NBT(): Data(COMPOUND) {
@@ -107,6 +108,17 @@ BoolData *NBT::putBool(const QString &key) {
         throw Error("NBT::putBool", "mismatched type");
     }
     return d->asBool();
+}
+
+LongData *NBT::putLong(const QString &key) {
+    auto* d = data.value(key);
+    if (!d) {
+        d = new LongData();
+        data.insert(key, d);
+    } else if (d->type != LONG){
+        throw Error("NBT::putBool", "mismatched type");
+    }
+    return d->asLong();
 }
 
 NBT *NBT::putCompound(const QString& key) {

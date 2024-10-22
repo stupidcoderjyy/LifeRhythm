@@ -52,7 +52,7 @@ QString StringInput::capture() {
     }
 }
 
-QString StringInput::capture(int end, int start) {
+QString StringInput::capture(int end, int start) const {
     return data.mid(start, end - start);
 }
 

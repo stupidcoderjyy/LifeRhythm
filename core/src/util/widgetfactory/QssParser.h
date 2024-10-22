@@ -6,17 +6,22 @@
 #define LIFERHYTHM_QSSPARSER_H
 
 #include <QMap>
+#include "Plugin.h"
+
 class CompilerInput;
 
-class QssItem {
+class CORE_API QssItem {
+private:
     friend class QssParser;
+public:
+    virtual ~QssItem() = default;
 protected:
     QString key;
     virtual QString translate(const QStringList& args) = 0;
     explicit QssItem(QString key);
 };
 
-class QssParser {
+class CORE_API QssParser {
 private:
     static QMap<QString, QssItem*> items;
 public:
@@ -32,7 +37,7 @@ private:
     static QStringList parseArgs(CompilerInput* input);
 };
 
-class StringReplaceItem : public QssItem {
+class CORE_API StringReplaceItem : public QssItem {
 private:
     QString value;
 public:
@@ -40,7 +45,7 @@ public:
     QString translate(const QStringList &args) override;
 };
 
-class StringConcatItem : public QssItem {
+class CORE_API StringConcatItem : public QssItem {
 private:
     QString prefix;
     QString suffix;
@@ -49,7 +54,7 @@ public:
     QString translate(const QStringList &args) override;
 };
 
-class BorderItem: public QssItem{
+class CORE_API BorderItem: public QssItem{
 private:
     QString propName;
 public:

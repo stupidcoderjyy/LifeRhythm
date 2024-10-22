@@ -6,8 +6,9 @@
 #define LIFERHYTHM_GRIDLAYOUT_H
 
 #include <QGridLayout>
+#include "Plugin.h"
 
-class GridLayout : public QGridLayout {
+class CORE_API GridLayout : public QGridLayout {
     friend class WidgetFactory;
 private:
     int curColumn;

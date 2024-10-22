@@ -3,6 +3,8 @@
 //
 
 #include "WidgetUtil.h"
+#include <QMouseEvent>
+#include <QLayout>
 
 bool isHovered(QWidget *widget, QMouseEvent *evt) {
     return isHovered(widget, widget->mapToParent(evt->pos()));

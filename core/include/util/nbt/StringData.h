@@ -7,8 +7,9 @@
 
 #include "Data.h"
 #include "Identifier.h"
+#include "Plugin.h"
 
-class StringData : public Data{
+class CORE_API StringData : public Data{
 private:
     QString data{};
 public:

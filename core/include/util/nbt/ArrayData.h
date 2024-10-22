@@ -7,9 +7,11 @@
 
 #include "Data.h"
 #include "QVector"
+#include "Plugin.h"
+
 class NBT;
 
-class ArrayData : public Data {
+class CORE_API ArrayData : public Data {
 private:
     QVector<Data*> data{};
 public:

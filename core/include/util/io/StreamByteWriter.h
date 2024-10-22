@@ -8,7 +8,7 @@
 #include "IByteWriter.h"
 #include <QDataStream>
 
-class StreamByteWriter final : public IByteWriter {
+class CORE_API StreamByteWriter final : public IByteWriter {
 private:
     QDataStream* stream{};
 public:
@@ -23,6 +23,6 @@ public:
     void writeBool(bool b) override;
     void writeShort(short s) override;
     void writeString(const QString &s) override;
-    virtual ~StreamByteWriter();
+    ~StreamByteWriter() override;
 };
 #endif //LIFERHYTHM_STREAMBYTEWRITER_H

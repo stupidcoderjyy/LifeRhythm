@@ -10,7 +10,7 @@
 
 #include "ListWidget.h"
 
-class VColorBar : public Widget {
+class CORE_API VColorBar : public Widget {
     Q_OBJECT
 private:
     bool pressed;
@@ -32,7 +32,7 @@ private:
     void onColorSelected(int v);
 };
 
-class ColorBarImageGenerator {
+class CORE_API ColorBarImageGenerator {
 private:
     QPixmap* img;
     int pos;
@@ -48,7 +48,7 @@ private:
     void updateAll();
 };
 
-class ColorIcon : public Widget {
+class CORE_API ColorIcon : public Widget {
 private:
     int bdWidth;
     QColor bdColor;
@@ -61,7 +61,7 @@ protected:
     void paintEvent(QPaintEvent *event) override;
 };
 
-class DefaultColorsListItem : public ListItem {
+class CORE_API DefaultColorsListItem : public ListItem {
 private:
     ColorIcon* icon;
     TextLabel* labelName;
@@ -73,7 +73,7 @@ private:
     void init();
 };
 
-class DefaultColorsList : public ListWidget {
+class CORE_API DefaultColorsList : public ListWidget {
     Q_OBJECT
 public:
     explicit DefaultColorsList(QWidget* parent = nullptr);
@@ -81,7 +81,7 @@ protected:
     ListItem *createRowItem() override;
 };
 
-class HueSelector : public Widget {
+class CORE_API HueSelector : public Widget {
     Q_OBJECT
 private:
     VColorBar* bar;

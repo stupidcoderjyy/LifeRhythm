@@ -6,10 +6,10 @@
 #define LIFERHYTHM_SCROLLBAR_H
 
 #include <QScrollBar>
-#include <QPropertyAnimation>
 #include <QWheelEvent>
+#include "Plugin.h"
 
-class ScrollBar : public QScrollBar{
+class CORE_API ScrollBar : public QScrollBar{
     Q_OBJECT
 public:
     ScrollBar(QWidget *parent, Qt::Orientation t);

@@ -6,8 +6,9 @@
 #define LIFERHYTHM_LISTDATA_H
 
 #include "WidgetData.h"
+#include "Plugin.h"
 
-class ListData : public WidgetData {
+class CORE_API ListData : public WidgetData {
     Q_OBJECT
     friend class ListItem;
 protected:

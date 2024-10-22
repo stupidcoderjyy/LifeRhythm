@@ -14,6 +14,7 @@ set(INCLUDES
         include/util/models
         include/util/widgetfactory
         include/util/concurrent
+        include/util/math
         include/widgets
         include/test/io
         include
@@ -24,6 +25,7 @@ set(INCLUDE_FILES
         include/Namespaces.h
         include/core/LifeRhythm.h
         include/core/Module.h
+        include/core/Plugin.h
         include/core/ui/MainFrame.h
         include/core/ui/TabBar.h
         include/core/ui/TitledDialog.h
@@ -34,6 +36,8 @@ set(INCLUDE_FILES
         include/util/Styles.h
         include/util/WidgetUtil.h
         include/util/FocusManager.h
+        include/util/math/OpenRange.h
+        include/util/math/Pair.h
         include/util/compile/CompileError.h
         include/util/compile/Compiler.h
         include/util/compile/CompilerInput.h
@@ -63,7 +67,9 @@ set(INCLUDE_FILES
         include/util/nbt/BoolData.h
         include/util/nbt/Data.h
         include/util/nbt/FloatData.h
+        include/util/nbt/INBTSerializable.h
         include/util/nbt/IntData.h
+        include/util/nbt/LongData.h
         include/util/nbt/NBT.h
         include/util/nbt/NBTUtil.h
         include/util/nbt/StringData.h
@@ -111,6 +117,7 @@ set(SRC_FILES
         src/util/Styles.cpp
         src/util/WidgetUtil.cpp
         src/util/FocusManager.cpp
+        src/util/math/OpenRange.cpp
         src/util/compile/CompileError.cpp
         src/util/compile/Compiler.cpp
         src/util/compile/CompilerInput.cpp
@@ -136,6 +143,7 @@ set(SRC_FILES
         src/util/nbt/Data.cpp
         src/util/nbt/FloatData.cpp
         src/util/nbt/IntData.cpp
+        src/util/nbt/LongData.cpp
         src/util/nbt/NBT.cpp
         src/util/nbt/NBTUtil.cpp
         src/util/nbt/StringData.cpp
@@ -179,8 +187,21 @@ set(SRC_FILES
         src/test/io/IOManager.cpp
 )
 
-add_library(${PROJECT_NAME} ${SRC_FILES} ${INCLUDE_FILES})
-add_library(lr::core ALIAS ${PROJECT_NAME})
+if (MAKE_DLL)
+    file(GLOB_RECURSE RESOURCES "../assets/lr/*.qrc")
+    add_library(${PROJECT_NAME} SHARED ${SRC_FILES} ${INCLUDE_FILES} ${RESOURCES})
+    install(TARGETS ${PROJECT_NAME})
+    set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME "LifeRhythm" PREFIX "")
+else ()
+    add_library(${PROJECT_NAME} ${SRC_FILES} ${INCLUDE_FILES})
+    add_library(lr::core ALIAS ${PROJECT_NAME})
+endif ()
+
+if(MAKE_DLL)
+    target_compile_definitions(${PROJECT_NAME} PRIVATE EXPORT_LIB)
+else ()
+    target_compile_definitions(${PROJECT_NAME} PRIVATE CORE_LOCAL_COMPILE)
+endif ()
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${INCLUDES})
 

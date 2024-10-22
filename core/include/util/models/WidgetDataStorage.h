@@ -9,7 +9,7 @@
 #include "Identifier.h"
 #include <QMap>
 
-class WidgetDataStorage {
+class CORE_API WidgetDataStorage {
 private:
     static WidgetDataStorage* instance;
     QMap<Identifier, WidgetData*> models;

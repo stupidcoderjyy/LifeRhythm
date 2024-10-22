@@ -1,3 +1,4 @@
 /cmake-build-debug/
-/cmake-build-makedll/
 /cmake-build-release/
+/cmake-build-makedll-debug/
+/cmake-build-makedll-release/

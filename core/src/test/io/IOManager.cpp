@@ -9,41 +9,72 @@
 #include "LifeRhythm.h"
 #include "StreamByteReader.h"
 #include "StreamByteWriter.h"
+#include "Task.h"
 
-void IOManager::registerSerializable(const Identifier &loc, ISerializable *serializable) {
+void IOManager::registerSerializable(const Identifier &loc, AbstractLoader *serializable) {
+    mutex.lock();
     elements.insert(loc, serializable);
+    mutex.unlock();
 }
 
-void IOManager::load() {
-    const auto cfg = lr::LifeRhythm::get()->getConfig();
-    for (auto it = elements.begin(); it != elements.end(); ++it) {
-        auto path = concatPath(cfg.getSavePath(), it.key().toFullPath());
-        StreamByteReader* reader = nullptr;
-        try {
-            reader = new StreamByteReader(path);
-            it.value()->load(reader);
-        } catch (Error& e) {
+void IOManager::unregisterSerializable(const Identifier &loc) {
+    mutex.lock();
+    elements.remove(loc);
+    mutex.unlock();
+}
+
+void IOManager::globalLoad() {
+    auto* task = new Task([this](auto) {
+        mutex.lock();
+        const auto cfg = lr::LifeRhythm::get()->getConfig();
+        for (auto it = elements.begin(); it != elements.end(); ++it) {
+            auto path = concatPath(cfg.getSavePath(), it.key().toFullPath());
+            auto* handler = it.value();
+            if (handler->loaded) {
+                continue;
+            }
+            StreamByteReader* reader = nullptr;
+            try {
+                reader = new StreamByteReader(path);
+                handler->load(reader);
+                handler->loaded = true;
+                emit handler->sigLoadFinished();
+            } catch (Error& e) {
+            }
+            delete reader;
         }
-        delete reader;
-    }
+        mutex.unlock();
+    });
+    task->start();  //auto delete
 }
 
-void IOManager::clear() {
+void IOManager::globalClear() {
     for (const auto e : elements) {
         e->clear();
+        e->loaded = false;
     }
 }
 
-void IOManager::save() {
-    const auto cfg = lr::LifeRhythm::get()->getConfig();
-    for (auto it = elements.begin(); it != elements.end(); ++it) {
-        auto path = concatPath(cfg.getSavePath(), it.key().toFullPath());
-        StreamByteWriter* writer = nullptr;
-        try {
-            writer = new StreamByteWriter(path);
-            it.value()->save(writer);
-        } catch (Error& e) {
+void IOManager::globalSave() {
+    auto* task = new Task([this](auto) {
+        mutex.lock();
+        const auto cfg = lr::LifeRhythm::get()->getConfig();
+        for (auto it = elements.begin(); it != elements.end(); ++it) {
+            auto path = concatPath(cfg.getSavePath(), it.key().toFullPath());
+            auto* handler = it.value();
+            if (!handler->dirty) {
+                continue;
+            }
+            StreamByteWriter* writer = nullptr;
+            try {
+                writer = new StreamByteWriter(path);
+                handler->save(writer);
+                handler->dirty = false;
+            } catch (Error& e) {
+            }
+            delete writer;
         }
-        delete writer;
-    }
+        mutex.unlock();
+    });
+    task->start();  //auto delete
 }

@@ -8,7 +8,7 @@
 #include <QLineEdit>
 #include "StandardWidget.h"
 
-class LineEdit : public QLineEdit, public StandardWidget {
+class CORE_API LineEdit : public QLineEdit, public StandardWidget {
 public:
     explicit LineEdit(QWidget* parent = nullptr);
     void onPreParsing(Handlers &handlers, NBT *widgetTag) override;

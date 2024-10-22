@@ -6,8 +6,9 @@
 #define LIFERHYTHM_DRAGWIDGET_H
 
 #include <QWidget>
+#include "Plugin.h"
 
-class WidgetDragger : public QObject{
+class CORE_API WidgetDragger : public QObject{
     Q_OBJECT
 public:
     enum Orientation {

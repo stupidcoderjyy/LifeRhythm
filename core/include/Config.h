@@ -7,10 +7,11 @@
 
 #include <QString>
 #include "Namespaces.h"
+#include "Plugin.h"
 
 BEGIN_NAMESPACE(lr)
 
-class Version {
+class CORE_API Version {
 private:
     int major;
     int minor;
@@ -27,7 +28,7 @@ public:
     bool operator>=(const Version &rhs) const;
 };
 
-class Config {
+class CORE_API Config {
     friend class LifeRhythm;
 public:
     enum Mode {

@@ -6,9 +6,8 @@
 #define LIFERHYTHM_ARROWBUTTON_H
 
 #include "Widget.h"
-#include <QPainterPath>
 
-class ArrowButton : public Widget {
+class CORE_API ArrowButton : public Widget {
     Q_OBJECT
 public:
     enum Type {

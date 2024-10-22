@@ -11,13 +11,13 @@ namespace highlight{
 
 class NBTHighlighter;
 
-class NBTContext : public Context{
+class CORE_API NBTContext : public Context{
 public:
     bool globalFailure = false;
     NBTHighlighter* highlighter = nullptr;
 };
 
-class NBTHighlighter : public Highlighter<NBTContext>{
+class CORE_API NBTHighlighter : public Highlighter<NBTContext>{
     friend class TokenComment;
 public:
     NBTHighlighter(NBTContext *ctx, Lexer *lexer, QTextDocument *parent);
@@ -25,12 +25,12 @@ protected:
     void highlightBlock(const QString &text) override;
 };
 
-class NBTLexer : public Lexer{
+class CORE_API NBTLexer : public Lexer{
 public:
     NBTLexer();
 };
 
-class TokenInt : public Token{
+class CORE_API TokenInt : public Token{
 public:
     int data{};
 public:
@@ -38,7 +38,7 @@ public:
     Op onMatched(const QString &lexeme, Input *input, Context* ctx) override;
 };
 
-class TokenFloat : public Token{
+class CORE_API TokenFloat : public Token{
 public:
     float data{};
 public:
@@ -46,13 +46,13 @@ public:
     Op onMatched(const QString &lexeme, Input *input, Context* ctx) override;
 };
 
-class TokenComment : public Token{
+class CORE_API TokenComment : public Token{
 public:
     int type() override;
     Op onMatched(const QString &lexeme, Input *input, Context* ctx) override;
 };
 
-class TokenString : public Token{
+class CORE_API TokenString : public Token{
 public:
     QString data{};
 public:
@@ -60,7 +60,7 @@ public:
     Op onMatched(const QString &lexeme, Input *input, Context* ctx) override;
 };
 
-class TokenId : public Token{
+class CORE_API TokenId : public Token{
 private:
     static QMap<QString, int> keyWords;
 public:

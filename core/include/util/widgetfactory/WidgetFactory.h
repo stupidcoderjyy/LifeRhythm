@@ -15,7 +15,7 @@
 
 class NBT;
 
-class WidgetFactory final {
+class CORE_API WidgetFactory final {
 public:
     typedef std::function<QWidget*(QWidget* parent)> Supplier;
     typedef StandardWidget::Handlers Handlers;

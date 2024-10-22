@@ -5,18 +5,19 @@
 #ifndef LIFERHYTHM_DATA_H
 #define LIFERHYTHM_DATA_H
 
-#include <QString>
 #include "IByteWriter.h"
 #include "IByteReader.h"
+#include "Plugin.h"
 
 class ArrayData;
 class IntData;
 class StringData;
 class FloatData;
 class BoolData;
+class LongData;
 class NBT;
 
-class Data {
+class CORE_API Data {
     friend class ArrayData;
     friend class NBT;
     friend class NBTUtil;
@@ -42,6 +43,7 @@ public:
     FloatData* asFloat();
     BoolData* asBool();
     NBT* asCompound();
+    LongData* asLong();
     virtual void serialize(IByteWriter* writer) = 0;
     virtual void deserialize(IByteReader* reader) = 0;
     virtual QString toString() = 0;

@@ -10,7 +10,7 @@
 #include "Error.h"
 #include "NestedListData.h"
 
-class BarData : public NestedListNode {
+class CORE_API Q_DECL_EXPORT BarData : public NestedListNode {
 Q_OBJECT
     friend class BarItem;
 protected:
@@ -25,7 +25,7 @@ public:
     inline void setEnd(int end);
 };
 
-class BarItem : public Widget {
+class CORE_API BarItem : public Widget {
     Q_OBJECT
     friend class VBarContainer;
     friend class HBarContainer;
@@ -44,7 +44,7 @@ protected:
     void connectModelView() override;
 };
 
-class AbstractBarContainer : public QWidget {
+class CORE_API AbstractBarContainer : public QWidget {
     Q_OBJECT
     friend class RangeBar;
 protected:
@@ -85,7 +85,7 @@ signals:
     void sigSideZoom();
 };
 
-class VBarContainer : public AbstractBarContainer {
+class CORE_API VBarContainer : public AbstractBarContainer {
 public:
     explicit VBarContainer(QWidget* parent = nullptr);
 protected:
@@ -93,7 +93,7 @@ protected:
     void updateRangeWidgetGeometry(BarItem *rw) override;
 };
 
-class HBarContainer : public AbstractBarContainer {
+class CORE_API HBarContainer : public AbstractBarContainer {
     Q_OBJECT
 public:
     explicit HBarContainer(QWidget* parent = nullptr);
@@ -105,7 +105,7 @@ signals:
     void sigScroll(int dx);
 };
 
-class RangeBar : public ScrollArea {
+class CORE_API RangeBar : public ScrollArea {
     Q_OBJECT
 public:
     enum BarUpdateType {

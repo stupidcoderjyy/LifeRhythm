@@ -11,6 +11,7 @@
 #include "Namespaces.h"
 #include <QScrollArea>
 #include <QHBoxLayout>
+#include "Plugin.h"
 #include <QPainter>
 
 class WidgetFactory;
@@ -20,7 +21,7 @@ BEGIN_NAMESPACE(lr)
 
 class CloseButton;
 
-class TabWidget : public Widget {
+class CORE_API TabWidget : public Widget {
     friend class TabBar;
 public:
     explicit TabWidget(QWidget* parent = nullptr);
@@ -31,7 +32,7 @@ protected:
     virtual void onTabShown();
 };
 
-class TabCard : public Widget{
+class CORE_API TabCard : public Widget{
     Q_OBJECT
 private:
     bool selected = false;
@@ -54,7 +55,7 @@ protected:
     void leaveEvent(QEvent *event) override;
 };
 
-class CloseButton : public ImgLabel {
+class CORE_API CloseButton : public ImgLabel {
 Q_OBJECT
 public:
     explicit CloseButton(QWidget* parent);
@@ -64,7 +65,7 @@ protected:
     void mousePressEvent(QMouseEvent *ev) override;
 };
 
-class Tab{
+class CORE_API Tab{
 public:
     TabWidget* content;
     TabCard* card;
@@ -72,7 +73,7 @@ public:
     ~Tab();
 };
 
-class ContentWidget : public QWidget {
+class CORE_API ContentWidget : public QWidget {
     Q_OBJECT
 public:
     explicit ContentWidget(QWidget* parent = nullptr);
@@ -83,7 +84,7 @@ protected:
 PAINT_QSS
 };
 
-class TabBar : public QScrollArea, public StandardWidget{
+class CORE_API TabBar : public QScrollArea, public StandardWidget{
     friend class MainFrame;
     Q_OBJECT
 private:

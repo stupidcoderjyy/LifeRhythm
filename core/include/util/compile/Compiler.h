@@ -6,11 +6,12 @@
 #define LIFERHYTHM_COMPILER_H
 #include <QString>
 #include "CompileError.h"
+#include "Plugin.h"
 #include <QVector>
 
 class CompilerInput;
 
-class Token{
+class CORE_API Token{
 public:
     enum MatchResult {
         Accept,
@@ -22,7 +23,7 @@ public:
     virtual ~Token() = default;
 };
 
-class TokenFileEnd : public Token{
+class CORE_API TokenFileEnd : public Token{
 public:
     static TokenFileEnd* get();
     int type() override;
@@ -31,7 +32,7 @@ private:
     TokenFileEnd() = default;
 };
 
-class TokenSingle : public Token{
+class CORE_API TokenSingle : public Token{
 private:
     uchar ch{};
 public:
@@ -39,7 +40,7 @@ public:
     MatchResult onMatched(const QString &lexeme, CompilerInput *input) override;
 };
 
-class Symbol{
+class CORE_API Symbol{
 public:
     bool isTerminal;
     int id;
@@ -47,7 +48,7 @@ public:
     Symbol(bool isTerminal, int id): isTerminal(isTerminal), id(id) {};
 };
 
-class Production{
+class CORE_API Production{
 public:
     int id;
     int bodyLen;
@@ -61,13 +62,13 @@ public:
     };
 };
 
-class Property{
+class CORE_API Property{
 public:
     virtual void onReduced(Production* p, Property** properties) = 0;
     virtual ~Property() = default;
 };
 
-class PropertyTerminal : public Property{
+class CORE_API PropertyTerminal : public Property{
 private:
     Token* token;
 public:
@@ -85,7 +86,7 @@ public:
     }
 };
 
-class AbstractLexer {
+class CORE_API AbstractLexer {
     friend class AbstractSyntaxAnalyzer;
 public:
     typedef std::function<Token*()> TokenSupplier;
@@ -102,7 +103,7 @@ public:
     virtual ~AbstractLexer();
 };
 
-class AbstractSyntaxAnalyzer {
+class CORE_API AbstractSyntaxAnalyzer {
 public:
     typedef std::function<Property*()> PropertySupplier;
 protected:

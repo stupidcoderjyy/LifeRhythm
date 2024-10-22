@@ -8,14 +8,14 @@
 #include "AbstractOptionsBox.h"
 #include "ArrowButton.h"
 
-class DisplayOptionsButton : public ArrowButton {
+class CORE_API DisplayOptionsButton : public ArrowButton {
 public:
     explicit DisplayOptionsButton(QWidget* parent = nullptr);
 protected:
     void mousePressEvent(QMouseEvent *evt) override;
 };
 
-class OptionsBoxLineEdit : public QLineEdit {
+class CORE_API OptionsBoxLineEdit : public QLineEdit {
     friend class LineEditOptionsBox;
 public:
     explicit OptionsBoxLineEdit(QWidget* parent = nullptr);
@@ -28,7 +28,7 @@ protected:
     由输入框和一个按钮组成，点击按钮后，会在框下生成一个弹窗。通过这个弹窗
     可以获得想要的数据
 */
-class LineEditOptionsBox : public AbstractOptionsBox {
+class CORE_API LineEditOptionsBox : public AbstractOptionsBox {
 private:
     QLineEdit* optionEditor;
     ArrowButton* buttonOpenMenu;

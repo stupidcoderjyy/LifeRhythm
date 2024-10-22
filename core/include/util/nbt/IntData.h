@@ -7,16 +7,16 @@
 
 #include "Data.h"
 
-class IntData : public Data{
+class CORE_API IntData final : public Data{
 private:
     int data = 0;
 public:
     explicit IntData();
-    inline IntData* setVal(int val) {
+    IntData* setVal(int val) {
         this->data = val;
         return this;
     }
-    inline int get() const {
+    int get() const {
         return data;
     }
 protected:

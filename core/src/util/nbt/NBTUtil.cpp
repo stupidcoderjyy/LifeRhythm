@@ -6,6 +6,7 @@
 #include "StreamByteReader.h"
 #include "StreamByteWriter.h"
 #include "Error.h"
+#include "LongData.h"
 
 NBT *NBTUtil::fromFile(const QString &file, bool isBinary) {
     if (isBinary) {

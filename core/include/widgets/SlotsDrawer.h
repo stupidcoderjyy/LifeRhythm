@@ -9,7 +9,7 @@
 
 class DrawerLayer;
 
-class SlotsDrawer : public Widget {
+class CORE_API SlotsDrawer : public Widget {
 protected:
     const int slotWidth;
     const int slotHeight;
@@ -31,7 +31,7 @@ protected:
     inline void insertLayer(int i, DrawerLayer* layer);
 };
 
-class DrawerLayer {
+class CORE_API DrawerLayer {
     friend class SlotsDrawer;
 protected:
     SlotsDrawer* parent;

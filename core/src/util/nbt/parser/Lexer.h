@@ -6,55 +6,60 @@
 #include "MemUtil.h"
 #include <QMap>
 
+#include "Namespaces.h"
+
 class CompilerInput;
 
-namespace snbt {
-    class Lexer : public AbstractLexer{
-        friend class Parser;
-    public:
-        explicit Lexer(CompilerInput* input);
-    };
+BEGIN_NAMESPACE(snbt)
 
-    class TokenInt : public Token{
-    public:
-        int data;
-    public:
-        int type() override;
-        MatchResult onMatched(const QString &lexeme, CompilerInput *input) override;
-    };
+class CORE_API Lexer : public AbstractLexer{
+    friend class Parser;
+public:
+    explicit Lexer(CompilerInput* input);
+};
 
-    class TokenFloat : public Token{
-    public:
-        float data{};
-    public:
-        int type() override;
-        MatchResult onMatched(const QString &lexeme, CompilerInput *input) override;
-    };
+class CORE_API TokenInt : public Token{
+public:
+    int data;
+public:
+    int type() override;
+    MatchResult onMatched(const QString &lexeme, CompilerInput *input) override;
+};
 
-    class TokenComment : public Token{
-    public:
-        int type() override;
-        MatchResult onMatched(const QString &lexeme, CompilerInput *input) override;
-    };
+class CORE_API TokenFloat : public Token{
+public:
+    float data{};
+public:
+    int type() override;
+    MatchResult onMatched(const QString &lexeme, CompilerInput *input) override;
+};
 
-    class TokenString : public Token{
-    public:
-        QString data{};
-    public:
-        int type() override;
-        MatchResult onMatched(const QString &lexeme, CompilerInput *input) override;
-    };
+class CORE_API TokenComment : public Token{
+public:
+    int type() override;
+    MatchResult onMatched(const QString &lexeme, CompilerInput *input) override;
+};
 
-    class TokenId : public Token{
-    private:
-        static QMap<QString, int> keyWords;
-    public:
-        QString data{};
-    public:
-        int type() override;
-        MatchResult onMatched(const QString &lexeme, CompilerInput *input) override;
-    private:
-        static QMap<QString, int> initMap();
-    };
-}
+class CORE_API TokenString : public Token{
+public:
+    QString data{};
+public:
+    int type() override;
+    MatchResult onMatched(const QString &lexeme, CompilerInput *input) override;
+};
+
+class CORE_API TokenId : public Token{
+private:
+    static QMap<QString, int> keyWords;
+public:
+    QString data{};
+public:
+    int type() override;
+    MatchResult onMatched(const QString &lexeme, CompilerInput *input) override;
+private:
+    static QMap<QString, int> initMap();
+};
+
+END_NAMESPACE
+
 #endif

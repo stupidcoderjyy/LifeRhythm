@@ -8,13 +8,14 @@
 #include "Namespaces.h"
 #include "Widget.h"
 #include "TabBar.h"
+#include "Plugin.h"
 #include <QLayout>
 
 BEGIN_NAMESPACE(lr)
 
 class TabBar;
 
-class MainFrame : public Widget {
+class CORE_API MainFrame : public Widget {
     friend class LifeRhythm;
 private:
     TabBar* tabBar;

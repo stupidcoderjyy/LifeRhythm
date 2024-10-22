@@ -6,9 +6,11 @@
 #define PRACTICECONSOLE_IDATAOUTPUT_H
 
 #include "QString"
+#include "Plugin.h"
 
-class IByteWriter {
+class CORE_API IByteWriter {
 public:
+    virtual ~IByteWriter() = default;
     virtual void write(char* src, int start, int length) = 0;
     virtual void writeByte(int c) = 0;
     virtual void writeInt(int i) = 0;

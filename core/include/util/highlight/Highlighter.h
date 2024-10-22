@@ -8,12 +8,13 @@
 #include <QSyntaxHighlighter>
 #include "Identifier.h"
 #include "StringInput.h"
+#include "Plugin.h"
 
 namespace highlight {
 
-class Context{};
+class CORE_API Context{};
 
-class Input : public StringInput{
+class CORE_API Input : public StringInput{
 public:
     int pos = 0;
 public:
@@ -25,7 +26,7 @@ public:
     int retract(int count) override;
 };
 
-class Token {
+class CORE_API Token {
 public:
     enum Op {
         Everything,
@@ -40,7 +41,7 @@ public:
     virtual Op onMatched(const QString& lexeme, Input* input, Context* ctx);
 };
 
-class TokenSingle : public Token {
+class CORE_API TokenSingle : public Token {
 private:
     int ch{};
 public:
@@ -48,7 +49,7 @@ public:
     Op onMatched(const QString &lexeme, Input *input, Context* ctx) override;
 };
 
-class TokenError : public Token {
+class CORE_API TokenError : public Token {
 public:
     enum ErrorType {
         InvalidSymbol,
@@ -60,7 +61,7 @@ public:
     int type() override;
 };
 
-class Lexer {
+class CORE_API Lexer {
 public:
     typedef std::function<Token*()> TokenSupplier;
 public:
@@ -81,7 +82,7 @@ public:
 };
 
 template<class CTX>
-class Highlighter : public QSyntaxHighlighter{
+class CORE_API Highlighter : public QSyntaxHighlighter{
 protected:
     Lexer* lexer;
     CTX* ctx;
