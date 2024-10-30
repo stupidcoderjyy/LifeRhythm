@@ -85,8 +85,12 @@ IOManager& LifeRhythm::getIOManager() {
     return ioManager;
 }
 
-TickHandler & LifeRhythm::getTickHandler() {
+TickHandler& LifeRhythm::getTickHandler() {
     return tickHandler;
+}
+
+MessageHandler& LifeRhythm::getMessageHandler() {
+    return messageHandler;
 }
 
 void LifeRhythm::launch0() {

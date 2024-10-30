@@ -12,6 +12,7 @@
 #include "Identifier.h"
 #include "Config.h"
 #include "IOManager.h"
+#include "MessageHandler.h"
 #include "TickHandler.h"
 
 BEGIN_NAMESPACE(lr)
@@ -31,6 +32,7 @@ private:
     QMap<QString, Module*> modules;
     IOManager ioManager;
     TickHandler tickHandler;
+    MessageHandler messageHandler;
 public:
     static LifeRhythm* get();
     static void generateTitledDialog(const QString& title, QWidget* content);
@@ -45,6 +47,7 @@ public:
     void registerModule(Module* m);
     IOManager& getIOManager();
     TickHandler& getTickHandler();
+    MessageHandler& getMessageHandler();
 signals:
     void sigPreInit();
     void sigMainInit();

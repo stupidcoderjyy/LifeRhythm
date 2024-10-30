@@ -18,6 +18,7 @@ find_package(Qt5 COMPONENTS
 set(INCLUDES
         include/core
         include/core/ui
+        include/core/message
         include/resources
         include/util
         include/util/compile
@@ -30,7 +31,6 @@ set(INCLUDES
         include/util/concurrent
         include/util/math
         include/widgets
-        include/test/io
         include
 )
 
@@ -44,6 +44,7 @@ set(INCLUDE_FILES
         include/core/ui/MainFrame.h
         include/core/ui/TabBar.h
         include/core/ui/TitledDialog.h
+        include/core/message/MessageHandler.h
         include/resources/RcLoaders.h
         include/resources/RcManagers.h
         include/resources/RcTypes.h
@@ -73,6 +74,7 @@ set(INCLUDE_FILES
         include/util/io/StreamByteWriter.h
         include/util/io/StringByteReader.h
         include/util/io/StringInput.h
+        include/util/io/IOManager.h
         include/util/models/WidgetData.h
         include/util/models/TreeData.h
         include/util/models/ListData.h
@@ -91,6 +93,7 @@ set(INCLUDE_FILES
         include/util/widgetfactory/StandardWidget.h
         include/util/widgetfactory/WidgetFactory.h
         include/util/concurrent/Task.h
+        include/util/concurrent/NBTAsyncGetter.h
         include/widgets/ArrowButton.h
         include/widgets/DragWidget.h
         include/widgets/FocusContainer.h
@@ -115,7 +118,6 @@ set(INCLUDE_FILES
         include/widgets/Calendar.h
         include/widgets/SlotsDrawer.h
         include/widgets/Separator.h
-        include/test/io/IOManager.h
 )
 
 set(SRC_FILES
@@ -126,6 +128,7 @@ set(SRC_FILES
         src/core/ui/MainFrame.cpp
         src/core/ui/TabBar.cpp
         src/core/ui/TitledDialog.cpp
+        src/core/message/MessageHandler.cpp
         src/resources/RcLoaders.cpp
         src/resources/RcManagers.cpp
         src/resources/RcTypes.cpp
@@ -154,6 +157,7 @@ set(SRC_FILES
         src/util/io/StreamByteWriter.cpp
         src/util/io/StringByteReader.cpp
         src/util/io/StringInput.cpp
+        src/util/io/IOManager.cpp
         src/util/models/TreeData.cpp
         src/util/models/ListData.cpp
         src/util/models/WidgetDataStorage.cpp
@@ -181,6 +185,7 @@ set(SRC_FILES
         src/util/widgetfactory/FactoryInit.h
         src/util/widgetfactory/QssParser.h
         src/util/concurrent/Task.cpp
+        src/util/concurrent/NBTAsyncGetter.cpp
         src/widgets/ArrowButton.cpp
         src/widgets/DragWidget.cpp
         src/widgets/FocusContainer.cpp
@@ -205,7 +210,6 @@ set(SRC_FILES
         src/widgets/Calendar.cpp
         src/widgets/SlotsDrawer.cpp
         src/widgets/Separator.cpp
-        src/test/io/IOManager.cpp
 )
 
 include_directories(${INCLUDES})
