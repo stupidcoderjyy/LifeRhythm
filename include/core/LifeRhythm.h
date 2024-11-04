@@ -16,7 +16,8 @@
 #include "TickHandler.h"
 
 BEGIN_NAMESPACE(lr)
-    class MainFrame;
+
+class MainFrame;
 class TabWidget;
 class Module;
 

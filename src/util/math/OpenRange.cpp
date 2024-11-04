@@ -296,8 +296,21 @@ bool OpenRange::contains(int left, int right) {
     return containsRange(posR < 0 ? pairsLeft.size() - 1 : posR - 1, left, right);
 }
 
-bool OpenRange::contains(int val) {
-    return contains(val - 1, val + 1);
+int OpenRange::indexOf(int left, int right) {
+    left -= offset;
+    right -= offset;
+    if (isEmpty()) {
+        return false;
+    }
+    if (pairsLeft.size() == 1 && containsRange(0, left, right)) {
+        return 0;
+    }
+    int posR = findFirstLarger(right);
+    if (posR == 0 && containsRange(0, left, right)) {
+        return 0;
+    }
+    int pos = posR < 0 ? pairsLeft.size() - 1 : posR - 1;
+    return containsRange(pos, left, right) ? pos : -1;
 }
 
 void OpenRange::forEach(const std::function<void(int, int)> &action) {

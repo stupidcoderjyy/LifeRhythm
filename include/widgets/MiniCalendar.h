@@ -8,20 +8,20 @@
 #include "Widget.h"
 #include "TextLabel.h"
 #include "ImgButton.h"
-#include "SlotsDrawer.h"
+#include "SlotsPainter.h"
 #include <QDateTime>
 
-class CORE_API CalendarData : public WidgetData {
+class CORE_API MiniCalendarData : public WidgetData {
     friend class CalendarContentDrawer;
-    friend class Calendar;
+    friend class MiniCalendar;
 protected:
     QDate topLeftDate;
     QDate mainMonth;
     int posMark1;
     int posMark2;
 public:
-    CalendarData();
-    explicit CalendarData(const QDate &date);
+    MiniCalendarData();
+    explicit MiniCalendarData(const QDate &date);
     void setTopLeftDate(const QDate& d);
 };
 
@@ -32,7 +32,7 @@ protected:
 };
 
 class CORE_API CalendarContentLayer : public DrawerLayer {
-    friend class Calendar;
+    friend class MiniCalendar;
 private:
     int firstDay;
     int mainMonthBegin;
@@ -47,15 +47,15 @@ protected:
     void drawSlot(QPainter &p, QRect &area, int row, int column) override;
 };
 
-class CORE_API WeekDayTitleDrawer : public SlotsDrawer {
+class CORE_API WeekDayTitleDrawer : public SlotsPainter {
 public:
     explicit WeekDayTitleDrawer(QWidget* parent = nullptr);
 protected:
     void initLayers() override;
 };
 
-class CORE_API CalendarContentDrawer : public SlotsDrawer {
-    friend class Calendar;
+class CORE_API CalendarContentDrawer : public SlotsPainter {
+    friend class MiniCalendar;
 protected:
     CalendarContentLayer* baseLayer;
 public:
@@ -65,7 +65,7 @@ protected:
     void wheelEvent(QWheelEvent *event) override;
 };
 
-class CORE_API Calendar : public Widget {
+class CORE_API MiniCalendar : public Widget {
 public:
     static const QStringList WEEKDAYS_CN;
     static const QSize SIZE;
@@ -77,7 +77,7 @@ protected:
     TextLabel* title;
     bool shouldInit;
 public:
-    explicit Calendar(
+    explicit MiniCalendar(
             WeekDayTitleDrawer* t,
             CalendarContentDrawer* c,
             QWidget* parent = nullptr);

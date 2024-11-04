@@ -2,18 +2,18 @@
 // Created by stupid_coder_jyy on 2024/4/5.
 //
 
-#include "Calendar.h"
+#include "MiniCalendar.h"
 #include "RcManagers.h"
 #include <QWheelEvent>
 #include <QLayout>
 
-CalendarData::CalendarData(): topLeftDate(), mainMonth(), posMark1(), posMark2() {
+MiniCalendarData::MiniCalendarData(): topLeftDate(), mainMonth(), posMark1(), posMark2() {
 }
 
-CalendarData::CalendarData(const QDate &date): topLeftDate(date), mainMonth() {
+MiniCalendarData::MiniCalendarData(const QDate &date): topLeftDate(date), mainMonth() {
 }
 
-void CalendarData::setTopLeftDate(const QDate &d) {
+void MiniCalendarData::setTopLeftDate(const QDate &d) {
     QDate date = d;
     if (d.dayOfWeek() != 1) {
         date = d.addDays(1 - d.dayOfWeek());
@@ -23,7 +23,7 @@ void CalendarData::setTopLeftDate(const QDate &d) {
         if (date.day() > 14) {
             auto d1 = date.addMonths(1);
             d1.setDate(d1.year(), d1.month(), 1);
-            posMark1 = (int)date.daysTo(d1);
+            posMark1 = static_cast<int>(date.daysTo(d1));
             posMark2 = posMark1 + d1.daysInMonth();
             mainMonth = d1;
         } else {
@@ -43,10 +43,10 @@ void WeekDayTitleLayer::beforeDrawing(QPainter &p, QRect &area) {
 }
 
 void WeekDayTitleLayer::drawSlot(QPainter &p, QRect &area, int row, int column) {
-    p.drawText(area, Qt::AlignCenter, Calendar::WEEKDAYS_CN[column]);
+    p.drawText(area, Qt::AlignCenter, MiniCalendar::WEEKDAYS_CN[column]);
 }
 
-CalendarContentLayer::CalendarContentLayer(): firstDay(), mainMonthBegin(-1), mainMonthEnd(-1) {
+CalendarContentLayer::CalendarContentLayer(): firstDay(), mainMonthBegin(-1), mainMonthEnd(-1), day(), count() {
 }
 
 bool CalendarContentLayer::shouldDraw() {
@@ -76,7 +76,7 @@ void CalendarContentLayer::drawSlot(QPainter &p, QRect &area, int row, int colum
 }
 
 
-WeekDayTitleDrawer::WeekDayTitleDrawer(QWidget *parent): SlotsDrawer(50, 40, 7, 1, parent) {
+WeekDayTitleDrawer::WeekDayTitleDrawer(QWidget *parent): SlotsPainter(50, 40, 7, 1, parent) {
 }
 
 void WeekDayTitleDrawer::initLayers() {
@@ -84,7 +84,7 @@ void WeekDayTitleDrawer::initLayers() {
 }
 
 CalendarContentDrawer::CalendarContentDrawer(QWidget *parent):
-        SlotsDrawer(50, 50, 7, 6, parent), baseLayer(new CalendarContentLayer) {
+        SlotsPainter(50, 50, 7, 6, parent), baseLayer(new CalendarContentLayer) {
 }
 
 void CalendarContentDrawer::initLayers() {
@@ -92,7 +92,7 @@ void CalendarContentDrawer::initLayers() {
 }
 
 void CalendarContentDrawer::wheelEvent(QWheelEvent *event) {
-    auto* cd = wData->cast<CalendarData>();
+    auto* cd = wData->cast<MiniCalendarData>();
     if (!cd) {
         return;
     }
@@ -103,22 +103,22 @@ void CalendarContentDrawer::wheelEvent(QWheelEvent *event) {
     }
 }
 
-const QStringList Calendar::WEEKDAYS_CN{"一", "二", "三", "四", "五", "六", "日"};
-const QSize Calendar::SIZE(350, 380);
+const QStringList MiniCalendar::WEEKDAYS_CN{"一", "二", "三", "四", "五", "六", "日"};
+const QSize MiniCalendar::SIZE(350, 380);
 
-Calendar::Calendar(WeekDayTitleDrawer* t, CalendarContentDrawer* c, QWidget *parent):
+MiniCalendar::MiniCalendar(WeekDayTitleDrawer* t, CalendarContentDrawer* c, QWidget *parent):
         Widget(parent), shouldInit(true), title(), contentDrawer(c), titleDrawer(t) {
 }
 
-void Calendar::onFinishedParsing(StandardWidget::Handlers &handlers, NBT *widgetTag) {
+void MiniCalendar::onFinishedParsing(StandardWidget::Handlers &handlers, NBT *widgetTag) {
     handlers << [](QWidget* target) {
-        static_cast<Calendar *>(target)->initCalendar();
+        static_cast<MiniCalendar *>(target)->initCalendar();
     };
 }
 
-void Calendar::syncDataToWidget() {
+void MiniCalendar::syncDataToWidget() {
     if (wData) {
-        auto* cd = wData->cast<CalendarData>();
+        auto* cd = wData->cast<MiniCalendarData>();
         title->setText(cd->mainMonth.toString("yyyy年M月"));
         contentDrawer->baseLayer->firstDay = cd->topLeftDate.day();
         contentDrawer->baseLayer->mainMonthBegin = cd->posMark1;
@@ -127,38 +127,38 @@ void Calendar::syncDataToWidget() {
     }
 }
 
-void Calendar::loadDate(const QDate &d) {
+void MiniCalendar::loadDate(const QDate &d) {
     if (wData) {
-        wData->cast<CalendarData>()->setTopLeftDate(d);
+        wData->cast<MiniCalendarData>()->setTopLeftDate(d);
     }
 }
 
-void Calendar::setData(WidgetData *d) {
-    auto* cd = dynamic_cast<CalendarData*>(d);
+void MiniCalendar::setData(WidgetData *d) {
+    auto* cd = dynamic_cast<MiniCalendarData*>(d);
     if (cd) {
         Widget::setData(d);
         contentDrawer->setData(d);
     }
 }
 
-void Calendar::initCalendar() {
+void MiniCalendar::initCalendar() {
     if (shouldInit) {
         init();
         shouldInit = false;
     }
 }
 
-void Calendar::resizeEvent(QResizeEvent *event) {
+void MiniCalendar::resizeEvent(QResizeEvent *event) {
     initCalendar();
 }
 
-void Calendar::connectModelView() {
+void MiniCalendar::connectModelView() {
     dc << connect(wData, &WidgetData::sigDataChanged, this, [this](){
         syncDataToWidget();
     });
 }
 
-void Calendar::init() {
+void MiniCalendar::init() {
     WidgetFactoryStorage::get("widget_calendar")->apply(nullptr, this);
     titleDrawer->setParent(this);
     contentDrawer->setParent(this);
@@ -169,7 +169,7 @@ void Calendar::init() {
     buttonNext = getPointer<ImgButton>("buttonNext");
     connect(buttonPrev, &ImgButton::sigActivated, this, [this](){
         if (wData) {
-            auto* cd = wData->cast<CalendarData>();
+            auto* cd = wData->cast<MiniCalendarData>();
             auto d = cd->mainMonth.addMonths(-1);
             d.setDate(d.year(), d.month(), 1);
             cd->setTopLeftDate(d.addDays(1 - d.dayOfWeek()));
@@ -177,7 +177,7 @@ void Calendar::init() {
     });
     connect(buttonNext, &ImgButton::sigActivated, this, [this](){
         if (wData) {
-            auto* cd = wData->cast<CalendarData>();
+            auto* cd = wData->cast<MiniCalendarData>();
             auto d = cd->mainMonth.addMonths(1);
             d.setDate(d.year(), d.month(), 1);
             cd->setTopLeftDate(d.addDays(1 - d.dayOfWeek()));

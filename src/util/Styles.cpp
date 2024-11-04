@@ -26,13 +26,13 @@ Color* Color::createDefault(const QString& name, const QString& rgbHex) {
 FontType::FontType(QStringList f1, QStringList f2): ffMedium(std::move(f1)), ffBold(std::move(f2)) {
 }
 
-FontBuilder::FontBuilder(): font(), type({}, {}) {
+FontBuilder::FontBuilder(): type({}, {}) {
 }
 
-FontBuilder::FontBuilder(const FontType& type): font(), type(type) {
+FontBuilder::FontBuilder(const FontType& type): type(type) {
 }
 
-FontBuilder::FontBuilder(const FontType &type, const QFont& f): type(type), font(f) {
+FontBuilder::FontBuilder(const FontType &type, const QFont& f): font(f), type(type) {
 }
 
 FontBuilder &FontBuilder::setSmallSize() {
@@ -75,6 +75,7 @@ FontBuilder &FontBuilder::setNormalWeight() {
 }
 
 const QFont& FontBuilder::get() {
+    font.setStyleStrategy(QFont::PreferAntialias);
     return font;
 }
 
@@ -125,7 +126,7 @@ QTextCharFormat errorFormat() {
 }
 
 void Styles::initStyles() {
-    auto fb = FontBuilder(Styles::FONT_TYPE_MAIN).setNormalWeight();
+    auto fb = FontBuilder(FONT_TYPE_MAIN).setNormalWeight();
     FONT_MAIN = fb.setMediumSize().get();
     FONT_SMALL = fb.setSmallSize().get();
     FONT_LARGE = fb.setLargeSize().get();

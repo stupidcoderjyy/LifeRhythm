@@ -13,7 +13,9 @@
 class CORE_API ListItem : public Widget {
     Q_OBJECT
     friend class ListWidget;
+    friend class TiledListWidget;
     friend class TreeWidget;
+    friend class SlotsWidget;
 protected:
     ListData* listData;
     bool selected;

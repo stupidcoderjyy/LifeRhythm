@@ -18,7 +18,6 @@ find_package(Qt5 COMPONENTS
 set(INCLUDES
         include/core
         include/core/ui
-        include/core/message
         include/resources
         include/util
         include/util/compile
@@ -41,10 +40,10 @@ set(INCLUDE_FILES
         include/core/Module.h
         include/core/Plugin.h
         include/core/TickHandler.h
+        include/core/MessageHandler.h
         include/core/ui/MainFrame.h
         include/core/ui/TabBar.h
         include/core/ui/TitledDialog.h
-        include/core/message/MessageHandler.h
         include/resources/RcLoaders.h
         include/resources/RcManagers.h
         include/resources/RcTypes.h
@@ -52,6 +51,7 @@ set(INCLUDE_FILES
         include/util/Styles.h
         include/util/WidgetUtil.h
         include/util/FocusManager.h
+        include/util/DateUtil.h
         include/util/math/OpenRange.h
         include/util/math/Pair.h
         include/util/compile/CompileError.h
@@ -115,9 +115,10 @@ set(INCLUDE_FILES
         include/widgets/AbstractOptionsBox.h
         include/widgets/IconTextButton.h
         include/widgets/RangeBar.h
-        include/widgets/Calendar.h
-        include/widgets/SlotsDrawer.h
+        include/widgets/MiniCalendar.h
+        include/widgets/SlotsPainter.h
         include/widgets/Separator.h
+        include/widgets/TiledListWidget.h
 )
 
 set(SRC_FILES
@@ -125,10 +126,10 @@ set(SRC_FILES
         src/core/LifeRhythm.cpp
         src/core/Module.cpp
         src/core/TickHandler.cpp
+        src/core/MessageHandler.cpp
         src/core/ui/MainFrame.cpp
         src/core/ui/TabBar.cpp
         src/core/ui/TitledDialog.cpp
-        src/core/message/MessageHandler.cpp
         src/resources/RcLoaders.cpp
         src/resources/RcManagers.cpp
         src/resources/RcTypes.cpp
@@ -207,9 +208,10 @@ set(SRC_FILES
         src/widgets/AbstractOptionsBox.cpp
         src/widgets/IconTextButton.cpp
         src/widgets/RangeBar.cpp
-        src/widgets/Calendar.cpp
-        src/widgets/SlotsDrawer.cpp
+        src/widgets/MiniCalendar.cpp
+        src/widgets/SlotsPainter.cpp
         src/widgets/Separator.cpp
+        src/widgets/TiledListWidget.cpp
 )
 
 include_directories(${INCLUDES})

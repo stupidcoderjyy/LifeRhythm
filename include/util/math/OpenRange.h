@@ -33,7 +33,9 @@ public:
     OpenRange unionWith(OpenRange other);
     bool contains(const OpenRange& range) const;
     bool contains(int left, int right);
-    bool contains(int val);
+    inline bool contains(int val);
+    int indexOf(int left, int right);
+    inline int indexOf(int val);
     void forEach(const std::function<void(int, int)> &action);
     int size() const;
     Pair<int, int> rangeAt(int pos);
@@ -66,6 +68,14 @@ inline OpenRange & OpenRange::operator=(const OpenRange &other) {
         offset = other.offset;
     }
     return *this;
+}
+
+inline bool OpenRange::contains(int val) {
+    return contains(val - 1, val + 1);
+}
+
+inline int OpenRange::indexOf(int val) {
+    return indexOf(val - 1, val + 1);
 }
 
 inline bool OpenRange::containsRange(int pos, int left, int right) {

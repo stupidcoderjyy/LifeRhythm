@@ -8,7 +8,7 @@
 #include <QFutureInterface>
 #include "NBT.h"
 
-class NBTAsyncGetter : public QObject, public QRunnable {
+class CORE_API NBTAsyncGetter : public QObject, public QRunnable {
     Q_OBJECT
 private:
     std::function<NBT*()> builder;

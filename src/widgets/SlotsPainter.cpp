@@ -2,21 +2,21 @@
 // Created by stupid_coder_jyy on 2024/4/5.
 //
 
-#include "SlotsDrawer.h"
+#include "SlotsPainter.h"
 #include "MemUtil.h"
 #include <QMouseEvent>
 
-SlotsDrawer::SlotsDrawer(int slotsWidth, int slotsHeight, int columns, int rows, QWidget *parent):
+SlotsPainter::SlotsPainter(int slotsWidth, int slotsHeight, int columns, int rows, QWidget *parent):
         Widget(parent), layers(), init(), slotWidth(slotsWidth),
         slotHeight(slotsHeight), columns(columns), rows(rows) {
     setFixedSize(slotWidth * columns, slotHeight * rows);
 }
 
-SlotsDrawer::~SlotsDrawer() {
+SlotsPainter::~SlotsPainter() {
     DELETE_LIST(layers)
 }
 
-void SlotsDrawer::paintEvent(QPaintEvent *event) {
+void SlotsPainter::paintEvent(QPaintEvent *event) {
     QPainter p(this);
     QRect area;
     for (auto* l : layers) {
@@ -36,23 +36,25 @@ void SlotsDrawer::paintEvent(QPaintEvent *event) {
     }
 }
 
-void SlotsDrawer::resizeEvent(QResizeEvent *event) {
+void SlotsPainter::resizeEvent(QResizeEvent *event) {
     if (!init) {
         initLayers();
         init = true;
     }
 }
 
-void SlotsDrawer::mousePressEvent(QMouseEvent *event) {
+void SlotsPainter::mousePressEvent(QMouseEvent *event) {
     auto p = event->pos();
     onSlotClicked(event, p.y() / slotHeight, p.x() / slotWidth);
 }
 
-void SlotsDrawer::onSlotClicked(QMouseEvent* evt, int row, int column) {
+void SlotsPainter::onSlotClicked(QMouseEvent* evt, int row, int column) {
 }
 
 DrawerLayer::DrawerLayer(): parent() {
 }
+
+DrawerLayer::~DrawerLayer() = default;
 
 bool DrawerLayer::shouldDraw() {
     return true;

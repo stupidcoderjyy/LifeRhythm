@@ -9,7 +9,7 @@
 
 class DrawerLayer;
 
-class CORE_API SlotsDrawer : public Widget {
+class CORE_API SlotsPainter : public Widget {
 protected:
     const int slotWidth;
     const int slotHeight;
@@ -19,8 +19,8 @@ private:
     bool init;
     QVector<DrawerLayer*> layers;
 public:
-    explicit SlotsDrawer(int slotsWidth, int slotsHeight, int columns, int rows, QWidget* parent = nullptr);
-    ~SlotsDrawer() override;
+    explicit SlotsPainter(int slotsWidth, int slotsHeight, int columns, int rows, QWidget* parent = nullptr);
+    ~SlotsPainter() override;
     void paintEvent(QPaintEvent *event) override;
 protected:
     void resizeEvent(QResizeEvent *event) override;
@@ -32,11 +32,12 @@ protected:
 };
 
 class CORE_API DrawerLayer {
-    friend class SlotsDrawer;
+    friend class SlotsPainter;
 protected:
-    SlotsDrawer* parent;
+    SlotsPainter* parent;
 public:
     DrawerLayer();
+    virtual ~DrawerLayer();
 protected:
     virtual bool shouldDraw();
     virtual void beforeDrawing(QPainter& p, QRect& area);
@@ -44,12 +45,12 @@ protected:
     virtual void afterDrawing(QPainter& p);
 };
 
-inline void SlotsDrawer::appendLayer(DrawerLayer *layer) {
+inline void SlotsPainter::appendLayer(DrawerLayer *layer) {
     layer->parent = this;
     layers << layer;
 }
 
-inline void SlotsDrawer::insertLayer(int i, DrawerLayer *layer) {
+inline void SlotsPainter::insertLayer(int i, DrawerLayer *layer) {
     layer->parent = this;
     layers.insert(i, layer);
 }

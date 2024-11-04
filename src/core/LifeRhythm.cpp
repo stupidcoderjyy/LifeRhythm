@@ -104,7 +104,7 @@ void LifeRhythm::launch0() {
 
 void LifeRhythm::preInit() {
     config.froze();
-    atexit(exit);
+    // atexit(exit);
     QTextCodec::setCodecForLocale(QTextCodec::codecForName("UTF-8"));
     QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
     Styles::initStyles();
