@@ -159,7 +159,7 @@ void MiniCalendar::connectModelView() {
 }
 
 void MiniCalendar::init() {
-    WidgetFactoryStorage::get("widget_calendar")->apply(nullptr, this);
+    WidgetFactoryStorage::get("widget_mini_calendar")->apply(nullptr, this);
     titleDrawer->setParent(this);
     contentDrawer->setParent(this);
     layout()->addWidget(titleDrawer);
