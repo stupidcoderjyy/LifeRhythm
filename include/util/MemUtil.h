@@ -21,16 +21,19 @@ void freeArray(int** p, int rows);
     }\
     (qMap)->clear();
 #define DELETE_LIST_P(pList) \
-    for (auto* d : *pList) {\
+    for (auto* d : *(pList)) {\
         delete d;\
-    }
+    }\
+    (pList)->clear();
 #define DELETE_LIST(list) \
     for (auto* d : list) {\
         delete d;\
-    }
+    }\
+    list.clear();
 #define DELETE_NESTED_LIST(list) \
     for (auto* child : list) {\
         DELETE_LIST_P(child);\
         delete child;\
-    }
+    }\
+    list.clear();
 #endif //LIFERHYTHM_MEMUTIL_H

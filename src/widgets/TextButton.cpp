@@ -24,15 +24,15 @@ void TextButton::setButtonType(Type t) {
     QPalette p = content->palette();
     switch (type) {
         case Highlighted:
-            content->setStyleSheet(qss_target("tbc", bg(Styles::BLUE_0->rgbHex) + brad("2px")));
+            content->setStyleSheet(qss_object("tbc", bg(Styles::BLUE_0->rgbHex) + brad("2px")));
             p.setColor(QPalette::WindowText, Styles::GRAY_TEXT_1->color);
             break;
         case Normal:
-            content->setStyleSheet(qss_target("tbc", bg(Styles::CLEAR->rgbHex)));
+            content->setStyleSheet(qss_object("tbc", bg(Styles::CLEAR->rgbHex)));
             p.setColor(QPalette::WindowText, Styles::GRAY_TEXT_0->color);
             break;
         case Disabled:
-            content->setStyleSheet(qss_target("tbc", bg(Styles::CLEAR->rgbHex)));
+            content->setStyleSheet(qss_object("tbc", bg(Styles::CLEAR->rgbHex)));
             p.setColor(QPalette::WindowText, Styles::GRAY_3->color);
             break;
     }

@@ -91,3 +91,9 @@ WidgetData *ListData::remove(int idx) {
     markChange(idx, data.length());
     return d;
 }
+
+void ListData::clear() {
+    data.clear();
+    markChange(0, data.length());
+    editing = false;
+}

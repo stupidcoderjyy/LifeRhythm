@@ -66,9 +66,6 @@ protected:
 };
 
 class CORE_API MiniCalendar : public Widget {
-public:
-    static const QStringList WEEKDAYS_CN;
-    static const QSize SIZE;
 protected:
     CalendarContentDrawer* contentDrawer;
     WeekDayTitleDrawer* titleDrawer;
@@ -83,7 +80,7 @@ public:
             QWidget* parent = nullptr);
     void onFinishedParsing(Handlers &handlers, NBT *widgetTag) override;
     void syncDataToWidget() override;
-    void loadDate(const QDate& d);
+    void loadDate(const QDate& d) const;
     void setData(WidgetData *d) override;
     void initCalendar();
 protected:

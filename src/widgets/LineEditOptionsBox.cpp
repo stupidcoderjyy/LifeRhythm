@@ -41,7 +41,7 @@ void OptionsBoxLineEdit::mouseReleaseEvent(QMouseEvent *e) {
     QApplication::setCursorFlashTime(1060);
 }
 
-LineEditOptionsBox::LineEditOptionsBox(QWidget *parent): AbstractOptionsBox(parent) {
+LineEditOptionsBox::LineEditOptionsBox(QWidget *parent): OptionsBox(parent) {
     auto* layout = new QHBoxLayout(this);
     layout->setSpacing(0);
     layout->setContentsMargins(5, 0, 8, 0);
@@ -58,7 +58,7 @@ LineEditOptionsBox::LineEditOptionsBox(QWidget *parent): AbstractOptionsBox(pare
 }
 
 void LineEditOptionsBox::onMenuClose() {
-    AbstractOptionsBox::onMenuClose();
+    OptionsBox::onMenuClose();
     buttonOpenMenu->setPressed(false);
 }
 
@@ -66,5 +66,5 @@ void LineEditOptionsBox::clickBox(bool pressed) {
     if (pressed && pressLock) {
         buttonOpenMenu->setPressed(false);
     }
-    AbstractOptionsBox::clickBox(pressed);
+    OptionsBox::clickBox(pressed);
 }

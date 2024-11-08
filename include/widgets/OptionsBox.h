@@ -20,21 +20,21 @@ protected:
     void focusOutEvent(QFocusEvent *event) override;
 };
 
-class CORE_API AbstractOptionsBox : public FocusContainer {
+class CORE_API OptionsBox : public FocusContainer {
 protected:
     OptionsMenu* menu;
     bool pressLock;
     bool menuOpen;
 public:
-    explicit AbstractOptionsBox(QWidget* parent = nullptr);
-    ~AbstractOptionsBox() override;
+    explicit OptionsBox(QWidget* parent = nullptr);
+    ~OptionsBox() override;
 protected:
     void resizeEvent(QResizeEvent *event) override;
     void mousePressEvent(QMouseEvent *event) override;
     void mouseReleaseEvent(QMouseEvent *event) override;
     void focusOutEvent(QFocusEvent *event) override;
     virtual void clickBox(bool open);                    //点击生成弹窗或关闭弹窗
-    virtual void initMenu(OptionsMenu* menu) = 0;           //初始化菜单组件
+    virtual void initMenu(OptionsMenu* menu);           //初始化菜单组件
     virtual void onMenuClose();
 };
 

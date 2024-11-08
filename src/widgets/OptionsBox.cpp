@@ -2,7 +2,7 @@
 // Created by stupid_coder_jyy on 2024/3/25.
 //
 
-#include "AbstractOptionsBox.h"
+#include "OptionsBox.h"
 #include "WidgetUtil.h"
 #include "FocusManager.h"
 #include <QDebug>
@@ -23,16 +23,16 @@ void OptionsMenu::focusOutEvent(QFocusEvent *event) {
     }
 }
 
-AbstractOptionsBox::AbstractOptionsBox(QWidget *parent): FocusContainer(parent), menu() {
+OptionsBox::OptionsBox(QWidget *parent): FocusContainer(parent), menu() {
     menuOpen = false;
     pressLock = false;
 }
 
-AbstractOptionsBox::~AbstractOptionsBox() {
+OptionsBox::~OptionsBox() {
     delete menu;
 }
 
-void AbstractOptionsBox::resizeEvent(QResizeEvent *event) {
+void OptionsBox::resizeEvent(QResizeEvent *event) {
     FocusContainer::resizeEvent(event);
     if (!menu) {
         menu = new OptionsMenu();
@@ -42,29 +42,29 @@ void AbstractOptionsBox::resizeEvent(QResizeEvent *event) {
             emit menu->sigAboutToClose();
             menu->close();
         });
-        connect(menu, &OptionsMenu::sigAboutToClose, this, &AbstractOptionsBox::onMenuClose);
+        connect(menu, &OptionsMenu::sigAboutToClose, this, &OptionsBox::onMenuClose);
     }
 }
 
-void AbstractOptionsBox::mousePressEvent(QMouseEvent *event) {
+void OptionsBox::mousePressEvent(QMouseEvent *event) {
     FocusContainer::mousePressEvent(event);
     if (!menuOpen && !pressLock) {
         clickBox(true);
     }
 }
 
-void AbstractOptionsBox::mouseReleaseEvent(QMouseEvent *event) {
+void OptionsBox::mouseReleaseEvent(QMouseEvent *event) {
     pressLock = false;
 }
 
-void AbstractOptionsBox::focusOutEvent(QFocusEvent *event) {
+void OptionsBox::focusOutEvent(QFocusEvent *event) {
     if (!FocusManager::checkPeek(this)) {
         FocusContainer::focusOutEvent(event);
         pressLock = false;
     }
 }
 
-void AbstractOptionsBox::clickBox(bool open) {
+void OptionsBox::clickBox(bool open) {
     FocusManager::mark(this);
     if (open) {
         if (pressLock) {
@@ -82,7 +82,10 @@ void AbstractOptionsBox::clickBox(bool open) {
     }
 }
 
-void AbstractOptionsBox::onMenuClose() {
+void OptionsBox::initMenu(OptionsMenu *menu) {
+}
+
+void OptionsBox::onMenuClose() {
     pressLock = isMouseHovered(this);
     menuOpen = false;
     FocusManager::popIfPeekMatch(this);

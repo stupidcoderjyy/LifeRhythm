@@ -33,7 +33,7 @@ bool FocusManager::checkCurrent(QWidget *w) {
     return manager->focusedWidget == w;
 }
 
-FocusManager::FocusManager(): focusedWidget(), focusStack() {
+FocusManager::FocusManager(): focusedWidget() {
 }
 
 void FocusManager::mark0(QWidget *w) {
@@ -63,6 +63,6 @@ void FocusManager::pop0() {
     focusStack.removeLast();
 }
 
-bool FocusManager::checkPeek0(QWidget *w) {
+bool FocusManager::checkPeek0(const QWidget *w) {
     return !focusStack.empty() && focusStack.last() == w;
 }

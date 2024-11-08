@@ -23,11 +23,12 @@ public:
     void markChange(int min, int max);
     void markAll();
     void selectData(int idx);
-    inline int length() const;
-    inline WidgetData* at(int idx) const noexcept;
     virtual void append(WidgetData* data);
     virtual void insert(int idx, WidgetData* data);
     virtual WidgetData* remove(int idx);
+    virtual void clear();
+    inline int length() const;
+    inline WidgetData* at(int idx) const noexcept;
     inline int getChangeBegin() const;
     inline int getChangeEnd() const;
     inline QVector<WidgetData*>& getData();

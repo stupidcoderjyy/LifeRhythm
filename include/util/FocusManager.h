@@ -25,7 +25,7 @@ protected:
     void mark0(QWidget* w);
     void push0(QWidget* w);
     void pop0();
-    bool checkPeek0(QWidget* w);
+    bool checkPeek0(const QWidget* w);
 };
 
 

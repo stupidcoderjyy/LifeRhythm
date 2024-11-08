@@ -132,7 +132,7 @@ RangeBar::RangeBar(AbstractBarContainer* c, QWidget *parent): ScrollArea(parent)
     assembled = false;
     rootContent = new QWidget(this);
     rootContent->setObjectName("root");
-    rootContent->setStyleSheet(qss_target("root", bg(Styles::CLEAR->rgbHex)));
+    rootContent->setStyleSheet(qss_object("root", bg(Styles::CLEAR->rgbHex)));
     setWidget(rootContent);
     if (!c) {
         throwInFunc("null container");

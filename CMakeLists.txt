@@ -112,7 +112,7 @@ set(INCLUDE_FILES
         include/widgets/TextButton.h
         include/widgets/GridLayout.h
         include/widgets/ColorSelector.h
-        include/widgets/AbstractOptionsBox.h
+        include/widgets/OptionsBox.h
         include/widgets/IconTextButton.h
         include/widgets/RangeBar.h
         include/widgets/MiniCalendar.h
@@ -137,6 +137,7 @@ set(SRC_FILES
         src/util/Styles.cpp
         src/util/WidgetUtil.cpp
         src/util/FocusManager.cpp
+        src/util/DateUtil.cpp
         src/util/math/OpenRange.cpp
         src/util/math/openrange/Lexer.cpp
         src/util/math/openrange/Lexer.h
@@ -205,7 +206,7 @@ set(SRC_FILES
         src/widgets/TextButton.cpp
         src/widgets/GridLayout.cpp
         src/widgets/ColorSelector.cpp
-        src/widgets/AbstractOptionsBox.cpp
+        src/widgets/OptionsBox.cpp
         src/widgets/IconTextButton.cpp
         src/widgets/RangeBar.cpp
         src/widgets/MiniCalendar.cpp

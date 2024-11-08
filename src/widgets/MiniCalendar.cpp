@@ -4,13 +4,14 @@
 
 #include "MiniCalendar.h"
 #include "RcManagers.h"
+#include "DateUtil.h"
 #include <QWheelEvent>
 #include <QLayout>
 
-MiniCalendarData::MiniCalendarData(): topLeftDate(), mainMonth(), posMark1(), posMark2() {
+MiniCalendarData::MiniCalendarData(): posMark1(), posMark2() {
 }
 
-MiniCalendarData::MiniCalendarData(const QDate &date): topLeftDate(date), mainMonth() {
+MiniCalendarData::MiniCalendarData(const QDate &date): topLeftDate(date), posMark1(0), posMark2(0) {
 }
 
 void MiniCalendarData::setTopLeftDate(const QDate &d) {
@@ -43,7 +44,7 @@ void WeekDayTitleLayer::beforeDrawing(QPainter &p, QRect &area) {
 }
 
 void WeekDayTitleLayer::drawSlot(QPainter &p, QRect &area, int row, int column) {
-    p.drawText(area, Qt::AlignCenter, MiniCalendar::WEEKDAYS_CN[column]);
+    p.drawText(area, Qt::AlignCenter, DateUtil::WEEKDAYS_CN[column]);
 }
 
 CalendarContentLayer::CalendarContentLayer(): firstDay(), mainMonthBegin(-1), mainMonthEnd(-1), day(), count() {
@@ -103,14 +104,13 @@ void CalendarContentDrawer::wheelEvent(QWheelEvent *event) {
     }
 }
 
-const QStringList MiniCalendar::WEEKDAYS_CN{"一", "二", "三", "四", "五", "六", "日"};
-const QSize MiniCalendar::SIZE(350, 380);
+// const QSize MiniCalendar::SIZE(350, 380);
 
-MiniCalendar::MiniCalendar(WeekDayTitleDrawer* t, CalendarContentDrawer* c, QWidget *parent):
-        Widget(parent), shouldInit(true), title(), contentDrawer(c), titleDrawer(t) {
+MiniCalendar::MiniCalendar(WeekDayTitleDrawer* t, CalendarContentDrawer* c, QWidget *parent): Widget(parent),
+    contentDrawer(c), titleDrawer(t), buttonPrev(), buttonNext(), title(), shouldInit(true) {
 }
 
-void MiniCalendar::onFinishedParsing(StandardWidget::Handlers &handlers, NBT *widgetTag) {
+void MiniCalendar::onFinishedParsing(Handlers &handlers, NBT *widgetTag) {
     handlers << [](QWidget* target) {
         static_cast<MiniCalendar *>(target)->initCalendar();
     };
@@ -127,7 +127,7 @@ void MiniCalendar::syncDataToWidget() {
     }
 }
 
-void MiniCalendar::loadDate(const QDate &d) {
+void MiniCalendar::loadDate(const QDate &d) const {
     if (wData) {
         wData->cast<MiniCalendarData>()->setTopLeftDate(d);
     }

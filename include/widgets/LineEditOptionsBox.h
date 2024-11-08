@@ -5,7 +5,7 @@
 #ifndef LIFERHYTHM_LINEEDITOPTIONSBOX_H
 #define LIFERHYTHM_LINEEDITOPTIONSBOX_H
 
-#include "AbstractOptionsBox.h"
+#include "OptionsBox.h"
 #include "ArrowButton.h"
 
 class CORE_API DisplayOptionsButton : public ArrowButton {
@@ -28,7 +28,7 @@ protected:
     由输入框和一个按钮组成，点击按钮后，会在框下生成一个弹窗。通过这个弹窗
     可以获得想要的数据
 */
-class CORE_API LineEditOptionsBox : public AbstractOptionsBox {
+class CORE_API LineEditOptionsBox : public OptionsBox {
 private:
     QLineEdit* optionEditor;
     ArrowButton* buttonOpenMenu;

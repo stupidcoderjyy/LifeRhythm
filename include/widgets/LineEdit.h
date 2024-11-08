@@ -9,6 +9,8 @@
 #include "StandardWidget.h"
 
 class CORE_API LineEdit : public QLineEdit, public StandardWidget {
+private:
+    bool ready;
 public:
     explicit LineEdit(QWidget* parent = nullptr);
     void onPreParsing(Handlers &handlers, NBT *widgetTag) override;
@@ -19,6 +21,7 @@ protected:
     void focusOutEvent(QFocusEvent *event) override;
     void mousePressEvent(QMouseEvent *e) override;
     void mouseReleaseEvent(QMouseEvent *e) override;
+    void resizeEvent(QResizeEvent *event) override;
     void init();
 };
 
