@@ -2,7 +2,7 @@
 // Created by stupid_coder_jyy on 2024/2/8.
 //
 
-#include "widgets/ImgButton.h"
+#include "ImgButton.h"
 #include "Styles.h"
 #include "WidgetUtil.h"
 #include "QMouseEvent"

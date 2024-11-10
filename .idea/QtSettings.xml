@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="QtSettings">
-    <option name="myCurrentProfile" value="makedll-debug" />
+    <option name="myCurrentProfile" value="MakeDll-Debug" />
     <option name="mySettingsPerProfile">
       <map>
         <entry key="Debug">
@@ -12,23 +12,23 @@
             </PerProfileState>
           </value>
         </entry>
+        <entry key="MakeDll-Debug">
+          <value>
+            <PerProfileState>
+              <option name="myQmlPath" value="$PROJECT_DIR$/../../../../Program Files/Qt/5.15.2/mingw81_64/qml" />
+              <option name="myQtBinPath" value="$PROJECT_DIR$/../../../../Program Files/Qt/5.15.2/mingw81_64/bin" />
+            </PerProfileState>
+          </value>
+        </entry>
+        <entry key="MakeDll-Release">
+          <value>
+            <PerProfileState>
+              <option name="myQmlPath" value="$PROJECT_DIR$/../../../../Program Files/Qt/5.15.2/mingw81_64/qml" />
+              <option name="myQtBinPath" value="$PROJECT_DIR$/../../../../Program Files/Qt/5.15.2/mingw81_64/bin" />
+            </PerProfileState>
+          </value>
+        </entry>
         <entry key="Release">
-          <value>
-            <PerProfileState>
-              <option name="myQmlPath" value="$PROJECT_DIR$/../../../../Program Files/Qt/5.15.2/mingw81_64/qml" />
-              <option name="myQtBinPath" value="$PROJECT_DIR$/../../../../Program Files/Qt/5.15.2/mingw81_64/bin" />
-            </PerProfileState>
-          </value>
-        </entry>
-        <entry key="makedll-debug">
-          <value>
-            <PerProfileState>
-              <option name="myQmlPath" value="$PROJECT_DIR$/../../../../Program Files/Qt/5.15.2/mingw81_64/qml" />
-              <option name="myQtBinPath" value="$PROJECT_DIR$/../../../../Program Files/Qt/5.15.2/mingw81_64/bin" />
-            </PerProfileState>
-          </value>
-        </entry>
-        <entry key="makedll-release">
           <value>
             <PerProfileState>
               <option name="myQmlPath" value="$PROJECT_DIR$/../../../../Program Files/Qt/5.15.2/mingw81_64/qml" />

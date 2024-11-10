@@ -7,6 +7,7 @@
 #include <QMouseEvent>
 
 FocusContainer::FocusContainer(QWidget *parent): Widget(parent) {
+    setObjectName("fc");
 }
 
 void FocusContainer::focusOutEvent(QFocusEvent *event) {

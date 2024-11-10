@@ -12,20 +12,21 @@
 LineEdit::LineEdit(QWidget *parent): QLineEdit(parent), ready() {
     QPalette p = palette();
     p.setColor(QPalette::Highlight, Styles::BLUE_1->color);
+    p.setColor(QPalette::Text, Styles::GRAY_TEXT_0->color);
     setPalette(p);
 }
 
-void LineEdit::onPreParsing(StandardWidget::Handlers &handlers, NBT *widgetTag) {
+void LineEdit::onPreParsing(Handlers &handlers, NBT *widgetTag) {
     handlers << [](QWidget* target) {
         static_cast<LineEdit*>(target)->init();
     };
 }
 
-void LineEdit::onPostParsing(StandardWidget::Handlers &handlers, NBT *widgetTag) {
+void LineEdit::onPostParsing(Handlers &handlers, NBT *widgetTag) {
     WidgetFactory::parseTextWidget<LineEdit>(handlers, widgetTag);
 }
 
-void LineEdit::onStateRespondersParsing(StandardWidget::Handlers &responders, NBT *stateTag) {
+void LineEdit::onStateRespondersParsing(Handlers &responders, NBT *stateTag) {
     onPostParsing(responders, stateTag);
 }
 
@@ -53,20 +54,15 @@ void LineEdit::init() {
     setFocusPolicy(Qt::ClickFocus);
     setContextMenuPolicy(Qt::NoContextMenu);
     setFont(Styles::FONT_MAIN);
-    QPalette p = palette();
-    p.setColor(QPalette::Text, QColor(Styles::GRAY_TEXT_0->rgbHex));
-    setPalette(p);
     setObjectName("le");
-    setFixedHeight(34);
-    registerResponder(0, [this](QWidget* t){
-        setTextMargins(2,2,2,0);
+    setFixedHeight(35);
+    registerResponder(0, [this](auto){
         setStyleSheet(qss_this(
                 bg(Styles::CLEAR->rgbHex) +
                 bd("1px", "solid", Styles::GRAY_2->rgbHex) +
                 brad("3px")));
     });
-    registerResponder(1, [this](QWidget* t){
-        setTextMargins(1,1,1,0);
+    registerResponder(1, [this](auto){
         setStyleSheet(qss_this(
                 bg(Styles::CLEAR->rgbHex) +
                 bd("2px", "solid", Styles::BLUE_1->rgbHex) +

@@ -74,6 +74,16 @@ FontBuilder &FontBuilder::setNormalWeight() {
     return *this;
 }
 
+int FontBuilder::getTextHeight() const {
+    QFontMetrics metrics(font);
+    return metrics.height();
+}
+
+int FontBuilder::getTextWidth(const QString &text) const {
+    QFontMetrics metrics(font);
+    return metrics.horizontalAdvance(text);
+}
+
 const QFont& FontBuilder::get() {
     font.setStyleStrategy(QFont::PreferAntialias);
     return font;
@@ -107,9 +117,9 @@ const Color* Styles::CLEAR = Color::createDefault("CLEAR", "#00000000");
 const FontType Styles::FONT_TYPE_MAIN = FontType(
         {"JetBrains Mono Medium", "思源黑体 CN Medium"},
         {"JetBrains Mono Bold", "思源黑体 CN Bold"});
-const int Styles::FS_SMALL = 8;
-const int Styles::FS_MEDIUM = 10;
-const int Styles::FS_LARGE = 12;
+const int Styles::FS_SMALL = 10;
+const int Styles::FS_MEDIUM = 12;
+const int Styles::FS_LARGE = 15;
 
 QTextCharFormat defaultFormat() {
     QTextCharFormat fmt;

@@ -54,6 +54,8 @@ public:
     FontBuilder& setLargeSize();
     FontBuilder& setBoldWeight();
     FontBuilder& setNormalWeight();
+    int getTextHeight() const;
+    int getTextWidth(const QString& text) const;
     const QFont& get();
 };
 
@@ -99,6 +101,7 @@ public:
 
 #define qss(k,d) QString(k).append(":").append(d).append(";")
 #define bg(c) QString("background-color:").append(c).append(";")
+#define clr(c) QString("color:").append(c).append(";")
 #define bd_t(width,style,color) QString("border-top:").append(width).append(" ").append(style).append(" ").append(color).append(";")
 #define bd_b(width,style,color) QString("border-bottom:").append(width).append(" ").append(style).append(" ").append(color).append(";")
 #define bd_l(width,style,color) QString("border-left:").append(width).append(" ").append(style).append(" ").append(color).append(";")
