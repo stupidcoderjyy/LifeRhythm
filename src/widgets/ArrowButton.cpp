@@ -144,28 +144,28 @@ void ArrowButton::updatePoints(Type t, bool u) {
     if (t & 2) {
         int w = h0;
         int h = w0;
-        points[1] = (s.height() - h) >> 1;
+        points[1] = s.height() - h >> 1;
         points[3] = s.height() >> 1;
         points[5] = s.height() - points[1];
         if (t == Right) {
-            points[0] = (s.width() - w) >> 1;
+            points[0] = s.width() - w >> 1;
             points[2] = s.width() - points[0];
         } else {
-            points[2] = (s.width() - w) >> 1;
+            points[2] = s.width() - w >> 1;
             points[0] = s.width() - points[2];
         }
         points[4] = points[0];
     } else {
         int h = h0;
         int w = w0;
-        points[0] = (s.width() - w) >> 1;
+        points[0] = s.width() - w >> 1;
         points[2] = s.width() >> 1;
         points[4] = s.width() - points[0];
         if (t == Up) {
-            points[3] = (s.height() - h) >> 1;
+            points[3] = s.height() - h >> 1;
             points[1] = s.height() - points[3];
         } else {
-            points[1] = (s.height() - h) >> 1;
+            points[1] = s.height() - h >> 1;
             points[3] = s.height() - points[1];
         }
         points[5] = points[1];

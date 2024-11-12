@@ -17,4 +17,6 @@ CORE_API void moveWidget(QWidget* widget, const QPoint& pos);
 CORE_API void moveWidget(QWidget* widget, int x, int y);
 CORE_API void switchSingleLayoutWidget(QLayout* layout, QWidget* pre, QWidget* cur);
 
+CORE_API void fillRoundedRect(QPainter& painter, const QRect& rect, int radius, const QBrush& color);
+
 #endif //LIFERHYTHM_WIDGETUTIL_H

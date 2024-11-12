@@ -5,6 +5,8 @@
 #include "WidgetUtil.h"
 #include <QMouseEvent>
 #include <QLayout>
+#include <QPainter>
+#include <QPainterPath>
 
 bool isHovered(QWidget *widget, QMouseEvent *evt) {
     return isHovered(widget, widget->mapToParent(evt->pos()));
@@ -51,4 +53,12 @@ void switchSingleLayoutWidget(QLayout *layout, QWidget *pre, QWidget *cur) {
     layout->addWidget(cur);
     cur->setParent(layout->parentWidget());
     cur->show();
+}
+
+void fillRoundedRect(QPainter &painter, const QRect &rect, int radius, const QBrush& color) {
+    painter.setRenderHint(QPainter::Antialiasing);
+    QPainterPath path;
+    path.addRoundedRect(rect, radius, radius);
+    painter.fillPath(path, color);
+    painter.setRenderHint(QPainter::Antialiasing, false);
 }
