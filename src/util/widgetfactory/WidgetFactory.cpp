@@ -105,10 +105,10 @@ StandardWidget* WidgetFactory::parseWidgetType(NBT *nbt) {
     }
     //组件类型，如果使用外部加载器，则stdType会被忽略（别手贱写个不存在的type）
     QString type = nbt->getString("type", "Widget");
-    //检查组件类型
-    StandardWidget* stdWidget = stdEmptyInstances.value(type);
+    //检查组件类型，优先使用自定义组件
+    StandardWidget* stdWidget = customEmptyInstances->value(type);
     if (!stdWidget) {
-        stdWidget = customEmptyInstances->value(type);
+        stdWidget = stdEmptyInstances.value(type);
     }
     if (!stdWidget) {
         throwInFunc("unknown type '" + type + "' in widget '" + id + "'");
@@ -533,9 +533,8 @@ void WidgetFactory::parseSizePolicy(WidgetFactory::Handlers& handlers, NBT* nbt)
 QSizePolicy::Policy WidgetFactory::parsePolicy(const QString &name) {
     if (policies.contains(name)) {
         return policies.value(name);
-    } else {
-        throwInFunc("invalid size policy:" + name);
     }
+    throwInFunc("invalid size policy:" + name);
 }
 
 QSize WidgetFactory::parseSize(ArrayData *arr) {
@@ -570,11 +569,11 @@ WidgetFactory::~WidgetFactory() {
 }
 
 QWidget *WidgetFactory::createWidget(const QString &type) const {
-    if (stdSuppliers.contains(type)) {
-        return stdSuppliers.value(type)(nullptr);
-    }
     if (customSuppliers->contains(type)) {
         return customSuppliers->value(type)(nullptr);
+    }
+    if (stdSuppliers.contains(type)) {
+        return stdSuppliers.value(type)(nullptr);
     }
     return nullptr;
 }
@@ -625,8 +624,10 @@ WidgetFactory *WidgetFactory::fromNbt(const QString& id, NBT *nbt) {
 }
 
 void WidgetFactory::registerStdWidget(const QString &type, const Supplier &supplier, StandardWidget *instance) const {
-    if (!customSuppliers->contains(type)) {
-        customSuppliers->insert(type, supplier);
-        customEmptyInstances->insert(type, instance);
+    if (customSuppliers->contains(type)) {
+        delete customEmptyInstances->take(type);
+        qDebug() << "override std widget '" + type + "'";
     }
+    customSuppliers->insert(type, supplier);
+    customEmptyInstances->insert(type, instance);
 }

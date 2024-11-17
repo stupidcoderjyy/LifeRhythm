@@ -1,0 +1,52 @@
+{
+    children: ["top", "bottom"]
+    h_size_policy: "Max"
+    v_size_policy: "Min"
+    layout: {
+        type: "Vertical"
+        spacing: 0
+        margins: [0,0,0,0]
+    }
+    top: {
+        children: ["prev", "title", "next"]
+        qss: "bg(GRAY_0) bd_b('1px', 'solid', BLACK)"
+        layout: {
+            type: "Horizontal"
+            margins: [4,0,0,0]
+            spacing: 4
+            spacers: [{
+                pos: 3
+                h_size_policy: "Expanding"
+            }]
+        }
+        title: {
+            type: "Button"
+            pointer: true
+        }
+        prev: {
+            type: "ArrowButton"
+            base: "Left"
+            activated: "Left"
+            fixed_height: 30
+            fixed_width: 30
+            pointer: true
+        }
+        next: {
+            type: "ArrowButton"
+            base: "Right"
+            activated: "Right"
+            fixed_height: 30
+            fixed_width: 30
+            pointer: true
+        }
+        pointer: true
+    }
+    bottom: {
+        layout: {
+            type: "Vertical"
+            margins: [0,0,0,0]
+            spacing: 0
+        }
+        pointer: true
+    }
+}
