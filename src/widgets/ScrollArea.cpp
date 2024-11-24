@@ -8,7 +8,7 @@
 #include <QDebug>
 #include <QWheelEvent>
 
-ScrollArea::ScrollArea(QWidget *parent):QScrollArea(parent),StandardWidget() {
+ScrollArea::ScrollArea(QWidget *parent, bool initInConstructor):QScrollArea(parent), StandardWidget(initInConstructor) {
     setFrameShape(QFrame::NoFrame);
     setWidgetResizable(true);
     viewport()->setObjectName("vp");

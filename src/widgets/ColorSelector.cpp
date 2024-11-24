@@ -61,7 +61,7 @@ void VColorBar::onColorSelected(int v) {
     }
 }
 
-ColorBarImageGenerator::ColorBarImageGenerator(): isVertical(), step(1), barWidth(20), img() {
+ColorBarImageGenerator::ColorBarImageGenerator(): img(), pos(), step(1), barWidth(20), isVertical() {
 }
 
 void ColorBarImageGenerator::setBarData(bool v, int s, int bw) {
@@ -146,9 +146,9 @@ void ColorIcon::setBorderColor(QColor c) {
 DefaultColorsListItem::DefaultColorsListItem(QWidget *parent): ListItem(parent), icon(), labelName() {
 }
 
-void DefaultColorsListItem::init() {
+void DefaultColorsListItem::initWidget() {
     icon = getPointer<ColorIcon>("icon");
-    labelName = getPointer<TextLabel>("name");
+    labelName = getPointer<Label>("name");
 }
 
 void DefaultColorsListItem::syncDataToWidget() {
@@ -160,7 +160,7 @@ void DefaultColorsListItem::syncDataToWidget() {
 
 void DefaultColorsListItem::onFinishedParsing(Handlers &handlers, NBT *widgetTag) {
     handlers << [](QWidget* target) {
-        static_cast<DefaultColorsListItem*>(target)->init();
+        static_cast<DefaultColorsListItem*>(target)->initWidget();
     };
 }
 
@@ -177,11 +177,11 @@ HueSelector::HueSelector(QWidget *parent): Widget(parent), bar() {
 
 void HueSelector::onFinishedParsing(Handlers &handlers, NBT *widgetTag) {
     handlers << [](QWidget* target) {
-        static_cast<HueSelector*>(target)->init();
+        static_cast<HueSelector*>(target)->initWidget();
     };
 }
 
-void HueSelector::init() {
+void HueSelector::initWidget() {
     bar = getPointer<VColorBar>("bar");
     auto* modelColors = WidgetDataStorage::get(LOC("lr:default_colors"))->cast<ListData>();
     connect(modelColors, &ListData::sigDataSelected, this, [this, modelColors](int pre, int cur){

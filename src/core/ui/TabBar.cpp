@@ -6,8 +6,6 @@
 #include <QWheelEvent>
 #include <QScrollBar>
 #include "TabBar.h"
-#include "ImgLabel.h"
-#include "TextLabel.h"
 #include "RcManagers.h"
 
 USING_NAMESPACE(lr)
@@ -33,8 +31,8 @@ TabCard::TabCard(QWidget *parent) : Widget(parent) {
 void TabCard::onFinishedParsing(Handlers &handlers, NBT *widgetTag) {
     handlers << [](QWidget* target) {
         auto* tab = static_cast<TabCard*>(target);
-        tab->iconLabel = tab->getPointer<ImgLabel>("icon");
-        tab->titleLabel = tab->getPointer<TextLabel>("title");
+        tab->iconLabel = tab->getPointer<Label>("icon");
+        tab->titleLabel = tab->getPointer<Label>("title");
         tab->closeButton = tab->getPointer<CloseButton>("closeButton");
         connect(tab->closeButton, &CloseButton::sigActivated, tab, &TabCard::sigTabClosed);
     };
@@ -66,7 +64,6 @@ void TabCard::setIcon(const Identifier &id) {
 }
 
 void TabCard::setTitle(const QString &title) {
-    titleLabel->setText(title);
 }
 
 void TabCard::setActivated() {
@@ -83,7 +80,7 @@ void TabCard::setHidden() {
     }
 }
 
-CloseButton::CloseButton(QWidget *parent) : ImgLabel(parent) {
+CloseButton::CloseButton(QWidget *parent) : Button(parent) {
 }
 
 void CloseButton::enterEvent(QEvent *event) {
@@ -98,12 +95,12 @@ void CloseButton::mousePressEvent(QMouseEvent *ev) {
     ev->accept();   //阻止事件传递到T父控件(TabBar)，使得标签页被选中
 }
 
-TabBar::TabBar(QWidget *parent) : QScrollArea(parent) {
+TabBar::TabBar(QWidget *parent) : QScrollArea(parent), StandardWidget(false) {
 }
 
-void TabBar::onFinishedParsing(StandardWidget::Handlers &handlers, NBT *widgetTag) {
+void TabBar::onFinishedParsing(Handlers &handlers, NBT *widgetTag) {
     handlers << [](QWidget* target) {
-        static_cast<TabBar*>(target)->init();
+        static_cast<TabBar*>(target)->initWidget();
     };
 }
 
@@ -188,7 +185,7 @@ void TabBar::closeAll() {
     setFixedHeight(0);
 }
 
-void TabBar::init() {
+void TabBar::initWidget() {
     setFrameShape(QFrame::NoFrame);
     setWidgetResizable(true);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);

@@ -3,39 +3,30 @@
 //
 
 #include "FactoryInit.h"
+
+#include "Button.h"
 #include "Widget.h"
-#include "ImgButton.h"
-#include "TextLabel.h"
 #include "FocusContainer.h"
-#include "TextEdit.h"
 #include "LineEdit.h"
 #include "Menu.h"
-#include "ArrowButton.h"
-#include "TextButton.h"
-#include "ColorSelector.h"
-#include "IconTextButton.h"
-#include "Separator.h"
+// #include "TextEdit.h"
+// #include "ColorSelector.h"
+// #include "Separator.h"
 
-#define reg(T) stdSuppliers->insert(#T, [](QWidget* p){ return new T(p);}); \
-    stdEmptyInstances->insert(#T, new T(nullptr));
+#define reg(T) stdSuppliers->insert(#T, [](QWidget* p){ return new T(p, false);}); \
+    stdEmptyInstances->insert(#T, new T(nullptr, false));
 
 void FactoryInit::mainInit(QMap<QString, WidgetFactory::Supplier> *stdSuppliers,
                            QMap<QString, StandardWidget *> *stdEmptyInstances) {
     reg(Widget)
-    reg(ImgLabel)
-    reg(ImgButton)
-    reg(TextLabel)
+    reg(Button)
+    reg(Label)
     reg(FocusContainer)
-    reg(TextEdit)
     reg(LineEdit)
     reg(Menu)
-    reg(ArrowButton)
-    ArrowButton::mainInit();
-    reg(TextButton)
-    reg(ColorIcon)
-    reg(DefaultColorsList)
-    reg(HueSelector)
-    reg(VColorBar)
-    reg(IconTextButton)
-    reg(Separator)
+    // reg(ColorIcon)
+    // reg(DefaultColorsList)
+    // reg(HueSelector)
+    // reg(VColorBar)
+    // reg(Separator)
 }

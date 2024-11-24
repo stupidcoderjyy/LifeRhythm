@@ -6,13 +6,13 @@
 #define LIFERHYTHM_TITLEDDIALOG_H
 
 #include <QDialog>
+
+#include "Button.h"
+#include "Label.h"
 #include "StandardWidget.h"
-#include "ImgLabel.h"
 #include "Widget.h"
 #include "Namespaces.h"
 #include "Plugin.h"
-
-class TextLabel;
 
 BEGIN_NAMESPACE(lr)
 
@@ -22,14 +22,14 @@ class CORE_API TitledDialog : public QDialog, public StandardWidget {
     friend class LifeRhythm;
 private:
     DialogCloseButton* closeButton{};
-    TextLabel* titleLabel{};
+    Label* titleLabel{};
 public:
-    explicit TitledDialog(QWidget* parent);
+    explicit TitledDialog(QWidget* parent, bool initInConstructor = true);
     void setContent(const QString& title, QWidget* widget);
     void onFinishedParsing(Handlers &handlers, NBT *widgetTag) override;
 };
 
-class CORE_API DialogCloseButton : public ImgLabel {
+class CORE_API DialogCloseButton : public Button {
 public:
     explicit DialogCloseButton(QWidget* parent);
 protected:

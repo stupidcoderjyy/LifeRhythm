@@ -8,7 +8,7 @@
 #include "WidgetFactory.h"
 #include "QDebug"
 
-TextEdit::TextEdit(QWidget *parent) : QTextEdit(parent) {
+TextEdit::TextEdit(QWidget *parent, bool initInConstructor) : QTextEdit(parent), StandardWidget(initInConstructor) {
     setFrameStyle(NoFrame);
     setContextMenuPolicy(Qt::NoContextMenu);
     setFont(Styles::FONT_MAIN);
@@ -26,11 +26,11 @@ TextEdit::TextEdit(QWidget *parent) : QTextEdit(parent) {
     connect(horizontalScrollBar(), &QScrollBar::rangeChanged, hBar, &ScrollBar::onRangeChanged);
 }
 
-void TextEdit::onPostParsing(StandardWidget::Handlers &handlers, NBT *widgetTag) {
+void TextEdit::onPostParsing(Handlers &handlers, NBT *widgetTag) {
     WidgetFactory::parseTextWidget<TextEdit>(handlers, widgetTag);
 }
 
-void TextEdit::onStateRespondersParsing(StandardWidget::Handlers &responders, NBT *stateTag) {
+void TextEdit::onStateRespondersParsing(Handlers &responders, NBT *stateTag) {
     onPostParsing(responders, stateTag);
 }
 

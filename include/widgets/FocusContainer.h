@@ -13,15 +13,14 @@
 */
 class CORE_API FocusContainer : public Widget {
 public:
-    explicit FocusContainer(QWidget* parent = nullptr);
+    explicit FocusContainer(QWidget* parent = nullptr, bool initInConstructor = true);
 protected:
     void focusOutEvent(QFocusEvent *event) override;
     virtual QString getNormalQss();
     virtual QString getFocusedQss();
-    void resizeEvent(QResizeEvent *event) override;
 protected:
+    void initWidget() override;
     void mousePressEvent(QMouseEvent *event) override;
 };
-
 
 #endif //LIFERHYTHM_FOCUSCONTAINER_H

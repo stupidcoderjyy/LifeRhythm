@@ -11,7 +11,7 @@
 #include "NBT.h"
 #include "Styles.h"
 
-#define regClazz(factory, T) factory->registerStdWidget(#T, [](QWidget* p){ return new T(p); }, new T(nullptr))
+#define regClazz(factory, T) factory->registerStdWidget(#T, [](QWidget* p){ return new T(p, false); }, new T(nullptr, false))
 
 class NBT;
 
@@ -67,7 +67,7 @@ private:
     static QSizePolicy::Policy parsePolicy(const QString& name);
     explicit WidgetFactory(QString id);
     explicit WidgetFactory(WidgetFactory* parent, const QString& id, NBT* nbt);
-    StandardWidget* parseWidgetType(NBT* nbt);
+    StandardWidget* parseWidgetType(bool& builtIn, NBT* nbt);
     void parseChildren(NBT* nbt);
     WidgetFactory* findFactory(NBT* nbt, const QString& path);
     void parseLayout(NBT* target);

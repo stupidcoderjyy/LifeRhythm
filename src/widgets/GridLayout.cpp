@@ -5,12 +5,12 @@
 #include "GridLayout.h"
 
 GridLayout::GridLayout(QWidget *parent, int maxColumns): QGridLayout(parent),
-        maxColumns(maxColumns), curColumn(), curRow(), columnAlign() {
+        curColumn(), curRow(), maxColumns(maxColumns) {
 }
 
 void GridLayout::appendWidget(QWidget *widget) {
     auto align = curColumn < columnAlign.count() ? columnAlign.at(curColumn) : Qt::Alignment{};
-    QGridLayout::addWidget(widget, curRow, curColumn, align);
+    addWidget(widget, curRow, curColumn, align);
     if (curColumn == maxColumns - 1) {
         curColumn = 0;
         curRow++;

@@ -4,7 +4,6 @@
 
 #include "TitledDialog.h"
 #include "WidgetUtil.h"
-#include "TextLabel.h"
 #include "Widget.h"
 #include "RcManagers.h"
 #include <QTimer>
@@ -14,14 +13,14 @@
 
 USING_NAMESPACE(lr)
 
-TitledDialog::TitledDialog(QWidget *parent):QDialog(parent),StandardWidget() {
+TitledDialog::TitledDialog(QWidget *parent, bool initInConstructor):QDialog(parent), StandardWidget(initInConstructor) {
 }
 
-void TitledDialog::onFinishedParsing(StandardWidget::Handlers &handlers, NBT *widgetTag) {
+void TitledDialog::onFinishedParsing(Handlers &handlers, NBT *widgetTag) {
     handlers << [](QWidget* target) {
         auto* dialog = static_cast<TitledDialog*>(target);
         dialog->closeButton = dialog->getPointer<DialogCloseButton>("closeButton");
-        dialog->titleLabel = dialog->getPointer<TextLabel>("titleLabel");
+        dialog->titleLabel = dialog->getPointer<Label>("titleLabel");
         dialog->setAttribute(Qt::WA_DeleteOnClose, true);
         dialog->setWindowFlags(Qt::FramelessWindowHint);
         dialog->setWindowModality(Qt::WindowModality::WindowModal);
@@ -42,7 +41,7 @@ void TitledDialog::setContent(const QString &title, QWidget *widget) {
     layout()->addWidget(widget);
 }
 
-DialogCloseButton::DialogCloseButton(QWidget *parent):ImgLabel(parent) {
+DialogCloseButton::DialogCloseButton(QWidget *parent): Button(parent) {
 }
 
 void DialogCloseButton::enterEvent(QEvent *event) {

@@ -26,16 +26,16 @@ protected:
     bool pressLock;
     bool menuOpen;
 public:
-    explicit OptionsBox(QWidget* parent = nullptr);
+    explicit OptionsBox(QWidget* parent = nullptr, bool initInConstructor = true);
     ~OptionsBox() override;
 protected:
-    void resizeEvent(QResizeEvent *event) override;
     void mousePressEvent(QMouseEvent *event) override;
     void mouseReleaseEvent(QMouseEvent *event) override;
     void focusOutEvent(QFocusEvent *event) override;
     virtual void clickBox(bool open);                    //点击生成弹窗或关闭弹窗
     virtual void initMenu(OptionsMenu* menu);           //初始化菜单组件
     virtual void onMenuClose();
+    void initWidget() override;
 };
 
 

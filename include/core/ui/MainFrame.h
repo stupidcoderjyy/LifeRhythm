@@ -24,7 +24,7 @@ public:
     explicit MainFrame(QWidget* parent = nullptr);
     void onFinishedParsing(Handlers &handlers, NBT *widgetTag) override;
 private:
-    void init();
+    void initWidget();
 };
 
 END_NAMESPACE

@@ -13,6 +13,7 @@
 class NBT;
 
 class CORE_API StandardWidget {
+    friend class WidgetFactory;
 public:
     typedef std::function<void(QWidget*)> Handler;
     typedef QVector<Handler> Handlers;
@@ -23,7 +24,9 @@ protected:
     int state = -1;
     WidgetData* wData = nullptr;
     QVector<QMetaObject::Connection> dc;
+    bool prepared;
 public:
+    explicit StandardWidget(bool initInConstructor);
     int getState() const;
     void registerResponder(int _state, const Handler& responder);
     void registerGlobalResponder(const Handler& responder);
@@ -52,6 +55,9 @@ public:
     }
 protected:
     virtual void connectModelView();
+
+    //初始化组件，若使用WidgetFactory构造，则默认位于最后调用；其他情况下可以选择构造函数内调用
+    virtual void initWidget();
 };
 
 #endif //LIFERHYTHM_STANDARDWIDGET_H

@@ -6,7 +6,7 @@
 #include "FocusManager.h"
 #include <QMouseEvent>
 
-FocusContainer::FocusContainer(QWidget *parent): Widget(parent) {
+FocusContainer::FocusContainer(QWidget *parent, bool initInConstructor): Widget(parent, initInConstructor) {
     setObjectName("fc");
 }
 
@@ -17,17 +17,15 @@ void FocusContainer::focusOutEvent(QFocusEvent *event) {
 }
 
 QString FocusContainer::getNormalQss() {
-    return qss_this(bg(Styles::CLEAR->rgbHex) + bd("1px", "solid", Styles::GRAY_2->rgbHex) + qss("border-radius", "3px"));
+    return qss_this(bg(Styles::CLEAR->rgbHex) + bd("1px", "solid", Styles::GRAY_2->rgbHex) + brad("3px"));
 }
 
 QString FocusContainer::getFocusedQss() {
-    return qss_this(bg(Styles::CLEAR->rgbHex) + bd("2px", "solid", Styles::BLUE_1->rgbHex) + qss("border-radius", "3px"));
+    return qss_this(bg(Styles::CLEAR->rgbHex) + bd("2px", "solid", Styles::BLUE_1->rgbHex) + brad("3px"));
 }
 
-void FocusContainer::resizeEvent(QResizeEvent *event) {
-    if (styleSheet().isEmpty()) {
-        setStyleSheet(getNormalQss());
-    }
+void FocusContainer::initWidget() {
+    setStyleSheet(getNormalQss());
 }
 
 void FocusContainer::mousePressEvent(QMouseEvent *event) {

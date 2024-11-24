@@ -6,7 +6,7 @@
 #include "Styles.h"
 #include "WidgetUtil.h"
 
-Menu::Menu(QWidget *parent): QWidget(parent), StandardWidget() {
+Menu::Menu(QWidget *parent, bool initInConstructor): QWidget(parent), StandardWidget(initInConstructor) {
     setWindowFlag(Qt::FramelessWindowHint);
     setFocusPolicy(Qt::NoFocus);
     setObjectName("menu");

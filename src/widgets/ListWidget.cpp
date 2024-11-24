@@ -9,7 +9,7 @@
 #include <QDrag>
 #include <QMimeData>
 
-ListItem::ListItem(QWidget *parent): Widget(parent), listData(), selected(), dataIdx() {
+ListItem::ListItem(QWidget *parent, bool initInConstructor): Widget(parent, initInConstructor), listData(), selected(), dataIdx() {
 }
 
 void ListItem::syncDataToWidget() {
@@ -70,7 +70,8 @@ void ListItem::mousePressEvent(QMouseEvent *event) {
     }
 }
 
-ListWidget::ListWidget(QWidget *parent): ScrollArea(parent), container(new QWidget(this)),
+ListWidget::ListWidget(QWidget *parent, bool initInConstructor): ScrollArea(parent, initInConstructor),
+        container(new QWidget(this)),
         dragScrollStep(), rowHeight(40), areaRowCount(0), pos(0),
         globalPos(), maxGlobalPos(), posMid(), posBottom(), idxA(-1), idxB(-1) {
     setWidget(container);

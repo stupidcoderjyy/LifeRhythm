@@ -12,7 +12,7 @@
 
 class CORE_API Widget : public QWidget, public StandardWidget {
 public:
-    explicit Widget(QWidget* parent = nullptr);
+    explicit Widget(QWidget* parent = nullptr, bool initInConstructor = true);
 PAINT_QSS
 };
 #endif //LIFERHYTHM_WIDGET_H

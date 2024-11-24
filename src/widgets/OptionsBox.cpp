@@ -23,27 +23,13 @@ void OptionsMenu::focusOutEvent(QFocusEvent *event) {
     }
 }
 
-OptionsBox::OptionsBox(QWidget *parent): FocusContainer(parent), menu() {
+OptionsBox::OptionsBox(QWidget *parent, bool initInConstructor): FocusContainer(parent, initInConstructor), menu() {
     menuOpen = false;
     pressLock = false;
 }
 
 OptionsBox::~OptionsBox() {
     delete menu;
-}
-
-void OptionsBox::resizeEvent(QResizeEvent *event) {
-    FocusContainer::resizeEvent(event);
-    if (!menu) {
-        menu = new OptionsMenu();
-        initMenu(menu);
-        connect(menu, &OptionsMenu::sigSelectOption, this, [this](){
-            syncDataToWidget();
-            emit menu->sigAboutToClose();
-            menu->close();
-        });
-        connect(menu, &OptionsMenu::sigAboutToClose, this, &OptionsBox::onMenuClose);
-    }
 }
 
 void OptionsBox::mousePressEvent(QMouseEvent *event) {
@@ -89,4 +75,16 @@ void OptionsBox::onMenuClose() {
     pressLock = isMouseHovered(this);
     menuOpen = false;
     FocusManager::popIfPeekMatch(this);
+}
+
+void OptionsBox::initWidget() {
+    FocusContainer::initWidget();
+    menu = new OptionsMenu();
+    initMenu(menu);
+    connect(menu, &OptionsMenu::sigSelectOption, this, [this] {
+        syncDataToWidget();
+        emit menu->sigAboutToClose();
+        menu->close();
+    });
+    connect(menu, &OptionsMenu::sigAboutToClose, this, &OptionsBox::onMenuClose);
 }

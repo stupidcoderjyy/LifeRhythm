@@ -35,7 +35,7 @@ protected:
     int begin;
     int end;
 public:
-    explicit BarItem(QWidget* parent = nullptr);
+    explicit BarItem(QWidget* parent = nullptr, bool initInConstructor = true);
     void syncDataToWidget() override;
     void syncWidgetToData() override;
 signals:

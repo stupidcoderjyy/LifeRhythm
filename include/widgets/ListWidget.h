@@ -23,7 +23,7 @@ protected:
 private:
     QPoint dragStart;
 public:
-    explicit ListItem(QWidget* parent = nullptr);
+    explicit ListItem(QWidget* parent = nullptr, bool initInConstructor = true);
     void syncDataToWidget() override;
 protected:
     void dragEnterEvent(QDragEnterEvent *event) override;
@@ -60,7 +60,7 @@ protected:
     int posMid, posBottom;
     int idxA, idxB;
 public:
-    explicit ListWidget(QWidget* parent = nullptr);
+    explicit ListWidget(QWidget* parent = nullptr, bool initInConstructor = true);
     void setRowHeight(int s);
     void setMinAreaRowCount(int count);
     void onPostParsing(Handlers &handlers, NBT *widgetTag) override;

@@ -94,31 +94,23 @@ set(INCLUDE_FILES
         include/util/widgetfactory/WidgetFactory.h
         include/util/concurrent/Task.h
         include/util/concurrent/NBTAsyncGetter.h
-        include/widgets/ArrowButton.h
+        include/widgets/Button.h
+        include/widgets/ColorSelector.h
         include/widgets/DragWidget.h
         include/widgets/FocusContainer.h
-        include/widgets/ImgButton.h
-        include/widgets/ImgLabel.h
+        include/widgets/GridLayout.h
+        include/widgets/Label.h
         include/widgets/LineEdit.h
         include/widgets/ListWidget.h
         include/widgets/Menu.h
-        include/widgets/LineEditOptionsBox.h
+        include/widgets/OptionsBox.h
+        include/widgets/RangeBar.h
         include/widgets/ScrollArea.h
         include/widgets/ScrollBar.h
+        include/widgets/Separator.h
         include/widgets/TextEdit.h
-        include/widgets/TextLabel.h
         include/widgets/TreeWidget.h
         include/widgets/Widget.h
-        include/widgets/TextButton.h
-        include/widgets/GridLayout.h
-        include/widgets/ColorSelector.h
-        include/widgets/OptionsBox.h
-        include/widgets/IconTextButton.h
-        include/widgets/RangeBar.h
-        include/widgets/MiniCalendar.h
-        include/widgets/SlotsPainter.h
-        include/widgets/Separator.h
-        include/widgets/TiledListWidget.h
 )
 
 set(SRC_FILES
@@ -188,31 +180,23 @@ set(SRC_FILES
         src/util/widgetfactory/QssParser.h
         src/util/concurrent/Task.cpp
         src/util/concurrent/NBTAsyncGetter.cpp
-        src/widgets/ArrowButton.cpp
+        src/widgets/Button.cpp
+        src/widgets/ColorSelector.cpp
         src/widgets/DragWidget.cpp
         src/widgets/FocusContainer.cpp
-        src/widgets/ImgButton.cpp
-        src/widgets/ImgLabel.cpp
+        src/widgets/GridLayout.cpp
+        src/widgets/Label.cpp
         src/widgets/LineEdit.cpp
         src/widgets/ListWidget.cpp
         src/widgets/Menu.cpp
-        src/widgets/LineEditOptionsBox.cpp
+        src/widgets/OptionsBox.cpp
+        src/widgets/RangeBar.cpp
         src/widgets/ScrollArea.cpp
         src/widgets/ScrollBar.cpp
+        src/widgets/Separator.cpp
         src/widgets/TextEdit.cpp
-        src/widgets/TextLabel.cpp
         src/widgets/TreeWidget.cpp
         src/widgets/Widget.cpp
-        src/widgets/TextButton.cpp
-        src/widgets/GridLayout.cpp
-        src/widgets/ColorSelector.cpp
-        src/widgets/OptionsBox.cpp
-        src/widgets/IconTextButton.cpp
-        src/widgets/RangeBar.cpp
-        src/widgets/MiniCalendar.cpp
-        src/widgets/SlotsPainter.cpp
-        src/widgets/Separator.cpp
-        src/widgets/TiledListWidget.cpp
 )
 
 include_directories(${INCLUDES})

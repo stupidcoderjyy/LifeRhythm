@@ -9,7 +9,7 @@
 #include <QApplication>
 #include <QMouseEvent>
 
-LineEdit::LineEdit(QWidget *parent): QLineEdit(parent), ready() {
+LineEdit::LineEdit(QWidget *parent, bool initInConstructor): QLineEdit(parent), StandardWidget(initInConstructor) {
     QPalette p = palette();
     p.setColor(QPalette::Highlight, Styles::BLUE_1->color);
     p.setColor(QPalette::Text, Styles::GRAY_TEXT_0->color);
@@ -18,7 +18,7 @@ LineEdit::LineEdit(QWidget *parent): QLineEdit(parent), ready() {
 
 void LineEdit::onPreParsing(Handlers &handlers, NBT *widgetTag) {
     handlers << [](QWidget* target) {
-        static_cast<LineEdit*>(target)->init();
+        static_cast<LineEdit*>(target)->initWidget();
     };
 }
 
@@ -42,14 +42,10 @@ void LineEdit::mouseReleaseEvent(QMouseEvent *e) {
 }
 
 void LineEdit::resizeEvent(QResizeEvent *event) {
-    init();
+    initWidget();
 }
 
-void LineEdit::init() {
-    if (ready) {
-        return;
-    }
-    ready = true;
+void LineEdit::initWidget() {
     setFrame(false);
     setFocusPolicy(Qt::ClickFocus);
     setContextMenuPolicy(Qt::NoContextMenu);

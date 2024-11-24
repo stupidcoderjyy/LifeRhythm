@@ -14,7 +14,7 @@ private:
     ScrollBar *vBar{};
     ScrollBar *hBar{};
 public:
-    explicit ScrollArea(QWidget* parent = nullptr);
+    explicit ScrollArea(QWidget* parent = nullptr, bool initInConstructor = true);
     ScrollBar* getVScrollBar();
     ScrollBar* getHScrollBar();
 protected:

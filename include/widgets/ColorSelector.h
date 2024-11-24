@@ -5,9 +5,9 @@
 #ifndef LIFERHYTHM_COLORSELECTOR_H
 #define LIFERHYTHM_COLORSELECTOR_H
 
-#include "TextLabel.h"
 #include <QWidget>
 
+#include "Label.h"
 #include "ListWidget.h"
 
 class CORE_API VColorBar : public Widget {
@@ -64,13 +64,13 @@ protected:
 class CORE_API DefaultColorsListItem : public ListItem {
 private:
     ColorIcon* icon;
-    TextLabel* labelName;
+    Label* labelName;
 public:
     explicit DefaultColorsListItem(QWidget* parent = nullptr);
     void syncDataToWidget() override;
     void onFinishedParsing(Handlers &handlers, NBT *widgetTag) override;
 private:
-    void init();
+    void initWidget();
 };
 
 class CORE_API DefaultColorsList : public ListWidget {
@@ -91,7 +91,7 @@ public:
 signals:
     void sigColorSelected(const QColor& color);
 private:
-    void init();
+    void initWidget();
 };
 
 #endif //LIFERHYTHM_COLORSELECTOR_H

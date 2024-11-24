@@ -14,7 +14,7 @@ protected:
     ScrollBar *vBar{};
     ScrollBar *hBar{};
 public:
-    explicit TextEdit(QWidget* parent);
+    explicit TextEdit(QWidget* parent, bool initInConstructor);
     void onPostParsing(Handlers &handlers, NBT *widgetTag) override;
     void onStateRespondersParsing(Handlers &responders, NBT *stateTag) override;
     void resizeEvent(QResizeEvent *event) override;

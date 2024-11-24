@@ -9,10 +9,8 @@
 #include "StandardWidget.h"
 
 class CORE_API LineEdit : public QLineEdit, public StandardWidget {
-private:
-    bool ready;
 public:
-    explicit LineEdit(QWidget* parent = nullptr);
+    explicit LineEdit(QWidget* parent = nullptr, bool initInConstructor = true);
     void onPreParsing(Handlers &handlers, NBT *widgetTag) override;
     void onPostParsing(Handlers &handlers, NBT *widgetTag) override;
     void onStateRespondersParsing(Handlers &responders, NBT *stateTag) override;
@@ -22,7 +20,7 @@ protected:
     void mousePressEvent(QMouseEvent *e) override;
     void mouseReleaseEvent(QMouseEvent *e) override;
     void resizeEvent(QResizeEvent *event) override;
-    void init();
+    void initWidget() override;
 };
 
 

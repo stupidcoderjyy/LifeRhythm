@@ -14,7 +14,7 @@ BarData::BarData(): NestedListNode(), begin(), end() {
 BarData::BarData(int begin, int end): begin(begin), end(end) {
 }
 
-BarItem::BarItem(QWidget *parent): Widget(parent), row(), begin(), end() {
+BarItem::BarItem(QWidget *parent, bool initInConstructor): Widget(parent, initInConstructor), row(), begin(), end() {
     setStyleSheet(bg(Styles::GRAY_2->rgbHex));
 }
 

@@ -121,18 +121,18 @@ void LifeRhythm::mainInit() {
     ImageStorage::init();
     WidgetFactoryStorage::init();
     WidgetFactory::mainInit();
-    auto* f = WidgetFactoryStorage::get("lr:widget_tabcard");
-    regClazz(f, TabCard);
-    regClazz(f, CloseButton);
-    f = WidgetFactoryStorage::get("lr:widget_titleddialog");
-    regClazz(f, TitledDialog);
-    regClazz(f, DialogCloseButton);
-    regClazz(f, TopWidget);
-    f = WidgetFactoryStorage::get("lr:widget_mainframe");
-    regClazz(f, MainFrame);
-    regClazz(f, TabBar);
-    f = WidgetFactoryStorage::get("lr:item_defaultcolors");
-    regClazz(f, DefaultColorsListItem);
+    // auto* f = WidgetFactoryStorage::get("lr:widget_tabcard");
+    // regClazz(f, TabCard);
+    // regClazz(f, CloseButton);
+    // f = WidgetFactoryStorage::get("lr:widget_titleddialog");
+    // regClazz(f, TitledDialog);
+    // regClazz(f, DialogCloseButton);
+    // regClazz(f, TopWidget);
+    // f = WidgetFactoryStorage::get("lr:widget_mainframe");
+    // regClazz(f, MainFrame);
+    // regClazz(f, TabBar);
+    // f = WidgetFactoryStorage::get("lr:item_defaultcolors");
+    // regClazz(f, DefaultColorsListItem);
     auto* m0 = new ListData;
     for (const auto& c : Color::defaultColors) {
         m0->append(c);
@@ -149,7 +149,7 @@ void LifeRhythm::mainInit() {
 
 void LifeRhythm::postInit() {
     WidgetFactoryStorage::parseAll();
-    mainFrame = WidgetFactoryStorage::get("lr:widget_mainframe")->applyAndCast<MainFrame>();
+    // mainFrame = WidgetFactoryStorage::get("lr:widget_mainframe")->applyAndCast<MainFrame>();
     if (config.mode == Config::Test) {
         return;
     }

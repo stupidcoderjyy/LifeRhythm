@@ -18,11 +18,11 @@ MainFrame::MainFrame(QWidget* parent): Widget(parent) {
 
 void MainFrame::onFinishedParsing(StandardWidget::Handlers &handlers, NBT *widgetTag) {
     handlers << [](QWidget* target) {
-        static_cast<MainFrame*>(target)->init();
+        static_cast<MainFrame*>(target)->initWidget();
     };
 }
 
-void MainFrame::init() {
+void MainFrame::initWidget() {
     tabBar = getPointer<TabBar>("tabBar");
     auto* tabContent = getPointer<Widget>("tabContent");
     connect(tabBar, &TabBar::sigTabContentChanged, this, [this](Tab* pre, Tab* cur){

@@ -6,7 +6,6 @@
 #define LIFERHYTHM_TABBAR_H
 
 #include "widgets/Widget.h"
-#include "widgets/ImgLabel.h"
 #include "Identifier.h"
 #include "Namespaces.h"
 #include <QScrollArea>
@@ -14,8 +13,10 @@
 #include "Plugin.h"
 #include <QPainter>
 
+#include "Button.h"
+#include "Label.h"
+
 class WidgetFactory;
-class TextLabel;
 
 BEGIN_NAMESPACE(lr)
 
@@ -36,8 +37,8 @@ class CORE_API TabCard : public Widget{
     Q_OBJECT
 private:
     bool selected = false;
-    ImgLabel* iconLabel{};
-    TextLabel* titleLabel{};
+    Label* iconLabel{};
+    Label* titleLabel{};
     CloseButton* closeButton{};
 public:
     explicit TabCard(QWidget* parent);
@@ -55,7 +56,7 @@ protected:
     void leaveEvent(QEvent *event) override;
 };
 
-class CORE_API CloseButton : public ImgLabel {
+class CORE_API CloseButton : public Button {
 Q_OBJECT
 public:
     explicit CloseButton(QWidget* parent);
@@ -107,7 +108,7 @@ signals:
 protected:
     bool event(QEvent *event) override;
 private:
-    void init();
+    void initWidget();
 };
 
 END_NAMESPACE

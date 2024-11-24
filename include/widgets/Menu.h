@@ -13,7 +13,7 @@
 class CORE_API Menu : public QWidget, public StandardWidget {
     Q_OBJECT
 public:
-    explicit Menu(QWidget* parent = nullptr);
+    explicit Menu(QWidget* parent = nullptr, bool initInConstructor = true);
 signals:
     void sigAboutToClose();
 protected:

@@ -66,7 +66,8 @@ void WidgetFactory::parse() noexcept {
             throwInFunc("factory '" + id + "' is not in empty state");
         }
         state = Parsing;
-        stdType = parseWidgetType(source);
+        bool builtIn;
+        stdType = parseWidgetType(builtIn, source);
         stdType->onPreParsing(handlers, source);
         parseModel(source);
         parseQss(handlers,source);
@@ -84,6 +85,15 @@ void WidgetFactory::parse() noexcept {
                 stdWidget->setState(0); //设置默认状态
             }
         };
+        if (builtIn) {
+            //只有当WidgetFactory负责构造对象时才自动加载
+            handlers << [](QWidget *t) {
+                if (auto *w = dynamic_cast<StandardWidget *>(t)) {
+                    w->initWidget();
+                    w->prepared = true;
+                }
+            };
+        }
         stdType->onFinishedParsing(handlers, source);
         state = Ready;
     } catch (Error& e) {
@@ -93,7 +103,7 @@ void WidgetFactory::parse() noexcept {
     }
 }
 
-StandardWidget* WidgetFactory::parseWidgetType(NBT *nbt) {
+StandardWidget* WidgetFactory::parseWidgetType(bool& builtIn, NBT *nbt) {
     //外部加载器
     WidgetFactory* loader = nullptr;
     if (nbt->contains("loader", Data::STRING)) {
@@ -104,6 +114,7 @@ StandardWidget* WidgetFactory::parseWidgetType(NBT *nbt) {
         }
     }
     //组件类型，如果使用外部加载器，则stdType会被忽略（别手贱写个不存在的type）
+    builtIn = nbt->contains("type", Data::STRING);
     QString type = nbt->getString("type", "Widget");
     //检查组件类型，优先使用自定义组件
     StandardWidget* stdWidget = customEmptyInstances->value(type);
