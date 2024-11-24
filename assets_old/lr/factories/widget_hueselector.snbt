@@ -1,0 +1,17 @@
+{
+    type: "HueSelector"
+    children: ["bar", "list"]
+    layout: {
+        type: "Horizontal"
+        margins: [0,0,0,0]
+        spacing: 0
+    }
+    bar: {
+        type: "VColorBar"
+        pointer: true
+    }
+    list: {
+        type: "DefaultColorsList"
+        model: "lr:default_colors"
+    }
+}

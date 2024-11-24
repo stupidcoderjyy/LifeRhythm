@@ -1,0 +1,74 @@
+{
+    type: "A"
+    children: ["timeBar", "w0"]
+    layout: {
+        type: "Horizontal"
+        margins: [10, 10, 10, 10]
+        spacing: 20
+    }
+    timeBar: {
+        type: "A0"
+        fixed_width: 300
+        pointer: true
+        barRange: [0, 1440]
+        mainZoomRange: [0.8, 2.4]
+        mainZoomStep: 0.4
+        zoomEnabled: [true, false]
+        vpp: 1.2
+        sideLen: 245
+    }
+    w0: {
+        children: ["buttons", "sp", "labelState", "a1"]
+        h_size_policy: "Min"
+        layout: {
+            type: "Vertical"
+            margins: [0,0,0,0]
+            spacing: 5
+            align: "Top"
+        }
+        buttons: {
+            children: ["btnProfile", "sp", "btnLoop", "btnPop", "btnPush"]
+            fixed_height: 40
+            layout: {
+                type: "Horizontal"
+                margins: [5,5,5,5]
+                spacing: 10
+                align: "Left"
+            }
+            btnProfile: {
+                type: "ImgButton"
+                img: "log:profile_30x30"
+            }
+            sp: {
+                type: "Separator"
+            }
+            btnLoop: {
+                type: "ImgButton"
+                img: "log:loop_30x30"
+            }
+            btnPop: {
+                type: "ImgButton"
+                img: "log:pop_30x30"
+            }
+            btnPush: {
+                type: "ImgButton"
+                img: "log:push_30x30"
+            }
+        }
+        sp: {
+            type: "Separator"
+            isHorizontal: true
+        }
+        labelState: {
+            type: "TextLabel"
+            fs: 25
+            fixed_height: 50
+            color: "BLUE_1"
+            text: "记录中"
+        }
+        a1: {
+            type: "A1"
+            pointer: true
+        }
+    }
+}

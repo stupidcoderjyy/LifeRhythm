@@ -1,0 +1,27 @@
+{
+    type: "WidgetStartPeriodMenu"
+    fixed_width: 600
+    fixed_height: 400
+    children: ["recordTypeList", "pageContainer"]
+
+    layout: {
+        type: "Horizontal"
+        margins: [0,0,0,0]
+        spacing: 0
+    }
+
+    recordTypeList: {
+        type: "RecordTypeListWidget"
+        pointer: true
+        fixed_width: 200
+    }
+
+    pageContainer: {
+        pointer: true
+        layout: {
+            type: "Horizontal"
+            margins: [0,0,0,0]
+            spacing: 0
+        }
+    }
+}

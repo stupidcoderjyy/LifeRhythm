@@ -1,0 +1,21 @@
+{
+    type: "TimeBarItem"
+    children: ["labelInfo", "labelRange"]
+    layout: {
+        type: "Vertical"
+        align: "Top"
+        margins: [5,2,5,0]
+        spacing: 0
+    }
+    labelRange: {
+        type: "TextLabel"
+        align: "Left"
+        fs: 9
+        pointer: true
+    }
+    labelInfo: {
+        type: "TextLabel"
+        align: "Left"
+        pointer: true
+    }
+}

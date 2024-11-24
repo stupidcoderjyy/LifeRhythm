@@ -1,0 +1,64 @@
+{
+    fixed_width: 600
+    fixed_height: 327
+    layout: {
+        type: "Vertical"
+        margins: [10,10,10,10]
+    }
+    children: ["top", "buttons"]
+    top: {
+        children: ["l0", "edit", "l1", "w"]
+        layout: {
+            type: "Grid"
+            max_columns: 2
+            row_heights: [40, 40]
+            row_spacing: 5
+            column_widths: [60]
+            margins: [0,0,0,0]
+            align: "Top"
+        }
+        l0: {
+            type: "TextLabel"
+            text: "名称:"
+        }
+        edit: {
+            type: "LineEdit"
+            pointer: true
+        }
+        l1: {
+            type: "TextLabel"
+            text: "颜色:"
+        }
+        w: {
+            children: ["colorBox"]
+            layout: {
+                type: "Horizontal"
+                margins: [0,0,0,0]
+                spacing: 0
+                align: "Left"
+            }
+            colorBox: {
+                type: "PeriodTypeColorBox"
+            }
+        }
+    }
+    buttons: {
+        children: ["buttonCancel", "buttonConfirm"]
+        v_size_policy: "Max"
+        layout: {
+            type: "Horizontal"
+            spacing: 10
+            margins: [5,0,0,0]
+            align: "Right|V_Center"
+        }
+        buttonCancel: {
+            type: "TextButton"
+            text: "取消"
+        }
+        buttonConfirm: {
+            type: "TextButton"
+            buttonType: "Highlighted"
+            text: "确定"
+        }
+    }
+}

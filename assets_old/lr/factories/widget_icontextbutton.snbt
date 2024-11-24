@@ -1,0 +1,21 @@
+{
+    children: ["icon", "name"]
+    fixed_height: 40
+    h_size_policy: "Max"
+    layout: {
+        type: "Horizontal"
+        margins: [5,5,5,5]
+        spacing: 5
+    }
+    icon: {
+        type: "ImgLabel"
+        scale: [30,30]
+        pointer: true
+        fixed_width: 30
+        fixed_height: 30
+    }
+    name: {
+        type: "TextLabel"
+        pointer: true
+    }
+}

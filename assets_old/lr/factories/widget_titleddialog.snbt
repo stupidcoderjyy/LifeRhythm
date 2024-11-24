@@ -1,0 +1,60 @@
+{
+    type: "TitledDialog"
+    children: ["topWidget", "content"]
+    qss: "bg(GRAY_0) bd('1px', 'solid', GRAY_1)"
+    v_size_policy: "Max"
+    h_size_policy: "Max"
+
+    layout: {
+        type: "Vertical"
+        margins: [1,1,1,1]
+        spacing: 0
+    }
+
+    topWidget: {
+        type: "TopWidget"
+        children: ["icon", "titleLabel", "closeButton"]
+        fixed_height: 36
+        qss: "bd_b('1px', 'solid', GRAY_1)"
+
+        layout: {
+            type: "Horizontal"
+            spacing: 0
+            align: "V_Center"
+            margins: [0,0,0,2]
+        }
+
+        icon: {
+            type: "ImgLabel"
+            img: "lr:icon_30"
+            scale: [25, 25]
+            fixed_width: 40
+        }
+
+        titleLabel: {
+            type: "TextLabel"
+            pointer: true
+            h_size_policy: "Min"
+        }
+
+        closeButton: {
+            type: "DialogCloseButton"
+            img: "lr:dialog_close"
+            pointer: true
+            align: "Center"
+            fixed_width: 35
+            states: {
+                s0: {
+                    qss: "bg(GRAY_0)"
+                }
+                s1: {
+                    qss: "bg(RED)"
+                }
+            }
+        }
+    }
+
+    content: {
+        pointer: true
+    }
+}

@@ -1,0 +1,96 @@
+{
+    type: "B"
+    children: ["w0", "w1"]
+    layout: {
+        type: "Horizontal"
+        margins: [0,0,0,0]
+        spacing: 0
+        align: "Left"
+    }
+    w0: {
+        children: ["b0", "w0", "b1", "b2"]
+        h_size_policy: "Fixed"
+        layout: {
+            type: "Vertical"
+            margins: [0,1,1,0]
+            spacing: 0
+            align: "Top"
+        }
+        b0: {
+            type: "B0"
+        }
+        w0: {
+            type: "TextLabel"
+            text: "统计"
+            fixed_height: 40
+            qss: "bg(GRAY_0) bd_b('1px', 'solid', BLACK)"
+            margins: [5,0,0,0]
+        }
+        b1: {
+            type: "B1"
+            qss: "bg(GRAY_0)"
+            fixed_height: 40
+            children: ["dateRangeSelector", "buttonReload"]
+            layout: {
+                type: "Horizontal"
+                margins: [5,0,5,0]
+                spacing: 0
+                spacers: [{
+                    pos: 1
+                    h_size_policy: "Expanding"
+                }]
+            }
+            buttonReload: {
+                type: "ImgButton"
+                img: "lr:reload_30x30"
+            }
+            dateRangeSelector: {
+                type: "DateRangeSelector"
+                h_size_policy: "Max"
+                fixed_height: 30
+            }
+        }
+        b2: {
+            type: "B2"
+            pointer: true
+        }
+    }
+    w1: {
+        children: ["w0", "b4"]
+        qss: "bd_l('1px', 'solid', GRAY_1)"
+        layout: {
+            type: "Vertical"
+            margins: [1,0,0,0]
+            spacing: 0
+        }
+        w0: {
+            children: ["wvTitle"]
+            qss: "bd_b('1px', 'solid', GRAY_1)"
+            layout: {
+                type: "Horizontal"
+                margins: [0,0,0,0]
+                spacing: 0
+                align: "Left"
+                spacers: [{
+                    pos: 0
+                    width: 55
+                }]
+            }
+            wvTitle: {
+                type: "B3"
+                pointer: true
+            }
+        }
+        b4: {
+            type: "B4"
+            fixed_width: 1455
+            pointer: true
+            barRange: [0, 1440]
+            mainZoomRange: [0.8, 2.4]
+            zoomEnabled: [true, false]
+            mainZoomStep: 0.4
+            vpp: 1.2
+            sideLen: 200
+        }
+    }
+}

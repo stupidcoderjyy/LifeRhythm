@@ -1,0 +1,13 @@
+{
+    children: ["l"]
+
+    l: {
+        type: "List"
+        pointer: true
+    }
+
+    layout: {
+        type: "Horizontal"
+        margins: [2,2,2,2]
+    }
+}
