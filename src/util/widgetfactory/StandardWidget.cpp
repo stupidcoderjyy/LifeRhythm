@@ -12,7 +12,6 @@ StandardWidget::StandardWidget(bool initInConstructor): prepared() {
         QTimer::singleShot(0, dynamic_cast<QObject*>(this), [this] {
             initWidget();
         });
-        prepared = true;
     }
 }
 
@@ -51,20 +50,24 @@ void StandardWidget::setState(int newState) {
     }
 }
 
-void StandardWidget::onPreParsing(Handlers &handlers, NBT *widgetTag) {
+void StandardWidget::onPreParsing(Handlers &handlers, NBT *nbt) {
 }
 
-void StandardWidget::onPostParsing(Handlers &handlers, NBT *widgetTag) {
+void StandardWidget::onPostParsing(Handlers &handlers, NBT *nbt) {
 }
 
-void StandardWidget::onFinishedParsing(Handlers &handlers, NBT *widgetTag) {
+void StandardWidget::onFinishedParsing(Handlers &handlers, NBT *nbt) {
 }
 
-void StandardWidget::onStateRespondersParsing(Handlers &responders, NBT *stateTag) {
+void StandardWidget::onStateRespondersParsing(Handlers &responders, NBT *nbt) {
 }
 
 void StandardWidget::registerPointer(const QString &id, QWidget *p) {
     pointers.insert(id, p);
+}
+
+void StandardWidget::registerPointer(const StandardWidget *other) {
+    pointers.insert(other->pointers);
 }
 
 void StandardWidget::setData(WidgetData *d) {

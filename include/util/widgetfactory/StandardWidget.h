@@ -32,14 +32,15 @@ public:
     void registerGlobalResponder(const Handler& responder);
     void setState(int newState);
     //完成类型的解析和标准化组件对象创建后被调用
-    virtual void onPreParsing(Handlers &handlers, NBT* widgetTag);
+    virtual void onPreParsing(Handlers &handlers, NBT* nbt);
     //完成本组件解析，但还没有开始解析子组件时被调用
-    virtual void onPostParsing(Handlers &handlers, NBT* widgetTag);
+    virtual void onPostParsing(Handlers &handlers, NBT* nbt);
     //在完成本组件和所有子组件解析时被调用
-    virtual void onFinishedParsing(Handlers &handlers, NBT* widgetTag);
+    virtual void onFinishedParsing(Handlers &handlers, NBT* nbt);
     //自定义条件触发器的解析逻辑
-    virtual void onStateRespondersParsing(Handlers &responders, NBT* stateTag);
+    virtual void onStateRespondersParsing(Handlers &responders, NBT* nbt);
     void registerPointer(const QString& id, QWidget* p);
+    void registerPointer(const StandardWidget* other);
     template<class T> T* getPointer(const QString& id) {
         auto* result = pointers.value(id, nullptr);
         return dynamic_cast<T*>(result);

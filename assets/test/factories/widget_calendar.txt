@@ -1,27 +1,20 @@
 {
     type: "DropDown"
     children: ["label"]
-
-    h_size_policy: "Max"
-    v_size_policy: "Max"
-
-    layout: {
-        type: "Horizontal"
-    }
-
     label: {
         type: "Label"
-        text: "Label"
+        pointer: true
     }
-
+    layout: {
+        type: "Horizontal"
+        margins: [0,0,0,0]
+    }
     menu: {
-        children: ["l"]
-
-        l: {
-            type: "List"
+        children: ["c"]
+        c: {
+            type: "DropDownMiniCalendar"
             pointer: true
         }
-
         layout: {
             type: "Horizontal"
             margins: [2,2,2,2]

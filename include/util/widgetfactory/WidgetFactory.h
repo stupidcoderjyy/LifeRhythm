@@ -25,6 +25,7 @@ private:
     static QMap<QString, StandardWidget*> stdEmptyInstances;
     static QMap<QString, Qt::AlignmentFlag> alignments;
     static QMap<QString, QSizePolicy::Policy> policies;
+    static QVector<WidgetFactory*> inParsing;
     enum State{
         Empty,
         Parsing,
@@ -44,13 +45,16 @@ private:
     NBT* source{};
     State state = Empty;
     QString id;
+    WidgetFactory *pointerContainer;
 public:
     static void mainInit();
     static WidgetFactory* fromResource(const Identifier& loc);
     static WidgetFactory* fromNbt(const QString& id, NBT* nbt);
-    template<class W> static void parseTextWidget(Handlers& handlers, NBT* nbt);
+    //创建一个包含当前工厂组件信息的子工厂
+    template<class W> static void parseTextWidget(Handlers& handlers, const NBT* nbt);
     static Qt::Alignment parseAlign(const QString& align);
     static QSize parseSize(ArrayData* arr);
+    static WidgetFactory* factoryInParse();
     void setSource(NBT* nbt);
     void parse() noexcept;
     void registerStdWidget(const QString& type, const Supplier& supplier, StandardWidget* instance) const;
@@ -58,6 +62,8 @@ public:
     template<class T> T* applyAndCast(QWidget* parent = nullptr, QWidget* target = nullptr) {
         return static_cast<T*>(apply(parent, target));
     }
+    void include(const WidgetFactory* other) const;
+    void overridePointerStorage(WidgetFactory* target);
     ~WidgetFactory();
 private:
     static void parseQss(Handlers& target, NBT* nbt);
@@ -73,8 +79,8 @@ private:
     void parseLayout(NBT* target);
     void parseSpacers(NBT* nbt);
     void parseGridLayout(NBT* nbt);
-    void parseMargins(NBT* nbt);
-    void parseStates(NBT* nbt);
+    void parseMargins(const NBT* nbt);
+    void parseStates(const NBT* nbt);
     void parseSingleState(Handlers& op, NBT* stateTag) const;
     void parsePointer(NBT* nbt);
     QWidget* createWidget(const QString& type) const;
@@ -82,7 +88,7 @@ private:
 };
 
 template<class W>
-void WidgetFactory::parseTextWidget(Handlers &handlers, NBT *nbt) {
+void WidgetFactory::parseTextWidget(Handlers &handlers, const NBT *nbt) {
     if (nbt->contains("text", Data::STRING)) {
         QString text = nbt->getString("text", "");
         handlers << [text](QWidget* target) {
@@ -146,4 +152,5 @@ void WidgetFactory::parseTextWidget(Handlers &handlers, NBT *nbt) {
         };
     }
 }
+
 #endif //LIFERHYTHM_WIDGETFACTORY_H

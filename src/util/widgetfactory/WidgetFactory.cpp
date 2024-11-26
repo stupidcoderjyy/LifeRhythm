@@ -17,15 +17,16 @@ WidgetFactory::WidgetFactory(QString id):
         customSuppliers(new QMap<QString, Supplier>()),
         customEmptyInstances(new QMap<QString, StandardWidget*>()),
         parentFactory(nullptr),
-        id(std::move(id)) {
+        id(std::move(id)),
+        pointerContainer(this) {
 }
 
 WidgetFactory::WidgetFactory(WidgetFactory *parent, const QString& id, NBT *nbt):
-        customSuppliers(parent->customSuppliers),
-        customEmptyInstances(parent->customEmptyInstances),
         parentFactory(parent),
-        id(id) {
-    parent->childFactories.insert(id, this);
+        id(id),
+        pointerContainer(this) {
+    customSuppliers = parent->customSuppliers;
+    customEmptyInstances = parent->customEmptyInstances;
     source = nbt;
 }
 
@@ -59,11 +60,11 @@ QWidget* WidgetFactory::apply(QWidget *parent, QWidget *target) noexcept {
 
 void WidgetFactory::parse() noexcept {
     try {
+        inParsing << this;
         if (state != Empty) {
             if (state == Ready) {
                 return;
             }
-            throwInFunc("factory '" + id + "' is not in empty state");
         }
         state = Parsing;
         bool builtIn;
@@ -90,16 +91,17 @@ void WidgetFactory::parse() noexcept {
             handlers << [](QWidget *t) {
                 if (auto *w = dynamic_cast<StandardWidget *>(t)) {
                     w->initWidget();
-                    w->prepared = true;
                 }
             };
         }
         stdType->onFinishedParsing(handlers, source);
         state = Ready;
+        inParsing.pop_back();
     } catch (Error& e) {
         e.why = "failed to parse factory '" + id + "': " + e.why;
         PrintErrorHandler().onErrorCaught(e);
         state = Broken;
+        inParsing.pop_back();
     }
 }
 
@@ -392,7 +394,7 @@ void WidgetFactory::parseGridLayout(NBT *nbt) {
     };
 }
 
-void WidgetFactory::parseMargins(NBT *nbt) {
+void WidgetFactory::parseMargins(const NBT *nbt) {
     if (!nbt->contains("margins", Data::ARR)) {
         return;
     }
@@ -402,7 +404,7 @@ void WidgetFactory::parseMargins(NBT *nbt) {
     };
 }
 
-void WidgetFactory::parseStates(NBT *nbt) {
+void WidgetFactory::parseStates(const NBT *nbt) {
     if (!nbt->contains("states", Data::COMPOUND)) {
         return;
     }
@@ -449,12 +451,12 @@ void WidgetFactory::parsePointer(NBT *nbt) {
     if (!nbt->getBool("pointer")) {
         return;
     }
-    WidgetFactory* root = this;
-    while (root->parentFactory) {
-        root = root->parentFactory;
+    WidgetFactory* storage = pointerContainer;
+    while (storage->parentFactory) {
+        storage = storage->parentFactory->pointerContainer;
     }
-    handlers << [root](QWidget* target) {
-        auto* rootStd = dynamic_cast<StandardWidget*>(root->workingWidget);
+    handlers << [storage](QWidget* target) {
+        auto* rootStd = dynamic_cast<StandardWidget*>(storage->workingWidget);
         rootStd->registerPointer(target->objectName(), target);
     };
 }
@@ -520,7 +522,7 @@ Qt::Alignment WidgetFactory::parseAlign(const QString &alignment) {
     return result;
 }
 
-void WidgetFactory::parseSizePolicy(WidgetFactory::Handlers& handlers, NBT* nbt) {
+void WidgetFactory::parseSizePolicy(Handlers& handlers, NBT* nbt) {
     bool hasH = nbt->contains("h_size_policy", Data::STRING);
     bool hasV = nbt->contains("v_size_policy", Data::STRING);
     QSizePolicy::Policy h, v;
@@ -554,6 +556,13 @@ QSize WidgetFactory::parseSize(ArrayData *arr) {
     return {data[0], data[1]};
 }
 
+WidgetFactory * WidgetFactory::factoryInParse() {
+    if (inParsing.empty()) {
+        return nullptr;
+    }
+    return inParsing.last();
+}
+
 QMargins WidgetFactory::parseMargins(ArrayData *array) {
     auto elements = array->get();
     if (elements.size() != 4) {
@@ -567,6 +576,15 @@ QMargins WidgetFactory::parseMargins(ArrayData *array) {
         arr[i] = elements[i]->asInt()->get();
     }
     return {arr[0], arr[1], arr[2], arr[3]};
+}
+
+void WidgetFactory::include(const WidgetFactory *other) const {
+    customSuppliers->insert(*other->customSuppliers);
+    customEmptyInstances->insert(*other->customEmptyInstances);
+}
+
+void WidgetFactory::overridePointerStorage(WidgetFactory *target) {
+    pointerContainer = target;
 }
 
 WidgetFactory::~WidgetFactory() {
@@ -605,6 +623,7 @@ QMap<QString, WidgetFactory::Supplier> WidgetFactory::stdSuppliers{};
 QMap<QString, StandardWidget*> WidgetFactory::stdEmptyInstances{};
 QMap<QString, Qt::AlignmentFlag> WidgetFactory::alignments{};
 QMap<QString, QSizePolicy::Policy> WidgetFactory::policies{};
+QVector<WidgetFactory*> WidgetFactory::inParsing{};
 
 void WidgetFactory::mainInit() {
     FactoryInit::mainInit(&stdSuppliers, &stdEmptyInstances);
@@ -637,7 +656,6 @@ WidgetFactory *WidgetFactory::fromNbt(const QString& id, NBT *nbt) {
 void WidgetFactory::registerStdWidget(const QString &type, const Supplier &supplier, StandardWidget *instance) const {
     if (customSuppliers->contains(type)) {
         delete customEmptyInstances->take(type);
-        qDebug() << "override std widget '" + type + "'";
     }
     customSuppliers->insert(type, supplier);
     customEmptyInstances->insert(type, instance);
