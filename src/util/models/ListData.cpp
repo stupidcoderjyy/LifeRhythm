@@ -63,7 +63,9 @@ void ListData::selectData(int idx) {
             markChange(idx, idx);
         }
         endEdit();
-        emit sigDataSelected(old, idx);
+        if (idx >= 0) {
+            emit sigDataSelected(old, idx);
+        }
     }
 }
 

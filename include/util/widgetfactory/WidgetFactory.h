@@ -72,7 +72,7 @@ private:
     static void parseSizePolicy(Handlers& op, NBT* nbt);
     static QSizePolicy::Policy parsePolicy(const QString& name);
     explicit WidgetFactory(QString id);
-    explicit WidgetFactory(WidgetFactory* parent, const QString& id, NBT* nbt);
+    explicit WidgetFactory(WidgetFactory* parent, QString id, NBT* nbt);
     StandardWidget* parseWidgetType(bool& builtIn, NBT* nbt);
     void parseChildren(NBT* nbt);
     WidgetFactory* findFactory(NBT* nbt, const QString& path);

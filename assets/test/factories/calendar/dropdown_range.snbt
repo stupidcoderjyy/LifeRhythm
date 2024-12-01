@@ -1,0 +1,36 @@
+{
+    type: "calendar::DropDownRange"
+    fixed_height: 29
+    children: ["l", "arr"]
+    layout: {
+        type: "Horizontal"
+        margins: [0,0,0,0]
+        spacing: 0
+    }
+    l: {
+        type: "Label"
+        pointer: true
+    }
+    arr: {
+        type: "ArrowButton"
+        styleEnabled: false
+        activeOnPress: true
+        focus: false
+        base: "Down"
+        activated: "Down"
+    }
+    menu: {
+        children: ["list"]
+        h_size_policy: "Max"
+        fixed_width: 100
+        layout: {
+            type: "Horizontal"
+            margins: [2,2,2,2]
+            spacing: 0
+        }
+        list: {
+            type: "calendar::ListRange"
+            pointer: true
+        }
+    }
+}

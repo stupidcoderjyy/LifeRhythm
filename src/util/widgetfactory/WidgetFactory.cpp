@@ -21,9 +21,9 @@ WidgetFactory::WidgetFactory(QString id):
         pointerContainer(this) {
 }
 
-WidgetFactory::WidgetFactory(WidgetFactory *parent, const QString& id, NBT *nbt):
+WidgetFactory::WidgetFactory(WidgetFactory *parent, QString id, NBT *nbt):
         parentFactory(parent),
-        id(id),
+        id(std::move(id)),
         pointerContainer(this) {
     customSuppliers = parent->customSuppliers;
     customEmptyInstances = parent->customEmptyInstances;
@@ -86,6 +86,7 @@ void WidgetFactory::parse() noexcept {
                 stdWidget->setState(0); //设置默认状态
             }
         };
+        stdType->onFinishedParsing(handlers, source);
         if (builtIn) {
             //只有当WidgetFactory负责构造对象时才自动加载
             handlers << [](QWidget *t) {
@@ -94,7 +95,6 @@ void WidgetFactory::parse() noexcept {
                 }
             };
         }
-        stdType->onFinishedParsing(handlers, source);
         state = Ready;
         inParsing.pop_back();
     } catch (Error& e) {

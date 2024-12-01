@@ -18,12 +18,12 @@
 
 void FactoryInit::mainInit(QMap<QString, WidgetFactory::Supplier> *stdSuppliers,
                            QMap<QString, StandardWidget *> *stdEmptyInstances) {
-    reg(Widget)
-    reg(Button)
-    reg(Label)
-    reg(FocusContainer)
-    reg(LineEdit)
-    reg(Menu)
+    // reg(Widget)
+    // reg(Button)
+    // reg(Label)
+    // reg(FocusContainer)
+    // reg(LineEdit)
+    // reg(Menu)
     // reg(ColorIcon)
     // reg(DefaultColorsList)
     // reg(HueSelector)

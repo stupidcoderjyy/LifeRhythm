@@ -1,0 +1,46 @@
+{
+    type: "Calendar"
+    children: ["top"]
+    layout: {
+        type: "Horizontal"
+        margins: [0,0,0,0]
+    }
+    top: {
+        children: ["btnPrev", "btnMc", "btnNext", "dp", "btnWeek", "btnMonth"]
+        layout: {
+            type: "Horizontal"
+            margins: [0,0,0,0]
+            spacing: 2
+            spacers: [{
+                pos: 3
+                h_size_policy: "Expanding"
+            }]
+        }
+        btnPrev: {
+            type: "ArrowButton"
+            base: "Left"
+            activated: "Left"
+        }
+        btnMc: {
+            loader: "test:calendar/dropdown_mini_calendar"
+        }
+        btnNext: {
+            type: "ArrowButton"
+            base: "Right"
+            activated: "Right"
+        }
+        dp: {
+            loader: "test:calendar/dropdown_range"
+        }
+        btnWeek: {
+            type: "Button"
+            mode: "Select"
+            img: "lr:pen_30x30"
+        }
+        btnMonth: {
+            type: "Button"
+            mode: "Select"
+            img: "lr:reload_30x30"
+        }
+    }
+}

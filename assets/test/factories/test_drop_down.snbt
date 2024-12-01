@@ -2,7 +2,6 @@
     type: "DropDown"
     children: ["label"]
 
-    h_size_policy: "Max"
     v_size_policy: "Max"
 
     layout: {
@@ -12,6 +11,7 @@
     label: {
         type: "Label"
         text: "Label"
+        fixed_height: 50
     }
 
     menu: {
