@@ -57,10 +57,9 @@ void FocusManager::push0(QWidget *w) {
 }
 
 void FocusManager::pop0() {
-    if (focusStack.empty()) {
-        return;
+    if (!focusStack.empty()) {
+        mark0(focusStack.takeLast());
     }
-    focusStack.removeLast();
 }
 
 bool FocusManager::checkPeek0(const QWidget *w) {

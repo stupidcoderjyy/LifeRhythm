@@ -138,7 +138,13 @@ StandardWidget* WidgetFactory::parseWidgetType(bool& builtIn, NBT *nbt) {
             workingWidget = createWidget(type);
         }
         //设置组件名称
-        workingWidget->setObjectName(id);
+        if (!loader) {
+            /*
+             * 如果存在loader，对象名称将由外部加载器设置，
+             * 防止限定名称的qss失效
+             */
+            workingWidget->setObjectName(id);
+        }
         //设置父组件并将子组件加入父组件的布局中，此时父加载器正在进行调用子加载器的阶段
         if (!parentFactory) {
             return;
