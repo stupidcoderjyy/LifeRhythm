@@ -13,5 +13,5 @@ Error::Error(QString where, QString what): where(std::move(where)), why(std::mov
 }
 
 const char *Error::what() const noexcept {
-    return "";
+    return where.toStdString().c_str();
 }

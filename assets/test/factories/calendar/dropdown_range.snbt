@@ -4,7 +4,7 @@
     children: ["l", "arr"]
     layout: {
         type: "Horizontal"
-        margins: [0,0,0,0]
+        margins: [10,0,0,0]
         spacing: 0
     }
     l: {
@@ -29,8 +29,32 @@
             spacing: 0
         }
         list: {
-            type: "calendar::ListRange"
+            type: "ListWidget"
             pointer: true
+            item: {
+                type: "calendar::ItemRange"
+                children: ["l"]
+
+                l: {
+                    type: "Label"
+                    align: "Left|V_Center"
+                    pointer: true
+                }
+
+                layout: {
+                    type: "Horizontal"
+                    margins: [0,0,0,0]
+                }
+
+                states: {
+                    s0: {
+                        qss: "bg(GRAY_0)"
+                    }
+                    s1: {
+                        qss: "bg(BLUE_0)"
+                    }
+                }
+            }
         }
     }
 }

@@ -24,18 +24,32 @@ protected:
     int state = -1;
     WidgetData* wData = nullptr;
     QVector<QMetaObject::Connection> dc;
+
+    /*
+     *  标志组件是否初始化完成，由用户控制
+     *  在prepared为false时调用setData应当报错
+     */
     bool prepared;
 public:
     explicit StandardWidget(bool initInConstructor);
-    int getState() const;
     void registerResponder(int _state, const Handler& responder);
     void registerGlobalResponder(const Handler& responder);
     void setState(int newState);
-    //完成类型的解析和标准化组件对象创建后被调用
+
+    /*
+     * 完成类型的解析和标准化组件对象创建后被调用
+     */
     virtual void onPreParsing(Handlers &handlers, NBT* nbt);
-    //完成本组件解析，但还没有开始解析子组件时被调用
+
+    /*
+     * 完成本组件解析，但还没有开始解析子组件时被调用
+     */
     virtual void onPostParsing(Handlers &handlers, NBT* nbt);
-    //在完成本组件和所有子组件解析时被调用
+
+    /*
+     * 在完成本组件和所有子组件解析时被调用
+     * 加入handlers的逻辑先于initWidget被调用
+     */
     virtual void onFinishedParsing(Handlers &handlers, NBT* nbt);
     //自定义条件触发器的解析逻辑
     virtual void onStateRespondersParsing(Handlers &responders, NBT* nbt);
@@ -45,20 +59,49 @@ public:
         auto* result = pointers.value(id, nullptr);
         return dynamic_cast<T*>(result);
     }
+
+    /*
+     *  设置组件和子组件的WidgetData，并调用syncDataToWidget更新组件
+     *  !! 这一步应当在initWidget后进行
+     */
     virtual void setData(WidgetData* d);
-    //将data中数据同步到组件中，data可能为null
+
+    /*
+     * 将data中数据同步到组件中，data可能为null
+     */
     virtual void syncDataToWidget();
-    //将组件内的数据同步到data中
+
+    /*
+     * 将组件内的数据同步到data中，data可能为null
+     */
     virtual void syncWidgetToData();
+
     virtual ~StandardWidget();
-    WidgetData* widgetData() const {
-        return wData;
-    }
+    inline WidgetData* widgetData() const;
+    int getState() const;
 protected:
+    /*
+     *  连接wData和组件之间的信号，会在设置新的WidgetData时被调用，
+     *  创建的信号应当加入dc列表，dc列表中存储的信号会在设置新的
+     *  WidgetData时清楚。
+     *  !! 和wData无关的信号别放在这里连接，应当考虑initWidget
+     */
     virtual void connectModelView();
 
-    //初始化组件，若使用WidgetFactory构造，则默认位于最后调用；其他情况下可以选择构造函数内调用
+    /*
+     * 初始化组件。在使用WidgetFactory构造时，本函数会在最后被调用；
+     * 使用new构造时，若传入initInConstructor为true，则本函数会在
+     * Qt下一轮事件循环中被调用，传入false时不会被自动调用
+     * !! 此函数不应当做任何与WidgetData有关的事情
+     */
     virtual void initWidget();
 };
 
+inline WidgetData * StandardWidget::widgetData() const {
+    return wData;
+}
+
+inline int StandardWidget::getState() const {
+    return state;
+}
 #endif //LIFERHYTHM_STANDARDWIDGET_H

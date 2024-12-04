@@ -1,8 +1,8 @@
 {
     type: "DropDown"
-    children: ["label"]
-    fixed_width: 100
-    label: {
+    children: ["l"]
+    style: "Button"
+    l: {
         type: "Label"
         pointer: true
         text: "2024年5月"
@@ -13,8 +13,10 @@
     }
     menu: {
         children: ["c"]
+        fixed_width: 256
+        fixed_height: 292
         c: {
-            type: "calendar::DropDownMiniCalendar"
+            type: "calendar::MiniCalendarDropDown"
             pointer: true
         }
         layout: {

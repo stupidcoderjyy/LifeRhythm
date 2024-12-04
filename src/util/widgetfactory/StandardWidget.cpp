@@ -4,6 +4,7 @@
 
 #include "StandardWidget.h"
 #include "MemUtil.h"
+#include "Error.h"
 #include <QDebug>
 #include <QTimer>
 
@@ -13,10 +14,6 @@ StandardWidget::StandardWidget(bool initInConstructor): prepared() {
             initWidget();
         });
     }
-}
-
-int StandardWidget::getState() const {
-    return state;
 }
 
 void StandardWidget::registerResponder(int _state, const Handler &responder) {
@@ -71,6 +68,10 @@ void StandardWidget::registerPointer(const StandardWidget *other) {
 }
 
 void StandardWidget::setData(WidgetData *d) {
+    if (!prepared) {
+        throw Error("[StandardWidget::setData] widget is unprepared: '"
+            + dynamic_cast<QObject*>(this)->objectName() + "'");
+    }
     if (wData == d) {
         return;
     }
@@ -83,6 +84,7 @@ void StandardWidget::setData(WidgetData *d) {
     if (d) {
         connectModelView();
     }
+    syncDataToWidget();
 }
 
 void StandardWidget::syncDataToWidget() {
@@ -99,4 +101,5 @@ void StandardWidget::connectModelView() {
 }
 
 void StandardWidget::initWidget() {
+    prepared = true;
 }

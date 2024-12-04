@@ -3,6 +3,7 @@
     children: ["label"]
 
     v_size_policy: "Max"
+    style: "Button"
 
     layout: {
         type: "Horizontal"
