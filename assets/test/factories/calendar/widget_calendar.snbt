@@ -1,11 +1,13 @@
 {
-    type: "Calendar"
-    children: ["top"]
+    min_width: 500
+    min_height: 500
+    children: ["top", "slots"]
     layout: {
-        type: "Horizontal"
+        type: "Vertical"
         margins: [0,0,0,0]
     }
     top: {
+        v_size_policy: "Max"
         children: ["btnPrev", "btnNext", "btnMc", "dp", "btnWeek", "btnMonth"]
         qss: "bg(GRAY_0)"
         layout: {
@@ -38,16 +40,20 @@
             pointer: true
         }
         btnWeek: {
-            type: "ButtonSwitchView"
+            type: "calendar::ButtonSwitchView"
             mode: "Select"
             img: "lr:columns_30x30"
             pointer: true
         }
         btnMonth: {
-            type: "ButtonSwitchView"
+            type: "calendar::ButtonSwitchView"
             mode: "Select"
             img: "lr:table_30x30"
             pointer: true
         }
+    }
+    slots: {
+        type: "calendar::SlotsWidgetCalendar"
+        pointer: true
     }
 }

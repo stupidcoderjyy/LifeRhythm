@@ -19,6 +19,12 @@ class CORE_API WidgetFactory final {
 public:
     typedef std::function<QWidget*(QWidget* parent)> Supplier;
     typedef StandardWidget::Handlers Handlers;
+    enum State {
+        Empty,
+        Parsing,
+        Ready,
+        Broken
+    };
 private:
     static QRegExp regexId;
     static QMap<QString, Supplier> stdSuppliers;
@@ -26,14 +32,10 @@ private:
     static QMap<QString, Qt::AlignmentFlag> alignments;
     static QMap<QString, QSizePolicy::Policy> policies;
     static QVector<WidgetFactory*> inParsing;
-    enum State{
-        Empty,
-        Parsing,
-        Ready,
-        Broken
-    };
     QMap<QString, Supplier>* customSuppliers;
+    QMap<QString, Supplier>* externalSuppliers;
     QMap<QString, StandardWidget*>* customEmptyInstances;
+    QMap<QString, StandardWidget*>* externalEmptyInstances;
     QMap<QString, WidgetFactory*> childFactories;
     QMap<int, Handlers> stateResponders;
     Handlers globalResponders;
@@ -65,6 +67,7 @@ public:
     void include(const WidgetFactory* other) const;
     void overridePointerStorage(WidgetFactory* target);
     ~WidgetFactory();
+    inline State getState() const;
 private:
     static void parseQss(Handlers& target, NBT* nbt);
     static void parseSize(Handlers& op, NBT* nbt);
@@ -84,7 +87,7 @@ private:
     void parseSingleState(Handlers& op, NBT* stateTag) const;
     void parsePointer(NBT* nbt);
     QWidget* createWidget(const QString& type) const;
-    void parseModel(NBT* nbt);
+    void parseModel(const NBT* nbt);
 };
 
 template<class W>
@@ -151,6 +154,10 @@ void WidgetFactory::parseTextWidget(Handlers &handlers, const NBT *nbt) {
             tw->setPalette(p);
         };
     }
+}
+
+inline WidgetFactory::State WidgetFactory::getState() const {
+    return state;
 }
 
 #endif //LIFERHYTHM_WIDGETFACTORY_H

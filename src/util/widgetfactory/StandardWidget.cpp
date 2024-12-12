@@ -69,8 +69,7 @@ void StandardWidget::registerPointer(const StandardWidget *other) {
 
 void StandardWidget::setData(WidgetData *d) {
     if (!prepared) {
-        throw Error("[StandardWidget::setData] widget is unprepared: '"
-            + dynamic_cast<QObject*>(this)->objectName() + "'");
+        initWidget();
     }
     if (wData == d) {
         return;

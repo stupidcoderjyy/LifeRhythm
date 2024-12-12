@@ -14,8 +14,9 @@
 #include <utility>
 
 WidgetFactory::WidgetFactory(QString id):
-        customSuppliers(new QMap<QString, Supplier>()),
+        customSuppliers(new QMap<QString, Supplier>()), externalSuppliers(new QMap<QString, Supplier>()),
         customEmptyInstances(new QMap<QString, StandardWidget*>()),
+        externalEmptyInstances(new QMap<QString, StandardWidget *>()),
         parentFactory(nullptr),
         id(std::move(id)),
         pointerContainer(this) {
@@ -27,6 +28,8 @@ WidgetFactory::WidgetFactory(WidgetFactory *parent, QString id, NBT *nbt):
         pointerContainer(this) {
     customSuppliers = parent->customSuppliers;
     customEmptyInstances = parent->customEmptyInstances;
+    externalSuppliers = parent->externalSuppliers;
+    externalEmptyInstances = parent->externalEmptyInstances;
     source = nbt;
 }
 
@@ -122,6 +125,9 @@ StandardWidget* WidgetFactory::parseWidgetType(bool& builtIn, NBT *nbt) {
     StandardWidget* stdWidget = customEmptyInstances->value(type);
     if (!stdWidget) {
         stdWidget = stdEmptyInstances.value(type);
+        if (!stdWidget) {
+            stdWidget = externalEmptyInstances->value(type);
+        }
     }
     if (!stdWidget) {
         throwInFunc("unknown type '" + type + "' in widget '" + id + "'");
@@ -585,8 +591,10 @@ QMargins WidgetFactory::parseMargins(ArrayData *array) {
 }
 
 void WidgetFactory::include(const WidgetFactory *other) const {
-    customSuppliers->insert(*other->customSuppliers);
-    customEmptyInstances->insert(*other->customEmptyInstances);
+    externalSuppliers->insert(*other->customSuppliers);
+    externalSuppliers->insert(*other->externalSuppliers);
+    externalEmptyInstances->insert(*other->customEmptyInstances);
+    externalEmptyInstances->insert(*other->externalEmptyInstances);
 }
 
 void WidgetFactory::overridePointerStorage(WidgetFactory *target) {
@@ -600,6 +608,8 @@ WidgetFactory::~WidgetFactory() {
         delete customEmptyInstances;
         delete customSuppliers;
         delete source;
+        delete externalSuppliers;
+        delete externalEmptyInstances;
     }
 }
 
@@ -610,10 +620,13 @@ QWidget *WidgetFactory::createWidget(const QString &type) const {
     if (stdSuppliers.contains(type)) {
         return stdSuppliers.value(type)(nullptr);
     }
+    if (externalSuppliers->contains(type)) {
+        return externalSuppliers->value(type)(nullptr);
+    }
     return nullptr;
 }
 
-void WidgetFactory::parseModel(NBT *nbt) {
+void WidgetFactory::parseModel(const NBT* nbt) {
     if (nbt->contains("model", Data::STRING)) {
         WidgetData* d = WidgetDataStorage::get(Identifier(nbt->getString("model")));
         if (!d) {

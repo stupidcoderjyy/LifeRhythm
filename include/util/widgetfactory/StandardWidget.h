@@ -61,8 +61,9 @@ public:
     }
 
     /*
-     *  设置组件和子组件的WidgetData，并调用syncDataToWidget更新组件
-     *  !! 这一步应当在initWidget后进行
+     *  设置组件和子组件的WidgetData
+     *  如果需要更新组件则需要自行调用syncDataToWidget
+     *  如果调用时prepared为false，则会先进行初始化
      */
     virtual void setData(WidgetData* d);
 
