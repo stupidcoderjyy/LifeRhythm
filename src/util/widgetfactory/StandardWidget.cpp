@@ -92,6 +92,10 @@ void StandardWidget::syncDataToWidget() {
 void StandardWidget::syncWidgetToData() {
 }
 
+void StandardWidget::setWidgetEnabled(bool enabled) {
+    this->enabled = enabled;
+}
+
 StandardWidget::~StandardWidget() {
     DELETE_MAP(stateResponders)
 }

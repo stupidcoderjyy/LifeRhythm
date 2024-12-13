@@ -30,6 +30,11 @@ protected:
      *  在prepared为false时调用setData应当报错
      */
     bool prepared;
+
+    /*
+     *  标志组件是否可交互
+     */
+    bool enabled = true;
 public:
     explicit StandardWidget(bool initInConstructor);
     void registerResponder(int _state, const Handler& responder);
@@ -76,6 +81,11 @@ public:
      * 将组件内的数据同步到data中，data可能为null
      */
     virtual void syncWidgetToData();
+
+    /*
+     *  设置组件可用状态
+     */
+    virtual void setWidgetEnabled(bool enabled = true);
 
     virtual ~StandardWidget();
     inline WidgetData* widgetData() const;

@@ -23,6 +23,7 @@
         children: ["list"]
         h_size_policy: "Max"
         fixed_width: 100
+        fixed_height: 207
         layout: {
             type: "Horizontal"
             margins: [2,2,2,2]
