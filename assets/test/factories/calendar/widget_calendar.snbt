@@ -1,15 +1,16 @@
 {
     min_width: 500
     min_height: 500
-    children: ["top", "slots"]
+    children: ["top", "weekdays", "slots"]
     layout: {
         type: "Vertical"
         margins: [0,0,0,0]
+        spacing: 5
     }
     top: {
         v_size_policy: "Max"
         children: ["btnPrev", "btnNext", "btnMc", "loadingIcon", "dp", "btnWeek", "btnMonth"]
-        qss: "bg(GRAY_0)"
+        qss: "bg(BLACK)"
         layout: {
             type: "Horizontal"
             margins: [0,0,0,0]
@@ -55,6 +56,11 @@
             img: "lr:table_30x30"
             pointer: true
         }
+    }
+    weekdays: {
+        type: "SlotsPainter"
+        fixed_height: 25
+        pointer: true
     }
     slots: {
         type: "calendar::SlotsWidgetCalendar"

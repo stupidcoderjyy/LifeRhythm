@@ -1,0 +1,58 @@
+//
+// Created by stupid_coder_jyy on 2024/2/12.
+//
+
+#include "ScrollArea.h"
+#include "NBT.h"
+#include "Styles.h"
+#include <QDebug>
+#include <QWheelEvent>
+
+USING_LR
+
+ScrollArea::ScrollArea(QWidget *parent, bool initInConstructor):QScrollArea(parent), StandardWidget(initInConstructor) {
+    setFrameShape(NoFrame);
+    setWidgetResizable(true);
+    viewport()->setObjectName("vp");
+    viewport()->setStyleSheet(qss_object("vp", bg(Styles::BLACK->rgbHex)));
+    setObjectName("sa");
+    setStyleSheet(qss_object("sa", bg(Styles::BLACK->rgbHex)));
+    setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+}
+
+ScrollBar *ScrollArea::getVScrollBar() {
+    if (!vBar) {
+        vBar = createVerticalScrollBar();
+    }
+    return vBar;
+}
+
+ScrollBar *ScrollArea::getHScrollBar() {
+    if (!hBar) {
+        hBar = createHorizontalScrollBar();
+    }
+    return hBar;
+}
+
+ScrollBar* ScrollArea::createHorizontalScrollBar() {
+    auto* b = new ScrollBar(this, Qt::Horizontal);
+    connect(horizontalScrollBar(), &QScrollBar::valueChanged, b, &ScrollBar::onValueSet);
+    connect(b, &QScrollBar::valueChanged, [this](int v){horizontalScrollBar()->setValue(v);});
+    connect(horizontalScrollBar(), &QScrollBar::rangeChanged, b, &ScrollBar::onRangeChanged);
+    return b;
+}
+
+ScrollBar* ScrollArea::createVerticalScrollBar() {
+    auto* b = new ScrollBar(this,Qt::Vertical);
+    connect(verticalScrollBar(), &QScrollBar::valueChanged, b, &ScrollBar::onValueSet);
+    connect(b, &QScrollBar::valueChanged, [this](int v){verticalScrollBar()->setValue(v);});
+    connect(verticalScrollBar(), &QScrollBar::rangeChanged, b, &ScrollBar::onRangeChanged);
+    return b;
+}
+
+void ScrollArea::resizeEvent(QResizeEvent *event) {
+    getHScrollBar()->setGeometry(0, height() - 8, width(), 7);
+    getVScrollBar()->setGeometry(width() - 8, 0, 7, height());
+    QScrollArea::resizeEvent(event);
+}

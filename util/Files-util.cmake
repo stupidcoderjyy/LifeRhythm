@@ -1,0 +1,146 @@
+set(INCLUDE_PREFIX ${CMAKE_SOURCE_DIR}/util/include)
+set(SRC_PREFIX ${CMAKE_SOURCE_DIR}/util/src)
+
+set(INCLUDES_UTIL
+        ${INCLUDE_PREFIX}
+        ${INCLUDE_PREFIX}/compile
+        ${INCLUDE_PREFIX}/concurrent
+        ${INCLUDE_PREFIX}/error
+        ${INCLUDE_PREFIX}/highlight
+        ${INCLUDE_PREFIX}/io
+        ${INCLUDE_PREFIX}/math
+        ${INCLUDE_PREFIX}/nbt
+        ${INCLUDE_PREFIX}/resources
+)
+
+set(SRC_UTIL_COMPILE
+        ${INCLUDE_PREFIX}/compile/CompileError.h
+        ${INCLUDE_PREFIX}/compile/Compiler.h
+        ${INCLUDE_PREFIX}/compile/CompilerInput.h
+        ${SRC_PREFIX}/compile/CompileError.cpp
+        ${SRC_PREFIX}/compile/Compiler.cpp
+        ${SRC_PREFIX}/compile/CompilerInput.cpp
+)
+
+set(SRC_UTIL_CONCURRENT
+        ${INCLUDE_PREFIX}/concurrent/AsyncGetter.h
+        ${INCLUDE_PREFIX}/concurrent/AsyncTask.h
+        ${SRC_PREFIX}/concurrent/AsyncGetter.cpp
+        ${SRC_PREFIX}/concurrent/AsyncTask.cpp
+)
+
+set(SRC_UTIL_ERROR
+        ${INCLUDE_PREFIX}/error/Error.h
+        ${INCLUDE_PREFIX}/error/ErrorHandler.h
+        ${INCLUDE_PREFIX}/error/PrintErrorHandler.h
+        ${SRC_PREFIX}/error/Error.cpp
+        ${SRC_PREFIX}/error/PrintErrorHandler.cpp
+)
+
+set(SRC_UTIL_HIGHLIGHT
+        ${INCLUDE_PREFIX}/highlight/Highlighter.h
+        ${INCLUDE_PREFIX}/highlight/StyleParser.h
+        ${SRC_PREFIX}/highlight/Highlighter.cpp
+        ${SRC_PREFIX}/highlight/StyleParser.cpp
+)
+
+set(SRC_UTIL_IO
+        ${INCLUDE_PREFIX}/io/AbstractInput.h
+        ${INCLUDE_PREFIX}/io/BufferedInput.h
+        ${INCLUDE_PREFIX}/io/IByteReader.h
+        ${INCLUDE_PREFIX}/io/IByteWriter.h
+        ${INCLUDE_PREFIX}/io/Identifier.h
+        ${INCLUDE_PREFIX}/io/IOManager.h
+        ${INCLUDE_PREFIX}/io/IOUtil.h
+        ${INCLUDE_PREFIX}/io/StreamByteReader.h
+        ${INCLUDE_PREFIX}/io/StreamByteWriter.h
+        ${INCLUDE_PREFIX}/io/StringByteReader.h
+        ${INCLUDE_PREFIX}/io/StringInput.h
+        ${SRC_PREFIX}/io/AbstractInput.cpp
+        ${SRC_PREFIX}/io/BufferedInput.cpp
+        ${SRC_PREFIX}/io/Identifier.cpp
+        ${SRC_PREFIX}/io/IOManager.cpp
+        ${SRC_PREFIX}/io/IOUtil.cpp
+        ${SRC_PREFIX}/io/StreamByteReader.cpp
+        ${SRC_PREFIX}/io/StreamByteWriter.cpp
+        ${SRC_PREFIX}/io/StringByteReader.cpp
+        ${SRC_PREFIX}/io/StringInput.cpp
+)
+
+set(SRC_UTIL_MATH
+        ${INCLUDE_PREFIX}/math/OpenRange.h
+        ${INCLUDE_PREFIX}/math/Pair.h
+        ${SRC_PREFIX}/math/openrange/Lexer.cpp
+        ${SRC_PREFIX}/math/openrange/Lexer.h
+        ${SRC_PREFIX}/math/openrange/SyntaxAnalyzer.cpp
+        ${SRC_PREFIX}/math/openrange/SyntaxAnalyzer.h
+        ${SRC_PREFIX}/math/OpenRange.cpp
+)
+
+set(SRC_UTIL_NBT
+        ${INCLUDE_PREFIX}/nbt/ArrayData.h
+        ${INCLUDE_PREFIX}/nbt/BoolData.h
+        ${INCLUDE_PREFIX}/nbt/Data.h
+        ${INCLUDE_PREFIX}/nbt/FloatData.h
+        ${INCLUDE_PREFIX}/nbt/IntData.h
+        ${INCLUDE_PREFIX}/nbt/LongData.h
+        ${INCLUDE_PREFIX}/nbt/NBT.h
+        ${INCLUDE_PREFIX}/nbt/NBTSerializable.h
+        ${INCLUDE_PREFIX}/nbt/NBTUtil.h
+        ${INCLUDE_PREFIX}/nbt/StringData.h
+        ${SRC_PREFIX}/nbt/highlight/NBTHighlighter.cpp
+        ${SRC_PREFIX}/nbt/highlight/NBTHighlighter.h
+        ${SRC_PREFIX}/nbt/parser/Lexer.cpp
+        ${SRC_PREFIX}/nbt/parser/Lexer.h
+        ${SRC_PREFIX}/nbt/parser/Parser.cpp
+        ${SRC_PREFIX}/nbt/parser/Parser.h
+        ${SRC_PREFIX}/nbt/ArrayData.cpp
+        ${SRC_PREFIX}/nbt/BoolData.cpp
+        ${SRC_PREFIX}/nbt/Data.cpp
+        ${SRC_PREFIX}/nbt/FloatData.cpp
+        ${SRC_PREFIX}/nbt/IntData.cpp
+        ${SRC_PREFIX}/nbt/LongData.cpp
+        ${SRC_PREFIX}/nbt/NBT.cpp
+        ${SRC_PREFIX}/nbt/NBTSerializable.cpp
+        ${SRC_PREFIX}/nbt/NBTUtil.cpp
+        ${SRC_PREFIX}/nbt/StringData.cpp
+)
+
+set(SRC_UTIL_RESOURCES
+        ${INCLUDE_PREFIX}/resources/ImageStorage.h
+        ${INCLUDE_PREFIX}/resources/RcLoader.h
+        ${INCLUDE_PREFIX}/resources/RcManager.h
+        ${INCLUDE_PREFIX}/resources/RcTypes.h
+        ${INCLUDE_PREFIX}/resources/StyleGroupStorage.h
+        ${SRC_PREFIX}/resources/ImageRcLoader.cpp
+        ${SRC_PREFIX}/resources/ImageRcLoader.h
+        ${SRC_PREFIX}/resources/ImageStorage.cpp
+        ${SRC_PREFIX}/resources/RcManager.cpp
+        ${SRC_PREFIX}/resources/RcTypes.cpp
+        ${SRC_PREFIX}/resources/StyleGroupRcLoader.cpp
+        ${SRC_PREFIX}/resources/StyleGroupRcLoader.h
+        ${SRC_PREFIX}/resources/StyleGroupStorage.cpp
+)
+
+set(SRC_UTIL_OTHERS
+        ${INCLUDE_PREFIX}/FocusManager.h
+        ${INCLUDE_PREFIX}/Helpers.h
+        ${INCLUDE_PREFIX}/Namespaces.h
+        ${INCLUDE_PREFIX}/Plugin.h
+        ${INCLUDE_PREFIX}/Styles.h
+        ${SRC_PREFIX}/FocusManager.cpp
+        ${SRC_PREFIX}/Helpers.cpp
+        ${SRC_PREFIX}/Styles.cpp
+)
+
+set(SRC_UTIL
+        ${SRC_UTIL_COMPILE}
+        ${SRC_UTIL_CONCURRENT}
+        ${SRC_UTIL_ERROR}
+        ${SRC_UTIL_HIGHLIGHT}
+        ${SRC_UTIL_IO}
+        ${SRC_UTIL_MATH}
+        ${SRC_UTIL_NBT}
+        ${SRC_UTIL_RESOURCES}
+        ${SRC_UTIL_OTHERS}
+)
