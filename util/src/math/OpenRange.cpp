@@ -3,12 +3,12 @@
 //
 
 #include "OpenRange.h"
-#include "openrange/SyntaxAnalyzer.h"
+#include "openrange/Parser.h"
 
 USING_LR
 
 OpenRange OpenRange::fromString(const QString &expr) {
-    return openrange::SyntaxAnalyzer::parse(expr);
+    return openrange::Parser::parse(expr);
 }
 
 OpenRange::OpenRange(int l, int r): offset(0) {

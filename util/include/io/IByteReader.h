@@ -2,8 +2,8 @@
 // Created by stupid_coder_jyy on 2023/5/30.
 //
 
-#ifndef PRACTICECONSOLE_IDATAINPUT_H
-#define PRACTICECONSOLE_IDATAINPUT_H
+#ifndef IDATAINPUT_H
+#define IDATAINPUT_H
 #include "Namespaces.h"
 #include "QString"
 #include "Plugin.h"
@@ -25,6 +25,6 @@ public:
     virtual ~IByteReader() = default;
 };
 
-END_LR
+END_NP
 
 #endif //PRACTICECONSOLE_IDATAINPUT_H

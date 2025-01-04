@@ -6,7 +6,7 @@
 
 USING_LR
 
-StringByteReader::StringByteReader(const QString& str):data(str.toUtf8()) {
+StringByteReader::StringByteReader(const QString& str):data(str.toUtf8()), next() {
 }
 
 int StringByteReader::read(char *dest, int off, int length) {

@@ -39,9 +39,17 @@ set(SRC_UTIL_ERROR
 
 set(SRC_UTIL_HIGHLIGHT
         ${INCLUDE_PREFIX}/highlight/Highlighter.h
-        ${INCLUDE_PREFIX}/highlight/StyleParser.h
+        ${INCLUDE_PREFIX}/highlight/HighlightInput.h
+        ${INCLUDE_PREFIX}/highlight/HighlightLexer.h
+        ${INCLUDE_PREFIX}/highlight/StyleGroupStorage.h
         ${SRC_PREFIX}/highlight/Highlighter.cpp
         ${SRC_PREFIX}/highlight/StyleParser.cpp
+        ${SRC_PREFIX}/highlight/StyleGroupRcLoader.h
+        ${SRC_PREFIX}/highlight/HighlightLexer.cpp
+        ${SRC_PREFIX}/highlight/StyleParser.h
+        ${SRC_PREFIX}/highlight/HighlightInput.cpp
+        ${SRC_PREFIX}/highlight/StyleGroupRcLoader.cpp
+        ${SRC_PREFIX}/highlight/StyleGroupStorage.cpp
 )
 
 set(SRC_UTIL_IO
@@ -72,8 +80,8 @@ set(SRC_UTIL_MATH
         ${INCLUDE_PREFIX}/math/Pair.h
         ${SRC_PREFIX}/math/openrange/Lexer.cpp
         ${SRC_PREFIX}/math/openrange/Lexer.h
-        ${SRC_PREFIX}/math/openrange/SyntaxAnalyzer.cpp
-        ${SRC_PREFIX}/math/openrange/SyntaxAnalyzer.h
+        ${SRC_PREFIX}/math/openrange/Parser.cpp
+        ${SRC_PREFIX}/math/openrange/Parser.h
         ${SRC_PREFIX}/math/OpenRange.cpp
 )
 
@@ -88,8 +96,6 @@ set(SRC_UTIL_NBT
         ${INCLUDE_PREFIX}/nbt/NBTSerializable.h
         ${INCLUDE_PREFIX}/nbt/NBTUtil.h
         ${INCLUDE_PREFIX}/nbt/StringData.h
-        ${SRC_PREFIX}/nbt/highlight/NBTHighlighter.cpp
-        ${SRC_PREFIX}/nbt/highlight/NBTHighlighter.h
         ${SRC_PREFIX}/nbt/parser/Lexer.cpp
         ${SRC_PREFIX}/nbt/parser/Lexer.h
         ${SRC_PREFIX}/nbt/parser/Parser.cpp
@@ -111,15 +117,11 @@ set(SRC_UTIL_RESOURCES
         ${INCLUDE_PREFIX}/resources/RcLoader.h
         ${INCLUDE_PREFIX}/resources/RcManager.h
         ${INCLUDE_PREFIX}/resources/RcTypes.h
-        ${INCLUDE_PREFIX}/resources/StyleGroupStorage.h
         ${SRC_PREFIX}/resources/ImageRcLoader.cpp
         ${SRC_PREFIX}/resources/ImageRcLoader.h
         ${SRC_PREFIX}/resources/ImageStorage.cpp
         ${SRC_PREFIX}/resources/RcManager.cpp
         ${SRC_PREFIX}/resources/RcTypes.cpp
-        ${SRC_PREFIX}/resources/StyleGroupRcLoader.cpp
-        ${SRC_PREFIX}/resources/StyleGroupRcLoader.h
-        ${SRC_PREFIX}/resources/StyleGroupStorage.cpp
 )
 
 set(SRC_UTIL_OTHERS

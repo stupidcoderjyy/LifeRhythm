@@ -11,5 +11,5 @@ USING_LR
 STATIC_INSTANCE(ImageStorage)
 
 ImageStorage::ImageStorage() {
-    _addManager(new BuiltInResourceManager<QPixmap>(RcTypes::IMG, ImageRcLoader::get()));
+    _addManager(new BuiltInResourceManager(RcTypes::IMG, ImageRcLoader::get()));
 }

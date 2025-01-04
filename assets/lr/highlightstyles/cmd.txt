@@ -1,0 +1,8 @@
+{
+    id: {
+        fg: "GOLD"
+    }
+    arg: {
+        fg: "CYAN_2"
+    }
+}

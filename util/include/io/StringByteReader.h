@@ -13,7 +13,7 @@ BEGIN_LR
 class CORE_API StringByteReader final : public IByteReader {
 private:
     QByteArray data;
-    int next{};
+    int next;
 public:
     explicit StringByteReader(const QString& val);
     int read(char *dest, int off, int length) override;
@@ -28,6 +28,6 @@ public:
     bool available() override;
 };
 
-END_LR
+END_NP
 
 #endif //STRINGBYTEREADER_H

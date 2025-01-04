@@ -13,7 +13,7 @@
 BEGIN_LR
 
 class CORE_API AbstractInput {
-private:
+protected:
     bool bitClazz[128]{};
 public:
     virtual ~AbstractInput() = default;
@@ -31,18 +31,16 @@ public:
     inline int approach(int ch);
     inline int approach(int ch1, int ch2);
     inline int approach(int ch1, int ch2, int ch3);
-    inline int approach(std::initializer_list<int> list);
+    inline int approach(const std::initializer_list<int> &list);
     inline int find(int ch);
     inline int find(int ch1, int ch2);
     inline int find(int ch1, int ch2, int ch3);
-    inline int find(std::initializer_list<int> list);
+    inline int find(const std::initializer_list<int> &list);
     inline int skip(int ch);
     inline int skip(int ch1, int ch2);
     inline int skip(int ch1, int ch2, int ch3);
-    inline int skip(std::initializer_list<int> list);
+    inline int skip(const std::initializer_list<int> &list);
 };
-
-
 
 inline int AbstractInput::approach(int ch) {
     while (available()) {
@@ -84,7 +82,7 @@ inline int AbstractInput::approach(int ch1, int ch2, int ch3) {
     return -1;
 }
 
-inline void prepareBitClazz(bool* clazz, std::initializer_list<int>& list) {
+inline void prepareBitClazz(bool* clazz, const std::initializer_list<int>& list) {
     memset(clazz, false, 128);
     for (const auto &ch : list) {
         if (ch >= 0 && ch < 128) {
@@ -93,7 +91,7 @@ inline void prepareBitClazz(bool* clazz, std::initializer_list<int>& list) {
     }
 }
 
-inline int AbstractInput::approach(std::initializer_list<int> list) {
+inline int AbstractInput::approach(const std::initializer_list<int>& list) {
     prepareBitClazz(bitClazz, list);
     while (available()) {
         int ch = forward();
@@ -134,7 +132,7 @@ inline int AbstractInput::find(int ch1, int ch2, int ch3) {
     return -1;
 }
 
-inline int AbstractInput::find(std::initializer_list<int> list) {
+inline int AbstractInput::find(const std::initializer_list<int> &list) {
     prepareBitClazz(bitClazz, list);
     while (available()) {
         int ch = read();
@@ -185,7 +183,7 @@ inline int AbstractInput::skip(int ch1, int ch2, int ch3) {
     return pre;
 }
 
-inline int AbstractInput::skip(std::initializer_list<int> list) {
+inline int AbstractInput::skip(const std::initializer_list<int> &list) {
     prepareBitClazz(bitClazz, list);
     int pre = -1;
     while (available()) {
@@ -199,6 +197,6 @@ inline int AbstractInput::skip(std::initializer_list<int> list) {
     return pre;
 }
 
-END_LR
+END_NP
 
 #endif //ABSTRACTINPUT_H

@@ -25,6 +25,6 @@ public:
     virtual void writeString(const QString& s) = 0;
 };
 
-END_LR
+END_NP
 
 #endif //PRACTICECONSOLE_IDATAOUTPUT_H

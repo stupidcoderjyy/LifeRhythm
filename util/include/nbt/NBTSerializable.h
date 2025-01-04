@@ -16,6 +16,6 @@ public:
     virtual void fromNbt(NBT* nbt);
 };
 
-END_LR
+END_NP
 
 #endif //NBTSERIALIZABLE_H

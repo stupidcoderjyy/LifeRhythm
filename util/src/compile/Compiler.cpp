@@ -3,6 +3,7 @@
 //
 #include "Compiler.h"
 #include "Helpers.h"
+#include "AbstractInput.h"
 #include "CompilerInput.h"
 #include "Error.h"
 
@@ -17,7 +18,7 @@ int TokenFileEnd::type() {
     return 0;
 }
 
-Token::MatchResult TokenFileEnd::onMatched(const QString &lexeme, CompilerInput *input) {
+Token::MatchResult TokenFileEnd::onMatched(const QString &lexeme, AbstractInput *input) {
     return Accept;
 }
 
@@ -25,21 +26,24 @@ int TokenSingle::type() {
     return ch;
 }
 
-Token::MatchResult TokenSingle::onMatched(const QString &lexeme, CompilerInput *input) {
+Token::MatchResult TokenSingle::onMatched(const QString &lexeme, AbstractInput *input) {
     ch = lexeme.at(0).cell();
     return Accept;
 }
 
-AbstractLexer::AbstractLexer(CompilerInput *input, int statesCount, int startState):
+Token *ILexer::nextToken(AbstractInput *input) noexcept {
+    return nullptr;
+}
+
+DFALexer::DFALexer(int statesCount, int startState):
     statesCount(statesCount),
     startState(startState),
     accepted(new bool[statesCount]),
     goTo(Helpers::allocateArray(statesCount, 128)),
-    tokens(new TokenSupplier[statesCount]),
-    input(input){
+    tokens(new TokenSupplier[statesCount]) {
 }
 
-Token* AbstractLexer::run() noexcept{
+Token *DFALexer::nextToken(AbstractInput *input) noexcept {
     BEGIN:
     input->skip(' ', '\r', '\n');
     input->mark();
@@ -91,28 +95,29 @@ Token* AbstractLexer::run() noexcept{
     }
 }
 
-AbstractLexer::~AbstractLexer() {
+DFALexer::~DFALexer() {
     delete[] accepted;
     delete[] tokens;
     Helpers::freeArray(goTo, statesCount);
 }
 
-AbstractSyntaxAnalyzer::AbstractSyntaxAnalyzer(AbstractLexer *lexer, int remap,int nonTerminal, int terminal, int states):
-        statesCount(states),
-        actions(Helpers::allocateArray(states, terminal)),
-        goTo(Helpers::allocateArray(states, nonTerminal)),
-        terminalRemap(Helpers::allocateArray(remap)),
-        suppliers(new PropertySupplier[nonTerminal]),
-        lexer(lexer),
-        input(lexer->input){
+LALRParser::LALRParser(ILexer *lexer, int remap,int nonTerminal, int terminal, int states):
+statesCount(states),
+actions(Helpers::allocateArray(states, terminal)),
+goTo(Helpers::allocateArray(states, nonTerminal)),
+terminalRemap(Helpers::allocateArray(remap)),
+suppliers(new PropertySupplier[nonTerminal]),
+lexer(lexer),
+input() {
 }
 
-void AbstractSyntaxAnalyzer::run() {
+void LALRParser::run(AbstractInput* input) {
+    this->input = input;
     input->mark();
-    QVector<int> states{};
-    QVector<Property*> properties{};
+    QVector<int> states;
+    QVector<Property*> properties;
     states.append(0);
-    auto* token = lexer->run();
+    auto* token = lexer->nextToken(input);
     auto* eof = TokenFileEnd::get();
     if (token == eof) {
         return;
@@ -131,10 +136,8 @@ void AbstractSyntaxAnalyzer::run() {
                 for (auto& p : properties) {
                     delete p;
                 }
-                onFailed();
-                throw token ?
-                      input->errorAtMark("syntax error") :
-                      input->errorMarkToForward("unknown symbol");
+                onFailed(token);
+                return;
             }
             case 1: {
                 auto* body = new Property*{properties.takeLast()};
@@ -150,7 +153,7 @@ void AbstractSyntaxAnalyzer::run() {
                 input->mark();
                 states << target;
                 properties << new PropertyTerminal(token);
-                token = lexer->run();
+                token = lexer->nextToken(input);
                 onShifted();
                 break;
             }
@@ -184,19 +187,24 @@ void AbstractSyntaxAnalyzer::run() {
     }
 }
 
-void AbstractSyntaxAnalyzer::onFinished() {
+void LALRParser::onFinished() {
 }
 
-void AbstractSyntaxAnalyzer::onFailed() {
+void LALRParser::onFailed(Token* at) {
+    if (auto ci = dynamic_cast<CompilerInput*>(input)) {
+        throw at ?
+              ci->errorAtMark("syntax error") :
+              ci->errorMarkToForward("unknown symbol");
+    }
 }
 
-void AbstractSyntaxAnalyzer::onReduced() {
+void LALRParser::onReduced() {
 }
 
-void AbstractSyntaxAnalyzer::onShifted() {
+void LALRParser::onShifted() {
 }
 
-AbstractSyntaxAnalyzer::~AbstractSyntaxAnalyzer() {
+LALRParser::~LALRParser() {
     for (auto* p : productions) {
         delete p;
     }
@@ -206,7 +214,6 @@ AbstractSyntaxAnalyzer::~AbstractSyntaxAnalyzer() {
     delete[] terminalRemap;
     delete[] suppliers;
     delete lexer;
-    delete input;
     Helpers::freeArray(goTo, statesCount);
     Helpers::freeArray(actions, statesCount);
 }

@@ -17,6 +17,6 @@ public:
     static ResourceType IMG;
 };
 
-END_LR
+END_NP
 
 #endif //RCTYPES_H

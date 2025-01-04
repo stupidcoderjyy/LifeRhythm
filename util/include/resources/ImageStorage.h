@@ -14,6 +14,6 @@ class CORE_API ImageStorage : public MultiSourceResourceManager<QPixmap> {
     STATIC_DEFINE(ImageStorage, QPixmap)
 };
 
-END_LR
+END_NP
 
 #endif //IMAGESTORAGE_H

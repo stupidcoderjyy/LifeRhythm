@@ -165,7 +165,7 @@ QString CompilerInput::currentLine() {
 void CompilerInput::recover(bool consume) {
     BufferedInput::recover(consume);
     if (!markData.empty()) {
-        recover(consume ? removeLastData() : markData.last());
+        recoverFromData(consume ? removeLastData() : markData.last());
     }
 }
 
@@ -174,14 +174,14 @@ void CompilerInput::recoverFromData(int *data) {
     column = data[1];
     int cs = data[2];
     if (cs > 0) {
-        while (columnSizes.last() != cs) {
+        while (!columnSizes.empty() && columnSizes.last() != cs) {
             columnSizes.removeLast();
         }
     } else {
         columnSizes.clear();
     }
     int rb = data[3];
-    while (rowBegin.last() != rb) {
+    while (!rowBegin.empty() && rowBegin.last() != rb) {
         rowBegin.removeLast();
     }
 }

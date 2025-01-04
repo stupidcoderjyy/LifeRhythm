@@ -26,7 +26,7 @@ public:
     static void fillRoundedRect(QPainter& painter, const QRect& rect, int radius, const QBrush& color);
 };
 
-END_LR
+END_NP
 
 #define DATE_2_INT(d) \
     const QDate d0 = d; \

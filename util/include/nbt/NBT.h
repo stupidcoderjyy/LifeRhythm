@@ -107,6 +107,6 @@ inline long long NBT::getLong(const QString &key, long long defaultVal) const {
     return defaultVal;
 }
 
-END_LR
+END_NP
 
 #endif //NBT_H

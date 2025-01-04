@@ -75,6 +75,6 @@ public:
     void globalSave(const QString &path);
 };
 
-END_LR
+END_NP
 
 #endif //IOMANAGER_H

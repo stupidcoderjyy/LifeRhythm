@@ -7,22 +7,22 @@
 
 BEGIN_LR
 class CompilerInput;
-END_LR
+END_NP
 
 BEGIN_NP(lr::openrange)
 
-class Lexer final : public AbstractLexer {
-    friend class SyntaxAnalyzer;
+class Lexer final : public DFALexer {
+    friend class Parser;
 public:
-    explicit Lexer(CompilerInput* input);
+    Lexer();
 };
 
-class TokenNum final : public Token{
+class TokenNum final : public Token {
 public:
     int val = 0;
 public:
     int type() override;
-    MatchResult onMatched(const QString &lexeme, CompilerInput *input) override;
+    MatchResult onMatched(const QString &lexeme, AbstractInput *input) override;
 };
 
 END_NP

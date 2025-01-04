@@ -31,6 +31,6 @@ public:
     ~StreamByteReader() override;
 };
 
-END_LR
+END_NP
 
 #endif //STREAMBYTEREADER_H

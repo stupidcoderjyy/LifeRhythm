@@ -40,6 +40,6 @@ inline Identifier StringData::getLoc() const {
     return Identifier(data);
 }
 
-END_LR
+END_NP
 
 #endif //STRINGDATA_H

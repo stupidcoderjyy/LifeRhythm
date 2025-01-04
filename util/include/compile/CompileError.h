@@ -35,6 +35,6 @@ public:
     void onErrorCaught(CompileError &err) override;
 };
 
-END_LR
+END_NP
 
 #endif //COMPILEERROR_H

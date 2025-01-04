@@ -16,6 +16,6 @@ public:
 SINGLETON_HEADER(StyleGroupRcLoader)
 };
 
-END_LR
+END_NP
 
 #endif //STYLEGROUPRCLOADER_H

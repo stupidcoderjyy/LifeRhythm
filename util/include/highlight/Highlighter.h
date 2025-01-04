@@ -1,100 +1,46 @@
 //
-// Created by stupid_coder_jyy on 2024/2/13.
+// Created by JYY on 25-1-1.
 //
 
 #ifndef HIGHLIGHTER_H
 #define HIGHLIGHTER_H
 
 #include <QSyntaxHighlighter>
+#include "CompilerInput.h"
 #include "Identifier.h"
-#include "StringInput.h"
-#include "Plugin.h"
+#include "Namespaces.h"
 
-BEGIN_NP(lr::highlight)
+BEGIN_LR
 
-class CORE_API Context{};
+class HighlightInput;
+class HighlightLexer;
 
-class CORE_API Input : public StringInput{
-public:
-    int pos = 0;
-public:
-    explicit Input(const QString& blockText);
-    int read() override;
-    QString readUtf() override;
-    void retractUtf(int count = 1);
-    int retract() override;
-    int retract(int count) override;
+struct StyleUnit {
+    QTextCharFormat style;
+    int begin;
+    int end;
 };
 
-class CORE_API Token {
-public:
-    enum Op {
-        Everything,
-        NoEnd,
-        NoFormat,
-        NoEndAndFormat
-    };
-    int begin{};
-    int end{};
-    QTextCharFormat fmt{};
-    virtual int type();
-    virtual Op onMatched(const QString& lexeme, Input* input, Context* ctx);
-    virtual ~Token() = default;
-};
-
-class CORE_API TokenSingle : public Token {
+class Highlighter : public QSyntaxHighlighter {
 private:
-    int ch{};
-public:
-    int type() override;
-    Op onMatched(const QString &lexeme, Input *input, Context* ctx) override;
-};
-
-class CORE_API TokenError : public Token {
-public:
-    enum ErrorType {
-        InvalidSymbol,
-        InvalidEncoding
-    };
-    ErrorType errType;
-public:
-    explicit TokenError(ErrorType type);
-    int type() override;
-};
-
-class CORE_API Lexer {
-public:
-    typedef std::function<Token*()> TokenSupplier;
-public:
-    QMap<QString, QTextCharFormat>* styleGroup{};
+    QVector<StyleUnit> styles;
+    QMap<QString, QTextCharFormat>* styleGroup;
+    bool shouldFlush;
 protected:
-    QMap<int, QString> idToStyleName{};
-    int statesCount;
-    int startState;
-    bool* accepted;
-    int** goTo;
-    TokenSupplier* tokens;
-    Input* input{};
+    HighlightLexer* lexer;
 public:
-    Lexer(const Identifier& styleGroupLoc, int statesCount, int startState);
-    void reset(Input* in);
-    virtual Token* run(Context* ctx) noexcept;
-    virtual ~Lexer();
-};
-
-template<class CTX>
-class CORE_API Highlighter : public QSyntaxHighlighter{
+    explicit Highlighter(const Identifier& styleGroup, QTextDocument* doc, HighlightLexer *lexer);
+    void push(const QTextCharFormat& unit, int begin, int end);
+    void push(const QTextCharFormat& unit);
+    void push(const QString& style, int begin, int end);
+    void push(const QString& style);
+    StyleUnit pop();
+    StyleUnit get(int i) const;
+    void flush();
+    ~Highlighter() override;
 protected:
-    Lexer* lexer;
-    CTX* ctx;
-public:
-    explicit Highlighter(CTX* ctx, Lexer* lexer, QTextDocument *parent):
-            QSyntaxHighlighter(parent),lexer(lexer),ctx(ctx){
-    }
-    ~Highlighter() override {
-        delete lexer;
-        delete ctx;
-    }
+    void highlightBlock(const QString &text) override;
+    virtual void prepareStyles(HighlightInput &input);
 };
 
 END_NP

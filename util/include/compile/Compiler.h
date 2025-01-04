@@ -11,25 +11,29 @@
 
 BEGIN_LR
 
-class CompilerInput;
+class AbstractInput;
 
-class CORE_API Token{
+class CORE_API Token {
 public:
     enum MatchResult {
         Accept,
         Ignore,
         Error
     };
+public:
     virtual int type() = 0;
-    virtual MatchResult onMatched(const QString& lexeme, CompilerInput* input) = 0;
+    virtual MatchResult onMatched(const QString& lexeme, AbstractInput* input) = 0;
     virtual ~Token() = default;
+    template<class T> T* cast() {
+        return static_cast<T*>(this);
+    }
 };
 
 class CORE_API TokenFileEnd final : public Token{
 public:
     static TokenFileEnd* get();
     int type() override;
-    MatchResult onMatched(const QString &lexeme, CompilerInput *input) override;
+    MatchResult onMatched(const QString &lexeme, AbstractInput* input) override;
 private:
     TokenFileEnd() = default;
 };
@@ -39,7 +43,7 @@ private:
     uchar ch{};
 public:
     int type() override;
-    MatchResult onMatched(const QString &lexeme, CompilerInput *input) override;
+    MatchResult onMatched(const QString &lexeme, AbstractInput* input) override;
 };
 
 class CORE_API Symbol{
@@ -64,7 +68,7 @@ public:
     }
 };
 
-class CORE_API Property{
+class CORE_API Property {
 public:
     virtual void onReduced(Production* p, Property** properties) = 0;
     virtual ~Property() = default;
@@ -88,8 +92,13 @@ public:
     }
 };
 
-class CORE_API AbstractLexer {
-    friend class AbstractSyntaxAnalyzer;
+class CORE_API ILexer {
+public:
+    virtual Token *nextToken(AbstractInput *input) noexcept;
+    virtual ~ILexer() = default;
+};
+
+class CORE_API DFALexer : public ILexer {
 public:
     typedef std::function<Token*()> TokenSupplier;
 protected:
@@ -98,14 +107,13 @@ protected:
     bool* accepted;
     int** goTo;
     TokenSupplier* tokens;
-    CompilerInput* input;
 public:
-    AbstractLexer(CompilerInput* input, int statesCount, int startState);
-    virtual Token* run() noexcept;
-    virtual ~AbstractLexer();
+    DFALexer(int statesCount, int startState);
+    Token *nextToken(AbstractInput* input) noexcept override;
+    ~DFALexer() override;
 };
 
-class CORE_API AbstractSyntaxAnalyzer {
+class CORE_API LALRParser {
 public:
     typedef std::function<Property*()> PropertySupplier;
 protected:
@@ -115,20 +123,20 @@ protected:
     int* terminalRemap;
     QVector<Production*> productions{};
     PropertySupplier* suppliers;
-    AbstractLexer* lexer;
-    CompilerInput* input;
+    ILexer* lexer;
     QVector<Symbol*> symbols{};
+    AbstractInput *input;
 public:
-    AbstractSyntaxAnalyzer(AbstractLexer* lexer, int remap, int nonTerminal, int terminal, int states);
-    void run();
-    virtual ~AbstractSyntaxAnalyzer();
+    LALRParser(ILexer* lexer, int remap, int nonTerminal, int terminal, int states);
+    void run(AbstractInput* input);
+    virtual ~LALRParser();
 protected:
     virtual void onFinished();
-    virtual void onFailed();
+    virtual void onFailed(Token *at);
     virtual void onReduced();
     virtual void onShifted();
 };
 
-END_LR
+END_NP
 
 #endif //COMPILER_H

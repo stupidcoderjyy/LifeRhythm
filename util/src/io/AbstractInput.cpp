@@ -24,7 +24,7 @@ QString AbstractInput::readUtf() {
         case 13: {
             int b2 = read() & 0xFF;
             if ((b2 & 0xC0) != 0x80) {
-                throw Error("AbstractInput::readUtf malformed format:" + QString::number((b1 << 8) | b2, 2));
+                throw Error("AbstractInput::readUtf malformed format:" + QString::number(b1 << 8 | b2, 2));
             }
             char data[3]{static_cast<char>(b1), static_cast<char>(b2), '\0'};
             return {data};
@@ -33,7 +33,7 @@ QString AbstractInput::readUtf() {
             int b2 = read() & 0xFF;
             int b3 = read() & 0xFF;
             if ((b2 & 0xC0) != 0x80 || (b3 & 0xC0) != 0x80) {
-                throw Error("AbstractInput::readUtf malformed format:" + QString::number((b1 << 16) | (b2 << 8) | b3, 2));
+                throw Error("AbstractInput::readUtf malformed format:" + QString::number(b1 << 16 | b2 << 8 | b3, 2));
             }
             char data[4]{static_cast<char>(b1), static_cast<char>(b2), static_cast<char>(b3), '\0'};
             return {data};

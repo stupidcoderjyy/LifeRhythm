@@ -14,6 +14,6 @@ public:
     void onErrorCaught(Error &err) override;
 };
 
-END_LR
+END_NP
 
 #endif //PRINTERRORHANDLER_H

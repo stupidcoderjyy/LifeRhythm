@@ -2,7 +2,6 @@
 #ifndef SNBT_PARSER_H
 #define SNBT_PARSER_H
 
-#include "functional"
 #include "Compiler.h"
 #include "Data.h"
 
@@ -10,13 +9,13 @@
 
 BEGIN_LR
 class NBT;
-END_LR
+END_NP
 
 BEGIN_NP(lr::snbt)
 
 class Lexer;
 
-class CORE_API Parser final : public AbstractSyntaxAnalyzer{
+class CORE_API Parser final : public LALRParser {
     friend class PropertyRoot;
 private:
     NBT* result{};
@@ -24,13 +23,13 @@ public:
     static NBT* parse(const QString& path);
     ~Parser() override;
 private:
-    explicit Parser(const QString& path);
+    Parser();
     void initActions() const;
     void initGoTo() const;
     void initOthers();
     void initGrammar();
 protected:
-    void onFailed() override;
+    void onFailed(Token* at) override;
 };
 
 class PropertyArr;
@@ -139,7 +138,5 @@ private:
 };
 
 END_NP
-
-
 
 #endif

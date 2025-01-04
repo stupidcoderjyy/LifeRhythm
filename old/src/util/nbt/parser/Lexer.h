@@ -12,7 +12,7 @@ class CompilerInput;
 
 BEGIN_NAMESPACE(snbt)
 
-class CORE_API Lexer : public AbstractLexer{
+class CORE_API Lexer : public AbstractLexer {
     friend class Parser;
 public:
     explicit Lexer(CompilerInput* input);

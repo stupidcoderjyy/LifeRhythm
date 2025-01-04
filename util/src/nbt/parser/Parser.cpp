@@ -2,30 +2,40 @@
 #include "Compiler.h"
 #include "Helpers.h"
 #include "Lexer.h"
+#include "AbstractInput.h"
 #include "CompilerInput.h"
-#include "NBT.h"
 #include "Error.h"
+#include "NBT.h"
 
 USING_NP(lr::snbt)
 
-Parser::Parser(const QString& path):
-        AbstractSyntaxAnalyzer(new Lexer(CompilerInput::fromFile(path)), 134, 8, 13, 26) {
+Parser::Parser(): LALRParser(new Lexer(), 134, 8, 13, 26) {
     initActions();
     initGoTo();
     initGrammar();
     initOthers();
 }
 
-void Parser::onFailed() {
+void Parser::onFailed(Token* at) {
     delete result;
+    LALRParser::onFailed(at);
 }
 
 lr::NBT *Parser::parse(const QString &path) {
-    Parser parser(path);
-    parser.run();
-    auto* nbt = parser.result;
-    parser.result = nullptr;
-    return nbt;
+    Parser parser;
+    auto input = CompilerInput::fromFile(path);
+    try {
+        parser.run(input);
+        auto *nbt = parser.result;
+        parser.result = nullptr;
+        delete input;
+        input = nullptr;
+        return nbt;
+    } catch (CompileError& e) {
+        PrintCompileErrorHandler().onErrorCaught(e);
+        delete input;
+        return nullptr;
+    }
 }
 
 Parser::~Parser() {

@@ -98,7 +98,7 @@ public:
     static void initStyles();
 };
 
-END_LR
+END_NP
 
 #define qss_object(name, qss) QString("#").append(name).append("{").append(qss).append("}")
 #define qss_this(qss) QString("#").append(objectName()).append("{").append(qss).append("}")

@@ -48,6 +48,6 @@ private:
     void _mark0();
 };
 
-END_LR
+END_NP
 
 #endif //BUFFEREDINPUT_H

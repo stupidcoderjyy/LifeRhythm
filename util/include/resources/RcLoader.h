@@ -29,6 +29,6 @@ public:
     virtual void deleteElement(T* p) { delete p; }
 };
 
-END_LR
+END_NP
 
 #endif //RESOURCELOADER_H

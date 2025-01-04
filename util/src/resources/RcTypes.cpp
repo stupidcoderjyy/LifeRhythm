@@ -6,6 +6,6 @@
 
 USING_LR
 
-ResourceType RcTypes::FACTORY{"factories", ".snbt"};
-ResourceType RcTypes::STYLE_GROUP{"highlightstyles", ".snbt"};
+ResourceType RcTypes::FACTORY{"factories", ".txt"};
+ResourceType RcTypes::STYLE_GROUP{"highlightstyles", ".txt"};
 ResourceType RcTypes::IMG{"images", ".png"};

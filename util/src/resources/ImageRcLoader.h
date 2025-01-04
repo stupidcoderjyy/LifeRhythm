@@ -14,6 +14,6 @@ public:
 SINGLETON_HEADER(ImageRcLoader)
 };
 
-END_LR
+END_NP
 
 #endif //IMAGERCLOADER_H

@@ -7,9 +7,8 @@
 
 #include <QTextCharFormat>
 #include "NBT.h"
-#include "Namespaces.h"
 
-BEGIN_NP(lr::highlight)
+BEGIN_LR
 
 class CORE_API StyleParser {
 private:
@@ -25,7 +24,6 @@ private:
     void parseUnderline() const;
     static QMap<QString, QTextCharFormat::UnderlineStyle> initUnderlineStyles();
 };
-
 
 END_NP
 

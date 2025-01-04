@@ -35,7 +35,7 @@ public:
     QString getNamespace() const;
 };
 
-END_LR
+END_NP
 
 uint qHash(const lr::Identifier &identifier, uint seed = 0);
 

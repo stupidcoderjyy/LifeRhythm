@@ -23,7 +23,7 @@ QMap<QString, QTextCharFormat> *StyleGroupRcLoader::load(const Identifier &loc, 
     while (it != nbt->get().end()) {
         if (auto *child = it.value(); child->type == Data::COMPOUND) {
             QTextCharFormat fmt = Styles::FORMAT_DEFAULT;
-            highlight::StyleParser::parse(&fmt, child->asCompound());
+            StyleParser::parse(&fmt, child->asCompound());
             map->insert(it.key(), fmt);
         }
         ++it;

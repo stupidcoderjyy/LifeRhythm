@@ -32,6 +32,6 @@ protected:
     bool checkPeek0(const QWidget* w);
 };
 
-END_LR
+END_NP
 
 #endif //FOCUSMANAGER_H

@@ -40,6 +40,6 @@ protected:
     void deserialize(IByteReader *reader) override;
 };
 
-END_LR
+END_NP
 
 #endif //ARRAYDATA_H

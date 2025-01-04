@@ -1,11 +1,11 @@
 
 #include "Lexer.h"
-#include "CompilerInput.h"
+#include "AbstractInput.h"
 
 USING_NP(lr::snbt)
 USING_NP(lr)
 
-Lexer::Lexer(CompilerInput *input): AbstractLexer(input, 15, 7){
+Lexer::Lexer(): DFALexer(15, 7){
     goTo[4][95] = 4;
     goTo[5][70] = 12;
     goTo[5][102] = 12;
@@ -83,7 +83,7 @@ Lexer::Lexer(CompilerInput *input): AbstractLexer(input, 15, 7){
     tokens[11] = e5;
 }
 
-Token::MatchResult TokenInt::onMatched(const QString &lexeme, CompilerInput *input) {
+Token::MatchResult TokenInt::onMatched(const QString &lexeme, AbstractInput *input) {
     if (lexeme.endsWith('l') || lexeme.endsWith('L')) {
         isLong = true;
         data = lexeme.mid(0, lexeme.length() - 1).toLongLong();
@@ -98,7 +98,7 @@ int TokenInt::type() {
     return 129;
 }
 
-Token::MatchResult TokenFloat::onMatched(const QString &lexeme, CompilerInput *input) {
+Token::MatchResult TokenFloat::onMatched(const QString &lexeme, AbstractInput *input) {
     if (lexeme.endsWith('f') || lexeme.endsWith('F')) {
         data = lexeme.mid(0, lexeme.length() -1).toFloat();
     } else {
@@ -111,7 +111,7 @@ int TokenFloat::type() {
     return 130;
 }
 
-Token::MatchResult TokenComment::onMatched(const QString &lexeme, CompilerInput *input) {
+Token::MatchResult TokenComment::onMatched(const QString &lexeme, AbstractInput *input) {
     if (lexeme[1] == '/') {
         input->find('\n');
     } else {
@@ -134,7 +134,7 @@ int TokenComment::type() {
     return 0;
 }
 
-Token::MatchResult TokenString::onMatched(const QString &lexeme, CompilerInput *input) {
+Token::MatchResult TokenString::onMatched(const QString &lexeme, AbstractInput *input) {
     data = lexeme.mid(1, lexeme.length() - 2);
     return Accept;
 }
@@ -143,7 +143,7 @@ int TokenString::type() {
     return 128;
 }
 
-Token::MatchResult TokenId::onMatched(const QString &lexeme, CompilerInput *input) {
+Token::MatchResult TokenId::onMatched(const QString &lexeme, AbstractInput *input) {
     data = lexeme;
     return Accept;
 }

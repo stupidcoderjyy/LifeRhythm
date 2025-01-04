@@ -174,6 +174,6 @@ protected:
     }
 };
 
-END_LR
+END_NP
 
 #endif //RCMANAGER_H

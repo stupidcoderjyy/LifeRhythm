@@ -17,6 +17,6 @@ class CORE_API StyleGroupStorage : public MultiSourceResourceManager<StyleGroup>
     STATIC_DEFINE(StyleGroupStorage, StyleGroup)
 };
 
-END_LR
+END_NP
 
 #endif //STYLEGROUPSTORAGE_H

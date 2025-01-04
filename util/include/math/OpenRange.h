@@ -114,6 +114,6 @@ inline int OpenRange::actualRight(int pos) const {
     return pairsRight[pos] + offset;
 }
 
-END_LR
+END_NP
 
 #endif //OPENRANGE_H

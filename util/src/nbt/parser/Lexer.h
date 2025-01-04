@@ -7,14 +7,12 @@
 
 #include "Namespaces.h"
 
-class CompilerInput;
-
 BEGIN_NP(lr::snbt)
 
-class CORE_API Lexer : public AbstractLexer{
+class CORE_API Lexer : public DFALexer {
     friend class Parser;
 public:
-    explicit Lexer(CompilerInput* input);
+    Lexer();
 };
 
 class CORE_API TokenInt : public Token{
@@ -23,7 +21,7 @@ public:
     bool isLong;
 public:
     int type() override;
-    MatchResult onMatched(const QString &lexeme, CompilerInput *input) override;
+    MatchResult onMatched(const QString &lexeme, AbstractInput *input) override;
 };
 
 class CORE_API TokenFloat : public Token{
@@ -31,13 +29,13 @@ public:
     float data{};
 public:
     int type() override;
-    MatchResult onMatched(const QString &lexeme, CompilerInput *input) override;
+    MatchResult onMatched(const QString &lexeme, AbstractInput *input) override;
 };
 
 class CORE_API TokenComment : public Token{
 public:
     int type() override;
-    MatchResult onMatched(const QString &lexeme, CompilerInput *input) override;
+    MatchResult onMatched(const QString &lexeme, AbstractInput *input) override;
 };
 
 class CORE_API TokenString : public Token{
@@ -45,7 +43,7 @@ public:
     QString data{};
 public:
     int type() override;
-    MatchResult onMatched(const QString &lexeme, CompilerInput *input) override;
+    MatchResult onMatched(const QString &lexeme, AbstractInput *input) override;
 };
 
 class CORE_API TokenId : public Token{
@@ -55,7 +53,7 @@ public:
     QString data{};
 public:
     int type() override;
-    MatchResult onMatched(const QString &lexeme, CompilerInput *input) override;
+    MatchResult onMatched(const QString &lexeme, AbstractInput *input) override;
 private:
     static QMap<QString, int> initMap();
 };

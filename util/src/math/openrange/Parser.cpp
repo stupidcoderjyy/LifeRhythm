@@ -1,4 +1,4 @@
-#include "SyntaxAnalyzer.h"
+#include "Parser.h"
 #include "Compiler.h"
 #include "Helpers.h"
 #include "Lexer.h"
@@ -7,21 +7,25 @@
 USING_NP(lr::openrange)
 USING_NP(lr)
 
-SyntaxAnalyzer::SyntaxAnalyzer(Lexer* lexer): AbstractSyntaxAnalyzer(lexer, 129, 3, 10, 18) {
+Parser::Parser(Lexer* lexer): LALRParser(lexer, 129, 3, 10, 18) {
     initActions();
     initGoTo();
     initOthers();
     initGrammar();
 }
 
-OpenRange SyntaxAnalyzer::parse(const QString &expr) {
-    SyntaxAnalyzer analyzer(new Lexer(CompilerInput::fromString(expr)));
+OpenRange Parser::parse(const QString &expr) {
+    Parser analyzer(new Lexer());
+    auto input = CompilerInput::fromString(expr);
     try {
-        analyzer.run();
+        analyzer.run(input);
+        delete input;
+        input = nullptr;
         return analyzer.result;
     } catch (CompileError& err) {
         err.printErr();
     }
+    delete input;
     return {};
 }
 
@@ -29,7 +33,7 @@ constexpr int ACCEPT = 0x10000;
 constexpr int SHIFT = 0x20000;
 constexpr int REDUCE = 0x30000;
 
-void SyntaxAnalyzer::initActions() const {
+void Parser::initActions() const {
     actions[0][2] = SHIFT | 3;
     actions[15][0] = REDUCE | 3;
     actions[15][1] = REDUCE | 3;
@@ -60,13 +64,13 @@ void SyntaxAnalyzer::initActions() const {
     actions[14][5] = SHIFT | 15;
 }
 
-void SyntaxAnalyzer::initGoTo() const {
+void Parser::initGoTo() const {
     goTo[0][1] = 1;
     goTo[0][2] = 2;
     goTo[16][2] = 17;
 }
 
-void SyntaxAnalyzer::initOthers() {
+void Parser::initOthers() {
     terminalRemap[128] = 3;
     terminalRemap[85] = 1;
     terminalRemap[40] = 2;
@@ -81,7 +85,7 @@ void SyntaxAnalyzer::initOthers() {
     suppliers[2] = []{return new PropertyElement();};
 }
 
-void SyntaxAnalyzer::initGrammar() {
+void Parser::initGrammar() {
     symbols << new Symbol(true, 1);
     symbols << new Symbol(false, 0);
     symbols << new Symbol(true, 3);
@@ -155,7 +159,7 @@ void PropertyElement::reduce2(
     right = val + 1;
 }
 
-PropertyRoot::PropertyRoot(SyntaxAnalyzer *analyzer): analyzer(analyzer) {
+PropertyRoot::PropertyRoot(Parser *analyzer): analyzer(analyzer) {
 }
 
 void PropertyRoot::onReduced(Production *p, Property **properties) {

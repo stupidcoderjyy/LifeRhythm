@@ -53,6 +53,6 @@ public:
     virtual ~Data() = default;
 };
 
-END_LR
+END_NP
 
 #endif //DATA_H

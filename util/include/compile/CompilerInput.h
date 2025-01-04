@@ -12,7 +12,7 @@
 
 BEGIN_LR
 
-class CORE_API CompilerInput : public BufferedInput{
+class CORE_API CompilerInput : public BufferedInput {
 protected:
     static constexpr int RESERVED_SIZE = 16;
     static constexpr int MARK_LEN = 8;
@@ -53,6 +53,6 @@ protected:
     CompileError rangedError(const QString& msg, int end, int start);
 };
 
-END_LR
+END_NP
 
 #endif //COMPILERINPUT_H

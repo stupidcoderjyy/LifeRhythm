@@ -28,6 +28,6 @@ protected:
     Data *copy() override;
 };
 
-END_LR
+END_NP
 
 #endif //LONGDATA_H

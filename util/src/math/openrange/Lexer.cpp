@@ -7,7 +7,7 @@
 
 USING_NP(lr::openrange)
 
-Lexer::Lexer(CompilerInput *input): AbstractLexer(input, STATES_COUNT, START_STATE) {
+Lexer::Lexer(): DFALexer(STATES_COUNT, START_STATE) {
     goTo[3][40] = 1;
     goTo[3][41] = 1;
     goTo[3][44] = 1;
@@ -31,7 +31,7 @@ Lexer::Lexer(CompilerInput *input): AbstractLexer(input, STATES_COUNT, START_STA
     tokens[2] = []{return new TokenNum();};
 }
 
-lr::Token::MatchResult TokenNum::onMatched(const QString &lexeme, CompilerInput *input) {
+lr::Token::MatchResult TokenNum::onMatched(const QString &lexeme, AbstractInput *input) {
     val = lexeme.toInt();
     return Accept;
 }

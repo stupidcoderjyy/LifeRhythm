@@ -10,7 +10,7 @@
 
 BEGIN_LR
 
-class CORE_API StringInput : public AbstractInput{
+class CORE_API StringInput : public AbstractInput {
 private:
     QByteArray data;
     QVector<int> marks{};
@@ -31,6 +31,6 @@ private:
     QString capture(int end, int start) const;
 };
 
-END_LR
+END_NP
 
 #endif //STRINGINPUT_H

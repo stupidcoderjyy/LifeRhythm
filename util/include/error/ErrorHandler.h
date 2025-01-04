@@ -15,6 +15,6 @@ public:
     virtual ~ErrorHandler() = default;
 };
 
-END_LR
+END_NP
 
 #endif //ERRORHANDLER_H

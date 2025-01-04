@@ -21,6 +21,6 @@ public:
     const char *what() const _GLIBCXX_TXN_SAFE_DYN _GLIBCXX_NOTHROW override;
 };
 
-END_LR
+END_NP
 
 #endif //ERROR_H

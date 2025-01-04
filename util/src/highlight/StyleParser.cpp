@@ -5,7 +5,7 @@
 #include "StyleParser.h"
 #include "Styles.h"
 
-USING_NP(lr::highlight)
+USING_LR
 
 QMap<QString, QTextCharFormat::UnderlineStyle> StyleParser::underlineStyles = initUnderlineStyles();
 
@@ -43,7 +43,9 @@ void StyleParser::parseFont() const {
     if (nbt->contains("fs", Data::INT)) {
         fmt->setFontPointSize(nbt->getInt("fs"));
     }
-    fmt->setFontWeight(nbt->getBool("bold") ? QFont::Bold : QFont::Normal);
+    if (nbt->contains("bold", Data::BOOL)) {
+        fmt->setFontWeight(nbt->getBool("bold") ? QFont::Bold : QFont::Normal);
+    }
 }
 
 void StyleParser::parseUnderline() const {

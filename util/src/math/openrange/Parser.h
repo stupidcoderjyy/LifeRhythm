@@ -10,12 +10,12 @@ BEGIN_NP(lr::openrange)
 
 class Lexer;
 
-class SyntaxAnalyzer final : public AbstractSyntaxAnalyzer {
+class Parser final : public LALRParser {
     friend class PropertyRoot;
 private:
     OpenRange result;
 public:
-    explicit SyntaxAnalyzer(Lexer* lexer);
+    explicit Parser(Lexer* lexer);
     static OpenRange parse(const QString& expr);
 private:
     void initActions() const;
@@ -30,9 +30,9 @@ class PropertyElement;
 
 class PropertyRoot final : public Property {
 private:
-    SyntaxAnalyzer* analyzer;
+    Parser* analyzer;
 public:
-    explicit PropertyRoot(SyntaxAnalyzer* analyzer);
+    explicit PropertyRoot(Parser* analyzer);
     void onReduced(Production *p, Property **properties) override;
 private:
     void reduce0(PropertyElementList* p0); //root → elementList

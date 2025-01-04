@@ -17,6 +17,6 @@ public:
     static void toFile(NBT* tag, const QString& file, bool isBinary = true);
 };
 
-END_LR
+END_NP
 
 #endif //NBTUTIL_H

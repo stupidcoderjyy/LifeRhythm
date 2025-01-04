@@ -28,6 +28,6 @@ public:
     ~StreamByteWriter() override;
 };
 
-END_LR
+END_NP
 
 #endif //STREAMBYTEWRITER_H
