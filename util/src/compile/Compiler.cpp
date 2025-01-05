@@ -101,17 +101,16 @@ DFALexer::~DFALexer() {
     Helpers::freeArray(goTo, statesCount);
 }
 
-LALRParser::LALRParser(ILexer *lexer, int remap,int nonTerminal, int terminal, int states):
-statesCount(states),
-actions(Helpers::allocateArray(states, terminal)),
-goTo(Helpers::allocateArray(states, nonTerminal)),
-terminalRemap(Helpers::allocateArray(remap)),
-suppliers(new PropertySupplier[nonTerminal]),
-lexer(lexer),
-input() {
+LALRParser::LALRParser(int remap,int nonTerminal, int terminal, int states):
+        statesCount(states),
+        actions(Helpers::allocateArray(states, terminal)),
+        goTo(Helpers::allocateArray(states, nonTerminal)),
+        terminalRemap(Helpers::allocateArray(remap)),
+        suppliers(new PropertySupplier[nonTerminal]),
+        input() {
 }
 
-void LALRParser::run(AbstractInput* input) {
+void LALRParser::run(ILexer* lexer, AbstractInput* input) {
     this->input = input;
     input->mark();
     QVector<int> states;
@@ -140,7 +139,7 @@ void LALRParser::run(AbstractInput* input) {
                 return;
             }
             case 1: {
-                auto* body = new Property*{properties.takeLast()};
+                Property *body[1]{properties.takeLast()};
                 auto* head = suppliers[0]();
                 head->onReduced(productions[0], body);
                 delete body[0];
@@ -159,7 +158,7 @@ void LALRParser::run(AbstractInput* input) {
             }
             case 3: {
                 auto* p = productions[target];
-                auto** body = new Property*[p->bodyLen]; //Property在调用完onReduced后立刻销毁
+                Property *body[p->bodyLen];
                 for (int i = p->bodyLen - 1 ; i >= 0 ; i --) {
                     auto* symbol = p->body[i];
                     if (symbol->id < 0) {
@@ -213,7 +212,6 @@ LALRParser::~LALRParser() {
     }
     delete[] terminalRemap;
     delete[] suppliers;
-    delete lexer;
     Helpers::freeArray(goTo, statesCount);
     Helpers::freeArray(actions, statesCount);
 }

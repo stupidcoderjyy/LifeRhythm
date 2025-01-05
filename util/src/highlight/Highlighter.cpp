@@ -10,8 +10,10 @@
 
 USING_NP(lr)
 
-Highlighter::Highlighter(const Identifier &styleGroup, QTextDocument *doc, HighlightLexer *lexer): QSyntaxHighlighter(doc),
-styleGroup(StyleGroupStorage::get(styleGroup)), shouldFlush(), lexer(lexer) {
+Highlighter::Highlighter(const Identifier &styleGroup, QTextDocument *doc, HighlightLexer *lexer):
+        QSyntaxHighlighter(doc),
+        styleGroup(StyleGroupStorage::get(styleGroup)),
+        lexer(lexer), mode(Syntax) {
 }
 
 void Highlighter::push(const QTextCharFormat &f, int begin, int end) {
@@ -19,7 +21,7 @@ void Highlighter::push(const QTextCharFormat &f, int begin, int end) {
 }
 
 void Highlighter::push(const QTextCharFormat& f) {
-    styles.append({f, lexer->begin(), lexer->end()});
+    styles.append({f, lexer->getBegin(), lexer->getEnd()});
 }
 
 void Highlighter::push(const QString &style, int begin, int end) {
@@ -31,7 +33,19 @@ void Highlighter::push(const QString &style, int begin, int end) {
 }
 
 void Highlighter::push(const QString &style) {
-    push(style, lexer->begin(), lexer->end());
+    push(style, lexer->getBegin(), lexer->getEnd());
+}
+
+void Highlighter::replacePeek(const QTextCharFormat &fmt) {
+    if (styles.length() > 0) {
+        styles.back().style = fmt;
+    }
+}
+
+void Highlighter::replacePeek(const QString &style) {
+    if (styles.length() > 0 && styleGroup && styleGroup->contains(style)) {
+        styles.back().style = styleGroup->value(style);
+    }
 }
 
 StyleUnit Highlighter::get(int i) const {
@@ -39,7 +53,10 @@ StyleUnit Highlighter::get(int i) const {
 }
 
 void Highlighter::flush() {
-    shouldFlush = true;
+    for (const auto &[style, begin, end]: styles) {
+        setFormat(begin, end - begin, style);
+    }
+    styles.clear();
 }
 
 Highlighter::~Highlighter() {
@@ -52,17 +69,9 @@ StyleUnit Highlighter::pop() {
 
 void Highlighter::highlightBlock(const QString &text) {
     auto ci = HighlightInput(text);
-    while (ci.available()) {
-        prepareStyles(ci);
-        if (shouldFlush) {
-            for (const auto& [style, begin, end] : styles) {
-                setFormat(begin, end - begin, style);
-            }
-            styles.clear();
-            shouldFlush = false;
-        }
+    if (mode == Lex) {
+        highlightLex(ci);
+    } else {
+        highlightSyntax(ci);
     }
-}
-
-void Highlighter::prepareStyles(HighlightInput &input) {
 }

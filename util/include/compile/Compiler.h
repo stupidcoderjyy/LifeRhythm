@@ -38,8 +38,8 @@ private:
     TokenFileEnd() = default;
 };
 
-class CORE_API TokenSingle final : public Token{
-private:
+class CORE_API TokenSingle : public Token{
+protected:
     uchar ch{};
 public:
     int type() override;
@@ -123,12 +123,11 @@ protected:
     int* terminalRemap;
     QVector<Production*> productions{};
     PropertySupplier* suppliers;
-    ILexer* lexer;
     QVector<Symbol*> symbols{};
     AbstractInput *input;
 public:
-    LALRParser(ILexer* lexer, int remap, int nonTerminal, int terminal, int states);
-    void run(AbstractInput* input);
+    LALRParser(int remap, int nonTerminal, int terminal, int states);
+    void run(ILexer* lexer, AbstractInput* input);
     virtual ~LALRParser();
 protected:
     virtual void onFinished();

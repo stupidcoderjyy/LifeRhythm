@@ -4,7 +4,9 @@
 
 #include "HighlightLexer.h"
 #include "Error.h"
+#include "Highlighter.h"
 #include "HighlightInput.h"
+#include "Styles.h"
 
 USING_LR
 
@@ -50,6 +52,7 @@ BEGIN:
     if (lastAccepted < 0 || !tokens[lastAccepted]) {
         input->approachUtf('\r', ' ', '\t');
         endPos = input->pos();
+        highlighter->push(Styles::FORMAT_ERROR, beginPos, endPos);
         return nullptr;
     }
     input->retractUtf(extraLoadedBytes);
@@ -65,6 +68,7 @@ BEGIN:
         default:
             delete token;
             endPos = input->pos();
+            highlighter->push(Styles::FORMAT_ERROR, beginPos, endPos);
             return nullptr;
     }
 }

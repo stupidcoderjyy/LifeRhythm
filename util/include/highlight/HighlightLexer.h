@@ -15,23 +15,28 @@ class HighlightInput;
 class HighlightLexer : public DFALexer {
     friend class SyntaxAnalyzer;
 protected:
-    Highlighter *highlighter;
+    Highlighter* highlighter;
     HighlightInput* input;
     int beginPos;
     int endPos;
 public:
     explicit HighlightLexer(Highlighter *highlighter, int statesCount, int startState);
     Token *nextToken(AbstractInput* input) noexcept override;
-    inline int begin() const;
-    inline int end() const;
+    inline int getBegin() const;
+    inline int getEnd() const;
+    inline Highlighter* getHighlighter() const;
 };
 
-inline int HighlightLexer::begin() const {
+inline int HighlightLexer::getBegin() const {
     return beginPos;
 }
 
-inline int HighlightLexer::end() const {
+inline int HighlightLexer::getEnd() const {
     return endPos;
+}
+
+inline Highlighter* HighlightLexer::getHighlighter() const {
+    return highlighter;
 }
 
 END_NP

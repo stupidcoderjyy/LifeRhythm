@@ -6,12 +6,14 @@
 #include <QHBoxLayout>
 
 #include "CmdHighlighter.h"
+#include "CmdManager.h"
 #include "Namespaces.h"
 #include "QTextEdit"
 #include "StyleGroupStorage.h"
 #include "Styles.h"
 
 USING_NP(lr::cmd)
+USING_NP(lr::cmd::highlight)
 USING_LR
 
 int main(int argc, char **argv) {
@@ -19,6 +21,8 @@ int main(int argc, char **argv) {
 
     Styles::initStyles();
     StyleGroupStorage::init();
+    CmdManager manager;
+    manager.registerCommand(new Command(LOC("lr:test/test1")));
 
     auto parent = new QWidget;
     parent->setFixedSize(500, 500);
@@ -35,8 +39,8 @@ int main(int argc, char **argv) {
     edit->setStyleSheet(qss_object("te", bg(Styles::CLEAR->rgbHex)));
 
     layout->addWidget(edit);
-    CmdHighlighter highlighter(LOC("lr:cmd"), edit->document());
-
+    CmdHighlighter highlighter(LOC("lr:cmd"), edit->document(), &manager);
+    highlighter.setMode(Highlighter::Lex);
     parent->show();
     return QApplication::exec();
 }
